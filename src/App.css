@@ -14,17 +14,60 @@
   border-color: black;
 }
 
-.navbar-toggler{
-  border-width: 3px;
-  border-color: black;
-  border-style: solid;
+.navbar-brand-logo{
   border-radius: 20%;
+  max-width: 140px;
+  height: auto;
+}
+.navbar-brand-logo:hover{
+  transition: 0.3s ;
+  box-shadow: -2px -2px 20px 0 black, 2px 2px 20px 0 black;
 }
 
-.nav-item {
-  border-bottom-style: solid;
-  padding-left: 2px;
-  padding-right: 2px;
-  margin-left: 5px;
-  margin-right: 5px;
+.navbar-media{
+  font-size: 0.75em !important;
+  min-width: 30px !important;
+  max-width: 50px !important;
+}
+
+.navbar-media-link{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.navbar-toggler{
+  display: block;
+  width: max-content !important;
+  border-style: solid !important;
+  border: 0.1em;
+  border-color: black !important;
+  color: black !important;
+  cursor: default !important;
+  border-radius: 15%;
+}
+.navbar-toggler:hover{
+  transition: 0.3s;
+  background-color: lightgray;
+  cursor: pointer !important;
+}
+.navbar-toggler::active{
+  background-color: yellow !important;
+}
+
+.navbar-nav{
+  min-width: 200px !important;
+}
+
+.link-text{
+  color: black;
+  font-weight: 500;
+  font-size: 1.20em;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+}
+
+.link-text:hover{
+  transition: 0.3s ;
+  box-shadow: 0 -2px 0 0 black, 0 2px 0 0 black;
 }

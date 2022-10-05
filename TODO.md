@@ -1,6 +1,4 @@
 ## Short term goals
-- Fix Navbar logo
-- Fix Navbar button
 - Add placeholder page for each link
 - Add default render page for '/'
 - Response navbar links
@@ -8,6 +6,7 @@
 - Document stylesheet
 
 ## Long term goals
+- Mobil Mode layout
 - 'Contact Me' page to have a form, email api
 - Log in section for members
 - Data base for individual plans

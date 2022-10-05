@@ -1,56 +1,80 @@
 import React from "react";
+import { Navbar } from "react-bootstrap";
 import logo from "../images/logo.png";
+import { FaBars } from "react-icons/all";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const Navbar = (props) => {
-  return (
-    <div className="container">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        {/* Container Wrapper */}
-        <div className="container-fluid">
-          {/* Brand Logo */}
-          <a className="navbar-brand" href="#Home">
-            <img className="logo" src={logo} alt="Coach Krystin Logo"></img>
-          </a>
-          {/* Navbar Toggler */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarToggler"
-            aria-controls="navbarToggler"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarToggler">
-            <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <a className="nav-link" href="Home">
-                  HOME
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="MeetKrystin">
-                  Meet Krystin
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="Training">
-                  Training and Nutrition
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="ContactMe">
-                  Contact Me
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-  );
+export const getWindowSize = () => {
+    const [windowSize, setWindowSize] = useState({ width: 1000 });
+
+    useEffect(() => {
+        const resizeHandler = () => {
+            setWindowSize({
+                width: window.innerWidth,
+            });
+        };
+
+        window.addEventListener("resize", resizeHandler);
+        resizeHandler();
+        return () => window.removeEventListener("resize", resizeHandler);
+    }, []);
+
+    return windowSize;
 };
 
-export default Navbar;
+const NavbarKrystin = () => {
+    let window_size = getWindowSize();
+    if (window_size.width > 500) {
+        return (
+            <Navbar expand="md">
+                <Navbar.Brand>
+                    <div className="navbar-brand p-2 ps-3 row">
+                        <div className="image col">
+                            <a href="/">
+                                <img className="navbar-brand-logo" src={logo} />
+                            </a>
+                        </div>
+
+                        <div className="col-sm fs-5 navbar-media align-self-center">
+                            <div className="row navbar-media-link">IG link</div>
+                            <div className="row navbar-media-link">
+                                LinkedIn
+                            </div>
+                            <div className="row navbar-media-link">
+                                Other link
+                            </div>
+                        </div>
+                    </div>
+                </Navbar.Brand>
+                <ul className="navbar-nav d-flex">
+                    <li className="nav-item text-center ms-auto me-auto">
+                        <Link to="/aboutMe" style={{ textDecoration: "none" }}>
+                            <div className="link-text">Meet Krystin</div>
+                        </Link>
+                    </li>
+                    <li className="nav-item text-center ms-auto me-auto">
+                        <Link to="/services" style={{ textDecoration: "none" }}>
+                            <div className="link-text">
+                                Training and Nutrition
+                            </div>
+                        </Link>
+                    </li>
+                    <li className="nav-item text-center ms-auto me-auto">
+                        <Link to="/contact" style={{ textDecoration: "none" }}>
+                            <div className="link-text">Contact Me</div>
+                        </Link>
+                    </li>
+                </ul>
+            </Navbar>
+        );
+    } else {
+        return (
+            <div>
+                Mobile Mode not implemented, size: {`${window_size.width}`}
+            </div>
+        );
+    }
+};
+
+export default NavbarKrystin;
