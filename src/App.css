@@ -1,5 +1,5 @@
 .navbar {
-  margin: 5px;
+  margin: 1px;
   border: solid;
   border-color: darkgrey;
   background-image: linear-gradient(to right, white, rgb(241, 124, 143));
@@ -14,36 +14,26 @@
   border-color: black;
 }
 
+.brand{
+  max-width: 124px;
+}
+
 .navbar-brand-logo{
   border-radius: 20%;
-  max-width: 140px;
+  max-width: 100px;
   height: auto;
+  align-self: baseline;
 }
 .navbar-brand-logo:hover{
   transition: 0.3s ;
   box-shadow: -2px -2px 20px 0 black, 2px 2px 20px 0 black;
 }
-
-.navbar-media{
-  font-size: 0.75em !important;
-  min-width: 30px !important;
-  max-width: 50px !important;
-}
-
-.navbar-media-link{
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
 .navbar-toggler{
   display: block;
   width: max-content !important;
   border-style: solid !important;
-  border: 0.1em;
-  border-color: black !important;
-  color: black !important;
-  cursor: default !important;
-  border-radius: 15%;
+  border: 2px;
+  border-color: rgba(0, 0, 0, 0.55) !important;
 }
 .navbar-toggler:hover{
   transition: 0.3s;
@@ -59,9 +49,8 @@
 }
 
 .link-text{
-  color: black;
   font-weight: 500;
-  font-size: 1.20em;
+  font-size: 17px;
   padding-left: 10px;
   padding-right: 10px;
   margin: 5px;
@@ -69,5 +58,14 @@
 
 .link-text:hover{
   transition: 0.3s ;
-  box-shadow: 0 -2px 0 0 black, 0 2px 0 0 black;
+  box-shadow: 0 0px 0 0 black, 0 2px 0 0 black;
+}
+
+.link-logo{
+  border-radius: 10px;
+  width: 25px;
+}
+.link-logo:hover{
+  transition: 0.5s ;
+  box-shadow: -2px -2px 20px 0 black, 2px 2px 20px 0 black;
 }

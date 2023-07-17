@@ -1,80 +1,92 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
-import logo from "../images/logo.png";
-import { FaBars } from "react-icons/all";
-import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import krystin_logo from "../images/logo.png";
+//import { Link } from "react-router-dom/";
 import { useState, useEffect } from "react";
-
-export const getWindowSize = () => {
-    const [windowSize, setWindowSize] = useState({ width: 1000 });
-
-    useEffect(() => {
-        const resizeHandler = () => {
-            setWindowSize({
-                width: window.innerWidth,
-            });
-        };
-
-        window.addEventListener("resize", resizeHandler);
-        resizeHandler();
-        return () => window.removeEventListener("resize", resizeHandler);
-    }, []);
-
-    return windowSize;
-};
+import InstagramLink from "./InstagramLink";
+import LinkedInLink from "./LinkedInLink";
+import EmailLink from "./EmailLink";
 
 const NavbarKrystin = () => {
-    let window_size = getWindowSize();
-    if (window_size.width > 500) {
-        return (
-            <Navbar expand="md">
-                <Navbar.Brand>
-                    <div className="navbar-brand p-2 ps-3 row">
-                        <div className="image col">
-                            <a href="/">
-                                <img className="navbar-brand-logo" src={logo} />
-                            </a>
-                        </div>
+    const [dimensions, setDimensions] = useState({
+        height: window.innerHeight,
+        width: window.innerWidth,
+    });
+    useEffect(() => {
+        function handleResize() {
+            setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth,
+            });
+        }
 
-                        <div className="col-sm fs-5 navbar-media align-self-center">
-                            <div className="row navbar-media-link">IG link</div>
-                            <div className="row navbar-media-link">
-                                LinkedIn
-                            </div>
-                            <div className="row navbar-media-link">
-                                Other link
-                            </div>
-                        </div>
-                    </div>
-                </Navbar.Brand>
-                <ul className="navbar-nav d-flex">
-                    <li className="nav-item text-center ms-auto me-auto">
-                        <Link to="/aboutMe" style={{ textDecoration: "none" }}>
-                            <div className="link-text">Meet Krystin</div>
-                        </Link>
-                    </li>
-                    <li className="nav-item text-center ms-auto me-auto">
-                        <Link to="/services" style={{ textDecoration: "none" }}>
-                            <div className="link-text">
-                                Training and Nutrition
-                            </div>
-                        </Link>
-                    </li>
-                    <li className="nav-item text-center ms-auto me-auto">
-                        <Link to="/contact" style={{ textDecoration: "none" }}>
-                            <div className="link-text">Contact Me</div>
-                        </Link>
-                    </li>
-                </ul>
+        window.addEventListener("resize", handleResize);
+        return (_) => {
+            window.removeEventListener("resize", handleResize);
+        };
+    });
+
+    return (
+        <>
+            <Navbar expand={dimensions.width < 467 ? false : true}>
+                <Container
+                    fluid
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                    }}
+                >
+                    <Navbar.Brand href="/" className="flex-fill">
+                        <Row
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "end",
+                            }}
+                        >
+                            <Col className="brand">
+                                <img
+                                    className="navbar-brand-logo"
+                                    src={krystin_logo}
+                                    alt="Krystin Logo"
+                                ></img>
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <InstagramLink />
+                                </Row>
+                                <Row>
+                                    <LinkedInLink />
+                                </Row>
+                                <Row>
+                                    <EmailLink />
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Navbar.Brand>
+
+                    <Navbar.Toggle className="justify-content-end"></Navbar.Toggle>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="flex-fill  justify-content-evenly">
+                            <Nav.Link>About Me</Nav.Link>
+                            <NavDropdown title="Services">
+                                <NavDropdown.Item>In-person</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item>
+                                    Online Coaching
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Link>Contact Me</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
             </Navbar>
-        );
-    } else {
-        return (
-            <div>
-                Mobile Mode not implemented, size: {`${window_size.width}`}
-            </div>
-        );
-    }
+        </>
+    );
 };
 
 export default NavbarKrystin;
