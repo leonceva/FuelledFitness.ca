@@ -18,6 +18,11 @@
   max-width: 124px;
 }
 
+.brand-logo{
+  height: auto;
+  width: 200px;
+}
+
 .navbar-brand-logo{
   border-radius: 20%;
   max-width: 100px;
@@ -34,6 +39,7 @@
   border-style: solid !important;
   border: 2px;
   border-color: rgba(0, 0, 0, 0.55) !important;
+  margin-left: auto
 }
 .navbar-toggler:hover{
   transition: 0.3s;
@@ -50,13 +56,26 @@
 
 .link-text{
   font-weight: 500;
-  font-size: 17px;
+  font-size: 20px;
   padding-left: 10px;
   padding-right: 10px;
   margin: 5px;
 }
 
 .link-text:hover{
+  transition: 0.3s ;
+  box-shadow: 0 0px 0 0 black, 0 2px 0 0 black;
+}
+
+.link-dropdown{
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+}
+
+.link-dropdown:hover{
   transition: 0.3s ;
   box-shadow: 0 0px 0 0 black, 0 2px 0 0 black;
 }
@@ -68,4 +87,8 @@
 .link-logo:hover{
   transition: 0.5s ;
   box-shadow: -2px -2px 20px 0 black, 2px 2px 20px 0 black;
+}
+
+.site-links{
+  margin-right: auto;
 }

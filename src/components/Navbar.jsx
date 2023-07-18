@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import krystin_logo from "../images/logo.png";
+import brand_logo from "../images/brand-logo.png";
 //import { Link } from "react-router-dom/";
 import { useState, useEffect } from "react";
 import InstagramLink from "./InstagramLink";
@@ -33,15 +34,15 @@ const NavbarKrystin = () => {
 
     return (
         <>
-            <Navbar expand={dimensions.width < 467 ? false : true}>
+            <Navbar expand={dimensions.width < 831 ? false : true}>
                 <Container
                     fluid
                     style={{
                         alignItems: "center",
-                        justifyContent: "space-evenly",
+                        justifyContent: "start",
                     }}
                 >
-                    <Navbar.Brand href="/" className="flex-fill">
+                    <Navbar.Brand href="/">
                         <Row
                             style={{
                                 alignItems: "center",
@@ -53,7 +54,7 @@ const NavbarKrystin = () => {
                                     className="navbar-brand-logo"
                                     src={krystin_logo}
                                     alt="Krystin Logo"
-                                ></img>
+                                />
                             </Col>
                             <Col>
                                 <Row>
@@ -69,18 +70,51 @@ const NavbarKrystin = () => {
                         </Row>
                     </Navbar.Brand>
 
-                    <Navbar.Toggle className="justify-content-end"></Navbar.Toggle>
+                    {dimensions.width > 513 && (
+                        <img
+                            className="brand-logo"
+                            alt="brand logo"
+                            src={brand_logo}
+                            style={{ width: "250px" }}
+                        />
+                    )}
+
+                    {dimensions.width > 464 && dimensions.width <= 513 && (
+                        <img
+                            className="brand-logo"
+                            alt="brand logo"
+                            src={brand_logo}
+                            style={{ width: "200px" }}
+                        />
+                    )}
+
+                    {dimensions.width > 400 && dimensions.width <= 464 && (
+                        <img
+                            className="brand-logo"
+                            alt="brand logo"
+                            src={brand_logo}
+                            style={{ width: "150px" }}
+                        />
+                    )}
+
+                    <Navbar.Toggle className="justify-content-end position-ab"></Navbar.Toggle>
+
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="flex-fill  justify-content-evenly">
-                            <Nav.Link>About Me</Nav.Link>
-                            <NavDropdown title="Services">
+                            <Nav.Link className="link-text">About Me</Nav.Link>
+                            <NavDropdown
+                                className="link-dropdown"
+                                title="Services"
+                            >
                                 <NavDropdown.Item>In-person</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item>
                                     Online Coaching
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            <Nav.Link>Contact Me</Nav.Link>
+                            <Nav.Link className="link-text">
+                                Contact Me
+                            </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
