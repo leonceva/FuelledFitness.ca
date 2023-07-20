@@ -1,8 +1,6 @@
 ## Short term goals
 - Add placeholder page for each link
 - Add default render page for '/'
-- Response navbar links
-- Add links in navbar to social media
 - Document stylesheet
 
 ## Long term goals

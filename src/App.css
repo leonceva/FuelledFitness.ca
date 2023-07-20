@@ -1,28 +1,3 @@
-.navbar {
-  margin: 1px;
-  border: solid;
-  border-color: darkgrey;
-  background-image: linear-gradient(to right, white, rgb(241, 124, 143));
-}
-
-.logo {
-  margin-top: 2px;
-  margin-left: 2px;
-  max-width: 175px;
-  border-radius: 40px;
-  border-style: solid;
-  border-color: black;
-}
-
-.brand{
-  max-width: 124px;
-}
-
-.brand-logo{
-  height: auto;
-  width: 200px;
-}
-
 .navbar-brand-logo{
   border-radius: 20%;
   max-width: 100px;
@@ -33,38 +8,9 @@
   transition: 0.3s ;
   box-shadow: -2px -2px 20px 0 black, 2px 2px 20px 0 black;
 }
-.navbar-toggler{
-  display: block;
-  width: max-content !important;
-  border-style: solid !important;
-  border: 2px;
-  border-color: rgba(0, 0, 0, 0.55) !important;
-  margin-left: auto
-}
-.navbar-toggler:hover{
-  transition: 0.3s;
-  background-color: lightgray;
-  cursor: pointer !important;
-}
-.navbar-toggler::active{
-  background-color: yellow !important;
-}
 
 .navbar-nav{
   min-width: 200px !important;
-}
-
-.link-text{
-  font-weight: 500;
-  font-size: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 5px;
-}
-
-.link-text:hover{
-  transition: 0.3s ;
-  box-shadow: 0 0px 0 0 black, 0 2px 0 0 black;
 }
 
 .link-dropdown{
@@ -73,11 +19,6 @@
   padding-left: 10px;
   padding-right: 10px;
   margin: 5px;
-}
-
-.link-dropdown:hover{
-  transition: 0.3s ;
-  box-shadow: 0 0px 0 0 black, 0 2px 0 0 black;
 }
 
 .link-logo{
@@ -89,6 +30,10 @@
   box-shadow: -2px -2px 20px 0 black, 2px 2px 20px 0 black;
 }
 
-.site-links{
-  margin-right: auto;
+#error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
