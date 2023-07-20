@@ -11,7 +11,7 @@ const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
     background-image: linear-gradient(to right, white, rgb(241, 124, 143));
-    margin: 1px;
+
     border: solid;
     border-color: darkgrey;
     display: flex;
@@ -126,10 +126,10 @@ export const NavMenu = (props) => {
                     onMouseLeave={() => setDropdownHover(false)}
                     className="dropdown-content"
                 >
-                    <NavLink className="dropdown-link" to="/inPersonServices">
+                    <NavLink className="dropdown-link" to="/services#in-person">
                         In-Person
                     </NavLink>
-                    <NavLink className="dropdown-link" to="/onlineServices">
+                    <NavLink className="dropdown-link" to="/services#online">
                         Online
                     </NavLink>
                 </div>
@@ -337,8 +337,15 @@ export const NavButton = (props) => {
             </div>
             {isExpanded && (
                 <div className="expanded-menu">
-                    <NavLink className="expanded-link">Test 1</NavLink>
-                    <NavLink className="expanded-link">Test 2</NavLink>
+                    <NavLink className="expanded-link" to="/aboutMe">
+                        About Me
+                    </NavLink>
+                    <NavLink className="expanded-link" to="/services">
+                        Services
+                    </NavLink>
+                    <NavLink className="expanded-link" to="/contactMe">
+                        Contact Me
+                    </NavLink>
                 </div>
             )}
         </NavButtonDiv>

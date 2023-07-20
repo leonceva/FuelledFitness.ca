@@ -5,7 +5,7 @@ const AboutMe = (props) => {
     return (
         width && (
             <>
-                {width > 830 ? <div>Desktop Mode</div> : <div>Mobil Mode</div>}
+                {width > 830 ? <div>Desktop Mode</div> : <div>Mobile Mode</div>}
                 About Me <br />
                 Width: {width}
             </>
