@@ -20,12 +20,13 @@ function Root(props) {
 export const RootDiv = styled.div`
     display: flex;
     flex-direction: column;
+    height: 100vh;
 
     & > .header {
-        height: 20vh;
+        height: 133px;
     }
     & > .body {
-        height: 80vh;
+        flex: 1;
     }
 `;
 
