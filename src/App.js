@@ -30,7 +30,7 @@ function App() {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <Root width={dimensions.width} />,
+            element: <Root height={dimensions.height} />,
             errorElement: <ErrorPage />,
             children: [
                 { index: true, element: <Navigate to="home" replace /> },

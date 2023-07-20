@@ -60,7 +60,7 @@ export const NavBrand = () => {
 
 export const BrandImgDiv = styled.div`
     display: flex;
-    position: fixed;
+    position: absolute;
     justify-content: start;
     align-items: center;
 `;
@@ -235,7 +235,7 @@ export const NavButtonDiv = styled.div`
         border-radius: 15%;
         padding-left: 10px;
         padding-right: 10px;
-        position: fixed;
+        position: absolute;
         background-color: lightgray;
         & > .bar-1,
         .bar-2,
@@ -257,7 +257,7 @@ export const NavButtonDiv = styled.div`
         border-radius: 15%;
         padding-left: 10px;
         padding-right: 10px;
-        position: fixed;
+        position: absolute;
         background-color: #333;
 
         & > .change-bar-1 {

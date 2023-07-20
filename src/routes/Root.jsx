@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
 
-function Root(props) {
+const Root = () => {
     return (
         <RootDiv>
             <div className="header">
@@ -15,12 +15,12 @@ function Root(props) {
             </div>
         </RootDiv>
     );
-}
+};
 
 export const RootDiv = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
 
     & > .header {
         height: 133px;

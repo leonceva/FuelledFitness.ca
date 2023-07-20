@@ -12,7 +12,7 @@ export const FooterDiv = styled.div`
     display: flex;
     justify-content: start;
     align-items: center;
-    height: 10%;
+    height: 8%;
     padding: 10px;
     justify-content: center;
 `;
