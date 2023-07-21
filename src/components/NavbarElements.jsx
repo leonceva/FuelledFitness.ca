@@ -258,8 +258,10 @@ export const NavButtonDiv = styled.div`
         padding-right: 10px;
         position: absolute;
         background-color: lightgray;
+        padding-top: 4px;
+        padding-bottom: 4px;
 
-        &:hover {
+        &:active {
             background-color: gray;
             transition: all 0.3s;
         }
@@ -286,6 +288,8 @@ export const NavButtonDiv = styled.div`
         padding-right: 10px;
         position: absolute;
         background-color: #333;
+        padding-top: 4px;
+        padding-bottom: 4px;
 
         & > .change-bar-1 {
             width: 35px;
@@ -322,6 +326,7 @@ export const NavButtonDiv = styled.div`
         border-width: 2px;
         border-color: lightgray;
         border-style: solid;
+        border-radius: 10%;
         font-size: 20px;
         z-index: 1;
         height: auto;
@@ -329,13 +334,14 @@ export const NavButtonDiv = styled.div`
         position: relative;
         text-align: center;
         align-self: start;
-        translate: 0 45px;
-        padding: 12px 10px;
+        translate: 0 50px;
+        padding: 15px 10px;
         transition: 0.3s;
 
         & > .expanded-link {
             text-align: center;
             margin: 0 -10px;
+            padding-top: 10px;
         }
 
         & > .expanded-link:hover {

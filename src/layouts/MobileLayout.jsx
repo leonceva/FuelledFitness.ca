@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import Footer from "../components/Footer";
+import BackToTop from "../components/BackToTopButton";
 
 const MOBILE_MODE_LIMIT = `892px`;
 
@@ -60,7 +61,50 @@ const MobileLayout = (props) => {
                     assumenda, tenetur totam voluptatibus repellendus ex, animi
                     blanditiis. Eum voluptas suscipit ex! Quae, alias?
                 </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eius explicabo quis ipsum, hic sunt accusamus maxime
+                    assumenda, tenetur totam voluptatibus repellendus ex, animi
+                    blanditiis. Eum voluptas suscipit ex! Quae, alias?
+                </p>
             </div>
+            <BackToTop />
             <Footer />
         </MobileContainer>
     );
