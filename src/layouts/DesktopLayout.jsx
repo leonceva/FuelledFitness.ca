@@ -6,14 +6,21 @@ const MOBILE_MODE_LIMIT = `892px`;
 
 export const DesktopLayout = (props) => {
     const LeftSide = props.LeftSide;
-    const Content = props.Content;
+    const title = props.title;
     const RightSide = props.RightSide;
 
     return (
         <DesktopContainer>
             <div className="desktop-row">
                 <DesktopLeftSide>{LeftSide}</DesktopLeftSide>
-                <DesktopContent>{Content}</DesktopContent>
+                <DesktopContent>
+                    {
+                        <>
+                            <h1>Desktop Mode</h1>
+                            <h2>{title}</h2>
+                        </>
+                    }
+                </DesktopContent>
                 <DesktopRightSide>{RightSide}</DesktopRightSide>
             </div>
             <Footer />
@@ -24,8 +31,8 @@ export const DesktopLayout = (props) => {
 export default DesktopLayout;
 
 export const DesktopContainer = styled.div`
-    border-width: 2px;
     border: solid;
+    border-width: 0 2px 0 2px;
     border-color: darkgrey;
     display: flex;
     flex-direction: column;
@@ -62,4 +69,7 @@ export const DesktopContent = styled.div`
     height: 100%;
     width: 70%;
     text-align: center;
+    border: solid;
+    border-width: 0 2px 0 2px;
+    border-color: darkgrey;
 `;

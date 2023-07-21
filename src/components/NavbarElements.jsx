@@ -11,7 +11,7 @@ const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
     background-image: linear-gradient(to right, white, rgb(241, 124, 143));
-
+    border-width: 2px;
     border: solid;
     border-color: darkgrey;
     display: flex;
@@ -125,14 +125,26 @@ export const NavMenu = (props) => {
                 <div
                     onMouseOver={() => setDropdownHover(true)}
                     onMouseLeave={() => setDropdownHover(false)}
-                    className="dropdown-content"
+                    className={
+                        dropdownHover ? "dropdown-content" : "dropdown-hidden"
+                    }
                 >
-                    <NavLink className="dropdown-link" to="/services#in-person">
-                        In-Person
-                    </NavLink>
-                    <NavLink className="dropdown-link" to="/services#online">
-                        Online
-                    </NavLink>
+                    {dropdownHover && (
+                        <>
+                            <NavLink
+                                className="dropdown-link"
+                                to="/services#in-person"
+                            >
+                                In-Person
+                            </NavLink>
+                            <NavLink
+                                className="dropdown-link"
+                                to="/services#online"
+                            >
+                                Online
+                            </NavLink>
+                        </>
+                    )}
                 </div>
             </li>
             <li>
@@ -182,8 +194,9 @@ export const NavMenuUL = styled.ul`
             border-width: 2px;
             width: 150px;
             box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
+            z-index: 3;
             position: fixed;
+            transition: 0.3s all;
 
             & > .dropdown-link {
                 text-align: center;
@@ -198,6 +211,13 @@ export const NavMenuUL = styled.ul`
         &:hover .dropdown-content {
             display: flex;
             flex-direction: column;
+        }
+
+        & > .dropdown-hidden {
+            background-color: white;
+            border-color: lightgray;
+            height: 0px;
+            transition: 0s all;
         }
     }
 `;
@@ -238,6 +258,12 @@ export const NavButtonDiv = styled.div`
         padding-right: 10px;
         position: absolute;
         background-color: lightgray;
+
+        &:hover {
+            background-color: gray;
+            transition: all 0.3s;
+        }
+
         & > .bar-1,
         .bar-2,
         .bar-3 {
@@ -305,7 +331,7 @@ export const NavButtonDiv = styled.div`
         align-self: start;
         translate: 0 45px;
         padding: 12px 10px;
-        transition: 0.2s;
+        transition: 0.3s;
 
         & > .expanded-link {
             text-align: center;
@@ -320,8 +346,8 @@ export const NavButtonDiv = styled.div`
     }
 
     & > .expanded-menu-hidden {
-        height: 1px;
-        transition: 0.2s all;
+        height: 0px;
+        transition: 0s all;
     }
 `;
 

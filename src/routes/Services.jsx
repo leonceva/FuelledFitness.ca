@@ -2,8 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import DesktopLayout from "../layouts/DesktopLayout";
+import MobileLayout from "../layouts/MobileLayout";
+
 const Services = (props) => {
-    const width = props.width;
     const [serviceSelected, setServiceSelected] = useState("None");
     const location = useLocation();
 
@@ -16,13 +18,14 @@ const Services = (props) => {
     }, [location]);
 
     return (
-        width && (
-            <>
-                {width > 830 ? <div>Desktop Mode</div> : <div>Mobile Mode</div>}
-                Service Selected: {serviceSelected} <br />
-                Width: {width}
-            </>
-        )
+        <>
+            <DesktopLayout
+                LeftSide={<p>Left Side</p>}
+                RightSide={<p>Right Side</p>}
+                title={`Service Selected: ${serviceSelected}`}
+            />
+            <MobileLayout title={"Services"} />
+        </>
     );
 };
 

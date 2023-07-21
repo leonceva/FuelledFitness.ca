@@ -1,15 +1,17 @@
 import React from "react";
+import DesktopLayout from "../layouts/DesktopLayout";
+import MobileLayout from "../layouts/MobileLayout";
 
-const AboutMe = (props) => {
-    const width = props.width;
+const AboutMe = () => {
     return (
-        width && (
-            <>
-                {width > 830 ? <div>Desktop Mode</div> : <div>Mobile Mode</div>}
-                About Me <br />
-                Width: {width}
-            </>
-        )
+        <>
+            <DesktopLayout
+                LeftSide={<p>Left Side</p>}
+                RightSide={<p>Right Side</p>}
+                title={"About Me"}
+            />
+            <MobileLayout title={"About Me"} />
+        </>
     );
 };
 
