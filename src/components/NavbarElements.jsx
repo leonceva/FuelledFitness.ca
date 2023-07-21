@@ -86,6 +86,7 @@ export const BrandImg = styled.img`
 export const NavMenu = (props) => {
     const dropdownHover = props.dropdownHover;
     const setDropdownHover = props.setDropdownHover;
+
     return (
         <NavMenuUL>
             <li>
@@ -266,7 +267,7 @@ export const NavButtonDiv = styled.div`
             background-color: lightgray;
             margin: 6px 0;
             transform: translate(0, 11px) rotate(-45deg);
-            transition: 0.4s;
+            transition: 0.6s;
         }
 
         & > .change-bar-2 {
@@ -284,7 +285,7 @@ export const NavButtonDiv = styled.div`
             background-color: lightgray;
             margin: 6px 0;
             transform: translate(0, -11px) rotate(45deg);
-            transition: 0.4s;
+            transition: 0.6s;
         }
     }
 
@@ -304,6 +305,7 @@ export const NavButtonDiv = styled.div`
         align-self: start;
         translate: 0 45px;
         padding: 12px 10px;
+        transition: 0.2s;
 
         & > .expanded-link {
             text-align: center;
@@ -316,11 +318,57 @@ export const NavButtonDiv = styled.div`
             box-shadow: none;
         }
     }
+
+    & > .expanded-menu-hidden {
+        height: 1px;
+        transition: 0.2s all;
+    }
 `;
+
+export const ModalMenu = (props) => {
+    const isExpanded = props.isExpanded;
+    return (
+        <>
+            <div
+                className={
+                    isExpanded ? "expanded-menu" : "expanded-menu-hidden"
+                }
+            >
+                {isExpanded && (
+                    <>
+                        <NavLink className="expanded-link" to="/aboutMe">
+                            About Me
+                        </NavLink>
+
+                        <NavLink className="expanded-link" to="/services">
+                            Services
+                        </NavLink>
+                        <NavLink className="expanded-link" to="/contactMe">
+                            Contact Me
+                        </NavLink>
+                    </>
+                )}
+            </div>
+        </>
+    );
+};
 
 export const NavButton = (props) => {
     const isExpanded = props.isExpanded;
     const setIsExpanded = props.setIsExpanded;
+
+    const handleClick = () => {
+        document.addEventListener(
+            "click",
+            (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsExpanded(false);
+            },
+            { once: true }
+        );
+    };
+
     return (
         <NavButtonDiv>
             <div
@@ -328,26 +376,28 @@ export const NavButton = (props) => {
                     isExpanded ? "change-button-container" : "button-container"
                 }
                 onClick={() => {
-                    setIsExpanded(isExpanded ? false : true);
+                    if (isExpanded === true) {
+                        setIsExpanded(false);
+                    } else {
+                        setIsExpanded(true);
+                        document.addEventListener(
+                            "click",
+                            (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleClick();
+                            },
+                            { once: true }
+                        );
+                    }
                 }}
             >
                 <div className={isExpanded ? "change-bar-1" : "bar-1"} />
                 <div className={isExpanded ? "change-bar-2" : "bar-2"} />
                 <div className={isExpanded ? "change-bar-3" : "bar-3"} />
             </div>
-            {isExpanded && (
-                <div className="expanded-menu">
-                    <NavLink className="expanded-link" to="/aboutMe">
-                        About Me
-                    </NavLink>
-                    <NavLink className="expanded-link" to="/services">
-                        Services
-                    </NavLink>
-                    <NavLink className="expanded-link" to="/contactMe">
-                        Contact Me
-                    </NavLink>
-                </div>
-            )}
+
+            <ModalMenu isExpanded={isExpanded} />
         </NavButtonDiv>
     );
 };

@@ -6,11 +6,9 @@ const Services = (props) => {
     const width = props.width;
     const [serviceSelected, setServiceSelected] = useState("None");
     const location = useLocation();
-    console.log(location);
 
     useEffect(() => {
         if (location.hash.slice(1) === "") {
-            console.log("No service selected");
             setServiceSelected("None");
         } else {
             setServiceSelected(location.hash.slice(1));
