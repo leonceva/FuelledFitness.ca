@@ -8,7 +8,7 @@ const Homepage = () => {
             <DesktopLayout
                 LeftSide={<p>Left Side</p>}
                 RightSide={<p>Right Side</p>}
-                title={"Home"}
+                content={<Content />}
             />
             <MobileLayout title={"Home"} />
         </>
@@ -16,3 +16,7 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+export const Content = () => {
+    return <></>;
+};

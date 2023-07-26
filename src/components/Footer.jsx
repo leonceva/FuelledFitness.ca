@@ -14,7 +14,6 @@ export const FooterDiv = styled.div`
     justify-content: start;
     align-items: center;
     height: 8%;
-    padding: 10px;
     justify-content: center;
     width: 100%;
 `;

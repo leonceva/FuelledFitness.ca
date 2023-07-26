@@ -22,7 +22,7 @@ const Services = (props) => {
             <DesktopLayout
                 LeftSide={<p>Left Side</p>}
                 RightSide={<p>Right Side</p>}
-                title={`Service Selected: ${serviceSelected}`}
+                content={<Content serviceSelected={serviceSelected} />}
             />
             <MobileLayout title={"Services"} />
         </>
@@ -30,3 +30,8 @@ const Services = (props) => {
 };
 
 export default Services;
+
+export const Content = (props) => {
+    const serviceSelected = props.serviceSelected;
+    return <>{serviceSelected}</>;
+};

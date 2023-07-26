@@ -8,7 +8,7 @@ const ContactMe = () => {
             <DesktopLayout
                 LeftSide={<p>Left Side</p>}
                 RightSide={<p>Right Side</p>}
-                title={"Contact Me"}
+                content={<Content />}
             />
             <MobileLayout title={"Contact Me"} />
         </>
@@ -16,3 +16,7 @@ const ContactMe = () => {
 };
 
 export default ContactMe;
+
+export const Content = () => {
+    return <></>;
+};

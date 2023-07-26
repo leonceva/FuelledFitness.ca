@@ -4,19 +4,20 @@ import { NavLink as Link } from "react-router-dom";
 import InstagramLink from "./InstagramLink";
 import LinkedInLink from "./LinkedInLink";
 import EmailLink from "./EmailLink";
-import logo from "../images/logo.png";
-import brand_logo from "../images/brand-logo.png";
+import logo from "../images/1.svg";
+import brand_logo from "../images/5.svg";
 
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
     background-image: linear-gradient(to right, white, rgb(241, 124, 143));
+    /*
     border-width: 2px;
     border: solid;
     border-color: darkgrey;
+    */
     display: flex;
     justify-content: start;
-    padding: 10px;
     align-items: center;
     height: 100%;
 `;
@@ -47,10 +48,7 @@ export const NavBrand = () => {
                 </div>
                 <div className="col">
                     <BrandImgDiv>
-                        <BrandImg
-                            className="border  border-danger"
-                            src={brand_logo}
-                        />
+                        <BrandImg src={brand_logo} />
                     </BrandImgDiv>
                 </div>
             </div>
@@ -67,18 +65,22 @@ export const BrandImgDiv = styled.div`
 
 export const BrandImg = styled.img`
     @media screen and (min-width: 513px) {
-        translate: 0 40px;
         width: 250px;
+        height: 100px;
     }
     @media screen and (max-width: 513px) {
-        translate: 0 42px;
         width: 200px;
+        height: 100px;
     }
     @media screen and (max-width: 464px) {
-        translate: 0 46px;
         width: 150px;
+        height: 100px;
     }
-    @media screen and (max-width: 413px) {
+    @media screen and (max-width: 404px) {
+        width: 100px;
+        height: 100px;
+    }
+    @media screen and (max-width: 360px) {
         display: none;
     }
 `;
