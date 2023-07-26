@@ -12,7 +12,6 @@ const MOBILE_MODE_LIMIT = `892px`;
 export const Nav = styled.nav`
     background-image: linear-gradient(to right, white, rgb(241, 124, 143));
     display: flex;
-    justify-content: start;
     align-items: center;
     height: 100%;
 `;

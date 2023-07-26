@@ -1,6 +1,10 @@
-import React from "react";
+import { React, useState } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
+import { styled } from "styled-components";
+import test1 from "../images/ARC00892.jpg";
+import test2 from "../images/DSC05302.jpg";
+import test3 from "../images/39753925763_e25c9d8c3b_b.jpg";
 
 const Homepage = () => {
     return (
@@ -18,7 +22,147 @@ const Homepage = () => {
 export default Homepage;
 
 export const DesktopContent = () => {
-    return <></>;
+    return (
+        <DesktopDiv>
+            <div className="carousel">
+                <Carousel />
+            </div>
+            <div className="preview-items">Preview Articles</div>
+        </DesktopDiv>
+    );
+};
+
+export const DesktopDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    margin: 5px;
+
+    & > .carousel {
+        border: 3px solid black;
+        width: 40%;
+        margin-right: 5px;
+    }
+
+    & > .preview-items {
+        border: 3px solid black;
+        width: 60%;
+        margin-left: 5px;
+    }
+`;
+
+export const CarouselDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    & > .img-div {
+        height: 70%;
+        z-index: 1;
+
+        & > img {
+            transition: all 0.3s;
+        }
+
+        & > .img-show {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        & > .img-hide {
+            max-width: 0%;
+            max-height: 0%;
+        }
+    }
+
+    & > .left {
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        z-index: 3;
+    }
+
+    & > .right {
+        position: absolute;
+        top: 50%;
+        right: 0%;
+        z-index: 3;
+    }
+`;
+
+export const Carousel = () => {
+    const [imgNumber, setImgNumber] = useState(1);
+
+    const handleClick = (side) => {
+        if (side === "left") {
+            if (imgNumber !== 1) {
+                setImgNumber(imgNumber - 1);
+            } else {
+                setImgNumber(3);
+            }
+        }
+        if (side === "right") {
+            if (imgNumber !== 3) {
+                setImgNumber(imgNumber + 1);
+            } else {
+                setImgNumber(1);
+            }
+        }
+    };
+
+    return (
+        <CarouselDiv>
+            <div className="img-div">
+                <img
+                    className={imgNumber === 1 ? "img-show" : "img-hide"}
+                    src={test1}
+                    alt="test1"
+                />
+                <img
+                    className={imgNumber === 2 ? "img-show" : "img-hide"}
+                    src={test2}
+                    alt="test2"
+                />
+                <img
+                    className={imgNumber === 3 ? "img-show" : "img-hide"}
+                    src={test3}
+                    alt="test3"
+                />
+            </div>
+            <div
+                style={{
+                    height: "30%",
+                    position: "absolute",
+                    bottom: "0%",
+                    width: "100%",
+                    opacity: "0.6",
+                    backgroundColor: "black",
+                    zIndex: "2",
+                    color: "white",
+                }}
+            >
+                Labels
+            </div>
+            <button
+                className="left"
+                onClick={() => {
+                    handleClick("left");
+                }}
+            >
+                {"<"}
+            </button>
+            <button
+                className="right"
+                onClick={() => {
+                    handleClick("right");
+                }}
+            >
+                {">"}
+            </button>
+        </CarouselDiv>
+    );
 };
 
 export const MobileContent = () => {

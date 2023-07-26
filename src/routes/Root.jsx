@@ -23,10 +23,10 @@ export const RootDiv = styled.div`
     height: 100vh;
 
     & > .header {
-        height: 133px;
+        height: 100px;
     }
     & > .body {
-        height: calc(100vh - 133px);
+        height: calc(100vh - 100px);
     }
 `;
 
