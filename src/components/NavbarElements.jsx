@@ -11,11 +11,6 @@ const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
     background-image: linear-gradient(to right, white, rgb(241, 124, 143));
-    /*
-    border-width: 2px;
-    border: solid;
-    border-color: darkgrey;
-    */
     display: flex;
     justify-content: start;
     align-items: center;
@@ -99,7 +94,7 @@ export const NavMenu = (props) => {
                     onMouseOver={() => setDropdownHover(true)}
                     onMouseLeave={() => setDropdownHover(false)}
                 >
-                    Services{" "}
+                    <NavLink to="/services">Services </NavLink>
                     {dropdownHover ? (
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -238,8 +233,8 @@ export const NavLink = styled(Link)`
 
 export const NavButtonDiv = styled.div`
     display: none;
-    padding-left: 10px;
-    margin-left: 10px;
+    margin-left: 2vw;
+    padding-right: 2vw;
 
     @media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
         display: flex;

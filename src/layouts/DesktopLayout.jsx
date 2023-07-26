@@ -24,11 +24,6 @@ export const DesktopLayout = (props) => {
 export default DesktopLayout;
 
 export const DesktopContainer = styled.div`
-    /*
-    border: solid;
-    border-width: 0 2px 0 2px;
-    border-color: darkgrey;
-    */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -37,7 +32,7 @@ export const DesktopContainer = styled.div`
     & > .desktop-row {
         display: flex;
         flex-direction: row;
-        height: 92%;
+        height: 95%;
         align-items: center;
     }
     @media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
@@ -48,19 +43,19 @@ export const DesktopContainer = styled.div`
 export const DesktopLeftSide = styled.div`
     background-color: lightgreen;
     height: 100%;
-    width: 15%;
+    width: 10%;
     text-align: center;
 `;
 export const DesktopRightSide = styled.div`
     background-color: lightgreen;
     height: 100%;
-    width: 15%;
+    width: 10%;
     text-align: center;
 `;
 
 export const DesktopContent = styled.div`
     background-color: lightcyan;
     height: 100%;
-    width: 70%;
+    width: 80%;
     text-align: center;
 `;

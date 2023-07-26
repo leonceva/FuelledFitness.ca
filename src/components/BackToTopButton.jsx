@@ -26,8 +26,8 @@ const BackToTop = () => {
                 <button
                     style={{
                         position: "fixed",
-                        bottom: "1%",
-                        right: "2%",
+                        bottom: "2vh",
+                        right: "2vw",
                         textAlign: "center",
                         width: "58px",
                         height: "58px",
