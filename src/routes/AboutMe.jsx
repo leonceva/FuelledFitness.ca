@@ -48,6 +48,7 @@ export const DesktopContent = () => {
                     as a dietitian has equipped me with a diverse set of skills
                     and knowledge to address various nutritional needs.
                 </p>
+                <img src={krystin_img2} alt="Krystin Pose" className="right" />
                 <h3>Why I Do What I Do</h3>
                 <p>
                     My motivation as a dietitian lies in empowering individuals
@@ -59,7 +60,7 @@ export const DesktopContent = () => {
                     embrace a vibrant lifestyle.
                 </p>
                 <h3>My Approach</h3>
-                <img src={krystin_img2} alt="Krystin Pose" className="right" />
+
                 <p>
                     I understand that embarking on a journey towards better
                     health can be overwhelming. That's why I strive to create a
@@ -78,6 +79,11 @@ export const DesktopContent = () => {
                     instead, I will guide you towards making sustainable choices
                     that can be easily integrated into your daily routine.
                 </p>
+                <img
+                    src={krystin_img3}
+                    alt="Krystin Wrestling"
+                    className="left"
+                />
                 <h3>What to Expect</h3>
                 <p>
                     When you choose to work with me, expect a collaborative
@@ -111,13 +117,7 @@ export const DesktopContent = () => {
                         possible results.
                     </li>
                 </ol>
-
                 <h3>Let's Begin Your Journey Towards Optimal Health</h3>
-                <img
-                    src={krystin_img3}
-                    alt="Krystin Wrestling"
-                    className="left"
-                />
                 <p>
                     I am excited to embark on this transformative journey with
                     you! Whether your goal is to manage a medical condition,
@@ -145,15 +145,16 @@ export const DesktopContentDiv = styled.div`
     overflow-y: scroll;
     text-align: justify;
     & img {
-        width: 200px;
+        max-width: 25%;
+        max-height: 25%;
         border-radius: 5%;
     }
     & .left {
-        margin-right: 10px;
+        margin-right: 2%;
         float: left;
     }
     & .right {
-        margin-left: 10px;
+        margin-left: 2%;
         float: right;
     }
 `;

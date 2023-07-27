@@ -1,7 +1,9 @@
 import React from "react";
 import email_logo from "../images/email-logo.png";
 
-const EmailLink = () => {
+const EmailLink = (props) => {
+    const width = props.width;
+    const height = props.height;
     return (
         <>
             <div className="image pt-1 pb-1">
@@ -10,6 +12,7 @@ const EmailLink = () => {
                         src={email_logo}
                         alt="Email Logo"
                         className="link-logo"
+                        style={{ width: width, height: height }}
                     />
                 </a>
             </div>

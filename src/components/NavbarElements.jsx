@@ -1,9 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
 import { NavLink as Link } from "react-router-dom";
-import InstagramLink from "./InstagramLink";
-import LinkedInLink from "./LinkedInLink";
-import EmailLink from "./EmailLink";
 import logo from "../images/1.svg";
 import brand_logo from "../images/5.svg";
 
@@ -29,6 +26,7 @@ export const NavBrand = () => {
                         />
                     </Link>
                 </div>
+                {/*
                 <div className="col" style={{ marginLeft: "-10px" }}>
                     <div className="row">
                         <InstagramLink />
@@ -40,6 +38,7 @@ export const NavBrand = () => {
                         <EmailLink />
                     </div>
                 </div>
+                */}
                 <div className="col">
                     <BrandImgDiv>
                         <div>

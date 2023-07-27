@@ -1,7 +1,9 @@
 import React from "react";
 import linkedin_logo from "../images/linkedin-logo.png";
 
-const LinkedInLink = () => {
+const LinkedInLink = (props) => {
+    const width = props.width;
+    const height = props.height;
     return (
         <>
             <div className="image pt-1 pb-1">
@@ -10,6 +12,7 @@ const LinkedInLink = () => {
                         src={linkedin_logo}
                         alt="LinkedIn Logo"
                         className="link-logo"
+                        style={{ width: width, height: height }}
                     />
                 </a>
             </div>

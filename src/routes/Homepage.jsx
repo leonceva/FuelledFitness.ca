@@ -1,12 +1,14 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
 import test1 from "../images/ARC00892.jpg";
 import test2 from "../images/DSC05302.jpg";
 import test3 from "../images/39753925763_e25c9d8c3b_b.jpg";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { Link } from "react-router-dom";
+import InstagramLink from "../components/InstagramLink";
+import LinkedInLink from "../components/LinkedInLink";
+import EmailLink from "../components/EmailLink";
 
 const Homepage = () => {
     return (
@@ -239,8 +241,9 @@ export const Carousel = () => {
                 )}
                 {imgNumber === 2 && (
                     <p>
-                        Let's Unlock Your Health Potential with My BScc in Food
-                        Science (Specialixation in Dietetics) and B. Kinesiology
+                        Let's Unlock Your Health Potential with My BSc. Food
+                        Science with a Specialization in Dietetics, and B.
+                        Kinesiology
                     </p>
                 )}
                 {imgNumber === 3 && (
@@ -303,36 +306,98 @@ export const PreviewDiv = styled.div`
 
     & > .preview-item {
         position: relative;
-        margin: 5px;
+        margin: 2.5px 5px;
         min-height: 10%;
         border-radius: 10px;
-        background-color: green;
+        background-color: darkgray;
         transition: 0.5s;
         flex: 1;
         padding: 5px;
         overflow: hidden;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
 
         &:hover {
             transition: 1s;
-            flex: 10;
+            flex: 2;
             width: calc(100% - 10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        & > p {
+            font-size: 20px;
+            font-weight: 500;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        &:hover > p {
+            opacity: 1;
+            transition: all 0.3s;
+        }
+
+        & > img {
+            max-width: 100%;
+            max-height: 100%;
+            content-visibility: hidden;
+        }
+
+        &:hover > img {
+            max-width: 100%;
+            content-visibility: visible;
         }
     }
 
     & > .preview-item-focus {
         position: relative;
-        margin: 5px;
+        margin: 2.5px 5px;
         min-height: 10%;
         border-radius: 10px;
-        background-color: green;
+        background-color: darkgray;
         transition: 0.5s;
-        flex: 10;
+        flex: 2;
         padding: 5px;
         overflow: hidden;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        & > p {
+            font-size: 20px;
+            font-weight: 500;
+            opacity: 1;
+            transition: 0.3s;
+        }
+
+        & > img {
+            max-width: 100%;
+            max-height: 100%;
+        }
     }
 
     & h3 {
+        padding-top: 2%;
         font-weight: 800;
+        display: flex;
+        justify-content: center;
+    }
+
+    & span {
+        background-color: lightgray;
+        border: 2px solid #333;
+        border-radius: 10px;
+        padding: 10px;
+        color: #333;
+
+        &:hover {
+            background-color: gray;
+            cursor: pointer;
+        }
     }
 `;
 
@@ -372,28 +437,22 @@ export const Preview = () => {
                     );
                 }}
             >
-                <h3>Preview 1</h3>
+                <h3>Empower Your Health - Book Your Consultation</h3>
+                <p>Online and In-Person options available!</p>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi tenetur repellendus qui unde, fugit hic eius
-                    accusantium, id at repudiandae ratione commodi eum ab quam,
-                    laborum natus aperiam corporis in? Earum labore, nihil ipsa
-                    corporis ullam, aperiam optio illum necessitatibus porro
-                    molestias distinctio quidem harum laboriosam? Beatae
-                    excepturi doloremque dolores cum nulla, ad iusto itaque
-                    minus reprehenderit esse, nobis ipsam? Omnis fugit mollitia
-                    accusantium delectus voluptate, neque nam sunt totam tenetur
-                    cumque excepturi laboriosam ea doloribus, cupiditate nisi
-                    asperiores minima obcaecati voluptatum aliquam, ad libero
-                    voluptas adipisci. Non, sunt debitis? Et, saepe. Doloribus
-                    tempora dolores voluptas error, nam, eum ratione sunt
-                    obcaecati consequatur quae blanditiis accusamus facilis!
-                    Odit, accusamus numquam saepe, rem sit veritatis totam
-                    omnis, facilis doloribus quam fugiat? Nobis nostrum, facere
-                    magni quidem fugit ducimus quam quibusdam ipsa tempora
-                    recusandae earum quia enim nemo consequatur mollitia,
-                    doloribus, voluptatem laudantium eos et quisquam expedita
-                    repellendus architecto quas. Porro, quo.
+                    <span>
+                        <a
+                            style={{
+                                textDecoration: "inherit",
+                                color: "inherit",
+                            }}
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services"
+                        >
+                            Let's Get Started
+                        </a>
+                    </span>
                 </p>
             </div>
             <div
@@ -415,28 +474,22 @@ export const Preview = () => {
                     );
                 }}
             >
-                <h3>Preview 2</h3>
+                <h3>Inspiring Healthier Lives</h3>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi tenetur repellendus qui unde, fugit hic eius
-                    accusantium, id at repudiandae ratione commodi eum ab quam,
-                    laborum natus aperiam corporis in? Earum labore, nihil ipsa
-                    corporis ullam, aperiam optio illum necessitatibus porro
-                    molestias distinctio quidem harum laboriosam? Beatae
-                    excepturi doloremque dolores cum nulla, ad iusto itaque
-                    minus reprehenderit esse, nobis ipsam? Omnis fugit mollitia
-                    accusantium delectus voluptate, neque nam sunt totam tenetur
-                    cumque excepturi laboriosam ea doloribus, cupiditate nisi
-                    asperiores minima obcaecati voluptatum aliquam, ad libero
-                    voluptas adipisci. Non, sunt debitis? Et, saepe. Doloribus
-                    tempora dolores voluptas error, nam, eum ratione sunt
-                    obcaecati consequatur quae blanditiis accusamus facilis!
-                    Odit, accusamus numquam saepe, rem sit veritatis totam
-                    omnis, facilis doloribus quam fugiat? Nobis nostrum, facere
-                    magni quidem fugit ducimus quam quibusdam ipsa tempora
-                    recusandae earum quia enim nemo consequatur mollitia,
-                    doloribus, voluptatem laudantium eos et quisquam expedita
-                    repellendus architecto quas. Porro, quo.
+                    Get to Know Your Dedicated Dietitian and Personal Trainer!
+                </p>
+                <p>
+                    <span>
+                        <Link
+                            style={{
+                                textDecoration: "inherit",
+                                color: "inherit",
+                            }}
+                            to="/aboutMe"
+                        >
+                            Read My Story
+                        </Link>
+                    </span>
                 </p>
             </div>
             <div
@@ -458,29 +511,20 @@ export const Preview = () => {
                     );
                 }}
             >
-                <h3>Preview 3</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quasi tenetur repellendus qui unde, fugit hic eius
-                    accusantium, id at repudiandae ratione commodi eum ab quam,
-                    laborum natus aperiam corporis in? Earum labore, nihil ipsa
-                    corporis ullam, aperiam optio illum necessitatibus porro
-                    molestias distinctio quidem harum laboriosam? Beatae
-                    excepturi doloremque dolores cum nulla, ad iusto itaque
-                    minus reprehenderit esse, nobis ipsam? Omnis fugit mollitia
-                    accusantium delectus voluptate, neque nam sunt totam tenetur
-                    cumque excepturi laboriosam ea doloribus, cupiditate nisi
-                    asperiores minima obcaecati voluptatum aliquam, ad libero
-                    voluptas adipisci. Non, sunt debitis? Et, saepe. Doloribus
-                    tempora dolores voluptas error, nam, eum ratione sunt
-                    obcaecati consequatur quae blanditiis accusamus facilis!
-                    Odit, accusamus numquam saepe, rem sit veritatis totam
-                    omnis, facilis doloribus quam fugiat? Nobis nostrum, facere
-                    magni quidem fugit ducimus quam quibusdam ipsa tempora
-                    recusandae earum quia enim nemo consequatur mollitia,
-                    doloribus, voluptatem laudantium eos et quisquam expedita
-                    repellendus architecto quas. Porro, quo.
-                </p>
+                <h3>Discover the Path to Sustainable Health</h3>
+                <p>Connect with Us on Socials or Send us an Email</p>
+                <div
+                    style={{
+                        display: "flex",
+                        height: "100px",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                    }}
+                >
+                    <InstagramLink width="4vw" />
+                    <LinkedInLink width="4vw" />
+                    <EmailLink width="4vw" />
+                </div>
             </div>
         </PreviewDiv>
     );
