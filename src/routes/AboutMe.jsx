@@ -83,34 +83,35 @@ export const DesktopContent = () => {
                     When you choose to work with me, expect a collaborative
                     partnership focused on your well-being. Our journey together
                     will encompass:
-                    <ol>
-                        <li>
-                            <strong>Comprehensive Assessment: </strong>I will
-                            conduct a thorough assessment of your current
-                            dietary habits, medical history, and lifestyle
-                            factors to understand your unique needs better.
-                        </li>
-                        <li>
-                            <strong>Personalized Nutrition Plan: </strong>Based
-                            on our assessment, I will design a personalized
-                            nutrition plan that aligns with your goals,
-                            preferences, and any specific dietary requirements.
-                        </li>
-                        <li>
-                            <strong>Education and Support: </strong>I will
-                            provide you with the knowledge and tools you need to
-                            make informed decisions about your nutrition. You
-                            can count on me for continuous support and guidance
-                            throughout your journey.
-                        </li>
-                        <li>
-                            <strong>Progress Tracking: </strong>Regular
-                            follow-ups and evaluations will ensure that we stay
-                            on track and make any necessary adjustments to
-                            achieve the best possible results.
-                        </li>
-                    </ol>
                 </p>
+                <ol>
+                    <li>
+                        <strong>Comprehensive Assessment: </strong>I will
+                        conduct a thorough assessment of your current dietary
+                        habits, medical history, and lifestyle factors to
+                        understand your unique needs better.
+                    </li>
+                    <li>
+                        <strong>Personalized Nutrition Plan: </strong>Based on
+                        our assessment, I will design a personalized nutrition
+                        plan that aligns with your goals, preferences, and any
+                        specific dietary requirements.
+                    </li>
+                    <li>
+                        <strong>Education and Support: </strong>I will provide
+                        you with the knowledge and tools you need to make
+                        informed decisions about your nutrition. You can count
+                        on me for continuous support and guidance throughout
+                        your journey.
+                    </li>
+                    <li>
+                        <strong>Progress Tracking: </strong>Regular follow-ups
+                        and evaluations will ensure that we stay on track and
+                        make any necessary adjustments to achieve the best
+                        possible results.
+                    </li>
+                </ol>
+
                 <h3>Let's Begin Your Journey Towards Optimal Health</h3>
                 <img
                     src={krystin_img3}
@@ -227,36 +228,36 @@ export const MobileContent = () => {
                         When you choose to work with me, expect a collaborative
                         partnership focused on your well-being. Our journey
                         together will encompass:
-                        <ol>
-                            <li>
-                                <strong>Comprehensive Assessment: </strong>I
-                                will conduct a thorough assessment of your
-                                current dietary habits, medical history, and
-                                lifestyle factors to understand your unique
-                                needs better.
-                            </li>
-                            <li>
-                                <strong>Personalized Nutrition Plan: </strong>
-                                Based on our assessment, I will design a
-                                personalized nutrition plan that aligns with
-                                your goals, preferences, and any specific
-                                dietary requirements.
-                            </li>
-                            <li>
-                                <strong>Education and Support: </strong>I will
-                                provide you with the knowledge and tools you
-                                need to make informed decisions about your
-                                nutrition. You can count on me for continuous
-                                support and guidance throughout your journey.
-                            </li>
-                            <li>
-                                <strong>Progress Tracking: </strong>Regular
-                                follow-ups and evaluations will ensure that we
-                                stay on track and make any necessary adjustments
-                                to achieve the best possible results.
-                            </li>
-                        </ol>
                     </p>
+                    <ol>
+                        <li>
+                            <strong>Comprehensive Assessment: </strong>I will
+                            conduct a thorough assessment of your current
+                            dietary habits, medical history, and lifestyle
+                            factors to understand your unique needs better.
+                        </li>
+                        <li>
+                            <strong>Personalized Nutrition Plan: </strong>
+                            Based on our assessment, I will design a
+                            personalized nutrition plan that aligns with your
+                            goals, preferences, and any specific dietary
+                            requirements.
+                        </li>
+                        <li>
+                            <strong>Education and Support: </strong>I will
+                            provide you with the knowledge and tools you need to
+                            make informed decisions about your nutrition. You
+                            can count on me for continuous support and guidance
+                            throughout your journey.
+                        </li>
+                        <li>
+                            <strong>Progress Tracking: </strong>Regular
+                            follow-ups and evaluations will ensure that we stay
+                            on track and make any necessary adjustments to
+                            achieve the best possible results.
+                        </li>
+                    </ol>
+
                     <h3>Let's Begin Your Journey Towards Optimal Health</h3>
                     <img
                         src={krystin_img3}
