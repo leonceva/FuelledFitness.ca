@@ -42,7 +42,11 @@ export const NavBrand = () => {
                 </div>
                 <div className="col">
                     <BrandImgDiv>
-                        <BrandImg src={brand_logo} />
+                        <div>
+                            <Link to="/home">
+                                <BrandImg src={brand_logo} alt="Brand Logo" />
+                            </Link>
+                        </div>
                     </BrandImgDiv>
                 </div>
             </div>
@@ -52,28 +56,15 @@ export const NavBrand = () => {
 
 export const BrandImgDiv = styled.div`
     display: flex;
-    position: absolute;
-    justify-content: start;
-    align-items: center;
+    position: relative;
+    margin-top: 2px;
+    margin-bottom: 2px;
 `;
 
 export const BrandImg = styled.img`
-    @media screen and (min-width: 513px) {
-        width: 250px;
-        height: 100px;
-    }
-    @media screen and (max-width: 513px) {
-        width: 200px;
-        height: 100px;
-    }
-    @media screen and (max-width: 464px) {
-        width: 150px;
-        height: 100px;
-    }
-    @media screen and (max-width: 404px) {
-        width: 100px;
-        height: 100px;
-    }
+    width: 100px;
+    height: 100px;
+
     @media screen and (max-width: 360px) {
         display: none;
     }

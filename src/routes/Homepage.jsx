@@ -275,22 +275,65 @@ export const PreviewDiv = styled.div`
         overflow: hidden;
 
         &:hover {
-            background-color: darkgreen;
             transition: 1s;
             flex: 10;
             width: calc(100% - 10px);
-            height: 100%;
         }
-        & > h3 {
-            font-weight: 800;
-        }
+    }
+
+    & > .preview-item-focus {
+        position: relative;
+        margin: 5px;
+        min-height: 10%;
+        border-radius: 10px;
+        background-color: green;
+        transition: 0.5s;
+        flex: 10;
+        padding: 5px;
+        overflow: hidden;
+    }
+
+    & h3 {
+        font-weight: 800;
     }
 `;
 
 export const Preview = () => {
+    const [previewSelected, setPreviewSelected] = useState(0);
+
+    const handleClick = () => {
+        document.addEventListener(
+            "click",
+            (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setPreviewSelected(0);
+            },
+            { once: true }
+        );
+    };
+
     return (
         <PreviewDiv>
-            <div className="preview-item">
+            <div
+                className={
+                    previewSelected === 1
+                        ? "preview-item-focus"
+                        : "preview-item"
+                }
+                onClick={() => {
+                    setPreviewSelected(1);
+                    document.addEventListener(
+                        "click",
+                        (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleClick();
+                        },
+                        { once: true }
+                    );
+                }}
+            >
                 <h3>Preview 1</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -315,7 +358,25 @@ export const Preview = () => {
                     repellendus architecto quas. Porro, quo.
                 </p>
             </div>
-            <div className="preview-item">
+            <div
+                className={
+                    previewSelected === 2
+                        ? "preview-item-focus"
+                        : "preview-item"
+                }
+                onClick={() => {
+                    setPreviewSelected(2);
+                    document.addEventListener(
+                        "click",
+                        (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleClick();
+                        },
+                        { once: true }
+                    );
+                }}
+            >
                 <h3>Preview 2</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -340,7 +401,25 @@ export const Preview = () => {
                     repellendus architecto quas. Porro, quo.
                 </p>
             </div>
-            <div className="preview-item">
+            <div
+                className={
+                    previewSelected === 3
+                        ? "preview-item-focus"
+                        : "preview-item"
+                }
+                onClick={() => {
+                    setPreviewSelected(3);
+                    document.addEventListener(
+                        "click",
+                        (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleClick();
+                        },
+                        { once: true }
+                    );
+                }}
+            >
                 <h3>Preview 3</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
