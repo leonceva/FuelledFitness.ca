@@ -130,6 +130,13 @@ export const CarouselDiv = styled.div`
         right: 0%;
         z-index: 3;
     }
+
+    p {
+        font-size: 20px;
+        padding-left: 2%;
+        padding-right: 2%;
+        text-align: center;
+    }
 `;
 
 export const Carousel = () => {
@@ -174,6 +181,10 @@ export const Carousel = () => {
     return (
         <CarouselDiv>
             <div className="img-div">
+                {/*
+                    Different Images to be added to the Carousel go here
+                    The captions go in the div below
+                 */}
                 <img
                     className={imgNumber === 1 ? "img-show" : "img-hide"}
                     src={test1}
@@ -205,14 +216,41 @@ export const Carousel = () => {
                     position: "absolute",
                     bottom: "0%",
                     width: "100%",
-                    opacity: "0.6",
-                    backgroundColor: "black",
+                    backgroundColor: "#333",
                     zIndex: "2",
                     color: "white",
                     borderRadius: "10px",
+                    display: "flex",
+                    overflow: "hidden",
+                    alignItems: "center",
+                    justifyContent: "center",
                 }}
             >
-                <h3>Picture #{imgNumber}</h3>
+                {/*
+                    The captions for the images go here. Make sure to add a conditional 
+                    show depending on the image showing based on the variable 'imgNumber'
+                */}
+                {imgNumber === 1 && (
+                    <p>
+                        Fuel Your Health & Performance: Nutrition for All -
+                        General Population and Athletes Alike, Welcome Aboard!
+                        Get Ready for a Nourishing Journey
+                    </p>
+                )}
+                {imgNumber === 2 && (
+                    <p>
+                        Let's Unlock Your Health Potential with My BScc in Food
+                        Science (Specialixation in Dietetics) and B. Kinesiology
+                    </p>
+                )}
+                {imgNumber === 3 && (
+                    <p>
+                        As a national-level athlete in wrestling and
+                        powerlifting, I bring invaluable experience to my
+                        training, ensuring your success with personalized
+                        expertise and dedication.
+                    </p>
+                )}
             </div>
             <button
                 className="left"

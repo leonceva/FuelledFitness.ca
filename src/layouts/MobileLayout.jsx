@@ -31,7 +31,7 @@ export const MobileContainer = styled.div`
     }
 
     & > .mobile-content {
-        background-color: lightblue;
+        background-image: linear-gradient(to right, white, lightgray, white);
         height: auto;
         text-align: center;
         width: 100%;

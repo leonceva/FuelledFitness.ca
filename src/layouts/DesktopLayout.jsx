@@ -5,16 +5,16 @@ import Footer from "../components/Footer";
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const DesktopLayout = (props) => {
-    const LeftSide = props.LeftSide;
+    //const LeftSide = props.LeftSide;
     const content = props.content;
-    const RightSide = props.RightSide;
+    //const RightSide = props.RightSide;
 
     return (
         <DesktopContainer>
             <div className="desktop-row">
-                <DesktopLeftSide>{LeftSide}</DesktopLeftSide>
+                <DesktopLeftSide />
                 <DesktopContent>{content}</DesktopContent>
-                <DesktopRightSide>{RightSide}</DesktopRightSide>
+                <DesktopRightSide />
             </div>
             <Footer />
         </DesktopContainer>
@@ -41,21 +41,28 @@ export const DesktopContainer = styled.div`
 `;
 
 export const DesktopLeftSide = styled.div`
-    background-color: lightgreen;
+    background-image: linear-gradient(to right, white, gray);
     height: 100%;
     width: 10%;
-    text-align: center;
+    border-style: solid;
+    border-color: #333;
+    border-width: 1px 0px;
 `;
 export const DesktopRightSide = styled.div`
-    background-color: lightgreen;
+    background-image: linear-gradient(to left, white, gray);
     height: 100%;
     width: 10%;
-    text-align: center;
+    border-style: solid;
+    border-color: #333;
+    border-width: 1px 0px;
 `;
 
 export const DesktopContent = styled.div`
-    background-color: lightcyan;
+    background-color: lightgray;
     height: 100%;
     width: 80%;
     text-align: center;
+    border-style: solid;
+    border-color: #333;
+    border-width: 1px 0px;
 `;
