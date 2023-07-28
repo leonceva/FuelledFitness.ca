@@ -134,7 +134,7 @@ export const CarouselDiv = styled.div`
     }
 
     p {
-        font-size: 20px;
+        font-size: 1.6vw;
         padding-left: 2%;
         padding-right: 2%;
         text-align: center;
