@@ -29,7 +29,7 @@ export const DesktopContent = () => {
     return (
         <DesktopDiv>
             <div className="carousel">
-                <Carousel />
+                <DesktopCarousel />
             </div>
             <div className="preview-items">
                 <Preview />
@@ -141,7 +141,7 @@ export const CarouselDiv = styled.div`
     }
 `;
 
-export const Carousel = () => {
+export const DesktopCarousel = () => {
     const [imgNumber, setImgNumber] = useState(1);
     let current_num = useRef(imgNumber);
     let timerID = useRef(null);
@@ -192,25 +192,27 @@ export const Carousel = () => {
                     src={test1}
                     alt="test1"
                 />
-                {imgNumber === 1 && (
-                    <img className="img-bg" src={test1} alt="test1"></img>
-                )}
                 <img
                     className={imgNumber === 2 ? "img-show" : "img-hide"}
                     src={test2}
                     alt="test2"
                 />
-                {imgNumber === 2 && (
-                    <img className="img-bg" src={test2} alt="test2"></img>
-                )}
                 <img
                     className={imgNumber === 3 ? "img-show" : "img-hide"}
                     src={test3}
                     alt="test3"
                 />
-                {imgNumber === 3 && (
-                    <img className="img-bg" src={test3} alt="test3"></img>
-                )}
+                <img
+                    className="img-bg"
+                    src={
+                        imgNumber === 1
+                            ? test1
+                            : imgNumber === 2
+                            ? test2
+                            : test3
+                    }
+                    alt="test1"
+                ></img>
             </div>
             <div
                 style={{
@@ -440,18 +442,15 @@ export const Preview = () => {
                 <h3>Empower Your Health - Book Your Consultation</h3>
                 <p>Online and In-Person options available!</p>
                 <p>
-                    <span>
-                        <a
-                            style={{
-                                textDecoration: "inherit",
-                                color: "inherit",
-                            }}
-                            target="_blank"
-                            rel="noreferrer"
-                            href="https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services"
-                        >
-                            Let's Get Started
-                        </a>
+                    <span
+                        onClick={() => {
+                            window.open(
+                                "https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services",
+                                "_blank"
+                            );
+                        }}
+                    >
+                        Let's Get Started
                     </span>
                 </p>
             </div>
@@ -532,43 +531,280 @@ export const Preview = () => {
 
 export const MobileContent = () => {
     return (
-        <>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            blanditiis, eius ex corporis delectus deleniti minima ipsam veniam
-            rerum ipsum temporibus distinctio repudiandae? Necessitatibus
-            inventore maxime error voluptate cum debitis! Excepturi minima
-            doloribus veniam odio repellat aspernatur tenetur doloremque quas.
-            Laborum quidem perferendis eos neque obcaecati ex, soluta quas
-            veniam suscipit sapiente unde ut dolores accusamus dolorem officia
-            dolore nobis. Nostrum quod nemo, doloribus sequi reprehenderit
-            adipisci commodi voluptas doloremque culpa possimus officiis dicta
-            accusamus nisi repudiandae, qui maiores dolorem eius earum
-            voluptatibus illo consectetur nam! Ipsum, cupiditate! Asperiores,
-            cum. Alias voluptatibus eius nemo amet velit consectetur dicta,
-            harum minima suscipit, corporis mollitia? Aperiam eveniet dolorem
-            totam ea placeat soluta. Tenetur aliquid enim ducimus mollitia animi
-            ea earum debitis ullam. Aperiam expedita maxime obcaecati eius vero
-            tempora, ipsa molestias totam distinctio magni maiores, praesentium
-            cumque! Suscipit, quasi, tempore officiis itaque commodi temporibus
-            accusamus ducimus necessitatibus placeat nam magni magnam
-            dignissimos! Neque nobis incidunt ipsam itaque eaque quis sapiente
-            reiciendis quibusdam, ad assumenda quaerat autem dolores hic atque
-            fuga quasi at repellat quas cum ratione, quod sunt! Cum est repellat
-            officia. Alias neque, delectus commodi voluptates, eveniet atque
-            magni autem dignissimos, debitis vitae soluta eius totam dolore
-            nesciunt enim sit nemo sint necessitatibus est architecto molestias
-            minus minima similique? Quaerat, quo? Deleniti cumque tenetur beatae
-            iure rerum, provident quasi laborum ratione incidunt sunt. Eveniet
-            voluptatibus quasi eligendi cumque necessitatibus, esse dolor,
-            aliquam ipsa tenetur in nemo adipisci officia molestias natus.
-            Dolorum. Ut quod rerum commodi rem, maiores explicabo nam
-            voluptatibus aliquid id fuga asperiores quaerat consectetur laborum
-            consequuntur, quae iste? Laborum esse distinctio cumque soluta
-            magnam, ab sint quidem corporis aliquid. Corrupti ratione quam,
-            incidunt suscipit possimus vitae dicta explicabo voluptatum earum
-            sint? Itaque distinctio pariatur eveniet enim consequuntur adipisci
-            quaerat animi incidunt nam. Velit architecto laboriosam ipsum nemo
-            aliquam saepe?
-        </>
+        <MobileDiv>
+            <div className="carousel-div">
+                <MobileCarousel />
+            </div>
+            <div className="previews">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa,
+                sit? Mollitia, voluptatem corporis quibusdam officiis quaerat
+                nihil eaque aut, eum ratione eveniet possimus distinctio
+                perspiciatis voluptas temporibus suscipit. Quaerat, sit. Ea
+                minima maiores, laudantium neque numquam ab qui voluptatibus
+                eveniet dolorem culpa, mollitia voluptatum sequi. Corporis
+                voluptas odio nemo. Velit facilis dolor porro nisi commodi fuga
+                natus ratione, et voluptate. Accusantium earum odio sunt alias
+                quo est, distinctio maxime assumenda, accusamus enim aspernatur
+                dolore ratione ipsum cupiditate ea obcaecati, soluta autem sint
+                fugiat laudantium provident eos molestias ab. Voluptas, eos.
+                Alias natus accusantium sint voluptatum tenetur dolore molestias
+                beatae vitae modi voluptas unde, illo odio ab perferendis
+                dolores. Fugiat ab error minus iusto impedit quam aut distinctio
+                ad recusandae corporis. Vitae rem, mollitia quidem, quod dolor,
+                officiis optio molestias hic deleniti necessitatibus eum
+                perferendis voluptatem eaque iure architecto aliquid facilis
+                nobis sunt! Perspiciatis eveniet neque nesciunt pariatur, optio
+                distinctio. Illo!
+            </div>
+        </MobileDiv>
+    );
+};
+
+export const MobileDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    border-width: 0.5vh 0 0 0;
+    border-color: #333;
+    border-style: solid;
+
+    & > .carousel-div {
+        height: 70vh;
+        display: flex;
+        flex-direction: row;
+
+        & > .carousel {
+            position: absolute;
+            left: 5vw;
+
+            width: 90vw;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            & > img {
+                position: absolute;
+                transition: all 1s;
+            }
+
+            & > .img-show {
+                top: 2vh;
+                max-width: 86vw;
+                margin-left: 2vw;
+                margin-right: 2vw;
+                max-height: 68vh;
+                opacity: 1;
+                transition: all 1s;
+                z-index: 2;
+                border-radius: 10%;
+            }
+            & > .img-hide {
+                max-width: 40vw;
+                max-height: 70vh;
+                opacity: 0;
+            }
+            & > .img-bg {
+                width: 90vw;
+                height: 70vh;
+                opacity: 0.3;
+                z-index: 1;
+            }
+        }
+        & > .left-arrow {
+            position: absolute;
+            left: 0vw;
+            width: 5vw;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            color: lightgray;
+        }
+        & > .right-arrow {
+            position: absolute;
+            right: 0vw;
+            width: 5vw;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            color: lightgray;
+        }
+        & > .caption {
+            position: absolute;
+            top: 40vh;
+            left: 7vw;
+            width: 86vw;
+            height: 28vh;
+            z-index: 3;
+            background-color: #333;
+            border: 2px solid lightgray;
+            opacity: 0.95;
+            border-radius: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    p {
+        color: lightgray;
+        font-size: 2.2vh;
+        padding-left: 2%;
+        padding-right: 2%;
+        text-align: center;
+    }
+
+    & > .previews {
+        display: flex;
+        border-width: 1vh 0 0 0;
+        border-color: #333;
+        border-style: solid;
+    }
+`;
+
+export const MobileCarousel = () => {
+    const [imgNumber, setImgNumber] = useState(1);
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+    let current_num = useRef(imgNumber);
+    let timerID = useRef(null);
+
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        if (isRightSwipe) {
+            if (imgNumber > 1) {
+                setImgNumber(imgNumber - 1);
+                current_num.current--;
+            } else {
+                setImgNumber(3);
+                current_num.current = 3;
+            }
+            clearInterval(timerID.current);
+        }
+        if (isLeftSwipe) {
+            if (imgNumber < 3) {
+                setImgNumber(imgNumber + 1);
+                current_num.current++;
+            } else {
+                setImgNumber(1);
+                current_num.current = 1;
+            }
+        }
+        clearInterval(timerID.current);
+    };
+
+    useEffect(() => {
+        timerID.current = setInterval(() => {
+            current_num.current < 3
+                ? current_num.current++
+                : (current_num.current = 1);
+            setImgNumber(current_num.current);
+        }, 5000);
+
+        return () => clearInterval(timerID.current);
+    }, [imgNumber]);
+
+    return (
+        <MobileDiv>
+            <div
+                className="carousel-div"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
+                <div className="left-arrow">
+                    <p>
+                        &lt;
+                        <br />
+                        &lt;
+                        <br />
+                        &lt;
+                    </p>
+                </div>
+                <div className="carousel">
+                    <img
+                        className={imgNumber === 1 ? "img-show" : "img-hide"}
+                        src={test1}
+                        alt="test1"
+                    />
+                    <img
+                        className={imgNumber === 2 ? "img-show" : "img-hide"}
+                        src={test2}
+                        alt="test2"
+                    />
+                    <img
+                        className={imgNumber === 3 ? "img-show" : "img-hide"}
+                        src={test3}
+                        alt="test3"
+                    />
+                    <img
+                        className="img-bg"
+                        src={
+                            imgNumber === 1
+                                ? test1
+                                : imgNumber === 2
+                                ? test2
+                                : test3
+                        }
+                        alt="test1"
+                    ></img>
+                </div>
+                <div className="right-arrow">
+                    <p>
+                        &gt;
+                        <br />
+                        &gt;
+                        <br />
+                        &gt;
+                    </p>
+                </div>
+                <div className="caption">
+                    {imgNumber === 1 && (
+                        <p>
+                            Fuel Your Health & Performance: Nutrition for All -
+                            General Population and Athletes Alike, Welcome
+                            Aboard! Get Ready for a Nourishing Journey
+                        </p>
+                    )}
+                    {imgNumber === 2 && (
+                        <p>
+                            Let's Unlock Your Health Potential with My BSc. Food
+                            Science with a Specialization in Dietetics, and B.
+                            Kinesiology
+                        </p>
+                    )}
+                    {imgNumber === 3 && (
+                        <p>
+                            As a national-level athlete in wrestling and
+                            powerlifting, I bring invaluable experience to my
+                            training, ensuring your success with personalized
+                            expertise and dedication.
+                        </p>
+                    )}
+                </div>
+            </div>
+        </MobileDiv>
     );
 };
