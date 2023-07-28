@@ -18,13 +18,15 @@ export const NavBrand = () => {
         <>
             <div className="row">
                 <div className="col">
-                    <Link to={`/home`}>
-                        <img
-                            className="navbar-brand-logo"
-                            src={logo}
-                            alt="Krystin's Logo"
-                        />
-                    </Link>
+                    <BrandImgDiv style={{ translate: "0% -50%" }}>
+                        <Link to={`/home`}>
+                            <img
+                                className="navbar-brand-logo"
+                                src={logo}
+                                alt="Krystin's Logo"
+                            />
+                        </Link>
+                    </BrandImgDiv>
                 </div>
                 {/*
                 <div className="col" style={{ marginLeft: "-10px" }}>
@@ -40,12 +42,10 @@ export const NavBrand = () => {
                 </div>
                 */}
                 <div className="col">
-                    <BrandImgDiv>
-                        <div>
-                            <Link to="/home">
-                                <BrandImg src={brand_logo} alt="Brand Logo" />
-                            </Link>
-                        </div>
+                    <BrandImgDiv style={{ translate: "100% -50%" }}>
+                        <Link to="/home">
+                            <BrandImg src={brand_logo} alt="Brand Logo" />
+                        </Link>
                     </BrandImgDiv>
                 </div>
             </div>
@@ -55,9 +55,10 @@ export const NavBrand = () => {
 
 export const BrandImgDiv = styled.div`
     display: flex;
-    position: relative;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    left: 0px;
 `;
 
 export const BrandImg = styled.img`
@@ -75,6 +76,9 @@ export const NavMenu = (props) => {
 
     return (
         <NavMenuUL>
+            <li>
+                <NavLink to="/home"> Home </NavLink>
+            </li>
             <li>
                 <NavLink to="/aboutMe"> About Me </NavLink>
             </li>
@@ -143,10 +147,10 @@ export const NavMenu = (props) => {
 export const NavMenuUL = styled.ul`
     list-style-type: none;
     display: flex;
-    flex: auto;
     justify-content: end;
-    position: relative;
-    top: 9px;
+    position: absolute;
+    right: 0%;
+
     @media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
         display: none;
     }
@@ -310,7 +314,7 @@ export const NavButtonDiv = styled.div`
         flex-direction: column;
         background-color: white;
         border-width: 2px;
-        border-color: lightgray;
+        border-color: #333;
         border-style: solid;
         border-radius: 10%;
         font-size: 20px;
@@ -321,13 +325,14 @@ export const NavButtonDiv = styled.div`
         text-align: center;
         align-self: start;
         translate: 0 50px;
-        padding: 15px 10px;
         transition: 0.3s;
 
         & > .expanded-link {
             text-align: center;
-            margin: 0 -10px;
-            padding-top: 10px;
+            display: flex;
+            border-radius: 2vw;
+            justify-content: center;
+            margin: 0.8vw;
         }
 
         & > .expanded-link:hover {
@@ -354,6 +359,9 @@ export const ModalMenu = (props) => {
             >
                 {isExpanded && (
                     <>
+                        <NavLink className="expanded-link" to="/home">
+                            Home
+                        </NavLink>
                         <NavLink className="expanded-link" to="/aboutMe">
                             About Me
                         </NavLink>

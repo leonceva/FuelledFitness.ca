@@ -32,7 +32,7 @@ export const DesktopContent = () => {
                 <DesktopCarousel />
             </div>
             <div className="preview-items">
-                <Preview />
+                <DesktopPreview />
             </div>
         </DesktopDiv>
     );
@@ -403,7 +403,7 @@ export const PreviewDiv = styled.div`
     }
 `;
 
-export const Preview = () => {
+export const DesktopPreview = () => {
     const [previewSelected, setPreviewSelected] = useState(0);
 
     const handleClick = () => {
@@ -535,27 +535,7 @@ export const MobileContent = () => {
             <div className="carousel-div">
                 <MobileCarousel />
             </div>
-            <div className="previews">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa,
-                sit? Mollitia, voluptatem corporis quibusdam officiis quaerat
-                nihil eaque aut, eum ratione eveniet possimus distinctio
-                perspiciatis voluptas temporibus suscipit. Quaerat, sit. Ea
-                minima maiores, laudantium neque numquam ab qui voluptatibus
-                eveniet dolorem culpa, mollitia voluptatum sequi. Corporis
-                voluptas odio nemo. Velit facilis dolor porro nisi commodi fuga
-                natus ratione, et voluptate. Accusantium earum odio sunt alias
-                quo est, distinctio maxime assumenda, accusamus enim aspernatur
-                dolore ratione ipsum cupiditate ea obcaecati, soluta autem sint
-                fugiat laudantium provident eos molestias ab. Voluptas, eos.
-                Alias natus accusantium sint voluptatum tenetur dolore molestias
-                beatae vitae modi voluptas unde, illo odio ab perferendis
-                dolores. Fugiat ab error minus iusto impedit quam aut distinctio
-                ad recusandae corporis. Vitae rem, mollitia quidem, quod dolor,
-                officiis optio molestias hic deleniti necessitatibus eum
-                perferendis voluptatem eaque iure architecto aliquid facilis
-                nobis sunt! Perspiciatis eveniet neque nesciunt pariatur, optio
-                distinctio. Illo!
-            </div>
+            <MobilePreview />
         </MobileDiv>
     );
 };
@@ -597,7 +577,7 @@ export const MobileDiv = styled.div`
                 opacity: 1;
                 transition: all 1s;
                 z-index: 2;
-                border-radius: 10%;
+                border-radius: 5vw;
             }
             & > .img-hide {
                 max-width: 40vw;
@@ -649,7 +629,7 @@ export const MobileDiv = styled.div`
             background-color: #333;
             border: 2px solid lightgray;
             opacity: 0.95;
-            border-radius: 10%;
+            border-radius: 5vw;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -666,9 +646,90 @@ export const MobileDiv = styled.div`
 
     & > .previews {
         display: flex;
-        border-width: 1vh 0 0 0;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        border-width: 1vh 0 0.5vh 0;
         border-color: #333;
         border-style: solid;
+        padding: 0 2vh 2vh;
+        justify-content: space-evenly;
+        flex: 1;
+        background-color: #333;
+
+        & > .preview-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            height: 10vh;
+            border-radius: 2vw;
+            overflow: hidden;
+            font-weight: 500;
+            border: 0.5vw solid #333;
+            margin-top: 2vh;
+            background-color: lightgray;
+
+            & h3 {
+                padding-top: 2vh;
+                font-size: 4.5vw;
+                font-weight: 800;
+            }
+
+            & > p {
+                content-visibility: hidden;
+            }
+            & > .links {
+                content-visibility: hidden;
+            }
+        }
+
+        & > .preview-item-focus {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            min-height: 10vh;
+            flex: 2;
+            border-radius: 2vw;
+            overflow: hidden;
+            font-weight: 500;
+            border: 0.5vw solid #333;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2vh;
+            background-color: lightgray;
+
+            h3 {
+                padding-top: 2vh;
+                font-size: 4.5vw;
+                font-weight: 800;
+            }
+
+            & > p {
+                font-size: 4vw;
+                font-weight: 500;
+                transition: 0.3s;
+                color: #333;
+                transition: all 0.5s;
+            }
+
+            & > .links {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                height: 5vh;
+                align-items: center;
+                justify-content: space-evenly;
+                margin-bottom: 2vh;
+            }
+        }
+
+        & span {
+            background-color: lightgray;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            color: #333;
+        }
     }
 `;
 
@@ -806,5 +867,85 @@ export const MobileCarousel = () => {
                 </div>
             </div>
         </MobileDiv>
+    );
+};
+
+export const MobilePreview = () => {
+    const [previewSelected, setPreviewSelected] = useState(0);
+
+    return (
+        <div className="previews">
+            <div
+                className={
+                    previewSelected === 1
+                        ? "preview-item-focus"
+                        : "preview-item"
+                }
+                onClick={() => {
+                    setPreviewSelected(1);
+                }}
+            >
+                <h3>Empower Your Health - Book Your Consultation</h3>
+                <p>Online and In-Person options available!</p>
+                <p>
+                    <span
+                        onClick={() => {
+                            window.open(
+                                "https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services",
+                                "_blank"
+                            );
+                        }}
+                    >
+                        Let's Get Started
+                    </span>
+                </p>
+            </div>
+            <div
+                className={
+                    previewSelected === 2
+                        ? "preview-item-focus"
+                        : "preview-item"
+                }
+                onClick={() => {
+                    setPreviewSelected(2);
+                }}
+            >
+                <h3>Inspiring Healthier Lives</h3>
+                <p>
+                    Get to Know Your Dedicated Dietitian and Personal Trainer!
+                </p>
+                <p>
+                    <span>
+                        <Link
+                            style={{
+                                textDecoration: "inherit",
+                                color: "inherit",
+                            }}
+                            to="/aboutMe"
+                        >
+                            Read My Story
+                        </Link>
+                    </span>
+                </p>
+            </div>
+            <div
+                className={
+                    previewSelected === 3
+                        ? "preview-item-focus"
+                        : "preview-item"
+                }
+                onClick={() => {
+                    setPreviewSelected(3);
+                }}
+            >
+                <h3>Discover the Path to Sustainable Health</h3>
+                <p>Connect with Us on Socials or Send us an Email</p>
+                <div className="links">
+                    <InstagramLink width="13vw" height="13vw" />
+                    <LinkedInLink width="13vw" height="13vw" />
+                    <EmailLink width="13vw" height="13vw" />
+                </div>
+            </div>
+        </div>
     );
 };

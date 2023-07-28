@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 const MOBILE_MODE_LIMIT = `892px`;
 
 const Footer = () => {
-    return <FooterDiv>Footer</FooterDiv>;
+    return <FooterDiv></FooterDiv>;
 };
 
 export const FooterDiv = styled.div`
@@ -16,7 +16,7 @@ export const FooterDiv = styled.div`
     width: 100%;
 
     @media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
-        height: 8vh;
+        height: 4vh;
     }
 
     @media screen and (min-width: ${MOBILE_MODE_LIMIT}) {

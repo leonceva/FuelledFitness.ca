@@ -289,7 +289,7 @@ export const MobileContent = () => {
 };
 
 export const MobileContentDiv = styled.div`
-    text-align: justify;
+    text-align: start;
     & img {
         width: 200px;
         border-radius: 5%;
