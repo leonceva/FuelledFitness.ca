@@ -556,7 +556,6 @@ export const MobileDiv = styled.div`
         & > .carousel {
             position: absolute;
             left: 5vw;
-
             width: 90vw;
             height: 70vh;
             display: flex;
@@ -638,7 +637,7 @@ export const MobileDiv = styled.div`
 
     p {
         color: lightgray;
-        font-size: 2.2vh;
+        font-size: max(2.2vh, 2vw);
         padding-left: 2%;
         padding-right: 2%;
         text-align: center;
@@ -661,7 +660,7 @@ export const MobileDiv = styled.div`
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
-            height: 10vh;
+            height: max(10vh, 10vw);
             border-radius: 2vw;
             overflow: hidden;
             font-weight: 500;
@@ -671,7 +670,7 @@ export const MobileDiv = styled.div`
 
             & h3 {
                 padding-top: 2vh;
-                font-size: 4.5vw;
+                font-size: max(2.5vh, 2.5vw);
                 font-weight: 800;
             }
 
@@ -700,12 +699,12 @@ export const MobileDiv = styled.div`
 
             h3 {
                 padding-top: 2vh;
-                font-size: 4.5vw;
+                font-size: max(2.5vh, 2.5vw);
                 font-weight: 800;
             }
 
             & > p {
-                font-size: 4vw;
+                font-size: max(2vh, 2vw);
                 font-weight: 500;
                 transition: 0.3s;
                 color: #333;
@@ -716,10 +715,10 @@ export const MobileDiv = styled.div`
                 width: 100%;
                 display: flex;
                 flex-direction: row;
-                height: 5vh;
+                height: max(5vw, 5vh);
                 align-items: center;
                 justify-content: space-evenly;
-                margin-bottom: 2vh;
+                margin-bottom: max(2vh, 2vw);
             }
         }
 
@@ -941,9 +940,18 @@ export const MobilePreview = () => {
                 <h3>Discover the Path to Sustainable Health</h3>
                 <p>Connect with Us on Socials or Send us an Email</p>
                 <div className="links">
-                    <InstagramLink width="13vw" height="13vw" />
-                    <LinkedInLink width="13vw" height="13vw" />
-                    <EmailLink width="13vw" height="13vw" />
+                    <InstagramLink
+                        width="min(13vw, 13vh)"
+                        height="min(13vw, 13vh)"
+                    />
+                    <LinkedInLink
+                        width="min(13vw, 13vh)"
+                        height="min(13vw, 13vh)"
+                    />
+                    <EmailLink
+                        width="min(13vw, 13vh)"
+                        height="min(13vw, 13vh)"
+                    />
                 </div>
             </div>
         </div>
