@@ -543,7 +543,7 @@ export const MobileContent = () => {
 export const MobileDiv = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    width: 100%;
     border-width: 0.5vh 0 0 0;
     border-color: #333;
     border-style: solid;
@@ -551,16 +551,20 @@ export const MobileDiv = styled.div`
     & > .carousel-div {
         height: 70vh;
         display: flex;
+        width: 100vw;
         flex-direction: row;
 
         & > .carousel {
-            position: absolute;
-            left: 5vw;
-            width: 90vw;
-            height: 70vh;
+            opacity: 0.7;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            animation-name: appear;
+            animation-duration: 0.5s;
+            animation-delay: 3s;
+            animation-fill-mode: forwards;
 
             & > img {
                 position: absolute;
@@ -569,10 +573,10 @@ export const MobileDiv = styled.div`
 
             & > .img-show {
                 top: 2vh;
-                max-width: 86vw;
+                max-width: 95vw;
                 margin-left: 2vw;
                 margin-right: 2vw;
-                max-height: 68vh;
+                max-height: 65vh;
                 opacity: 1;
                 transition: all 1s;
                 z-index: 2;
@@ -584,43 +588,23 @@ export const MobileDiv = styled.div`
                 opacity: 0;
             }
             & > .img-bg {
-                width: 90vw;
-                height: 70vh;
+                width: 100%;
+                height: 100%;
                 opacity: 0.3;
                 z-index: 1;
             }
         }
-        & > .left-arrow {
-            position: absolute;
-            left: 0vw;
-            width: 5vw;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #333;
-            font-size: 20px;
-            font-weight: 600;
-            color: lightgray;
-        }
-        & > .right-arrow {
-            position: absolute;
-            right: 0vw;
-            width: 5vw;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #333;
-            font-size: 20px;
-            font-weight: 600;
-            color: lightgray;
+        @keyframes appear {
+            0% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 1;
+            }
         }
         & > .caption {
             position: absolute;
-            top: 40vh;
+            top: 42vh;
             left: 7vw;
             width: 86vw;
             height: 28vh;
@@ -632,6 +616,61 @@ export const MobileDiv = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        & > .scroll-hand-container {
+            opacity: 0.9;
+            position: absolute;
+            background: radial-gradient(black 40%, transparent 70%);
+            color: aliceblue;
+            top: 15vh;
+            width: 80vw;
+            z-index: 3;
+            left: 10vw;
+            font-weight: 900;
+            display: flex;
+            flex-direction: column;
+            padding: 1vh 0;
+            animation-name: vanish;
+            animation-duration: 0.5s;
+            animation-delay: 2.5s;
+            animation-fill-mode: forwards;
+
+            & > .hand {
+                font-size: 5vh;
+                animation-name: show-swipe;
+                animation-duration: 2s;
+                animation-delay: 0.5s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes show-swipe {
+                0% {
+                    translate: 0 0;
+                }
+                33% {
+                    translate: -7vw 0;
+                    transform: rotate(-30deg);
+                }
+                66% {
+                    translate: 7vw 0;
+                    transform: rotate(30deg);
+                }
+                100% {
+                    translate: 0 0;
+                }
+            }
+            & > .hand-text {
+                font-size: 3vh;
+                translate: 0 -1.5vh;
+            }
+        }
+        @keyframes vanish {
+            0% {
+                opacity: 0.9;
+            }
+            100% {
+                opacity: 0;
+            }
         }
     }
 
@@ -794,15 +833,6 @@ export const MobileCarousel = () => {
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
             >
-                <div className="left-arrow">
-                    <p>
-                        &lt;
-                        <br />
-                        &lt;
-                        <br />
-                        &lt;
-                    </p>
-                </div>
                 <div className="carousel">
                     <img
                         className={imgNumber === 1 ? "img-show" : "img-hide"}
@@ -831,15 +861,11 @@ export const MobileCarousel = () => {
                         alt="test1"
                     ></img>
                 </div>
-                <div className="right-arrow">
-                    <p>
-                        &gt;
-                        <br />
-                        &gt;
-                        <br />
-                        &gt;
-                    </p>
+                <div className="scroll-hand-container">
+                    <i className="bi bi-hand-index-thumb-fill hand" />
+                    <span className="hand-text">Scroll to Navigate</span>
                 </div>
+
                 <div className="caption">
                     {imgNumber === 1 && (
                         <p>

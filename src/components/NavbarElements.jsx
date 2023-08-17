@@ -333,6 +333,7 @@ export const NavButtonDiv = styled.div`
             border-radius: 2vw;
             justify-content: center;
             margin: 0.8vw;
+            font-size: 2.5vh;
         }
 
         & > .expanded-link:hover {

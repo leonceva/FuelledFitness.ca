@@ -15,10 +15,12 @@ export const FooterDiv = styled.div`
     justify-content: center;
     width: 100%;
 
+    // For Mobile
     @media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
         height: 4vh;
     }
 
+    // For Desktop
     @media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
         height: 5%;
     }
