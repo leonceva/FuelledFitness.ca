@@ -40,7 +40,11 @@ export const DesktopContent = (props) => {
 
     return (
         <DesktopDiv>
-            <div className="button-container">
+            <div
+                className={`button-container ${
+                    serviceSelected === "none" ? "long" : "short"
+                }`}
+            >
                 {
                     // When neither service is selected
                     serviceSelected === "none" && (
@@ -70,31 +74,31 @@ export const DesktopContent = (props) => {
                     serviceSelected === "nutrition" && (
                         <>
                             <h3>Nutrition Services</h3>
-                            <ServiceButton
+                            <InfoButton
                                 onClick={() =>
                                     setOption("personal-counselling")
                                 }
                             >
                                 In-Person Counselling
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 onClick={() => setOption("online-counselling")}
                             >
                                 Online Counselling
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 onClick={() => setOption("team-counselling")}
                             >
                                 Team Sports
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 onClick={() =>
                                     setOption("corporate-counselling")
                                 }
                             >
                                 Corporate Packages
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 className="other-service"
                                 onClick={() => {
                                     setOption(null);
@@ -102,7 +106,7 @@ export const DesktopContent = (props) => {
                                 }}
                             >
                                 Training Services
-                            </ServiceButton>
+                            </InfoButton>
                         </>
                     )
                 }
@@ -112,27 +116,27 @@ export const DesktopContent = (props) => {
                     serviceSelected === "training" && (
                         <>
                             <h3>Training Services</h3>
-                            <ServiceButton
+                            <InfoButton
                                 onClick={() => setOption("personal-training")}
                             >
                                 Personal session
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 onClick={() => setOption("group-training")}
                             >
                                 Group Sessions
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 onClick={() => setOption("online-training")}
                             >
                                 Online Coaching
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 onClick={() => setOption("team-training")}
                             >
                                 Corporate and Teams
-                            </ServiceButton>
-                            <ServiceButton
+                            </InfoButton>
+                            <InfoButton
                                 className="other-service"
                                 onClick={() => {
                                     setOption(null);
@@ -140,7 +144,7 @@ export const DesktopContent = (props) => {
                                 }}
                             >
                                 Nutrition Services
-                            </ServiceButton>
+                            </InfoButton>
                         </>
                     )
                 }
@@ -166,7 +170,6 @@ export const DesktopDiv = styled.div`
     height: 100%;
 
     & > .button-container {
-        flex: 4;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -193,8 +196,7 @@ export const DesktopDiv = styled.div`
             background-color: aliceblue;
             box-shadow: 3px 3px 2px #333;
             margin: 2vh 0;
-            display: inline-block;
-            width: max-content;
+            width: 100%;
         }
         & > .other-service {
             background-color: rgb(241, 124, 143);
@@ -207,6 +209,12 @@ export const DesktopDiv = styled.div`
             box-shadow: 0 0;
             translate: 3px 3px;
         }
+    }
+    & > .long {
+        width: 100%;
+    }
+    & > .short {
+        width: 30%;
     }
 
     // For the info
@@ -228,7 +236,6 @@ export const DesktopDiv = styled.div`
         }
     }
     & > .show {
-        flex: 8;
         width: 100%;
         overflow-y: auto;
         border-radius: 10% 0% 0% 10%;
@@ -410,11 +417,20 @@ export const InfoText = (props) => {
     );
 };
 
+export const InfoButton = styled.div`
+    border: solid #333 2px;
+    border-radius: 10px;
+    width: 80%;
+    align-self: center;
+    font-size: 2.5vh;
+    padding: 0 1vw;
+`;
+
 export const ServiceButton = styled.div`
     border: solid #333 2px;
     border-radius: 10px;
     min-width: 30%;
-    max-width: 60%;
+    max-width: max-content;
     align-self: center;
     font-size: 2.5vh;
     padding: 0 1vw;
