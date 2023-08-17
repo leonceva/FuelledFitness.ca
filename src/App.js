@@ -35,15 +35,15 @@ function App() {
             children: [
                 { index: true, element: <Navigate to="home" replace /> },
                 {
-                    path: "home",
+                    path: "/home",
                     element: <Homepage width={dimensions.width} />,
                 },
                 {
-                    path: "aboutMe",
+                    path: "/aboutMe",
                     element: <AboutMe width={dimensions.width} />,
                 },
                 {
-                    path: "contactMe",
+                    path: "/contactMe",
                     element: <ContactMe width={dimensions.width} />,
                 },
                 {
