@@ -112,11 +112,16 @@ export const CarouselDiv = styled.div`
         align-items: end;
         align-content: end;
         background-color: lightgray;
-        transition: all 0.3s;
+        transition: all 0s;
+        box-shadow: 3px 3px 2px #333;
 
         &:hover {
             background-color: gray;
-            transition: all 0.3s;
+        }
+        &:active {
+            transition: all 0s;
+            box-shadow: 0 0;
+            translate: 3px 3px;
         }
     }
 
