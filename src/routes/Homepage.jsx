@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
 import EmailLink from "../components/EmailLink";
+import handSwipe from "../images/slide-left-right-icon.svg";
 
 const Homepage = () => {
     return (
@@ -313,7 +314,7 @@ export const PreviewDiv = styled.div`
         border-radius: 10px;
         background-color: darkgray;
         transition: 0.5s;
-        flex: 1;
+        flex: 5;
         padding: 5px;
         overflow: hidden;
         font-weight: 500;
@@ -323,7 +324,7 @@ export const PreviewDiv = styled.div`
 
         &:hover {
             transition: 1s;
-            flex: 2;
+            flex: 6;
             width: calc(100% - 10px);
             display: flex;
             flex-direction: column;
@@ -361,7 +362,7 @@ export const PreviewDiv = styled.div`
         border-radius: 10px;
         background-color: darkgray;
         transition: 0.5s;
-        flex: 2;
+        flex: 6;
         padding: 5px;
         overflow: hidden;
         font-weight: 500;
@@ -555,7 +556,7 @@ export const MobileDiv = styled.div`
         flex-direction: row;
 
         & > .carousel {
-            opacity: 0.7;
+            opacity: 0.5;
             width: 100%;
             height: 100%;
             display: flex;
@@ -563,7 +564,7 @@ export const MobileDiv = styled.div`
             align-items: center;
             animation-name: appear;
             animation-duration: 0.5s;
-            animation-delay: 3s;
+            animation-delay: 2.5s;
             animation-fill-mode: forwards;
 
             & > img {
@@ -596,7 +597,7 @@ export const MobileDiv = styled.div`
         }
         @keyframes appear {
             0% {
-                opacity: 0.7;
+                opacity: 0.5;
             }
             100% {
                 opacity: 1;
@@ -619,11 +620,12 @@ export const MobileDiv = styled.div`
         }
 
         & > .scroll-hand-container {
-            opacity: 0.9;
+            opacity: 1;
             position: absolute;
-            background: radial-gradient(black 40%, transparent 70%);
+            //background: radial-gradient(#333 40%, transparent 70%);
             color: aliceblue;
-            top: 15vh;
+            top: 10vh;
+            height: 20vh;
             width: 80vw;
             z-index: 3;
             left: 10vw;
@@ -635,9 +637,13 @@ export const MobileDiv = styled.div`
             animation-duration: 0.5s;
             animation-delay: 2.5s;
             animation-fill-mode: forwards;
+            align-items: center;
+            justify-content: center;
 
             & > .hand {
-                font-size: 5vh;
+                width: 15vw;
+                height: 15vw;
+                justify-self: center;
                 animation-name: show-swipe;
                 animation-duration: 2s;
                 animation-delay: 0.5s;
@@ -659,10 +665,6 @@ export const MobileDiv = styled.div`
                     translate: 0 0;
                 }
             }
-            & > .hand-text {
-                font-size: 3vh;
-                translate: 0 -1.5vh;
-            }
         }
         @keyframes vanish {
             0% {
@@ -670,6 +672,7 @@ export const MobileDiv = styled.div`
             }
             100% {
                 opacity: 0;
+                content-visibility: hidden;
             }
         }
     }
@@ -862,8 +865,7 @@ export const MobileCarousel = () => {
                     ></img>
                 </div>
                 <div className="scroll-hand-container">
-                    <i className="bi bi-hand-index-thumb-fill hand" />
-                    <span className="hand-text">Scroll to Navigate</span>
+                    <img className="hand" src={handSwipe} alt="hand-swipe" />
                 </div>
 
                 <div className="caption">
@@ -896,20 +898,9 @@ export const MobileCarousel = () => {
 };
 
 export const MobilePreview = () => {
-    const [previewSelected, setPreviewSelected] = useState(0);
-
     return (
         <div className="previews">
-            <div
-                className={
-                    previewSelected === 1
-                        ? "preview-item-focus"
-                        : "preview-item"
-                }
-                onClick={() => {
-                    setPreviewSelected(1);
-                }}
-            >
+            <div className="preview-item-focus">
                 <h3>Empower Your Health - Book Your Consultation</h3>
                 <p>Online and In-Person options available!</p>
                 <p>
@@ -925,16 +916,7 @@ export const MobilePreview = () => {
                     </span>
                 </p>
             </div>
-            <div
-                className={
-                    previewSelected === 2
-                        ? "preview-item-focus"
-                        : "preview-item"
-                }
-                onClick={() => {
-                    setPreviewSelected(2);
-                }}
-            >
+            <div className="preview-item-focus">
                 <h3>Inspiring Healthier Lives</h3>
                 <p>
                     Get to Know Your Dedicated Dietitian and Personal Trainer!
@@ -953,30 +935,21 @@ export const MobilePreview = () => {
                     </span>
                 </p>
             </div>
-            <div
-                className={
-                    previewSelected === 3
-                        ? "preview-item-focus"
-                        : "preview-item"
-                }
-                onClick={() => {
-                    setPreviewSelected(3);
-                }}
-            >
+            <div className="preview-item-focus">
                 <h3>Discover the Path to Sustainable Health</h3>
                 <p>Connect with Us on Socials or Send us an Email</p>
                 <div className="links">
                     <InstagramLink
-                        width="min(13vw, 13vh)"
-                        height="min(13vw, 13vh)"
+                        width="min(10vw, 13vh)"
+                        height="min(10vw, 13vh)"
                     />
                     <LinkedInLink
-                        width="min(13vw, 13vh)"
-                        height="min(13vw, 13vh)"
+                        width="min(10vw, 13vh)"
+                        height="min(10vw, 13vh)"
                     />
                     <EmailLink
-                        width="min(13vw, 13vh)"
-                        height="min(13vw, 13vh)"
+                        width="min(10vw, 13vh)"
+                        height="min(10vw, 13vh)"
                     />
                 </div>
             </div>

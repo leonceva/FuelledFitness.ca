@@ -86,6 +86,7 @@ export const DesktopContent = (props) => {
                             </span>
                             <h3>Nutrition Services</h3>
                             <InfoButton
+                                style={{ animationDelay: "0.5s" }}
                                 onClick={() =>
                                     setOption("personal-counselling")
                                 }
@@ -93,16 +94,19 @@ export const DesktopContent = (props) => {
                                 In-Person Counselling
                             </InfoButton>
                             <InfoButton
+                                style={{ animationDelay: "0.7s" }}
                                 onClick={() => setOption("online-counselling")}
                             >
                                 Online Counselling
                             </InfoButton>
                             <InfoButton
+                                style={{ animationDelay: "0.5s" }}
                                 onClick={() => setOption("team-counselling")}
                             >
                                 Team Sports
                             </InfoButton>
                             <InfoButton
+                                style={{ animationDelay: "0.7s" }}
                                 onClick={() =>
                                     setOption("corporate-counselling")
                                 }
@@ -110,6 +114,7 @@ export const DesktopContent = (props) => {
                                 Corporate Packages
                             </InfoButton>
                             <InfoButton
+                                style={{ animationDelay: "0.5s" }}
                                 className="other-service"
                                 onClick={() => {
                                     window.open(
@@ -305,12 +310,9 @@ export const InfoDesktop = (props) => {
             {option === null && (
                 <>
                     <InfoDiv>
-                        <h3>Select one of the options to get more info</h3>
-                        <div className="row">
-                            <i className="bi bi-arrow-left arrow"></i>
-                            <div className="img-container">
-                                <img src={placeholder} alt="placeholder" />
-                            </div>
+                        <h3>Select one of the options to learn more</h3>
+                        <div className="img-container">
+                            <img src={placeholder} alt="placeholder" />
                         </div>
                     </InfoDiv>
                 </>
@@ -485,58 +487,14 @@ export const InfoDiv = styled.div`
         font-weight: 700;
     }
 
-    & > .row {
-        color: #333;
+    & > .img-container {
         display: flex;
         flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-        position: relative;
-        justify-content: start;
-        animation-name: vanish;
-        animation-duration: 1s;
-        animation-delay: 3s;
-        animation-iteration-count: 1;
-        animation-fill-mode: forwards;
+        justify-content: center;
+        width: 95%;
 
-        & > .img-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            width: 95%;
-
-            & > img {
-                max-width: 20vw;
-            }
-        }
-
-        & > .arrow {
-            width: 5%;
-            font-size: 5vh;
-            align-self: center;
-            animation-name: move;
-            animation-duration: 1s;
-            animation-delay: 0.5s;
-            animation-iteration-count: infinite;
-        }
-        @keyframes move {
-            0% {
-                translate: 0 0;
-            }
-            50% {
-                translate: -1vw 0;
-            }
-            100% {
-                translate: 0 0;
-            }
-        }
-    }
-    @keyframes vanish {
-        0% {
-            color: #333;
-        }
-        100% {
-            color: transparent;
+        & > img {
+            max-width: 20vw;
         }
     }
 `;
@@ -596,11 +554,7 @@ export const MobileContent = (props) => {
                     // No service selected
                     serviceSelected === "none" && (
                         <>
-                            <div className="arrow-container">
-                                <i className="bi bi-arrow-up-short arrow"></i>
-                                <i className="bi bi-arrow-up-short arrow"></i>
-                            </div>
-                            <h3>Select one of the options to get more info</h3>
+                            <h3>Select a service type to learn more</h3>
 
                             <img src={placeholder} alt="placeholder" />
                         </>
@@ -843,6 +797,7 @@ export const MobileDiv = styled.div`
             text-align: center;
             font-size: 3vh;
             font-weight: 700;
+            padding-top: 2vh;
         }
         & > p {
             padding: 0 1.5vw;
@@ -858,50 +813,6 @@ export const MobileDiv = styled.div`
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
             background-color: aliceblue;
-        }
-
-        & > .arrow-container {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            font-size: 5vh;
-            justify-content: space-evenly;
-            animation-name: bounce;
-            animation-delay: 0s;
-            animation-duration: 1s;
-            animation-iteration-count: infinite;
-            animation-direction: normal;
-            text-align: center;
-
-            & > .arrow {
-                width: 40vw;
-                animation-name: vanish;
-                animation-delay: 2s;
-                animation-duration: 0.5s;
-                animation-fill-mode: forwards;
-                translate: 0 -0.5vh;
-            }
-
-            @keyframes vanish {
-                0% {
-                    color: #333;
-                }
-                100% {
-                    color: transparent;
-                }
-            }
-        }
-
-        @keyframes bounce {
-            0% {
-                translate: 0 0vh;
-            }
-            50% {
-                translate: 0 -1vh;
-            }
-            100% {
-                translate: 0 0vh;
-            }
         }
 
         & > img {
