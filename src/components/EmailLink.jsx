@@ -1,4 +1,3 @@
-import React from "react";
 import email_logo from "../images/email-logo.png";
 
 const EmailLink = (props) => {

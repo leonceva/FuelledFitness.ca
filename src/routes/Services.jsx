@@ -532,7 +532,7 @@ export const MobileContent = (props) => {
                     className={`button ${
                         serviceSelected === "nutrition" ? "active" : ""
                     }`}
-                    onClick={() => {
+                    onTouchStart={() => {
                         handleClick("nutrition");
                     }}
                 >
@@ -542,7 +542,7 @@ export const MobileContent = (props) => {
                     className={`button ${
                         serviceSelected === "training" ? "active" : ""
                     }`}
-                    onClick={() => {
+                    onTouchStart={() => {
                         handleClick("training");
                     }}
                 >
@@ -769,17 +769,18 @@ export const MobileDiv = styled.div`
             background-color: aliceblue;
             transition: all 0.3s;
             font-size: 4.5vw;
-            box-shadow: 2px 2px 2px #333;
+            box-shadow: 3px 3px 2px #333;
             width: 40vw;
         }
         & > .button:hover {
             cursor: pointer;
         }
         & > .active {
-            border-color: gray;
+            border-color: aliceblue;
             color: aliceblue;
             background-color: #333;
-            box-shadow: 2px 2px 2px gray;
+            box-shadow: 0px 0px 2px gray;
+            translate: 2px 2px;
         }
     }
 

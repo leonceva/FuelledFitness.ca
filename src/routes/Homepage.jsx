@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
@@ -622,7 +622,6 @@ export const MobileDiv = styled.div`
         & > .scroll-hand-container {
             opacity: 1;
             position: absolute;
-            //background: radial-gradient(#333 40%, transparent 70%);
             color: aliceblue;
             top: 10vh;
             height: 20vh;
@@ -751,6 +750,21 @@ export const MobileDiv = styled.div`
                 transition: 0.3s;
                 color: #333;
                 transition: all 0.5s;
+
+                & > .preview-button {
+                    border-color: #333;
+                    color: #333;
+                    background-color: aliceblue;
+                    box-shadow: 3px 3px 2px #333;
+                }
+
+                & > .preview-button:hover {
+                    background-color: #333;
+                    color: aliceblue;
+                    border-color: aliceblue;
+                    box-shadow: 0px 0px;
+                    translate: 2px 2px;
+                }
             }
 
             & > .links {
@@ -905,6 +919,7 @@ export const MobilePreview = () => {
                 <p>Online and In-Person options available!</p>
                 <p>
                     <span
+                        className="preview-button"
                         onClick={() => {
                             window.open(
                                 "https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services",
@@ -912,7 +927,7 @@ export const MobilePreview = () => {
                             );
                         }}
                     >
-                        Let's Get Started
+                        Book A Consult
                     </span>
                 </p>
             </div>
@@ -922,7 +937,7 @@ export const MobilePreview = () => {
                     Get to Know Your Dedicated Dietitian and Personal Trainer!
                 </p>
                 <p>
-                    <span>
+                    <span className="preview-button">
                         <Link
                             style={{
                                 textDecoration: "inherit",

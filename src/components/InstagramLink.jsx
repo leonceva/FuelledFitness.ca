@@ -1,4 +1,3 @@
-import React from "react";
 import instagram_logo from "../images/instagram-logo.png";
 
 const InstagramLink = (props) => {

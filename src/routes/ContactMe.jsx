@@ -1,15 +1,21 @@
-import React from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
+import { styled } from "styled-components";
+import placeholder from "../images/ARC00892.jpg";
+import {
+    Map,
+    MapContainerDesktop,
+    MapContainerMobile,
+} from "../components/Map";
+import InstagramLink from "../components/InstagramLink";
+import LinkedInLink from "../components/LinkedInLink";
+
+// AIzaSyAx-xY_vBSy4fv8cp8ixJz6kBUMng1q5m8
 
 const ContactMe = () => {
     return (
         <>
-            <DesktopLayout
-                LeftSide={<p>Left Side</p>}
-                RightSide={<p>Right Side</p>}
-                content={<DesktopContent />}
-            />
+            <DesktopLayout content={<DesktopContent />} />
             <MobileLayout content={<MobileContent />} />
         </>
     );
@@ -18,47 +24,229 @@ const ContactMe = () => {
 export default ContactMe;
 
 export const DesktopContent = () => {
-    return <></>;
+    return (
+        <DesktopDiv>
+            <div className="container">
+                <div className="img-container">
+                    <img src={placeholder} alt="placeholder" />
+                </div>
+
+                <div className="info">
+                    <ul className="info-list">
+                        <li>
+                            <h2>Get In Touch</h2>
+                        </li>
+                        <li>
+                            <span
+                                onClick={() => {
+                                    window.open("mailto:krystin1@ualberta.ca");
+                                }}
+                                className="email"
+                            >
+                                Email: Krystin1@ualberta.ca
+                            </span>
+                        </li>
+                        <li>
+                            In-Person Nutrition Consults and Personal Training
+                            in 613 Lift
+                        </li>
+                        <li className="socials">
+                            <InstagramLink width="3vw" />
+                            <LinkedInLink width="3vw" />
+                        </li>
+                        <li className="map">
+                            <MapContainerDesktop>
+                                <Map />
+                            </MapContainerDesktop>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </DesktopDiv>
+    );
 };
+
+export const DesktopDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+
+    & > .container {
+        width: 90%;
+        height: 80%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & > .img-container {
+            width: 30%;
+            height: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            & > img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        & > .info {
+            width: 70%;
+
+            & > .info-list {
+                list-style: none;
+                text-align: start;
+                font-size: calc(min(2vw, 2vh));
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+
+                & > li {
+                    padding: 1vh 0;
+
+                    & > .email {
+                        text-decoration: underline;
+                    }
+
+                    & > .email:hover {
+                        cursor: pointer;
+                        color: blue;
+                    }
+
+                    & > h2 {
+                        width: 100%;
+                        padding-top: 5%;
+                        font-size: 3.5vh;
+                        font-weight: 700;
+                        height: 10%;
+                    }
+                }
+
+                & > .socials {
+                    display: flex;
+                    flex-direction: row;
+                    width: 25%;
+                    justify-content: space-evenly;
+                }
+
+                & > .map {
+                    width: calc(max(40vw, 50vh));
+                    height: calc(min(40vw, 50vh));
+                    padding-top: 2vh;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+`;
 
 export const MobileContent = () => {
     return (
-        <>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. At dolore
-            ipsum obcaecati, possimus animi perspiciatis! Omnis provident
-            tempora voluptatum commodi dolorem sequi totam cumque? Expedita
-            doloribus nostrum maxime unde quam! Autem, blanditiis quaerat iure,
-            quo, hic illo possimus fuga fugiat temporibus dolores ratione quae
-            dolore tempora non. Fugit velit veniam eveniet, commodi totam quae
-            adipisci alias perferendis dolore autem quis. Alias repudiandae
-            nostrum, doloremque soluta ullam impedit vero! Eaque corrupti neque
-            necessitatibus? Nulla dolores cum illo quaerat veritatis atque sint?
-            Rem, ea ullam. Porro, amet aut modi unde optio atque! Facere,
-            mollitia. Corporis dolore iste, temporibus quam, animi reprehenderit
-            voluptatibus accusamus est, quibusdam sunt molestias porro nihil
-            laudantium dolorem? Ea pariatur quos velit nisi eaque soluta dolore
-            blanditiis cumque labore. Ipsam, necessitatibus laudantium corrupti
-            numquam enim saepe similique neque, consectetur molestias sint rem
-            itaque commodi voluptatum non, minima nam debitis at id modi aut
-            nulla? Recusandae totam delectus explicabo praesentium! Commodi
-            temporibus delectus reiciendis, error ducimus ipsam neque iste quia
-            consectetur rem quam nulla aperiam sit iusto ea, repellendus
-            molestiae. Quis ab aperiam assumenda magni fugiat vitae commodi,
-            quae aliquid. Fugiat ipsum cum corrupti beatae, dicta est. Similique
-            ducimus, esse facere quia libero maxime fugiat qui dolore fugit
-            reprehenderit asperiores aliquid expedita odit eveniet repudiandae.
-            Quas, iusto. Illum, expedita at? Eaque assumenda architecto nihil
-            iusto impedit. Repellendus, aut dolores nostrum corrupti inventore
-            quo officia dolor temporibus dolore odit, cupiditate maiores! Eum
-            perspiciatis repellat rerum doloremque molestias nisi, quibusdam
-            aperiam autem. Fugiat dolore, ratione voluptate aspernatur
-            dignissimos soluta vero optio, cumque voluptatibus iste quas. Eos
-            vero soluta accusantium beatae, quis illum exercitationem cumque,
-            reiciendis officiis quos similique neque! Suscipit, autem quod!
-            Sapiente, voluptate modi eum suscipit earum assumenda consequuntur
-            nemo praesentium libero veritatis exercitationem. Nam magnam
-            perferendis iste magni exercitationem totam aperiam voluptatibus
-            esse. Illum, dolore. Molestias eos distinctio consequuntur dolorum.
-        </>
+        <MobileDiv>
+            <h2>Get In Touch</h2>
+            <div className="info">
+                <ul className="info-list">
+                    <li>
+                        <span
+                            onClick={() => {
+                                window.open("mailto:krystin1@ualberta.ca");
+                            }}
+                            className="email"
+                        >
+                            Email: Krystin1@ualberta.ca
+                        </span>
+                    </li>
+                    <li className="socials">
+                        <InstagramLink
+                            width="min(10vw, 13vh)"
+                            height="min(10vw, 13vh)"
+                        />
+                        <LinkedInLink
+                            width="min(10vw, 13vh)"
+                            height="min(10vw, 13vh)"
+                        />
+                    </li>
+                    <li>
+                        In-Person Nutrition Consults and Personal Training at
+                        613 Lift:
+                    </li>
+                    <li className="map">
+                        <MapContainerMobile>
+                            <Map />
+                        </MapContainerMobile>
+                    </li>
+                </ul>
+            </div>
+        </MobileDiv>
     );
 };
+
+export const MobileDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    min-height: calc(100vh - 100px - 4vh);
+    align-items: center;
+
+    & > h2 {
+        text-align: center;
+        font-size: 3vh;
+        font-weight: 700;
+        padding-top: 1vh;
+    }
+
+    & > .info {
+        padding-top: 2vh;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 2vh;
+
+        & > .info-list {
+            list-style: none;
+            text-align: center;
+            font-size: calc(max(3vw, 2vh));
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding: 0;
+            align-items: center;
+
+            & > li {
+                padding: 1vh 5vw;
+            }
+
+            & > li > .email {
+                color: blue;
+                text-decoration: underline;
+            }
+
+            & > .socials {
+                display: flex;
+                flex-direction: row;
+                width: 60%;
+                justify-content: space-evenly;
+            }
+
+            & > .map {
+                margin-top: 5vh;
+                width: calc(max(80vw, 60vh));
+                max-width: 100vw;
+                height: calc(min(80vw, 60vh));
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+    }
+`;

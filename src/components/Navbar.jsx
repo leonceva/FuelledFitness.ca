@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Nav, NavBrand, NavMenu, NavButton } from "./NavbarElements";
 
 const Navbar = () => {

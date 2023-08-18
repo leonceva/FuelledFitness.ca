@@ -1,4 +1,3 @@
-import React from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";

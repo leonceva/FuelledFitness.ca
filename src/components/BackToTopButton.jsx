@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
+import { styled } from "styled-components";
 
-const BackToTop = () => {
+function BackToTop() {
     const [showButton, setShowButton] = useState(false);
 
     const scrollUp = () => {
@@ -23,47 +24,40 @@ const BackToTop = () => {
     return (
         <>
             {showButton && (
-                <button
-                    style={{
-                        position: "fixed",
-                        bottom: "2vh",
-                        right: "2vw",
-                        textAlign: "center",
-                        width: "58px",
-                        height: "58px",
-                        borderWidth: "2.5px",
-                        borderStyle: "solid",
-                        borderColor: "#333",
-                        borderRadius: "15%",
-                        alignItems: "end",
-                        alignContent: "end",
-                        backgroundColor: "lightgray",
-                    }}
-                    onClick={() => {
+                <BackToTopBtn
+                    onTouchStart={() => {
                         scrollUp();
                     }}
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        fillRule="currentColor"
-                        className="bi bi-chevron-double-up"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z"
-                        />
-                        <path
-                            fillRule="evenodd"
-                            d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
-                        />
-                    </svg>
-                </button>
+                    <i className="bi bi-chevron-double-up"></i>
+                </BackToTopBtn>
             )}
         </>
     );
-};
+}
+
+export const BackToTopBtn = styled.button`
+    position: fixed;
+    bottom: 2vh;
+    right: 2vh;
+    text-align: center;
+    width: 58px;
+    height: 58px;
+    border: solid 2.5px #333;
+    border-radius: 15%;
+    font-size: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: lightgray;
+    box-shadow: 3px 3px 2px #333;
+
+    &:active {
+        translate: 3px 3px;
+        box-shadow: 0 0;
+        background-color: gray;
+    }
+`;
 
 export default BackToTop;

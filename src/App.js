@@ -1,6 +1,5 @@
 import "./App.css";
 import React from "react";
-import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Navigate} from "react-router-dom";
 import Root from "./routes/Root";
 import ErrorPage from "./routes/Error";
@@ -10,45 +9,29 @@ import ContactMe from "./routes/ContactMe";
 import Services from "./routes/Services";
 
 function App() {
-    const [dimensions, setDimensions] = useState({
-        height: window.innerHeight,
-        width: window.innerWidth,
-    });
-
-    useEffect(() => {
-        window.addEventListener("resize", handleResize);
-        function handleResize() {
-            setDimensions({
-                height: window.innerHeight,
-                width: window.innerWidth,
-            });
-        }
-        return (_) => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <Root height={dimensions.height} />,
+            element: <Root />,
             errorElement: <ErrorPage />,
             children: [
                 { index: true, element: <Navigate to="home" replace /> },
                 {
                     path: "/home",
-                    element: <Homepage width={dimensions.width} />,
+                    element: <Homepage />,
                 },
                 {
                     path: "/aboutMe",
-                    element: <AboutMe width={dimensions.width} />,
+                    element: <AboutMe />,
                 },
                 {
                     path: "/contactMe",
-                    element: <ContactMe width={dimensions.width} />,
+                    element: <ContactMe/>,
                 },
                 {
                     path: "/services",
-                    element: <Services width={dimensions.width} />
+                    element: <Services />
                 }
             ],
         },

@@ -1,4 +1,3 @@
-import React from "react";
 import linkedin_logo from "../images/linkedin-logo.png";
 
 const LinkedInLink = (props) => {
