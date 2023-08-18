@@ -139,6 +139,7 @@ export const CarouselDiv = styled.div`
         padding-left: 2%;
         padding-right: 2%;
         text-align: center;
+        overflow: auto;
     }
 `;
 
@@ -229,6 +230,7 @@ export const DesktopCarousel = () => {
                     overflow: "hidden",
                     alignItems: "center",
                     justifyContent: "center",
+                    overflow: "auto",
                 }}
             >
                 {/*
@@ -308,142 +310,57 @@ export const PreviewDiv = styled.div`
     justify-content: space-evenly;
 
     & > .preview-item {
-        position: relative;
-        margin: 2.5px 5px;
-        min-height: 10%;
-        border-radius: 10px;
+        margin: 1vh 1vw;
+
+        border-radius: 1vw;
         background-color: darkgray;
         transition: 0.5s;
-        flex: 5;
-        padding: 5px;
-        overflow: hidden;
+        overflow: auto;
         font-weight: 500;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-
-        &:hover {
-            transition: 1s;
-            flex: 6;
-            width: calc(100% - 10px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-        }
-
-        & > p {
-            font-size: 20px;
-            font-weight: 500;
-            opacity: 0.5;
-            transition: 0.3s;
-        }
-
-        &:hover > p {
-            opacity: 1;
-            transition: all 0.3s;
-        }
-
-        & > img {
-            max-width: 100%;
-            max-height: 100%;
-            content-visibility: hidden;
-        }
-
-        &:hover > img {
-            max-width: 100%;
-            content-visibility: visible;
-        }
-    }
-
-    & > .preview-item-focus {
-        position: relative;
-        margin: 2.5px 5px;
-        min-height: 10%;
-        border-radius: 10px;
-        background-color: darkgray;
-        transition: 0.5s;
-        flex: 6;
-        padding: 5px;
-        overflow: hidden;
-        font-weight: 500;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-
-        & > p {
-            font-size: 20px;
-            font-weight: 500;
-            opacity: 1;
-            transition: 0.3s;
-        }
-
-        & > img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    }
-
-    & h3 {
-        padding-top: 2%;
-        font-weight: 800;
-        display: flex;
         justify-content: center;
-    }
 
-    & span {
-        background-color: lightgray;
-        border: 2px solid #333;
-        border-radius: 10px;
-        padding: 10px;
-        color: #333;
+        & > h3 {
+            padding-top: 2vh;
+            font-weight: 700;
+            font-size: calc(min(3vw, 3vh));
+        }
 
-        &:hover {
-            background-color: gray;
-            cursor: pointer;
+        & > p {
+            font-size: calc(min(2.5vw, 2.5vh));
+            font-weight: 500;
+
+            & .preview-btn {
+                background-color: lightgray;
+                border: 2px solid #333;
+                border-radius: 10px;
+                padding: 1vh 2vw;
+                color: #333;
+                box-shadow: 3px 3px 2px #333;
+
+                &:hover {
+                    background-color: gray;
+                    cursor: pointer;
+                }
+                &:active {
+                    translate: 3px 3px;
+                    box-shadow: 0 0 0;
+                }
+            }
         }
     }
 `;
 
 export const DesktopPreview = () => {
-    const [previewSelected, setPreviewSelected] = useState(0);
-
-    const handleClick = () => {
-        document.addEventListener(
-            "click",
-            (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setPreviewSelected(0);
-            },
-            { once: true }
-        );
-    };
-
     return (
         <PreviewDiv>
-            <div
-                className={
-                    previewSelected === 1
-                        ? "preview-item-focus"
-                        : "preview-item"
-                }
-                onClick={() => {
-                    setPreviewSelected(1);
-                    document.addEventListener(
-                        "click",
-                        (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleClick();
-                        },
-                        { once: true }
-                    );
-                }}
-            >
+            <div className={"preview-item"}>
                 <h3>Empower Your Health - Book Your Consultation</h3>
                 <p>Online and In-Person options available!</p>
-                <p>
-                    <span
+                <p style={{ display: "flex", justifyContent: "center" }}>
+                    <div
+                        className="preview-btn"
                         onClick={() => {
                             window.open(
                                 "https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services",
@@ -452,34 +369,16 @@ export const DesktopPreview = () => {
                         }}
                     >
                         Let's Get Started
-                    </span>
+                    </div>
                 </p>
             </div>
-            <div
-                className={
-                    previewSelected === 2
-                        ? "preview-item-focus"
-                        : "preview-item"
-                }
-                onClick={() => {
-                    setPreviewSelected(2);
-                    document.addEventListener(
-                        "click",
-                        (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleClick();
-                        },
-                        { once: true }
-                    );
-                }}
-            >
+            <div className={"preview-item"}>
                 <h3>Inspiring Healthier Lives</h3>
                 <p>
                     Get to Know Your Dedicated Dietitian and Personal Trainer!
                 </p>
-                <p>
-                    <span>
+                <p style={{ display: "flex", justifyContent: "center" }}>
+                    <div className="preview-btn">
                         <Link
                             style={{
                                 textDecoration: "inherit",
@@ -489,28 +388,10 @@ export const DesktopPreview = () => {
                         >
                             Read My Story
                         </Link>
-                    </span>
+                    </div>
                 </p>
             </div>
-            <div
-                className={
-                    previewSelected === 3
-                        ? "preview-item-focus"
-                        : "preview-item"
-                }
-                onClick={() => {
-                    setPreviewSelected(3);
-                    document.addEventListener(
-                        "click",
-                        (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleClick();
-                        },
-                        { once: true }
-                    );
-                }}
-            >
+            <div className={"preview-item"}>
                 <h3>Discover the Path to Sustainable Health</h3>
                 <p>Connect with Us on Socials or Send us an Email</p>
                 <div
@@ -521,9 +402,9 @@ export const DesktopPreview = () => {
                         justifyContent: "space-evenly",
                     }}
                 >
-                    <InstagramLink width="4vw" />
-                    <LinkedInLink width="4vw" />
-                    <EmailLink width="4vw" />
+                    <InstagramLink width="min(4vw, 8vh)" />
+                    <LinkedInLink width="min(4vw, 8vh)" />
+                    <EmailLink width="min(4vw, 8vh)" />
                 </div>
             </div>
         </PreviewDiv>
