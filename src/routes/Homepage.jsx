@@ -227,7 +227,6 @@ export const DesktopCarousel = () => {
                     color: "white",
                     borderRadius: "10px",
                     display: "flex",
-                    overflow: "hidden",
                     alignItems: "center",
                     justifyContent: "center",
                     overflow: "auto",
