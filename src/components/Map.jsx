@@ -12,11 +12,11 @@ export const Map = () => {
     const screenHeight = window.innerHeight;
 
     if (screenWidth < MOBILE_MODE_LIMIT) {
-        mapWidth = Math.max(0.8 * screenWidth, 0.6 * screenHeight) - 2;
+        mapWidth = Math.max(0.8 * screenWidth, 0.6 * screenHeight);
         mapHeight = Math.min(0.8 * screenWidth, 0.6 * screenHeight) - 20;
     } else {
-        mapWidth = Math.max(0.4 * screenWidth, 0.5 * screenHeight) - 2;
-        mapHeight = Math.min(0.4 * screenWidth, 0.5 * screenHeight) - 20;
+        mapWidth = Math.max(0.4 * screenWidth, 0.5 * screenHeight);
+        mapHeight = Math.min(0.4 * screenWidth, 0.5 * screenHeight) - 35;
     }
 
     return (
