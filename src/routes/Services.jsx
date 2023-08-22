@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
-import placeholder from "../images/ARC00892.jpg";
+import placeholder from "../images/DSC05295.jpg";
+import nutritionImg from "../images/ARC00892.jpg";
+import trainingImg from "../images/45803572975_9f20326737_b.jpg";
 
 const Services = () => {
     const [serviceSelected, setServiceSelected] = useState("none");
@@ -186,7 +188,11 @@ export const DesktopContent = (props) => {
                         : "hide"
                 }`}
             >
-                <InfoDesktop className="info" option={option} />
+                <InfoDesktop
+                    className="info"
+                    option={option}
+                    serviceSelected={serviceSelected}
+                />
             </div>
         </DesktopDiv>
     );
@@ -303,6 +309,7 @@ export const DesktopDiv = styled.div`
 
 export const InfoDesktop = (props) => {
     const option = props.option;
+    const service = props.serviceSelected;
 
     // Text to display based on option chose
     return (
@@ -312,7 +319,12 @@ export const InfoDesktop = (props) => {
                     <InfoDiv>
                         <h3>Select one of the options to learn more</h3>
                         <div className="img-container">
-                            <img src={placeholder} alt="placeholder" />
+                            {service === "nutrition" && (
+                                <img src={nutritionImg} alt="nutrition" />
+                            )}
+                            {service === "training" && (
+                                <img src={trainingImg} alt="training" />
+                            )}
                         </div>
                     </InfoDiv>
                 </>
@@ -485,6 +497,7 @@ export const InfoDiv = styled.div`
     & > h3 {
         font-size: 3vh;
         font-weight: 700;
+        margin-bottom: 2vh;
     }
 
     & > .img-container {
@@ -494,7 +507,8 @@ export const InfoDiv = styled.div`
         width: 95%;
 
         & > img {
-            max-width: 20vw;
+            max-width: 40vw;
+            max-height: 45vh;
         }
     }
 `;
@@ -658,7 +672,7 @@ export const MobileContent = (props) => {
                             >
                                 Book Appointment
                             </div>
-                            <img src={placeholder} alt="placeholder" />
+                            <img src={nutritionImg} alt="nutrition" />
                         </>
                     )
                 }
@@ -739,7 +753,7 @@ export const MobileContent = (props) => {
                             >
                                 Book Appointment
                             </div>
-                            <img src={placeholder} alt="placeholder" />
+                            <img src={trainingImg} alt="training" />
                         </>
                     )
                 }

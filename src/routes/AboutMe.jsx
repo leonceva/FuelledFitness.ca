@@ -1,9 +1,9 @@
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
-import krystin_img1 from "../images/ARC00892.jpg";
-import krystin_img2 from "../images/DSC05302.jpg";
-import krystin_img3 from "../images/39753925763_e25c9d8c3b_b.jpg";
+import krystin_img1 from "../images/ARC00915-2.jpg";
+import krystin_img2 from "../images/DSC05177.jpg";
+import krystin_img3 from "../images/PXL_20220517_021932907.jpg";
 
 const AboutMe = () => {
     return (
@@ -143,9 +143,10 @@ export const DesktopContentDiv = styled.div`
     height: calc(100%);
     overflow-y: scroll;
     text-align: justify;
+
     & img {
-        max-width: 25%;
-        max-height: 25%;
+        max-height: 45vh;
+        max-width: 25vw;
         border-radius: 5%;
     }
     & .left {
@@ -197,12 +198,12 @@ export const MobileContent = () => {
                         can unlock a world of possibilities, allowing us to
                         achieve our goals and embrace a vibrant lifestyle.
                     </p>
-                    <h3>My Approach</h3>
                     <img
                         src={krystin_img2}
                         alt="Krystin Pose"
                         className="right"
                     />
+                    <h3>My Approach</h3>
                     <p>
                         I understand that embarking on a journey towards better
                         health can be overwhelming. That's why I strive to
@@ -290,15 +291,20 @@ export const MobileContent = () => {
 export const MobileContentDiv = styled.div`
     text-align: start;
     & img {
-        width: 200px;
+        max-width: 100%;
+        max-height: 35vh;
         border-radius: 5%;
+        margin: 1vh 0;
     }
     & .left {
-        margin-right: 10px;
+        margin-right: 2vw;
         float: left;
     }
     & .right {
-        margin-left: 10px;
+        margin-left: 2vw;
         float: right;
+    }
+    h3 {
+        margin-top: 2vh;
     }
 `;

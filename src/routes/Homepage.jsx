@@ -77,6 +77,7 @@ export const CarouselDiv = styled.div`
             opacity: 0.3;
             left: 0%;
             border-radius: 10px;
+            border: 2px solid black;
         }
 
         & > .img-show {
@@ -87,6 +88,7 @@ export const CarouselDiv = styled.div`
             max-height: 70%;
             z-index: 2;
             opacity: 1;
+            padding: 0.1vh 0.1vw;
         }
 
         & > .img-hide {
@@ -324,6 +326,7 @@ export const PreviewDiv = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
+        flex: 1;
 
         & > h3 {
             padding-top: 2vh;
