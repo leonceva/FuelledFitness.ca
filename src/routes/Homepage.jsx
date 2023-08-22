@@ -336,7 +336,7 @@ export const PreviewDiv = styled.div`
             font-weight: 500;
 
             & .preview-btn {
-                background-color: lightgray;
+                background-color: #d0dce7;
                 border: 2px solid #333;
                 border-radius: 10px;
                 padding: 1vh 2vw;
@@ -344,7 +344,7 @@ export const PreviewDiv = styled.div`
                 box-shadow: 3px 3px 2px #333;
 
                 &:hover {
-                    background-color: gray;
+                    background-color: #6e88a1;
                     cursor: pointer;
                 }
                 &:active {

@@ -46,13 +46,13 @@ export const DesktopContent = () => {
                                 Email: Krystin1@ualberta.ca
                             </span>
                         </li>
-                        <li>
-                            In-Person Nutrition Consults and Personal Training
-                            in 613 Lift
-                        </li>
                         <li className="socials">
                             <InstagramLink width="3vw" />
                             <LinkedInLink width="3vw" />
+                        </li>
+                        <li style={{ padding: "0vh 2vw" }}>
+                            In-Person Nutrition Consults and Personal Training
+                            offered at 613 Lift:
                         </li>
                         <li className="map">
                             <MapContainerDesktop>
@@ -74,11 +74,12 @@ export const DesktopDiv = styled.div`
     justify-content: center;
 
     & > .container {
-        width: 90%;
+        width: 100%;
         height: 80%;
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-evenly;
 
         & > .img-container {
             width: 30%;
@@ -86,6 +87,7 @@ export const DesktopDiv = styled.div`
             display: flex;
             justify-content: start;
             align-items: center;
+            padding-right: 1%;
 
             & > img {
                 max-width: 100%;
@@ -94,6 +96,7 @@ export const DesktopDiv = styled.div`
         }
 
         & > .info {
+            padding-left: 1%;
             width: 70%;
 
             & > .info-list {
@@ -109,6 +112,7 @@ export const DesktopDiv = styled.div`
 
                 & > li {
                     padding: 1vh 0;
+                    text-align: center;
 
                     & > .email {
                         text-decoration: underline;
@@ -175,8 +179,8 @@ export const MobileContent = () => {
                         />
                     </li>
                     <li>
-                        In-Person Nutrition Consults and Personal Training at
-                        613 Lift:
+                        In-Person Nutrition Consults and Personal Training
+                        offered at 613 Lift:
                     </li>
                     <li className="map">
                         <MapContainerMobile>

@@ -7,7 +7,7 @@ const Footer = () => {
 };
 
 export const FooterDiv = styled.div`
-    background-image: linear-gradient(to right, white, rgb(241, 124, 143));
+    background-image: linear-gradient(to right, #d0dce7, #6e88a1);
     display: flex;
     justify-content: start;
     align-items: center;

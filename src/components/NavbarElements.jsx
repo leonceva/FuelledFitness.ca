@@ -6,7 +6,7 @@ import brand_logo from "../images/5.svg";
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
-    background-image: linear-gradient(to right, white, rgb(241, 124, 143));
+    background-image: linear-gradient(to right, #d0dce7, #6e88a1);
     display: flex;
     align-items: center;
     height: 100%;
@@ -76,39 +76,27 @@ export const NavMenu = (props) => {
     return (
         <NavMenuUL>
             <li>
-                <NavLink to="/home"> Home </NavLink>
+                <NavLink className="link" to="/home">
+                    Home
+                </NavLink>
             </li>
             <li>
-                <NavLink to="/aboutMe"> About Me </NavLink>
+                <NavLink className="link" to="/aboutMe">
+                    About Me
+                </NavLink>
             </li>
             <li className="dropdown">
                 <button
                     onMouseOver={() => setDropdownHover(true)}
                     onMouseLeave={() => setDropdownHover(false)}
                 >
-                    <NavLink to="/services">Services </NavLink>
+                    <NavLink className="link" to="/services">
+                        Services{" "}
+                    </NavLink>
                     {dropdownHover ? (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-caret-down"
-                            viewBox="0 0 16 16"
-                        >
-                            <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
-                        </svg>
+                        <i class="bi bi-caret-down"></i>
                     ) : (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-caret-down-fill"
-                            viewBox="0 0 16 16"
-                        >
-                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                        </svg>
+                        <i class="bi bi-caret-down-fill"></i>
                     )}
                 </button>
                 <div
@@ -137,7 +125,9 @@ export const NavMenu = (props) => {
                 </div>
             </li>
             <li>
-                <NavLink to="contactMe"> Contact Me </NavLink>
+                <NavLink className="link" to="contactMe">
+                    Contact Me
+                </NavLink>
             </li>
         </NavMenuUL>
     );
@@ -146,6 +136,7 @@ export const NavMenu = (props) => {
 export const NavMenuUL = styled.ul`
     list-style-type: none;
     display: flex;
+    flex-direction: row;
     justify-content: end;
     position: absolute;
     right: 0%;
@@ -154,42 +145,48 @@ export const NavMenuUL = styled.ul`
         display: none;
     }
 
-    & li {
-        min-width: 150px;
+    .link {
+        text-align: center;
+        font-size: calc(min(2vw, 2.5vh));
+        font-weight: 600;
+    }
+
+    & > li {
+        min-width: 10vw;
         position: relative;
         text-align: center;
+        margin: 0 2vw;
 
         & > button {
             display: inline-block;
-            color: black;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 20px;
-            width: 150px;
+            width: 100%;
             background-color: transparent;
             border: none;
         }
     }
 
     & > .dropdown {
-        display: inline-block;
+        list-style: none;
 
         & > .dropdown-content {
             display: none;
-            padding: 12px 10px;
+            padding: calc(min(1vw, 1vh));
             background-color: white;
             border-color: lightgray;
             border-style: solid;
             border-width: 2px;
-            width: 150px;
-            box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 16px 0px #333;
             z-index: 3;
-            position: fixed;
+            position: absolute;
             transition: 0.3s all;
+            width: 100%;
 
             & > .dropdown-link {
                 text-align: center;
                 margin: 0 -10px;
+                width: 100%;
+                font-size: calc(min(1.5vw, 2vh));
             }
             & > .dropdown-link:hover {
                 background-color: lightgray;
@@ -200,6 +197,7 @@ export const NavMenuUL = styled.ul`
         &:hover .dropdown-content {
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
 
         & > .dropdown-hidden {
@@ -219,7 +217,7 @@ export const NavLink = styled(Link)`
     &:hover {
         color: inherit;
         transition: 0.3s;
-        box-shadow: 0 0px 0 0 black, 0 2px 0 0 black;
+        box-shadow: 0 0px 0 0 #333, 0 2px 0 0 #333;
     }
 `;
 

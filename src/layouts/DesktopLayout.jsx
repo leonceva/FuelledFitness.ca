@@ -40,7 +40,7 @@ export const DesktopContainer = styled.div`
 `;
 
 export const DesktopLeftSide = styled.div`
-    background-image: linear-gradient(to right, white, gray);
+    background-image: linear-gradient(to right, gray, #f0e9df);
     height: 100%;
     width: 10%;
     border-style: solid;
@@ -48,7 +48,7 @@ export const DesktopLeftSide = styled.div`
     border-width: 1px 0px;
 `;
 export const DesktopRightSide = styled.div`
-    background-image: linear-gradient(to left, white, gray);
+    background-image: linear-gradient(to left, gray, #f0e9df);
     height: 100%;
     width: 10%;
     border-style: solid;
@@ -57,7 +57,7 @@ export const DesktopRightSide = styled.div`
 `;
 
 export const DesktopContent = styled.div`
-    background-color: lightgray;
+    background-color: #f0e9df;
     height: 100%;
     width: 80%;
     text-align: center;
