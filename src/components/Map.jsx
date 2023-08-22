@@ -15,8 +15,8 @@ export const Map = () => {
         mapWidth = Math.max(0.8 * screenWidth, 0.6 * screenHeight);
         mapHeight = Math.min(0.8 * screenWidth, 0.6 * screenHeight) - 20;
     } else {
-        mapWidth = Math.max(0.4 * screenWidth, 0.5 * screenHeight);
-        mapHeight = Math.min(0.4 * screenWidth, 0.5 * screenHeight) - 35;
+        mapWidth = 0.25 * screenWidth;
+        mapHeight = 0.25 * screenWidth - 35;
     }
 
     return (
@@ -45,12 +45,11 @@ export const MapContainerDesktop = styled.div`
 `;
 
 export const MapContainerMobile = styled.div`
-    width: 80%;
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     overflow: hidden;
     border: 0.5vw solid #333;
     border-radius: 1vw;

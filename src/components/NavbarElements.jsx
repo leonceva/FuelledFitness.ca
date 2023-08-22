@@ -94,9 +94,9 @@ export const NavMenu = (props) => {
                         Services{" "}
                     </NavLink>
                     {dropdownHover ? (
-                        <i class="bi bi-caret-down"></i>
+                        <i className="bi bi-caret-down"></i>
                     ) : (
-                        <i class="bi bi-caret-down-fill"></i>
+                        <i className="bi bi-caret-down-fill"></i>
                     )}
                 </button>
                 <div

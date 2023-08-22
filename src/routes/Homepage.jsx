@@ -103,7 +103,7 @@ export const CarouselDiv = styled.div`
     }
 
     & > button {
-        font-size: 40px;
+        font-size: 25px;
         width: 40px;
         height: 40px;
         border-width: 2.5px;
@@ -111,12 +111,9 @@ export const CarouselDiv = styled.div`
         border-color: #333;
         color: #333;
         border-radius: 15%;
-        align-items: end;
-        align-content: end;
         background-color: lightgray;
         transition: all 0s;
         box-shadow: 3px 3px 2px #333;
-
         &:hover {
             background-color: gray;
         }
@@ -281,7 +278,7 @@ export const DesktopCarousel = () => {
                             transform: "translate(-55%, -55%)",
                         }}
                     >
-                        {"<"}
+                        <i class="bi bi-chevron-double-left"></i>
                     </div>
                 </div>
             </button>
@@ -300,7 +297,7 @@ export const DesktopCarousel = () => {
                             transform: "translate(-45%, -55%)",
                         }}
                     >
-                        {">"}
+                        <i class="bi bi-chevron-double-right"></i>
                     </div>
                 </div>
             </button>
