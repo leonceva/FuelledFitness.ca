@@ -140,7 +140,7 @@ export const DesktopDiv = styled.div`
                 }
 
                 & > .map {
-                    width: calc(max(40vw, 50vh));
+                    width: calc(min(40vw, 50vh));
                     height: calc(min(40vw, 50vh));
                     padding-top: 2vh;
                     display: flex;

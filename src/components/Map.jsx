@@ -45,12 +45,11 @@ export const MapContainerDesktop = styled.div`
 `;
 
 export const MapContainerMobile = styled.div`
-    width: 80%;
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     overflow: hidden;
     border: 0.5vw solid #333;
     border-radius: 1vw;
