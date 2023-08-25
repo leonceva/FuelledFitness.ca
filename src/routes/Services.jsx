@@ -640,26 +640,20 @@ export const MobileContent = (props) => {
                                 athletes to excel by combining expert guidance,
                                 teamwork, and tailored strategies.
                             </p>
-                            <h3>Team Sports and Athletics</h3>
+                            <h3>Corporate Packages</h3>
                             <p>
-                                Team sports counseling involves tailored
-                                guidance for athletic groups. Through focused
-                                sessions, the team's unique goals and challenges
-                                are assessed. Customized strategies are
-                                developed to optimize performance, considering
-                                factors like nutrition, recovery, and energy
-                                management. Education on proper fueling and
-                                hydration is provided, enhancing collective
-                                understanding. Collaborative planning addresses
-                                specific needs, ensuring peak performance.
-                                Behavioral tactics and progress monitoring aid
-                                in maintaining consistency. The counseling
-                                process fosters team cohesion and communication.
-                                By addressing individual roles within the team
-                                dynamic, this approach maximizes overall
-                                performance. Team sports counseling empowers
-                                athletes to excel by combining expert guidance,
-                                teamwork, and tailored strategies.
+                                Corporate wellness packages by the registered
+                                dietitian offer comprehensive health solutions
+                                for companies. These packages include
+                                personalized nutritional counseling, virtual
+                                workshops on balanced eating, and stress
+                                management techniques. The programs encompass
+                                individual assessments, custom meal plans, and
+                                ongoing support to improve employees'
+                                well-being. With a focus on nutrition education,
+                                these packages promote healthier lifestyles,
+                                increase productivity, and foster a positive
+                                work environment.
                             </p>
                             <div
                                 className="appointment"
