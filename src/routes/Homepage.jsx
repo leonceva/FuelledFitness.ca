@@ -14,11 +14,7 @@ import handSwipe from "../images/slide-left-right-icon.svg";
 const Homepage = () => {
     return (
         <>
-            <DesktopLayout
-                LeftSide={<p>Left Side</p>}
-                RightSide={<p>Right Side</p>}
-                content={<DesktopContent />}
-            />
+            <DesktopLayout content={<DesktopContent />} />
             <MobileLayout content={<MobileContent />} />
         </>
     );

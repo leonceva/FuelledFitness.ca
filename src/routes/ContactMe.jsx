@@ -8,6 +8,7 @@ import {
 } from "../components/Map";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
+import Form from "../components/Form";
 
 // AIzaSyAx-xY_vBSy4fv8cp8ixJz6kBUMng1q5m8
 
@@ -26,58 +27,11 @@ export const DesktopContent = () => {
     return (
         <DesktopDiv>
             <div className="container">
-                <form
-                    action=""
-                    method="post"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        console.log("submit");
-                    }}
-                >
-                    <h2>Send Me A Message</h2>
-                    <input
-                        name="name"
-                        type="text"
-                        className="input-text"
-                        placeholder="Name"
-                        autoComplete="name"
-                        required
-                    />
-                    <input
-                        name="email"
-                        type="text"
-                        className="input-text"
-                        placeholder="Email"
-                        autoComplete="email"
-                        required
-                    />
-                    <textarea
-                        name="message"
-                        type="text"
-                        placeholder="Message"
-                        rows="5"
-                        required
-                    />
-                    <input
-                        className="submit-btn"
-                        type="submit"
-                        value="Send Message"
-                    />
-                </form>
+                <Form />
                 <div className="info">
                     <ul className="info-list">
                         <li>
                             <h2>Get In Touch</h2>
-                        </li>
-                        <li>
-                            <span
-                                onClick={() => {
-                                    window.open("mailto:krystin1@ualberta.ca");
-                                }}
-                                className="email"
-                            >
-                                Email: Krystin1@ualberta.ca
-                            </span>
                         </li>
                         <li className="socials">
                             <InstagramLink width="3vw" />
@@ -160,6 +114,7 @@ export const DesktopDiv = styled.div`
                 margin: 0.5vh 0;
                 padding: 1vh 1vw;
                 overflow-y: auto;
+                min-height: 10vh;
             }
         }
 
@@ -224,16 +179,6 @@ export const MobileContent = () => {
             <h2>Get In Touch</h2>
             <div className="info">
                 <ul className="info-list">
-                    <li>
-                        <span
-                            onClick={() => {
-                                window.open("mailto:krystin1@ualberta.ca");
-                            }}
-                            className="email"
-                        >
-                            Email: Krystin1@ualberta.ca
-                        </span>
-                    </li>
                     <li className="socials">
                         <InstagramLink
                             width="min(10vw, 13vh)"
@@ -245,44 +190,7 @@ export const MobileContent = () => {
                         />
                     </li>
                     <li>
-                        <form
-                            action=""
-                            method="post"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                console.log("submit");
-                            }}
-                        >
-                            <h2>Send Me A Message</h2>
-                            <input
-                                name="name"
-                                type="text"
-                                className="input-text"
-                                placeholder="Name"
-                                autoComplete="name"
-                                required
-                            />
-                            <input
-                                name="email"
-                                type="text"
-                                className="input-text"
-                                placeholder="Email"
-                                autoComplete="email"
-                                required
-                            />
-                            <textarea
-                                name="message"
-                                type="text"
-                                placeholder="Message"
-                                rows="5"
-                                required
-                            />
-                            <input
-                                className="submit-btn"
-                                type="submit"
-                                value="Send Message"
-                            />
-                        </form>
+                        <Form />
                     </li>
                     <li>
                         In-Person Nutrition Consults and Personal Training
