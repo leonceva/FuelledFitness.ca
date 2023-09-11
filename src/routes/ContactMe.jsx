@@ -1,7 +1,6 @@
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
-import placeholder from "../images/ARC00892.jpg";
 import {
     Map,
     MapContainerDesktop,
@@ -9,6 +8,7 @@ import {
 } from "../components/Map";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
+import Form from "../components/Form";
 
 // AIzaSyAx-xY_vBSy4fv8cp8ixJz6kBUMng1q5m8
 
@@ -27,24 +27,11 @@ export const DesktopContent = () => {
     return (
         <DesktopDiv>
             <div className="container">
-                <div className="img-container">
-                    <img src={placeholder} alt="placeholder" />
-                </div>
-
+                <Form />
                 <div className="info">
                     <ul className="info-list">
                         <li>
                             <h2>Get In Touch</h2>
-                        </li>
-                        <li>
-                            <span
-                                onClick={() => {
-                                    window.open("mailto:krystin1@ualberta.ca");
-                                }}
-                                className="email"
-                            >
-                                Email: Krystin1@ualberta.ca
-                            </span>
                         </li>
                         <li className="socials">
                             <InstagramLink width="3vw" />
@@ -75,29 +62,65 @@ export const DesktopDiv = styled.div`
 
     & > .container {
         width: 100%;
-        height: 80%;
+        height: 100%;
         display: flex;
         flex-direction: row;
+        justify-content: space-around;
         align-items: center;
-        justify-content: space-evenly;
 
-        & > .img-container {
-            width: 30%;
-            height: 100%;
+        & > form {
+            width: 50%;
             display: flex;
-            justify-content: start;
+            flex-direction: column;
             align-items: center;
-            padding-right: 1%;
+            max-height: 90%;
 
-            & > img {
-                max-width: 100%;
-                max-height: 100%;
+            > h2 {
+                width: 100%;
+                padding-top: 5%;
+                font-size: 3.5vh;
+                font-weight: 700;
+                height: 10%;
+            }
+
+            > .input-text {
+                margin: 0.5vh 0;
+                width: 80%;
+                padding: 1vh 1vw;
+            }
+
+            > .submit-btn {
+                margin: 0.5vh 0;
+                width: 80%;
+                background-color: #d0dce7;
+                border: 2px solid #333;
+                border-radius: 10px;
+                padding: 1vh 2vw;
+                color: #333;
+                box-shadow: 3px 3px 2px #333;
+
+                &:hover {
+                    background-color: #6e88a1;
+                    cursor: pointer;
+                }
+                &:active {
+                    translate: 3px 3px;
+                    box-shadow: 0 0 0;
+                }
+            }
+
+            > textarea {
+                width: 80%;
+                margin: 0.5vh 0;
+                padding: 1vh 1vw;
+                overflow-y: auto;
+                min-height: 10vh;
             }
         }
 
         & > .info {
-            padding-left: 1%;
-            width: 70%;
+            width: 50%;
+            height: 90%;
 
             & > .info-list {
                 list-style: none;
@@ -135,13 +158,11 @@ export const DesktopDiv = styled.div`
                 & > .socials {
                     display: flex;
                     flex-direction: row;
-                    width: 25%;
+                    width: 50%;
                     justify-content: space-evenly;
                 }
 
                 & > .map {
-                    width: calc(min(40vw, 50vh));
-                    height: calc(min(40vw, 50vh));
                     padding-top: 2vh;
                     display: flex;
                     flex-direction: row;
@@ -158,16 +179,6 @@ export const MobileContent = () => {
             <h2>Get In Touch</h2>
             <div className="info">
                 <ul className="info-list">
-                    <li>
-                        <span
-                            onClick={() => {
-                                window.open("mailto:krystin1@ualberta.ca");
-                            }}
-                            className="email"
-                        >
-                            Email: Krystin1@ualberta.ca
-                        </span>
-                    </li>
                     <li className="socials">
                         <InstagramLink
                             width="min(10vw, 13vh)"
@@ -177,6 +188,9 @@ export const MobileContent = () => {
                             width="min(10vw, 13vh)"
                             height="min(10vw, 13vh)"
                         />
+                    </li>
+                    <li>
+                        <Form />
                     </li>
                     <li>
                         In-Person Nutrition Consults and Personal Training
@@ -225,9 +239,56 @@ export const MobileDiv = styled.div`
             justify-content: space-evenly;
             padding: 0;
             align-items: center;
+            width: 100%;
 
             & > li {
                 padding: 1vh 5vw;
+                width: 100%;
+
+                & > form {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    > h2 {
+                        text-align: center;
+                        font-size: 3vh;
+                        font-weight: 700;
+                        padding-top: 1vh;
+                    }
+
+                    > .input-text {
+                        margin: 0.5vh 0;
+                        width: 80%;
+                        padding: 1vh 1vw;
+                    }
+
+                    > textarea {
+                        width: 80%;
+                        margin: 0.5vh 0;
+                        padding: 1vh 1vw;
+                        flex: 1;
+                        height: 300vh;
+                    }
+
+                    > .submit-btn {
+                        margin: 0.5vh 0;
+                        width: 80%;
+                        background-color: #d0dce7;
+                        border: 2px solid #333;
+                        border-radius: 10px;
+                        padding: 1vh 2vw;
+                        color: #333;
+                        box-shadow: 3px 3px 2px #333;
+
+                        &:active {
+                            background-color: #6e88a1;
+                            translate: 3px 3px;
+                            box-shadow: 0 0 0;
+                        }
+                    }
+                }
             }
 
             & > li > .email {
@@ -243,7 +304,6 @@ export const MobileDiv = styled.div`
             }
 
             & > .map {
-                margin-top: 5vh;
                 width: calc(max(80vw, 60vh));
                 max-width: 100vw;
                 height: calc(min(80vw, 60vh));

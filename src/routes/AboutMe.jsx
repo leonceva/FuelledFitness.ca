@@ -8,11 +8,7 @@ import krystin_img3 from "../images/PXL_20220517_021932907.jpg";
 const AboutMe = () => {
     return (
         <>
-            <DesktopLayout
-                LeftSide={<p>Left Side</p>}
-                RightSide={<p>Right Side</p>}
-                content={<DesktopContent />}
-            />
+            <DesktopLayout content={<DesktopContent />} />
             <MobileLayout content={<MobileContent />} />
         </>
     );

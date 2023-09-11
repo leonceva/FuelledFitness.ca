@@ -28,6 +28,9 @@ function BackToTop() {
                     onTouchStart={() => {
                         scrollUp();
                     }}
+                    onClick={() => {
+                        scrollUp();
+                    }}
                 >
                     <i className="bi bi-chevron-double-up"></i>
                 </BackToTopBtn>
