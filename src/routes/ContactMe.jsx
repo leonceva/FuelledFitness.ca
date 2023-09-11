@@ -10,8 +10,6 @@ import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
 import Form from "../components/Form";
 
-// AIzaSyAx-xY_vBSy4fv8cp8ixJz6kBUMng1q5m8
-
 const ContactMe = () => {
     return (
         <>
