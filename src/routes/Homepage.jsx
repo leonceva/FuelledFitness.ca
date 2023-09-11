@@ -135,7 +135,7 @@ export const CarouselDiv = styled.div`
     }
 
     p {
-        font-size: 1.6vw;
+        font-size: calc(min(1.6vw, 2.5vh));
         padding-left: 2%;
         padding-right: 2%;
         text-align: center;
