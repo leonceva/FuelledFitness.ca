@@ -10,6 +10,7 @@ export const Map = () => {
     const [apiKey, setApiKey] = useState(null);
 
     useEffect(() => {
+        console.log(`mapsKey: ${mapsKey}`);
         const fetchKey = async () => {
             await axios
                 .post("https://api.fuelledfitness.ca:8443/googleMapsApiKey")
