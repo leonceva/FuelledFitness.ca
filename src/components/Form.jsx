@@ -68,7 +68,7 @@ export const Form = () => {
                     );
                     console.log(`Message: ${formData.message}`);
                     await axios
-                        .post("http://3.12.168.70:8000/sendMessage", {
+                        .post("http://api.fuelledfitness.ca:8080/sendMessage", {
                             name: formData.name,
                             email: formData.email,
                             message: formData.message,

@@ -274,7 +274,7 @@ export const DesktopCarousel = () => {
                             transform: "translate(-55%, -55%)",
                         }}
                     >
-                        <i class="bi bi-chevron-double-left"></i>
+                        <i className="bi bi-chevron-double-left"></i>
                     </div>
                 </div>
             </button>
@@ -293,7 +293,7 @@ export const DesktopCarousel = () => {
                             transform: "translate(-45%, -55%)",
                         }}
                     >
-                        <i class="bi bi-chevron-double-right"></i>
+                        <i className="bi bi-chevron-double-right"></i>
                     </div>
                 </div>
             </button>
@@ -327,7 +327,7 @@ export const PreviewDiv = styled.div`
             font-size: calc(min(3vw, 3vh));
         }
 
-        & > p {
+        & > div {
             font-size: calc(min(2.5vw, 2.5vh));
             font-weight: 500;
 
@@ -355,10 +355,10 @@ export const PreviewDiv = styled.div`
 export const DesktopPreview = () => {
     return (
         <PreviewDiv>
-            <div className={"preview-item"}>
+            <div className="preview-item">
                 <h3>Empower Your Health - Book Your Consultation</h3>
-                <p>Online and In-Person options available!</p>
-                <p style={{ display: "flex", justifyContent: "center" }}>
+                <div>Online and In-Person options available!</div>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                     <div
                         className="preview-btn"
                         onClick={() => {
@@ -370,14 +370,14 @@ export const DesktopPreview = () => {
                     >
                         Let's Get Started
                     </div>
-                </p>
+                </div>
             </div>
-            <div className={"preview-item"}>
+            <div className="preview-item">
                 <h3>Inspiring Healthier Lives</h3>
-                <p>
+                <div>
                     Get to Know Your Dedicated Dietitian and Personal Trainer!
-                </p>
-                <p style={{ display: "flex", justifyContent: "center" }}>
+                </div>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="preview-btn">
                         <Link
                             style={{
@@ -389,11 +389,11 @@ export const DesktopPreview = () => {
                             Read My Story
                         </Link>
                     </div>
-                </p>
+                </div>
             </div>
-            <div className={"preview-item"}>
+            <div className="preview-item">
                 <h3>Discover the Path to Sustainable Health</h3>
-                <p>Connect with Us on Socials or Send us an Email</p>
+                <div>Connect with Us on Socials or Send us an Email</div>
                 <div
                     style={{
                         display: "flex",
@@ -836,17 +836,14 @@ export const MobilePreview = () => {
                 <p>Connect with Us on Socials or Send us an Email</p>
                 <div className="links">
                     <InstagramLink
-                        width="min(10vw, 13vh)"
-                        height="min(10vw, 13vh)"
+                        width="min(10vw, 8vh)"
+                        height="min(10vw, 8vh)"
                     />
                     <LinkedInLink
-                        width="min(10vw, 13vh)"
-                        height="min(10vw, 13vh)"
+                        width="min(10vw, 8vh)"
+                        height="min(10vw, 8vh)"
                     />
-                    <EmailLink
-                        width="min(10vw, 13vh)"
-                        height="min(10vw, 13vh)"
-                    />
+                    <EmailLink width="min(10vw, 8vh)" height="min(10vw, 8vh)" />
                 </div>
             </div>
         </div>

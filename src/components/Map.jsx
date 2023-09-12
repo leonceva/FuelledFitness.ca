@@ -11,7 +11,7 @@ export const Map = () => {
     useEffect(() => {
         const fetchKey = async () => {
             await axios
-                .post("http://3.12.168.70:8000/googleMapsApiKey")
+                .post("http://api.fuelledfitness.ca:8080/googleMapsApiKey")
                 .then((res) => {
                     setApiKey(res.data);
                 })
