@@ -4,6 +4,7 @@ import axios from "axios";
 //import map from "../images/staticmap.png";
 
 const MOBILE_MODE_LIMIT = 892;
+const mapsKey = process.env.GOOGLE_MAPS_KEY;
 
 export const Map = () => {
     const [apiKey, setApiKey] = useState(null);
