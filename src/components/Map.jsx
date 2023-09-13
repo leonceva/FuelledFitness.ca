@@ -33,8 +33,8 @@ export const Map = () => {
         mapWidth = Math.max(0.8 * screenWidth, 0.6 * screenHeight);
         mapHeight = Math.min(0.8 * screenWidth, 0.6 * screenHeight) - 20;
     } else {
-        mapWidth = 0.25 * screenWidth;
-        mapHeight = 0.25 * screenWidth - 35;
+        mapWidth = Math.min(0.25 * screenWidth, 0.5 * screenHeight);
+        mapHeight = Math.min(0.25 * screenWidth, 0.5 * screenHeight) - 35;
     }
 
     return (

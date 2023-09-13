@@ -8,7 +8,7 @@ import {
 } from "../components/Map";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
-import Form from "../components/Form";
+import Form from "../components/ContactMeForm";
 
 const ContactMe = () => {
     return (
@@ -57,6 +57,7 @@ export const DesktopDiv = styled.div`
     width: 100%;
     height: 100%;
     justify-content: center;
+    flex: 1;
 
     & > .container {
         width: 100%;

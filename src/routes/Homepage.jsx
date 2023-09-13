@@ -38,8 +38,8 @@ export const DesktopContent = () => {
 export const DesktopDiv = styled.div`
     display: flex;
     flex-direction: row;
-    width: calc(100% - 10px);
-    height: calc(100% - 10px);
+    width: calc(100% - 1vw);
+    height: calc(100% - 2vh);
     margin: 5px;
 
     & > .carousel {

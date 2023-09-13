@@ -27,19 +27,6 @@ export const NavBrand = () => {
                         </Link>
                     </BrandImgDiv>
                 </div>
-                {/*
-                <div className="col" style={{ marginLeft: "-10px" }}>
-                    <div className="row">
-                        <InstagramLink />
-                    </div>
-                    <div className="row">
-                        <LinkedInLink />
-                    </div>
-                    <div className="row">
-                        <EmailLink />
-                    </div>
-                </div>
-                */}
                 <div className="col">
                     <BrandImgDiv style={{ translate: "100% -50%" }}>
                         <Link to="/home">
@@ -127,6 +114,11 @@ export const NavMenu = (props) => {
             <li>
                 <NavLink className="link" to="contactMe">
                     Contact Me
+                </NavLink>
+            </li>
+            <li>
+                <NavLink className="link" to="account">
+                    My Account
                 </NavLink>
             </li>
         </NavMenuUL>

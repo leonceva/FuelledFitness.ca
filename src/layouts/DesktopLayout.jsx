@@ -4,9 +4,7 @@ import Footer from "../components/Footer";
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const DesktopLayout = (props) => {
-    //const LeftSide = props.LeftSide;
     const content = props.content;
-    //const RightSide = props.RightSide;
 
     return (
         <DesktopContainer>

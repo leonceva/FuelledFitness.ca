@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import Reaptcha from "reaptcha";
 
-export const Form = () => {
+export const ContactMeForm = () => {
     // Form content state data
     const [formData, setFormData] = useState({
         name: "",
@@ -137,6 +137,7 @@ export const Form = () => {
                 }}
             >
                 <Reaptcha
+                    id="recaptcha"
                     sitekey="6LeqyxkoAAAAAMkMdeTVT-ADWy1cgYy_qAXzyymT"
                     onVerify={() => {
                         setVerified(true);
@@ -159,4 +160,4 @@ export const Form = () => {
     );
 };
 
-export default Form;
+export default ContactMeForm;
