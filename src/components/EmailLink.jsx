@@ -6,7 +6,7 @@ const EmailLink = (props) => {
     return (
         <>
             <div className="image pt-1 pb-1">
-                <a href="mailto:krystin1@ualberta.ca">
+                <a href="mailto:krystin@fuelledfitness.ca">
                     <img
                         src={email_logo}
                         alt="Email Logo"
