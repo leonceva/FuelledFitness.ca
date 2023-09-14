@@ -115,9 +115,7 @@ const LoginForm = () => {
 
 export const LoginContainer = styled.div`
     border: 2px solid #333;
-    width: 50%;
-    min-height: 60%;
-    max-height: 80%;
+    width: calc(min(50%, 50vh));
     border-radius: 20px;
     background-color: #d0dce7;
     display: flex;
