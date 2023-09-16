@@ -303,6 +303,7 @@ export const DesktopDiv = styled.div`
         transition: width 0.25s;
         width: 0%;
         border-width: 0px;
+        color: transparent;
         content-visibility: hidden;
     }
 `;
