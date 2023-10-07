@@ -238,16 +238,15 @@ export const DesktopCarousel = () => {
                 */}
                 {imgNumber === 1 && (
                     <p>
-                        Fuel Your Health & Performance: Nutrition for All -
-                        General Population and Athletes Alike, Welcome Aboard!
-                        Get Ready for a Nourishing Journey
+                        Discover the Power of Expertise That Seamlessly Bridges
+                        the Worlds of Nutrition and Training!
                     </p>
                 )}
                 {imgNumber === 2 && (
                     <p>
-                        Let's Unlock Your Health Potential with My BSc. Food
-                        Science with a Specialization in Dietetics, and B.
-                        Kinesiology
+                        Unlock Your Potential with Personalized Precision -
+                        Tailoring Nutrition and Fitness Programs to Your Unique
+                        Goals and Aspirations
                     </p>
                 )}
                 {imgNumber === 3 && (
@@ -762,28 +761,25 @@ export const MobileCarousel = () => {
                 <div className="scroll-hand-container">
                     <img className="hand" src={handSwipe} alt="hand-swipe" />
                 </div>
-
                 <div className="caption">
                     {imgNumber === 1 && (
                         <p>
-                            Fuel Your Health & Performance: Nutrition for All -
-                            General Population and Athletes Alike, Welcome
-                            Aboard! Get Ready for a Nourishing Journey
+                            Discover the Power of Expertise That Seamlessly
+                            Bridges the Worlds of Nutrition and Training!
                         </p>
                     )}
                     {imgNumber === 2 && (
                         <p>
-                            Let's Unlock Your Health Potential with My BSc. Food
-                            Science with a Specialization in Dietetics, and B.
-                            Kinesiology
+                            Unlock Your Potential with Personalized Precision -
+                            Tailoring Nutrition and Fitness Programs to Your
+                            Unique Goals and Aspirations
                         </p>
                     )}
                     {imgNumber === 3 && (
                         <p>
-                            As a national-level athlete in wrestling and
-                            powerlifting, I bring invaluable experience to my
-                            training, ensuring your success with personalized
-                            expertise and dedication.
+                            Partner with Us on Your Journey to Nutrition and
+                            Fitness Excellence, and Together, We'll Turn Your
+                            Goals into Reality, Starting Today!
                         </p>
                     )}
                 </div>

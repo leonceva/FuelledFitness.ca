@@ -10,7 +10,7 @@ import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
 import Form from "../components/Form";
 
-const ContactMe = () => {
+const Contact = () => {
     return (
         <>
             <DesktopLayout content={<DesktopContent />} />
@@ -19,7 +19,7 @@ const ContactMe = () => {
     );
 };
 
-export default ContactMe;
+export default Contact;
 
 export const DesktopContent = () => {
     return (

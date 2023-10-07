@@ -1,15 +1,15 @@
 import "./App.css";
 import React from "react";
-import { createBrowserRouter, RouterProvider, Navigate} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import Root from "./routes/Root";
 import ErrorPage from "./routes/Error";
 import Homepage from "./routes/Homepage";
-import AboutMe from "./routes/AboutMe";
-import ContactMe from "./routes/ContactMe";
+import About from "./routes/About";
+import Contact from "./routes/Contact";
 import Services from "./routes/Services";
 
 function App() {
-    
+
     const router = createBrowserRouter([
         {
             path: "/",
@@ -22,12 +22,12 @@ function App() {
                     element: <Homepage />,
                 },
                 {
-                    path: "/aboutMe",
-                    element: <AboutMe />,
+                    path: "/about",
+                    element: <About />,
                 },
                 {
-                    path: "/contactMe",
-                    element: <ContactMe/>,
+                    path: "/contact",
+                    element: <Contact />,
                 },
                 {
                     path: "/services",

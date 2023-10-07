@@ -42,6 +42,15 @@ export const DesktopContent = (props) => {
         navigate(`#${service}`);
     };
 
+    useEffect(() => {
+        if (serviceSelected === "nutrition") {
+            setOption("personal-counselling");
+        }
+        if (serviceSelected === "training") {
+            setOption("personal-training");
+        }
+    }, [serviceSelected]);
+
     return (
         <DesktopDiv>
             <div
@@ -80,7 +89,6 @@ export const DesktopContent = (props) => {
                             <span className="go-back">
                                 <i
                                     onClick={() => {
-                                        setOption(null);
                                         handleClick("none");
                                     }}
                                     className="bi bi-arrow-left go-back-btn"
@@ -138,7 +146,6 @@ export const DesktopContent = (props) => {
                             <span className="go-back">
                                 <i
                                     onClick={() => {
-                                        setOption(null);
                                         handleClick("none");
                                     }}
                                     className="bi bi-arrow-left go-back-btn"

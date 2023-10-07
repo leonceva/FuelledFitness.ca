@@ -81,8 +81,8 @@ export const NavMenu = (props) => {
                 </NavLink>
             </li>
             <li>
-                <NavLink className="link" to="/aboutMe">
-                    About Me
+                <NavLink className="link" to="/about">
+                    About
                 </NavLink>
             </li>
             <li className="dropdown">
@@ -125,8 +125,8 @@ export const NavMenu = (props) => {
                 </div>
             </li>
             <li>
-                <NavLink className="link" to="contactMe">
-                    Contact Me
+                <NavLink className="link" to="contact">
+                    Contact
                 </NavLink>
             </li>
         </NavMenuUL>
@@ -360,15 +360,15 @@ export const ModalMenu = (props) => {
                         <NavLink className="expanded-link" to="/home">
                             Home
                         </NavLink>
-                        <NavLink className="expanded-link" to="/aboutMe">
-                            About Me
+                        <NavLink className="expanded-link" to="/about">
+                            About
                         </NavLink>
 
                         <NavLink className="expanded-link" to="/services">
                             Services
                         </NavLink>
-                        <NavLink className="expanded-link" to="/contactMe">
-                            Contact Me
+                        <NavLink className="expanded-link" to="/contact">
+                            Contact
                         </NavLink>
                     </>
                 )}
