@@ -6,7 +6,9 @@ import brand_logo from "../images/5.svg";
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
-    background-image: linear-gradient(to right, #d0dce7, #6e88a1);
+    background-image: linear-gradient(to right, #d0dce7, #6e88a1); // Current
+    //background-image: linear-gradient(to right, #DAE1C8, #6FADC8); // Option
+    // background-color: #333;
     display: flex;
     align-items: center;
     height: 100%;

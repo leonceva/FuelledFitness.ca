@@ -9,21 +9,34 @@ import trainingImg from "../images/45803572975_9f20326737_b.jpg";
 
 const Services = () => {
     const [serviceSelected, setServiceSelected] = useState("none");
+    const [optionSelected, setOptionSelected] = useState(null);
     const location = useLocation();
 
     useEffect(() => {
         if (location.hash.slice(1) === "") {
             setServiceSelected("none");
         } else {
-            setServiceSelected(location.hash.slice(1));
+            let separator = location.hash.indexOf("-");
+            console.log(`Index of separator: ${separator}`);
+            if (separator === -1) {
+                setServiceSelected(location.hash.slice(1));
+            } else {
+                setServiceSelected(location.hash.slice(1, separator));
+                setOptionSelected(location.hash.slice(separator + 1));
+            }
         }
     }, [location]);
 
     return (
         <>
             <DesktopLayout
-                content={<DesktopContent serviceSelected={serviceSelected} />}
-            />
+                content={
+                    <DesktopContent
+                        serviceSelected={serviceSelected}
+                        optionSelected={optionSelected}
+                    />
+                }
+            ></DesktopLayout>
             <MobileLayout
                 content={<MobileContent serviceSelected={serviceSelected} />}
             />
@@ -35,21 +48,20 @@ export default Services;
 
 export const DesktopContent = (props) => {
     const serviceSelected = props.serviceSelected;
+    const option = props.optionSelected;
     const navigate = useNavigate();
-    const [option, setOption] = useState(null);
 
-    const handleClick = (service) => {
-        navigate(`#${service}`);
+    const handleClickService = (service) => {
+        if (service === "none") {
+            navigate(``);
+        } else {
+            navigate(`#${service}`);
+        }
     };
 
-    useEffect(() => {
-        if (serviceSelected === "nutrition") {
-            setOption("personal-counselling");
-        }
-        if (serviceSelected === "training") {
-            setOption("personal-training");
-        }
-    }, [serviceSelected]);
+    const handleClickOption = (option) => {
+        navigate(`#${serviceSelected}-${option}`);
+    };
 
     return (
         <DesktopDiv>
@@ -65,14 +77,14 @@ export const DesktopContent = (props) => {
                             <h2>Select a service type for more info</h2>
                             <ServiceButton
                                 onClick={() => {
-                                    handleClick("nutrition");
+                                    handleClickService("nutrition-individuals");
                                 }}
                             >
                                 Nutrition
                             </ServiceButton>
                             <ServiceButton
                                 onClick={() => {
-                                    handleClick("training");
+                                    handleClickService("training-online");
                                 }}
                             >
                                 Training
@@ -89,7 +101,7 @@ export const DesktopContent = (props) => {
                             <span className="go-back">
                                 <i
                                     onClick={() => {
-                                        handleClick("none");
+                                        handleClickService("none");
                                     }}
                                     className="bi bi-arrow-left go-back-btn"
                                 />
@@ -97,31 +109,21 @@ export const DesktopContent = (props) => {
                             <h3>Nutrition Services</h3>
                             <InfoButton
                                 style={{ animationDelay: "0.5s" }}
-                                onClick={() =>
-                                    setOption("personal-counselling")
-                                }
+                                onClick={() => handleClickOption("individuals")}
                             >
-                                In-Person Counselling
+                                Individuals
                             </InfoButton>
                             <InfoButton
                                 style={{ animationDelay: "0.7s" }}
-                                onClick={() => setOption("online-counselling")}
+                                onClick={() => handleClickOption("team")}
                             >
-                                Online Counselling
+                                Team Programs
                             </InfoButton>
                             <InfoButton
                                 style={{ animationDelay: "0.5s" }}
-                                onClick={() => setOption("team-counselling")}
+                                onClick={() => handleClickOption("corporate")}
                             >
-                                Team Sports
-                            </InfoButton>
-                            <InfoButton
-                                style={{ animationDelay: "0.7s" }}
-                                onClick={() =>
-                                    setOption("corporate-counselling")
-                                }
-                            >
-                                Corporate Packages
+                                Corporate and Businesses
                             </InfoButton>
                             <InfoButton
                                 style={{ animationDelay: "0.5s" }}
@@ -146,31 +148,26 @@ export const DesktopContent = (props) => {
                             <span className="go-back">
                                 <i
                                     onClick={() => {
-                                        handleClick("none");
+                                        handleClickService("none");
                                     }}
                                     className="bi bi-arrow-left go-back-btn"
                                 />
                             </span>
                             <h3>Training Services</h3>
                             <InfoButton
-                                onClick={() => setOption("personal-training")}
-                            >
-                                Personal Session
-                            </InfoButton>
-                            <InfoButton
-                                onClick={() => setOption("group-training")}
-                            >
-                                Group Session
-                            </InfoButton>
-                            <InfoButton
-                                onClick={() => setOption("online-training")}
+                                onClick={() => handleClickOption("online")}
                             >
                                 Online Coaching
                             </InfoButton>
                             <InfoButton
-                                onClick={() => setOption("team-training")}
+                                onClick={() => handleClickOption("personal")}
                             >
-                                Corporate And Teams
+                                Personal Training
+                            </InfoButton>
+                            <InfoButton
+                                onClick={() => handleClickOption("team")}
+                            >
+                                Team Strength and Conditioning
                             </InfoButton>
                             <InfoButton
                                 className="other-service"
@@ -198,7 +195,7 @@ export const DesktopContent = (props) => {
                 <InfoDesktop
                     className="info"
                     option={option}
-                    serviceSelected={serviceSelected}
+                    service={serviceSelected}
                 />
             </div>
         </DesktopDiv>
@@ -301,10 +298,10 @@ export const DesktopDiv = styled.div`
         }
     }
     & > .show {
-        transition: width 1s;
         width: 100%;
         overflow-y: auto;
         border-radius: 10% 0% 0% 10%;
+        content-visibility: visible;
     }
     & > .hide {
         transition: width 0.25s;
@@ -316,179 +313,118 @@ export const DesktopDiv = styled.div`
 `;
 
 export const InfoDesktop = (props) => {
+    const service = props.service;
     const option = props.option;
-    const service = props.serviceSelected;
 
     // Text to display based on option chose
     return (
         <>
-            {option === null && (
+            {option === "individuals" && service === "nutrition" && (
                 <>
-                    <InfoDiv>
-                        <h3>Select one of the options to learn more</h3>
-                        <div className="img-container">
-                            {service === "nutrition" && (
-                                <img src={nutritionImg} alt="nutrition" />
-                            )}
-                            {service === "training" && (
-                                <img src={trainingImg} alt="training" />
-                            )}
-                        </div>
-                    </InfoDiv>
-                </>
-            )}
-            {option === "personal-counselling" && (
-                <>
-                    <h2>Personal Counselling</h2>
+                    <h2>Nutrition Counselling</h2>
                     <p>
-                        Personal counseling with a registered dietitian offers
-                        tailored one-on-one sessions to address individual
-                        nutrition needs and goals. Beginning with a thorough
-                        assessment, the dietitian crafts a personalized
-                        nutrition plan. This plan, aligned with objectives like
-                        weight management or chronic condition management, is
-                        complemented by education on essential nutrients and
-                        portion control. Collaborative meal planning strategies
-                        empower clients to make healthier choices. Behavior
-                        change support, continuous monitoring, and plan
-                        adjustments ensure progress. Registered dietitians also
-                        offer specialized guidance for conditions like diabetes.
-                        Through ongoing support and a holistic approach,
-                        individuals gain the knowledge and skills to
-                        independently make informed dietary decisions, promoting
-                        lasting well-being.
+                        Say goodbye to guesswork, and hello to a personalised
+                        nutrition plan! Work 1:1 with a Registered Dietitian to
+                        achieve your goals. Whether you're striving for peak
+                        performance, weight loss, improved energy levels, or
+                        optimal health and wellbeing for yourself and your
+                        family, we offer personalised strategies to support you
+                        in achieving your goals. <br /> <br />
+                        Initial Consult (60 minutes) - $140 <br />
+                        Follow-up (45 minutes) - $105
                     </p>
                 </>
             )}
-            {option === "online-counselling" && (
+            {option === "team" && service === "nutrition" && (
                 <>
-                    <h2>Online Counselling</h2>
+                    <h2>Team Nutrition Programs</h2>
                     <p>
-                        Online nutrition services provide personalized guidance
-                        through virtual sessions. Starting with a detailed
-                        assessment, these services create customized nutrition
-                        plans to meet individual goals, such as weight
-                        management or fitness enhancement. Education on
-                        nutrients, portion control, and meal planning is
-                        conveyed digitally. Clients receive behavioral
-                        strategies, ongoing progress tracking, and plan
-                        adjustments for effective results. Specialized support
-                        is available for conditions like allergies or heart
-                        health. The online platform ensures convenient access,
-                        and holistic well-being is considered. This empowers
-                        individuals to make informed dietary choices, fostering
-                        lasting health improvements through evidence-based
-                        virtual nutrition services.
+                        Provide nutrition services to athletes to support their
+                        performance and overall wellbeing. Sound nutrition is
+                        essential for optimal performance and recovery. Contact
+                        us to discuss the unique needs of your team. <br />
+                        Improve nutrition knowledge of your team through a
+                        nutrition presentation tailored to the specific needs of
+                        your sport. <br />
+                        Provide assurance of nutritional balance by having your
+                        menu reviewed and critiqued by a registered dietitian.
+                        <br />
+                        <br />
+                        Contact us today to discuss the unique needs of your
+                        team.
                     </p>
                 </>
             )}
-            {option === "team-counselling" && (
+            {option === "corporate" && service === "nutrition" && (
                 <>
-                    <h2>Team Sports and Athletics</h2>
+                    <h2>Corporate Wellness Programs</h2>
                     <p>
-                        Team sports counseling involves tailored guidance for
-                        athletic groups. Through focused sessions, the team's
-                        unique goals and challenges are assessed. Customized
-                        strategies are developed to optimize performance,
-                        considering factors like nutrition, recovery, and energy
-                        management. Education on proper fueling and hydration is
-                        provided, enhancing collective understanding.
-                        Collaborative planning addresses specific needs,
-                        ensuring peak performance. Behavioral tactics and
-                        progress monitoring aid in maintaining consistency. The
-                        counseling process fosters team cohesion and
-                        communication. By addressing individual roles within the
-                        team dynamic, this approach maximizes overall
-                        performance. Team sports counseling empowers athletes to
-                        excel by combining expert guidance, teamwork, and
-                        tailored strategies.
+                        Provide nutrition services to employees to support their
+                        health and wellbeing. For businesses and corporations
+                        this can promote improved productivity, longevity, and
+                        satisfaction with employees. <br />
+                        Improve nutrition knowledge of your organisation through
+                        a nutrition presentation tailored to the specific needs
+                        of your group. <br />
+                        Provide assurance of nutritional balance by having your
+                        menu reviewed and critiqued by a registered dietitian.
+                        <br />
+                        <br />
+                        Contact us today to discuss the unique needs of your
+                        corporation.
                     </p>
                 </>
             )}
-            {option === "corporate-counselling" && (
-                <>
-                    <h2>Corporate Packages</h2>
-                    <p>
-                        Corporate wellness packages by the registered dietitian
-                        offer comprehensive health solutions for companies.
-                        These packages include personalized nutritional
-                        counseling, virtual workshops on balanced eating, and
-                        stress management techniques. The programs encompass
-                        individual assessments, custom meal plans, and ongoing
-                        support to improve employees' well-being. With a focus
-                        on nutrition education, these packages promote healthier
-                        lifestyles, increase productivity, and foster a positive
-                        work environment.
-                    </p>
-                </>
-            )}
-            {option === "personal-training" && (
-                <>
-                    <h2>Individual Training</h2>
-                    <p>
-                        Individual personal provides focused, one-on-one fitness
-                        guidance. Tailored to each client's goals and abilities,
-                        sessions incorporate customized workout routines, proper
-                        technique, and progress tracking. These training
-                        sessions encompass cardio, strength, flexibility, and
-                        core exercises, promoting balanced fitness. The personal
-                        trainer offers expert coaching, motivation, and
-                        accountability, adapting routines as clients progress.
-                        This approach ensures efficient and effective workouts,
-                        helping clients achieve their fitness objectives while
-                        enhancing overall health and well-being.
-                    </p>
-                </>
-            )}
-            {option === "group-training" && (
-                <>
-                    <h2>Groups and Families</h2>
-                    <p>
-                        Group personal training delivers dynamic fitness
-                        sessions for small groups. These sessions combine
-                        individual attention with a supportive group atmosphere.
-                        Participants benefit from expert guidance in exercises
-                        tailored to their fitness levels and goals. The trainer
-                        fosters camaraderie, motivation, and accountability
-                        within the group. Workouts encompass strength,
-                        cardiovascular, and flexibility training, ensuring a
-                        well-rounded fitness experience. Group personal training
-                        promotes fitness progression, social interaction, and a
-                        shared commitment to achieving health goals, all under
-                        the guidance of a dedicated professional.
-                    </p>
-                </>
-            )}
-            {option === "online-training" && (
+            {option === "online" && service === "training" && (
                 <>
                     <h2>Online</h2>
                     <p>
-                        Online training programs offer personalized exercise
-                        plans, guidance tailored to individual goals. Through
-                        regular check-ins and progress tracking, you will be
-                        provided with accountability, to ensure you stay
-                        motivated and on track. This combination of structured
-                        training, customized guidance, and ongoing
-                        accountability empowers clients to achieve their fitness
-                        objectives in a flexible and accessible manner.
+                        Online Coaching Discover the ultimate online coaching
+                        experience with a personalised program and consistent
+                        support. Our online coaching program is delivered in
+                        4-week intervals with a tailored workout plan, weekly
+                        video review and feedback, and on-demand expert guidance
+                        through virtual support with your coach. <br />
+                        <br />
+                        $150 / 4-weeks
                     </p>
                 </>
             )}
-            {option === "team-training" && (
+            {option === "personal" && service === "training" && (
                 <>
-                    <h2>Corporate and Team Sports</h2>
+                    <h2>Personal Training</h2>
                     <p>
-                        Corporate and team training programs provide tailored
-                        fitness solutions for businesses. These programs include
-                        on-site workouts or online programs, ergonomic
-                        assessments, and wellness workshops. They address
-                        individual needs through group exercises, personalized
-                        training plans, and stress-relief techniques. These
-                        programs enhance physical fitness, boost morale, and
-                        improve overall health, leading to increased
-                        productivity and performance. Through expert guidance
-                        and interactive sessions, corporate and team training
-                        programs create a culture of well-being and support.
+                        Experience personalised 1:1 coaching with hands on
+                        guidance, immediate feedback, and continuous support
+                        throughout your session. Our personal training sessions
+                        include a customised weekly program to follow, ensuring
+                        continuous progress in between sessions with your coach.
+                        <br />
+                        <br />1 x per week - $100 per session <br />2 x per week
+                        - $90 per session <br />
+                        3+ x per week - $75 per session <br />
+                        <br />
+                        Already a client of online coaching? Add an in-person
+                        coaching session for $75 <br />
+                        <br />
+                        Looking for a personal training session without a
+                        program to follow? $90 per session.
+                    </p>
+                </>
+            )}
+            {option === "team" && service === "training" && (
+                <>
+                    <h2>Team Strength and Conditioning</h2>
+                    <p>
+                        Enhance performance, prevent injuries, and foster
+                        resilience within your team through expertly crafted
+                        strength and conditioning programs. Bring your athlete
+                        preparation to the next level with a periodized program
+                        tailored to the needs of your athletes. We offer
+                        flexible options which can accommodate a wide range of
+                        team sizes and budgets. <br />
+                        <br />
+                        Contact us today to learn more.
                     </p>
                 </>
             )}

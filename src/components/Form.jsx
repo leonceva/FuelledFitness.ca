@@ -99,7 +99,7 @@ export const Form = () => {
 
     return (
         <form action="" method="post" onSubmit={handleSubmit}>
-            <h2>Send Me A Message</h2>
+            <h2>Send Us A Message</h2>
             <input
                 name="name"
                 type="text"
