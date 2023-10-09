@@ -91,9 +91,9 @@ export const DesktopContent = () => {
                     your performance in an amateur sport, achieve weight loss
                     goals, or simply cultivate a healthier lifestyle, I am here
                     to support you every step of the way. Reach out to me
-                    through the contact page, or click the “book now” button to
-                    get started. Take the first step today toward optimal health
-                    and performance with fuelled fitness. <br />
+                    through the contact page, or click the "book appointment"
+                    button to get started. Take the first step today toward
+                    optimal health and performance with fuelled fitness. <br />
                 </p>
                 <div className="btn-container">
                     <button
@@ -241,9 +241,9 @@ export const MobileContent = () => {
                         achieve weight loss goals, or simply cultivate a
                         healthier lifestyle, I am here to support you every step
                         of the way. Reach out to me through the contact page, or
-                        click the “book now” button to get started. Take the
-                        first step today toward optimal health and performance
-                        with fuelled fitness.
+                        click the "book appointment" button to get started. Take
+                        the first step today toward optimal health and
+                        performance with fuelled fitness.
                     </p>
                     <div className="btn-container">
                         <button
