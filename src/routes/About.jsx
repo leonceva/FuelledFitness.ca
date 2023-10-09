@@ -19,7 +19,7 @@ export default About;
 export const DesktopContent = () => {
     return (
         <DesktopContentDiv>
-            <div style={{ margin: "10px" }}>
+            <div style={{ margin: "1vh 1vw" }}>
                 <img
                     src={krystin_img1}
                     alt="Krystin Bussiness Portrait"
@@ -93,8 +93,21 @@ export const DesktopContent = () => {
                     to support you every step of the way. Reach out to me
                     through the contact page, or click the “book now” button to
                     get started. Take the first step today toward optimal health
-                    and performance with fuelled fitness.
+                    and performance with fuelled fitness. <br />
                 </p>
+                <div className="btn-container">
+                    <button
+                        className="appointment"
+                        onClick={() => {
+                            window.open(
+                                "https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services",
+                                "_blank"
+                            );
+                        }}
+                    >
+                        Book Appointment
+                    </button>
+                </div>
             </div>
         </DesktopContentDiv>
     );
@@ -117,6 +130,30 @@ export const DesktopContentDiv = styled.div`
     & .right {
         margin-left: 2%;
         float: right;
+    }
+
+    & .btn-container {
+        display: flex;
+        justify-content: center;
+
+        & .appointment {
+            border: solid 2px #333;
+            color: #333;
+            border-radius: 3vw;
+            font-size: 3vh;
+            padding: 1vh 2vw;
+            box-shadow: 2px 2px 2px #333;
+            background-color: aliceblue;
+
+            &:hover {
+                background-color: #6e88a1;
+                cursor: pointer;
+            }
+            &:active {
+                translate: 3px 3px;
+                box-shadow: 0 0 0;
+            }
+        }
     }
 `;
 
@@ -206,8 +243,21 @@ export const MobileContent = () => {
                         of the way. Reach out to me through the contact page, or
                         click the “book now” button to get started. Take the
                         first step today toward optimal health and performance
-                        with fuelled fitness.{" "}
+                        with fuelled fitness.
                     </p>
+                    <div className="btn-container">
+                        <button
+                            className="appointment"
+                            onTouchStart={() => {
+                                window.open(
+                                    "https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services",
+                                    "_blank"
+                                );
+                            }}
+                        >
+                            Book Appointment
+                        </button>
+                    </div>
                 </div>
             </MobileContentDiv>
         </>
@@ -232,5 +282,29 @@ export const MobileContentDiv = styled.div`
     }
     h3 {
         margin-top: 2vh;
+    }
+
+    & .btn-container {
+        display: flex;
+        justify-content: center;
+
+        & .appointment {
+            border: solid 2px #333;
+            color: #333;
+            border-radius: 3vw;
+            font-size: 3vh;
+            padding: 1vh 2vw;
+            box-shadow: 2px 2px 2px #333;
+            background-color: aliceblue;
+
+            &:hover {
+                background-color: #6e88a1;
+                cursor: pointer;
+            }
+            &:active {
+                translate: 3px 3px;
+                box-shadow: 0 0 0;
+            }
+        }
     }
 `;

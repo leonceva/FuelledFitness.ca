@@ -239,17 +239,21 @@ export const DesktopDiv = styled.div`
             margin: 2vh 0;
             width: 100%;
         }
-        & > .other-service {
-            background-color: rgb(241, 124, 143);
-        }
         & > div:hover {
-            background-color: gray;
+            background-color: #6e88a1;
             cursor: pointer;
         }
         & > div:active {
             box-shadow: 0 0;
             translate: 3px 3px;
         }
+        & > .other-service {
+            background-color: rgb(241, 124, 143);
+        }
+        & > .other-service:hover {
+            background-color: gray;
+        }
+
         & > .go-back {
             transition: background-color 0.2s;
             height: calc(min(5vw, 5vh));
@@ -522,82 +526,55 @@ export const MobileContent = (props) => {
                     // Nutrition Services
                     serviceSelected === "nutrition" && (
                         <>
-                            <h3>Personal Counselling</h3>
+                            <h3>Nutrition Counselling</h3>
                             <p>
-                                Personal counseling with a registered dietitian
-                                offers tailored one-on-one sessions to address
-                                individual nutrition needs and goals. Beginning
-                                with a thorough assessment, the dietitian crafts
-                                a personalized nutrition plan. This plan,
-                                aligned with objectives like weight management
-                                or chronic condition management, is complemented
-                                by education on essential nutrients and portion
-                                control. Collaborative meal planning strategies
-                                empower clients to make healthier choices.
-                                Behavior change support, continuous monitoring,
-                                and plan adjustments ensure progress. Registered
-                                dietitians also offer specialized guidance for
-                                conditions like diabetes. Through ongoing
-                                support and a holistic approach, individuals
-                                gain the knowledge and skills to independently
-                                make informed dietary decisions, promoting
-                                lasting well-being.
+                                Say goodbye to guesswork, and hello to a
+                                personalised nutrition plan! Work 1:1 with a
+                                Registered Dietitian to achieve your goals.
+                                Whether you're striving for peak performance,
+                                weight loss, improved energy levels, or optimal
+                                health and wellbeing for yourself and your
+                                family, we offer personalised strategies to
+                                support you in achieving your goals. <br />{" "}
+                                <br />
+                                Initial Consult (60 minutes) - $140 <br />
+                                Follow-up (45 minutes) - $105
                             </p>
-                            <h3>Online Counselling</h3>
+                            <h3>Team Nutrition Programs</h3>
                             <p>
-                                Online nutrition services provide personalized
-                                guidance through virtual sessions. Starting with
-                                a detailed assessment, these services create
-                                customized nutrition plans to meet individual
-                                goals, such as weight management or fitness
-                                enhancement. Education on nutrients, portion
-                                control, and meal planning is conveyed
-                                digitally. Clients receive behavioral
-                                strategies, ongoing progress tracking, and plan
-                                adjustments for effective results. Specialized
-                                support is available for conditions like
-                                allergies or heart health. The online platform
-                                ensures convenient access, and holistic
-                                well-being is considered. This empowers
-                                individuals to make informed dietary choices,
-                                fostering lasting health improvements through
-                                evidence-based virtual nutrition services.
+                                Provide nutrition services to athletes to
+                                support their performance and overall wellbeing.
+                                Sound nutrition is essential for optimal
+                                performance and recovery. Contact us to discuss
+                                the unique needs of your team. <br />
+                                Improve nutrition knowledge of your team through
+                                a nutrition presentation tailored to the
+                                specific needs of your sport. <br />
+                                Provide assurance of nutritional balance by
+                                having your menu reviewed and critiqued by a
+                                registered dietitian.
+                                <br />
+                                <br />
+                                Contact us today to discuss the unique needs of
+                                your team.
                             </p>
-                            <h3>Team Sports and Athletics</h3>
+                            <h3>Corporate Wellness Programs</h3>
                             <p>
-                                Team sports counseling involves tailored
-                                guidance for athletic groups. Through focused
-                                sessions, the team's unique goals and challenges
-                                are assessed. Customized strategies are
-                                developed to optimize performance, considering
-                                factors like nutrition, recovery, and energy
-                                management. Education on proper fueling and
-                                hydration is provided, enhancing collective
-                                understanding. Collaborative planning addresses
-                                specific needs, ensuring peak performance.
-                                Behavioral tactics and progress monitoring aid
-                                in maintaining consistency. The counseling
-                                process fosters team cohesion and communication.
-                                By addressing individual roles within the team
-                                dynamic, this approach maximizes overall
-                                performance. Team sports counseling empowers
-                                athletes to excel by combining expert guidance,
-                                teamwork, and tailored strategies.
-                            </p>
-                            <h3>Corporate Packages</h3>
-                            <p>
-                                Corporate wellness packages by the registered
-                                dietitian offer comprehensive health solutions
-                                for companies. These packages include
-                                personalized nutritional counseling, virtual
-                                workshops on balanced eating, and stress
-                                management techniques. The programs encompass
-                                individual assessments, custom meal plans, and
-                                ongoing support to improve employees'
-                                well-being. With a focus on nutrition education,
-                                these packages promote healthier lifestyles,
-                                increase productivity, and foster a positive
-                                work environment.
+                                Provide nutrition services to employees to
+                                support their health and wellbeing. For
+                                businesses and corporations this can promote
+                                improved productivity, longevity, and
+                                satisfaction with employees. <br />
+                                Improve nutrition knowledge of your organisation
+                                through a nutrition presentation tailored to the
+                                specific needs of your group. <br />
+                                Provide assurance of nutritional balance by
+                                having your menu reviewed and critiqued by a
+                                registered dietitian.
+                                <br />
+                                <br />
+                                Contact us today to discuss the unique needs of
+                                your corporation.
                             </p>
                             <div
                                 className="appointment"
@@ -618,67 +595,49 @@ export const MobileContent = (props) => {
                     // Training Services
                     serviceSelected === "training" && (
                         <>
-                            <h3>Individual Training</h3>
+                            <h3>Online Coaching</h3>
                             <p>
-                                Individual personal provides focused, one-on-one
-                                fitness guidance. Tailored to each client's
-                                goals and abilities, sessions incorporate
-                                customized workout routines, proper technique,
-                                and progress tracking. These training sessions
-                                encompass cardio, strength, flexibility, and
-                                core exercises, promoting balanced fitness. The
-                                personal trainer offers expert coaching,
-                                motivation, and accountability, adapting
-                                routines as clients progress. This approach
-                                ensures efficient and effective workouts,
-                                helping clients achieve their fitness objectives
-                                while enhancing overall health and well-being.
+                                Online Coaching Discover the ultimate online
+                                coaching experience with a personalised program
+                                and consistent support. Our online coaching
+                                program is delivered in 4-week intervals with a
+                                tailored workout plan, weekly video review and
+                                feedback, and on-demand expert guidance through
+                                virtual support with your coach. <br />
+                                <br />
+                                $150 / 4-weeks
                             </p>
-                            <h3>Groups and Families</h3>
+                            <h3>Personal Training</h3>
                             <p>
-                                Group personal training delivers dynamic fitness
-                                sessions for small groups. These sessions
-                                combine individual attention with a supportive
-                                group atmosphere. Participants benefit from
-                                expert guidance in exercises tailored to their
-                                fitness levels and goals. The trainer fosters
-                                camaraderie, motivation, and accountability
-                                within the group. Workouts encompass strength,
-                                cardiovascular, and flexibility training,
-                                ensuring a well-rounded fitness experience.
-                                Group personal training promotes fitness
-                                progression, social interaction, and a shared
-                                commitment to achieving health goals, all under
-                                the guidance of a dedicated professional.
+                                Experience personalised 1:1 coaching with hands
+                                on guidance, immediate feedback, and continuous
+                                support throughout your session. Our personal
+                                training sessions include a customised weekly
+                                program to follow, ensuring continuous progress
+                                in between sessions with your coach.
+                                <br />
+                                <br />1 x per week - $100 per session <br />2 x
+                                per week - $90 per session <br />
+                                3+ x per week - $75 per session <br />
+                                <br />
+                                Already a client of online coaching? Add an
+                                in-person coaching session for $75 <br />
+                                <br />
+                                Looking for a personal training session without
+                                a program to follow? $90 per session.
                             </p>
-                            <h3>Online</h3>
+                            <h3>Team Strength and Conditioning</h3>
                             <p>
-                                Online training programs offer personalized
-                                exercise plans, guidance tailored to individual
-                                goals. Through regular check-ins and progress
-                                tracking, you will be provided with
-                                accountability, to ensure you stay motivated and
-                                on track. This combination of structured
-                                training, customized guidance, and ongoing
-                                accountability empowers clients to achieve their
-                                fitness objectives in a flexible and accessible
-                                manner.
-                            </p>
-                            <h3>Corporate and Team Sports</h3>
-                            <p>
-                                Corporate and team training programs provide
-                                tailored fitness solutions for businesses. These
-                                programs include on-site workouts or online
-                                programs, ergonomic assessments, and wellness
-                                workshops. They address individual needs through
-                                group exercises, personalized training plans,
-                                and stress-relief techniques. These programs
-                                enhance physical fitness, boost morale, and
-                                improve overall health, leading to increased
-                                productivity and performance. Through expert
-                                guidance and interactive sessions, corporate and
-                                team training programs create a culture of
-                                well-being and support.
+                                Enhance performance, prevent injuries, and
+                                foster resilience within your team through
+                                expertly crafted strength and conditioning
+                                programs. Bring your athlete preparation to the
+                                next level with a periodized program tailored to
+                                the needs of your athletes. We offer flexible
+                                options which can accommodate a wide range of
+                                team sizes and budgets. <br />
+                                <br />
+                                Contact us today to learn more.
                             </p>
                             <div
                                 className="appointment"
