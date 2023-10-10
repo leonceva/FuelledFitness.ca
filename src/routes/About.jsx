@@ -36,14 +36,14 @@ export const DesktopContent = () => {
                     harmonious shifts in your nutrition and lifestyle.
                 </p>
                 <p>
-                    My name is Krystin Paquette and my educational foundation is
-                    robust, boasting a Bachelor of Science degree in Nutrition
-                    and Food Science with a specialised focus in Dietetics,
-                    complemented by a Bachelor's degree in Kinesiology. What
-                    truly sets me apart is my distinctive expertise that
-                    seamlessly bridges the worlds of nutrition and training.
-                    This fusion allows me to offer a comprehensive coaching
-                    experience tailored to your unique needs and aspirations.
+                    My educational foundation is robust, boasting a Bachelor of
+                    Science degree in Nutrition and Food Science with a
+                    specialised focus in Dietetics, complemented by a Bachelor's
+                    degree in Kinesiology. What truly sets me apart is my
+                    distinctive expertise that seamlessly bridges the worlds of
+                    nutrition and training. This fusion allows me to offer a
+                    comprehensive coaching experience tailored to your unique
+                    needs and aspirations.
                 </p>
                 <p>
                     On a personal note, I don't just preach; I practise. I've
@@ -142,15 +142,15 @@ export const MobileContent = () => {
                         and lifestyle.
                     </p>
                     <p>
-                        My name is Krystin Paquette and my educational
-                        foundation is robust, boasting a Bachelor of Science
-                        degree in Nutrition and Food Science with a specialised
-                        focus in Dietetics, complemented by a Bachelor's degree
-                        in Kinesiology. What truly sets me apart is my
-                        distinctive expertise that seamlessly bridges the worlds
-                        of nutrition and training. This fusion allows me to
-                        offer a comprehensive coaching experience tailored to
-                        your unique needs and aspirations.
+                        My educational foundation is robust, boasting a Bachelor
+                        of Science degree in Nutrition and Food Science with a
+                        specialised focus in Dietetics, complemented by a
+                        Bachelor's degree in Kinesiology. What truly sets me
+                        apart is my distinctive expertise that seamlessly
+                        bridges the worlds of nutrition and training. This
+                        fusion allows me to offer a comprehensive coaching
+                        experience tailored to your unique needs and
+                        aspirations.
                     </p>
                     <p>
                         On a personal note, I don't just preach; I practise.
@@ -206,7 +206,7 @@ export const MobileContent = () => {
                         of the way. Reach out to me through the contact page, or
                         click the “book now” button to get started. Take the
                         first step today toward optimal health and performance
-                        with fuelled fitness.{" "}
+                        with fuelled fitness.
                     </p>
                 </div>
             </MobileContentDiv>
