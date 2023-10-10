@@ -29,19 +29,6 @@ export const NavBrand = () => {
                         </Link>
                     </BrandImgDiv>
                 </div>
-                {/*
-                <div className="col" style={{ marginLeft: "-10px" }}>
-                    <div className="row">
-                        <InstagramLink />
-                    </div>
-                    <div className="row">
-                        <LinkedInLink />
-                    </div>
-                    <div className="row">
-                        <EmailLink />
-                    </div>
-                </div>
-                */}
                 <div className="col">
                     <BrandImgDiv style={{ translate: "100% -50%" }}>
                         <Link to="/home">
@@ -93,7 +80,7 @@ export const NavMenu = (props) => {
                     onMouseLeave={() => setDropdownHover(false)}
                 >
                     <NavLink className="link" to="/services">
-                        Services{" "}
+                        Services
                     </NavLink>
                     {dropdownHover ? (
                         <i className="bi bi-caret-down"></i>
@@ -191,7 +178,7 @@ export const NavMenuUL = styled.ul`
                 font-size: calc(min(1.5vw, 2vh));
             }
             & > .dropdown-link:hover {
-                background-color: lightgray;
+                background-color: #6e88a1;
                 flex: auto;
                 box-shadow: none;
             }

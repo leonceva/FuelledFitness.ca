@@ -73,7 +73,7 @@ export const CarouselDiv = styled.div`
             opacity: 0.3;
             left: 0%;
             border-radius: 10px;
-            border: 2px solid black;
+            border: 2px solid #333;
         }
 
         & > .img-show {
@@ -100,38 +100,38 @@ export const CarouselDiv = styled.div`
 
     & > button {
         font-size: 25px;
-        width: 40px;
-        height: 40px;
-        border-width: 2.5px;
-        border-style: solid;
-        border-color: #333;
-        color: #333;
-        border-radius: 15%;
-        background-color: lightgray;
+        width: 6%;
+        height: 70%;
+        border: 0px solid lightgray;
+        background-color: #333;
+        color: lightgray;
         transition: all 0s;
-        box-shadow: 3px 3px 2px #333;
-        &:hover {
-            background-color: gray;
-        }
-        &:active {
-            transition: all 0s;
-            box-shadow: 0 0;
-            translate: 3px 3px;
-        }
     }
 
     & > .left {
         position: absolute;
-        top: 50%;
+        top: 0%;
         left: 0%;
         z-index: 3;
+        border-radius: 10px 0 0 10px;
+        &:active {
+            transition: all 100ms;
+            box-shadow: 0 0;
+            translate: -5px;
+        }
     }
 
     & > .right {
         position: absolute;
-        top: 50%;
+        top: 0%;
         right: 0%;
         z-index: 3;
+        border-radius: 0 10px 10px 0;
+        &:active {
+            transition: all 100ms;
+            box-shadow: 0 0;
+            translate: 5px 0px;
+        }
     }
 
     p {
@@ -804,7 +804,7 @@ export const MobilePreview = () => {
                             );
                         }}
                     >
-                        Book A Consult
+                        Let's Get Started
                     </span>
                 </p>
             </div>
