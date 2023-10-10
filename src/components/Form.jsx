@@ -11,11 +11,10 @@ export const Form = () => {
     });
 
     const captchaRef = useRef(null);
-
-    const [submit, setSubmit] = useState(false);
     const [verified, setVerified] = useState(false);
     const [formError, setFormError] = useState(false);
     const [messageError, setMessageError] = useState("");
+    const [emailSent, setEmailSent] = useState(false);
 
     // Form input field change
     const handleChange = (e) => {
@@ -56,17 +55,16 @@ export const Form = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //console.log("Handle Submit");
         if (validateInputs()) {
-            setSubmit(true);
-
+            //console.log("Inputs validated");
             if (verified) {
+                console.log("Verified");
                 // Async Function to Send Form Data
                 const sendFormData = async () => {
-                    console.log("Submitted:");
-                    console.log(
-                        `Name:" ${formData.name}, email: ${formData.email}`
-                    );
-                    console.log(`Message: ${formData.message}`);
+                    //console.log("Submitted:");
+                    //console.log(`Name:" ${formData.name}, email: ${formData.email}`;
+                    //console.log(`Message: ${formData.message}`);
                     await axios
                         .post(
                             "https://api.fuelledfitness.ca:8443/sendMessage",
@@ -77,22 +75,30 @@ export const Form = () => {
                             }
                         )
                         .then((res) => {
-                            console.log("Response: " + res.data);
+                            //console.log("Response: " + res.data);
                         })
                         .catch((res) => {
-                            console.log("Error: " + res.data);
+                            //console.log("Error: " + res.data);
+                            setEmailSent(false);
                         })
-                        .finally(
+                        .finally(() => {
                             // Clear form data
                             setFormData({
                                 name: "",
                                 email: "",
                                 message: "",
-                            })
-                        );
+                            });
+                            setEmailSent(true);
+                        });
                 };
-                setSubmit(false);
                 sendFormData();
+                setEmailSent(true);
+            } else {
+                //console.log("Not verified");
+                setFormError(true);
+                setMessageError(
+                    "Please complete the CAPTCHA before sending your message. Thank you!"
+                );
             }
         }
     };
@@ -130,26 +136,30 @@ export const Form = () => {
                 value={formData.message}
                 onChange={handleChange}
             />
-            <span
-                style={{
-                    height: `${submit && !verified ? "auto" : "0"}`,
-                    visibility: `${submit && !verified ? "visible" : "hidden"}`,
-                }}
-            >
-                <Reaptcha
-                    sitekey="6LeqyxkoAAAAAMkMdeTVT-ADWy1cgYy_qAXzyymT"
-                    onVerify={() => {
-                        setVerified(true);
-                    }}
-                    ref={captchaRef}
-                />
-            </span>
 
-            {(!submit || verified) && (
-                <button className="submit-btn" type="submit">
-                    Send Message
-                </button>
-            )}
+            <Reaptcha
+                sitekey="6LeqyxkoAAAAAMkMdeTVT-ADWy1cgYy_qAXzyymT"
+                onVerify={() => {
+                    setVerified(true);
+                    setFormError(false);
+                }}
+                ref={captchaRef}
+                onExpire={() => {
+                    setVerified(false);
+                }}
+                onError={(e) => {
+                    console.log(e);
+                }}
+            />
+
+            <button
+                className={`${
+                    emailSent && verified
+                        ? "submit-btn submitted"
+                        : "submit-btn not-submitted"
+                }`}
+                type="submit"
+            />
 
             {formError && <div style={{ color: "red" }}>{messageError}</div>}
             {!formError && (

@@ -4,13 +4,11 @@ import axios from "axios";
 //import map from "../images/staticmap.png";
 
 const MOBILE_MODE_LIMIT = 892;
-const mapsKey = process.env.GOOGLE_MAPS_KEY;
 
 export const Map = () => {
     const [apiKey, setApiKey] = useState(null);
 
     useEffect(() => {
-        console.log(`mapsKey: ${mapsKey}`);
         const fetchKey = async () => {
             await axios
                 .post("https://api.fuelledfitness.ca:8443/googleMapsApiKey")
@@ -18,7 +16,7 @@ export const Map = () => {
                     setApiKey(res.data);
                 })
                 .catch((res) => {
-                    console.log(`Failed to get key: ${res}`);
+                    //console.log(`Failed to get key: ${res}`);
                     setApiKey(0);
                 });
         };

@@ -97,6 +97,10 @@ export const DesktopDiv = styled.div`
                 color: #333;
                 box-shadow: 3px 3px 2px #333;
 
+                &::after {
+                    content: "Send Message";
+                }
+
                 &:hover {
                     background-color: #6e88a1;
                     cursor: pointer;
@@ -105,6 +109,10 @@ export const DesktopDiv = styled.div`
                     translate: 3px 3px;
                     box-shadow: 0 0 0;
                 }
+            }
+
+            > .submitted::after {
+                content: "Message Sent!";
             }
 
             > textarea {
@@ -280,11 +288,22 @@ export const MobileDiv = styled.div`
                         color: #333;
                         box-shadow: 3px 3px 2px #333;
 
-                        &:active {
+                        &::after {
+                            content: "Send Message";
+                        }
+
+                        &:hover {
                             background-color: #6e88a1;
+                            cursor: pointer;
+                        }
+                        &:active {
                             translate: 3px 3px;
                             box-shadow: 0 0 0;
                         }
+                    }
+
+                    > .submitted::after {
+                        content: "Message Sent!";
                     }
                 }
             }
