@@ -251,10 +251,9 @@ export const DesktopCarousel = () => {
                 )}
                 {imgNumber === 3 && (
                     <p>
-                        As a national-level athlete in wrestling and
-                        powerlifting, I bring invaluable experience to my
-                        training, ensuring your success with personalized
-                        expertise and dedication.
+                        Partner with Us on Your Journey to Nutrition and Fitness
+                        Excellence, and Together, We'll Turn Your Goals into
+                        Reality, Starting Today!
                     </p>
                 )}
             </div>
