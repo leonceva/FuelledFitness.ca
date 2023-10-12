@@ -6,7 +6,7 @@ import brand_logo from "../images/5.svg";
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
-    background-image: linear-gradient(to right, #d0dce7, #6e88a1); // Current
+    background-image: linear-gradient(to left, #d0dceb, #87ceeb); // New
     //background-image: linear-gradient(to right, #DAE1C8, #6FADC8); // Option
     // background-color: #333;
     display: flex;
@@ -178,7 +178,7 @@ export const NavMenuUL = styled.ul`
                 font-size: calc(min(1.5vw, 2vh));
             }
             & > .dropdown-link:hover {
-                background-color: #6e88a1;
+                background-color: lightgray;
                 flex: auto;
                 box-shadow: none;
             }

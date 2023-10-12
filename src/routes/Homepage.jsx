@@ -238,22 +238,25 @@ export const DesktopCarousel = () => {
                 */}
                 {imgNumber === 1 && (
                     <p>
-                        Discover the Power of Expertise That Seamlessly Bridges
-                        the Worlds of Nutrition and Training!
+                        Achieve your goals by mastering both nutrition and
+                        training. Discover the power of coaching that seamlessly
+                        bridges the worlds of nutrition and training!
                     </p>
                 )}
                 {imgNumber === 2 && (
                     <p>
-                        Unlock Your Potential with Personalized Precision -
-                        Tailoring Nutrition and Fitness Programs to Your Unique
-                        Goals and Aspirations
+                        You are unique, and your program should be too. Unlock
+                        your potential with personalised coaching through
+                        nutrition and training programs that have been tailored
+                        to your unique goals and aspirations.
                     </p>
                 )}
                 {imgNumber === 3 && (
                     <p>
-                        Partner with Us on Your Journey to Nutrition and Fitness
-                        Excellence, and Together, We'll Turn Your Goals into
-                        Reality, Starting Today!
+                        Can you see where you want to go, but are having trouble
+                        getting there? Partner with us and find clarity on your
+                        journey. Remove the guesswork, and start working on a
+                        plan to bring your dreams to life today!
                     </p>
                 )}
             </div>
@@ -330,7 +333,7 @@ export const PreviewDiv = styled.div`
             font-weight: 500;
 
             & .preview-btn {
-                background-color: #d0dce7;
+                background-color: #d0dceb;
                 border: 2px solid #333;
                 border-radius: 10px;
                 padding: 1vh 2vw;
@@ -338,7 +341,7 @@ export const PreviewDiv = styled.div`
                 box-shadow: 3px 3px 2px #333;
 
                 &:hover {
-                    background-color: #6e88a1;
+                    background-color: #87ceeb;
                     cursor: pointer;
                 }
                 &:active {
@@ -354,7 +357,7 @@ export const DesktopPreview = () => {
     return (
         <PreviewDiv>
             <div className="preview-item">
-                <h3>Empower Your Health - Book Your Consultation</h3>
+                <h3>Book your consultation today!</h3>
                 <div>Online and In-Person options available!</div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div
@@ -366,15 +369,13 @@ export const DesktopPreview = () => {
                             );
                         }}
                     >
-                        Let's Get Started
+                        Book Appointment
                     </div>
                 </div>
             </div>
             <div className="preview-item">
-                <h3>Inspiring Healthier Lives</h3>
-                <div>
-                    Get to Know Your Dedicated Dietitian and Personal Trainer!
-                </div>
+                <h3>Expert Support for You</h3>
+                <div>Get to know your Nutrition and Training expert!</div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="preview-btn">
                         <Link
@@ -382,9 +383,9 @@ export const DesktopPreview = () => {
                                 textDecoration: "inherit",
                                 color: "inherit",
                             }}
-                            to="/aboutMe"
+                            to="/about"
                         >
-                            Read My Story
+                            Read More
                         </Link>
                     </div>
                 </div>
@@ -633,16 +634,8 @@ export const MobileDiv = styled.div`
                 & > .preview-button {
                     border-color: #333;
                     color: #333;
-                    background-color: aliceblue;
+                    background-color: #d0dceb;
                     box-shadow: 3px 3px 2px #333;
-                }
-
-                & > .preview-button:hover {
-                    background-color: #333;
-                    color: aliceblue;
-                    border-color: aliceblue;
-                    box-shadow: 0px 0px;
-                    translate: 2px 2px;
                 }
             }
 
@@ -763,22 +756,27 @@ export const MobileCarousel = () => {
                 <div className="caption">
                     {imgNumber === 1 && (
                         <p>
-                            Discover the Power of Expertise That Seamlessly
-                            Bridges the Worlds of Nutrition and Training!
+                            Achieve your goals by mastering both nutrition and
+                            training. Discover the power of coaching that
+                            seamlessly bridges the worlds of nutrition and
+                            training!
                         </p>
                     )}
                     {imgNumber === 2 && (
                         <p>
-                            Unlock Your Potential with Personalized Precision -
-                            Tailoring Nutrition and Fitness Programs to Your
-                            Unique Goals and Aspirations
+                            You are unique, and your program should be too.
+                            Unlock your potential with personalised coaching
+                            through nutrition and training programs that have
+                            been tailored to your unique goals and aspirations.
                         </p>
                     )}
                     {imgNumber === 3 && (
                         <p>
-                            Partner with Us on Your Journey to Nutrition and
-                            Fitness Excellence, and Together, We'll Turn Your
-                            Goals into Reality, Starting Today!
+                            Can you see where you want to go, but are having
+                            trouble getting there? Partner with us and find
+                            clarity on your journey. Remove the guesswork, and
+                            start working on a plan to bring your dreams to life
+                            today!
                         </p>
                     )}
                 </div>
@@ -791,7 +789,7 @@ export const MobilePreview = () => {
     return (
         <div className="previews">
             <div className="preview-item-focus">
-                <h3>Empower Your Health - Book Your Consultation</h3>
+                <h3>Book your consultation today!</h3>
                 <p>Online and In-Person options available!</p>
                 <p>
                     <span
@@ -803,15 +801,13 @@ export const MobilePreview = () => {
                             );
                         }}
                     >
-                        Let's Get Started
+                        Book Appointment
                     </span>
                 </p>
             </div>
             <div className="preview-item-focus">
-                <h3>Inspiring Healthier Lives</h3>
-                <p>
-                    Get to Know Your Dedicated Dietitian and Personal Trainer!
-                </p>
+                <h3>Expert Support for You</h3>
+                <p>Get to know your Nutrition and Training expert!</p>
                 <p>
                     <span className="preview-button">
                         <Link
@@ -819,9 +815,9 @@ export const MobilePreview = () => {
                                 textDecoration: "inherit",
                                 color: "inherit",
                             }}
-                            to="/aboutMe"
+                            to="/about"
                         >
-                            Read My Story
+                            Read More
                         </Link>
                     </span>
                 </p>

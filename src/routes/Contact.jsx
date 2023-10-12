@@ -90,7 +90,7 @@ export const DesktopDiv = styled.div`
             > .submit-btn {
                 margin: 0.5vh 0;
                 width: 80%;
-                background-color: #d0dce7;
+                background-color: #d0dceb;
                 border: 2px solid #333;
                 border-radius: 10px;
                 padding: 1vh 2vw;
@@ -102,7 +102,7 @@ export const DesktopDiv = styled.div`
                 }
 
                 &:hover {
-                    background-color: #6e88a1;
+                    background-color: #87ceeb;
                     cursor: pointer;
                 }
                 &:active {

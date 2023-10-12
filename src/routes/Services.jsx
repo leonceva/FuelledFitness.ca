@@ -234,13 +234,13 @@ export const DesktopDiv = styled.div`
         // For the buttons
         & > div {
             transition: background-color 0.2s;
-            background-color: aliceblue;
+            background-color: #d0dceb;
             box-shadow: 3px 3px 2px #333;
             margin: 2vh 0;
             width: 100%;
         }
         & > div:hover {
-            background-color: #6e88a1;
+            background-color: #87ceeb;
             cursor: pointer;
         }
         & > div:active {
@@ -248,10 +248,10 @@ export const DesktopDiv = styled.div`
             translate: 3px 3px;
         }
         & > .other-service {
-            background-color: rgb(241, 124, 143);
+            background-color: #d0dceb;
         }
         & > .other-service:hover {
-            background-color: gray;
+            background-color: #87ceeb;
         }
 
         & > .go-back {
@@ -677,7 +677,7 @@ export const MobileDiv = styled.div`
             padding: 1vh 2vw;
             border: solid 2px #333;
             border-radius: 2vw;
-            background-color: aliceblue;
+            background-color: #d0dceb;
             transition: all 0.3s;
             font-size: 4.5vw;
             box-shadow: 3px 3px 2px #333;
@@ -687,9 +687,7 @@ export const MobileDiv = styled.div`
             cursor: pointer;
         }
         & > .active {
-            border-color: aliceblue;
-            color: aliceblue;
-            background-color: #333;
+            background-color: #87ceeb;
             box-shadow: 0px 0px 2px gray;
             translate: 2px 2px;
         }
@@ -724,7 +722,7 @@ export const MobileDiv = styled.div`
             font-size: 3vh;
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
-            background-color: aliceblue;
+            background-color: #d0dceb;
         }
 
         & > img {

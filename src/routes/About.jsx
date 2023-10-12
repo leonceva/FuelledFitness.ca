@@ -109,10 +109,10 @@ export const DesktopContentDiv = styled.div`
             font-size: 3vh;
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
-            background-color: aliceblue;
+            background-color: #d0dceb;
 
             &:hover {
-                background-color: #6e88a1;
+                background-color: #87ceeb;
                 cursor: pointer;
             }
             &:active {
@@ -222,10 +222,10 @@ export const MobileContentDiv = styled.div`
             font-size: 3vh;
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
-            background-color: aliceblue;
+            background-color: #d0dceb;
 
             &:hover {
-                background-color: #6e88a1;
+                background-color: #87ceeb;
                 cursor: pointer;
             }
             &:active {
