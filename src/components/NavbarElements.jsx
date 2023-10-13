@@ -30,7 +30,7 @@ export const NavBrand = () => {
                     </BrandImgDiv>
                 </div>
                 <div className="col">
-                    <BrandImgDiv style={{ translate: "100% -50%" }}>
+                    <BrandImgDiv style={{ translate: "100% -70%" }}>
                         <Link to="/home">
                             <BrandImg src={brand_logo} alt="Brand Logo" />
                         </Link>
@@ -50,8 +50,8 @@ export const BrandImgDiv = styled.div`
 `;
 
 export const BrandImg = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
 
     @media screen and (max-width: 360px) {
         display: none;
