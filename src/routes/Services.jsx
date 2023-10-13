@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
-import placeholder from "../images/DSC05295.jpg";
-import nutritionImg from "../images/ARC00892.jpg";
-import trainingImg from "../images/45803572975_9f20326737_b.jpg";
+import placeholder from "../images/krystin-gym-02.jpg";
+import nutritionImg from "../images/krystin-business-01.jpg";
+import trainingImg from "../images/krystin-wrestling-02.jpg";
 
 const Services = () => {
     const [serviceSelected, setServiceSelected] = useState("none");

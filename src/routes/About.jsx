@@ -1,8 +1,8 @@
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
-import krystin_img1 from "../images/ARC00915-2.jpg";
-import krystin_img2 from "../images/DSC05177.jpg";
+import krystin_img1 from "../images/krystin-business-02.jpg";
+import krystin_img2 from "../images/krystin-gym-03.jpg";
 
 const About = () => {
     return (

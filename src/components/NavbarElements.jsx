@@ -136,7 +136,7 @@ export const NavMenuUL = styled.ul`
 
     .link {
         text-align: center;
-        font-size: calc(min(2vw, 2.5vh));
+        font-size: calc(min(2.5vw, 3vh));
         font-weight: 600;
     }
 
@@ -175,7 +175,7 @@ export const NavMenuUL = styled.ul`
                 text-align: center;
                 margin: 0 -10px;
                 width: 100%;
-                font-size: calc(min(1.5vw, 2vh));
+                font-size: calc(min(2vw, 2.5vh));
             }
             & > .dropdown-link:hover {
                 background-color: lightgray;

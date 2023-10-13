@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
-import test1 from "../images/ARC00892.jpg";
-import test2 from "../images/DSC05302.jpg";
-import test3 from "../images/39753925763_e25c9d8c3b_b.jpg";
+import krystinBusiness from "../images/krystin-business-01.jpg";
+import krystinGym from "../images/krystin-gym-01.jpg";
+import krystinWrestling from "../images/krystin-wrestling-01.jpg";
 import { Link } from "react-router-dom";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
@@ -192,19 +192,19 @@ export const DesktopCarousel = () => {
                 <img
                     loading="lazy"
                     className={imgNumber === 1 ? "img-show" : "img-hide"}
-                    src={test1}
-                    alt="test1"
+                    src={krystinBusiness}
+                    alt="Krystin Business Portrait"
                 />
                 <img
                     loading="lazy"
                     className={imgNumber === 2 ? "img-show" : "img-hide"}
-                    src={test2}
+                    src={krystinGym}
                     alt="test2"
                 />
                 <img
                     loading="lazy"
                     className={imgNumber === 3 ? "img-show" : "img-hide"}
-                    src={test3}
+                    src={krystinWrestling}
                     alt="test3"
                 />
                 <img
@@ -212,10 +212,10 @@ export const DesktopCarousel = () => {
                     className="img-bg"
                     src={
                         imgNumber === 1
-                            ? test1
+                            ? krystinBusiness
                             : imgNumber === 2
-                            ? test2
-                            : test3
+                            ? krystinGym
+                            : krystinWrestling
                     }
                     alt="test1"
                 ></img>
@@ -226,14 +226,16 @@ export const DesktopCarousel = () => {
                     position: "absolute",
                     bottom: "0%",
                     width: "100%",
-                    backgroundColor: "#333",
+                    backgroundColor: "darkgray",
                     zIndex: "2",
-                    color: "white",
-                    borderRadius: "10px",
+                    color: "#333",
+                    border: "solid #333 calc(min(0.5vw,0.5vh))",
+                    borderRadius: "1vw",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     overflow: "auto",
+                    fontWeight: "bold",
                 }}
             >
                 {/*
@@ -315,12 +317,11 @@ export const PreviewDiv = styled.div`
 
     & > .preview-item {
         margin: 1vh 1vw;
-
+        border: solid #333 calc(min(0.5vw, 0.5vh));
         border-radius: 1vw;
         background-color: darkgray;
         transition: 0.5s;
         overflow: auto;
-        font-weight: 500;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -334,7 +335,7 @@ export const PreviewDiv = styled.div`
 
         & > div {
             font-size: calc(min(2.5vw, 2.5vh));
-            font-weight: 500;
+            font-weight: bold;
 
             & .preview-btn {
                 background-color: #d0dceb;
@@ -361,8 +362,8 @@ export const DesktopPreview = () => {
     return (
         <PreviewDiv>
             <div className="preview-item">
-                <h3>Book your consultation today!</h3>
-                <div>Online and In-Person options available!</div>
+                <h3>Book Your Consultation Today</h3>
+                <div>Online and in-person options available</div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div
                         className="preview-btn"
@@ -379,7 +380,7 @@ export const DesktopPreview = () => {
             </div>
             <div className="preview-item">
                 <h3>Expert Support for You</h3>
-                <div>Get to know your Nutrition and Training expert!</div>
+                <div>Get to know your nutrition and training expert</div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="preview-btn">
                         <Link
@@ -395,8 +396,8 @@ export const DesktopPreview = () => {
                 </div>
             </div>
             <div className="preview-item">
-                <h3>Discover the Path to Sustainable Health</h3>
-                <div>Connect with Us on Socials or Send us an Email</div>
+                <h3>Stay in Touch</h3>
+                <div>Connect with us on social media or send us an email</div>
                 <div
                     style={{
                         display: "flex",
@@ -730,19 +731,19 @@ export const MobileCarousel = () => {
                     <img
                         loading="lazy"
                         className={imgNumber === 1 ? "img-show" : "img-hide"}
-                        src={test1}
+                        src={krystinBusiness}
                         alt="test1"
                     />
                     <img
                         loading="lazy"
                         className={imgNumber === 2 ? "img-show" : "img-hide"}
-                        src={test2}
+                        src={krystinGym}
                         alt="test2"
                     />
                     <img
                         loading="lazy"
                         className={imgNumber === 3 ? "img-show" : "img-hide"}
-                        src={test3}
+                        src={krystinWrestling}
                         alt="test3"
                     />
                     <img
@@ -750,10 +751,10 @@ export const MobileCarousel = () => {
                         className="img-bg"
                         src={
                             imgNumber === 1
-                                ? test1
+                                ? krystinBusiness
                                 : imgNumber === 2
-                                ? test2
-                                : test3
+                                ? krystinGym
+                                : krystinWrestling
                         }
                         alt="test1"
                     ></img>
@@ -797,8 +798,8 @@ export const MobilePreview = () => {
     return (
         <div className="previews">
             <div className="preview-item-focus">
-                <h3>Book your consultation today!</h3>
-                <p>Online and In-Person options available!</p>
+                <h3>Book Your Consultation Today</h3>
+                <p>Online and in-person options available</p>
                 <p>
                     <span
                         className="preview-button"
@@ -815,7 +816,7 @@ export const MobilePreview = () => {
             </div>
             <div className="preview-item-focus">
                 <h3>Expert Support for You</h3>
-                <p>Get to know your Nutrition and Training expert!</p>
+                <p>Get to know your nutrition and training expert</p>
                 <p>
                     <span className="preview-button">
                         <Link
@@ -831,8 +832,8 @@ export const MobilePreview = () => {
                 </p>
             </div>
             <div className="preview-item-focus">
-                <h3>Discover the Path to Sustainable Health</h3>
-                <p>Connect with Us on Socials or Send us an Email</p>
+                <h3>Stay in Touch</h3>
+                <p>Connect with us on social media or send us an email</p>
                 <div className="links">
                     <InstagramLink
                         width="min(10vw, 8vh)"
