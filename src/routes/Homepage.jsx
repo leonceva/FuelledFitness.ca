@@ -190,21 +190,25 @@ export const DesktopCarousel = () => {
                     The captions go in the div below
                  */}
                 <img
+                    loading="lazy"
                     className={imgNumber === 1 ? "img-show" : "img-hide"}
                     src={test1}
                     alt="test1"
                 />
                 <img
+                    loading="lazy"
                     className={imgNumber === 2 ? "img-show" : "img-hide"}
                     src={test2}
                     alt="test2"
                 />
                 <img
+                    loading="lazy"
                     className={imgNumber === 3 ? "img-show" : "img-hide"}
                     src={test3}
                     alt="test3"
                 />
                 <img
+                    loading="lazy"
                     className="img-bg"
                     src={
                         imgNumber === 1
@@ -724,21 +728,25 @@ export const MobileCarousel = () => {
             >
                 <div className="carousel">
                     <img
+                        loading="lazy"
                         className={imgNumber === 1 ? "img-show" : "img-hide"}
                         src={test1}
                         alt="test1"
                     />
                     <img
+                        loading="lazy"
                         className={imgNumber === 2 ? "img-show" : "img-hide"}
                         src={test2}
                         alt="test2"
                     />
                     <img
+                        loading="lazy"
                         className={imgNumber === 3 ? "img-show" : "img-hide"}
                         src={test3}
                         alt="test3"
                     />
                     <img
+                        loading="lazy"
                         className="img-bg"
                         src={
                             imgNumber === 1

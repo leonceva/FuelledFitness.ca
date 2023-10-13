@@ -99,13 +99,13 @@ export const NavMenu = (props) => {
                         <>
                             <NavLink
                                 className="dropdown-link"
-                                to="/services#nutrition"
+                                to="/services#nutrition-individuals"
                             >
                                 Nutrition
                             </NavLink>
                             <NavLink
                                 className="dropdown-link"
-                                to="/services#training"
+                                to="/services#training-online"
                             >
                                 Training
                             </NavLink>
