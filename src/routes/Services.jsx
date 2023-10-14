@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
-import placeholder from "../images/krystin-gym-02.jpg";
+import placeholder from "../images/krystin-gym-01.jpg";
 import nutritionImg from "../images/krystin-business-01.jpg";
 import trainingImg from "../images/krystin-wrestling-02.jpg";
 
@@ -114,7 +114,7 @@ export const DesktopContent = (props) => {
                                 Individuals
                             </InfoButton>
                             <InfoButton
-                                style={{ animationDelay: "0.7s" }}
+                                style={{ animationDelay: "0.5s" }}
                                 onClick={() => handleClickOption("team")}
                             >
                                 Team Programs
@@ -123,7 +123,13 @@ export const DesktopContent = (props) => {
                                 style={{ animationDelay: "0.5s" }}
                                 onClick={() => handleClickOption("corporate")}
                             >
-                                Corporate and Businesses
+                                Corporate
+                            </InfoButton>
+                            <InfoButton
+                                style={{ animationDelay: "0.5s" }}
+                                onClick={() => handleClickOption("menu")}
+                            >
+                                Menu Review
                             </InfoButton>
                             <InfoButton
                                 style={{ animationDelay: "0.5s" }}
@@ -213,9 +219,10 @@ export const DesktopDiv = styled.div`
         display: flex;
         flex-direction: column;
         padding: 1vh 1vw;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
         position: relative;
+        padding-top: 10vh;
 
         & > img {
             max-width: 25%;
@@ -337,45 +344,62 @@ export const InfoDesktop = (props) => {
                         Initial Consult (60 minutes) - $140 <br />
                         Follow-up (45 minutes) - $105
                     </p>
+                    <h2>Personalised Strategies</h2>
+                    <p>
+                        In some cases your Registered Dietitian may recommend a
+                        meal plan to support you in achieving your goals. A meal
+                        plan is not the answer for everyone. Your registered
+                        dietitian will work with you to address the challenges
+                        you face to optimally achieve your nutrition goals. Some
+                        examples may include food diary review, recipe curation,
+                        grocery store tours, pantry review, and cooking lessons.
+                    </p>
                 </>
             )}
             {option === "team" && service === "nutrition" && (
                 <>
                     <h2>Team Nutrition Programs</h2>
                     <p>
-                        Provide nutrition services to athletes to support their
-                        performance and overall wellbeing. Sound nutrition is
-                        essential for optimal performance and recovery. Contact
-                        us to discuss the unique needs of your team. <br />
-                        Improve nutrition knowledge of your team through a
-                        nutrition presentation tailored to the specific needs of
-                        your sport. <br />
-                        Provide assurance of nutritional balance by having your
-                        menu reviewed and critiqued by a registered dietitian.
+                        Complement the hard work your athletes are putting in
+                        during training with nutrition support. Some services
+                        offered include nutrition presentations, interactive
+                        activities, or 1:1 counselling sessions.
                         <br />
                         <br />
-                        Contact us today to discuss the unique needs of your
-                        team.
+                        Contact us today to design a program that fits the needs
+                        of your team.
                     </p>
                 </>
             )}
             {option === "corporate" && service === "nutrition" && (
                 <>
-                    <h2>Corporate Wellness Programs</h2>
+                    <h2>Employee Nutrition Program</h2>
                     <p>
-                        Provide nutrition services to employees to support their
-                        health and wellbeing. For businesses and corporations
-                        this can promote improved productivity, longevity, and
-                        satisfaction with employees. <br />
-                        Improve nutrition knowledge of your organisation through
-                        a nutrition presentation tailored to the specific needs
-                        of your group. <br />
-                        Provide assurance of nutritional balance by having your
-                        menu reviewed and critiqued by a registered dietitian.
+                        Support the wellbeing of your employees through
+                        nutrition support. Healthier and happier employees
+                        promote improved productivity, longevity, and a better
+                        workplace culture. Some services offered include
+                        nutrition presentations, interactive activities, or 1:1
+                        counselling sessions.
                         <br />
                         <br />
                         Contact us today to discuss the unique needs of your
-                        corporation.
+                        organization.
+                    </p>
+                </>
+            )}
+            {option === "menu" && service === "nutrition" && (
+                <>
+                    <h2>Menu Review</h2>
+                    <p>
+                        Do you provide meals as part of your business? Provide
+                        assurance of nutritional balance, and credibility to
+                        clients by having your menu reviewed and critiqued by a
+                        registered dietitian.
+                        <br />
+                        <br />
+                        Contact us today to discuss the unique needs of your
+                        organization.
                     </p>
                 </>
             )}
@@ -535,46 +559,58 @@ export const MobileContent = (props) => {
                                 weight loss, improved energy levels, or optimal
                                 health and wellbeing for yourself and your
                                 family, we offer personalised strategies to
-                                support you in achieving your goals. <br />{" "}
+                                support you in achieving your goals. <br />
                                 <br />
                                 Initial Consult (60 minutes) - $140 <br />
-                                Follow-up (45 minutes) - $105
+                                Follow-up (45 minutes) - $105 <br />
+                                <br />
+                                In some cases your Registered Dietitian may
+                                recommend a meal plan to support you in
+                                achieving your goals. A meal plan is not the
+                                answer for everyone. Your registered dietitian
+                                will work with you to address the challenges you
+                                face to optimally achieve your nutrition goals.
+                                Some examples may include food diary review,
+                                recipe curation, grocery store tours, pantry
+                                review, and cooking lessons.
                             </p>
                             <h3>Team Nutrition Programs</h3>
                             <p>
-                                Provide nutrition services to athletes to
-                                support their performance and overall wellbeing.
-                                Sound nutrition is essential for optimal
-                                performance and recovery. Contact us to discuss
-                                the unique needs of your team. <br />
-                                Improve nutrition knowledge of your team through
-                                a nutrition presentation tailored to the
-                                specific needs of your sport. <br />
-                                Provide assurance of nutritional balance by
-                                having your menu reviewed and critiqued by a
-                                registered dietitian.
+                                Complement the hard work your athletes are
+                                putting in during training with nutrition
+                                support. Some services offered include nutrition
+                                presentations, interactive activities, or 1:1
+                                counselling sessions.
                                 <br />
                                 <br />
-                                Contact us today to discuss the unique needs of
-                                your team.
+                                Contact us today to design a program that fits
+                                the needs of your team.
                             </p>
                             <h3>Corporate Wellness Programs</h3>
                             <p>
-                                Provide nutrition services to employees to
-                                support their health and wellbeing. For
-                                businesses and corporations this can promote
-                                improved productivity, longevity, and
-                                satisfaction with employees. <br />
-                                Improve nutrition knowledge of your organisation
-                                through a nutrition presentation tailored to the
-                                specific needs of your group. <br />
-                                Provide assurance of nutritional balance by
-                                having your menu reviewed and critiqued by a
-                                registered dietitian.
+                                Support the wellbeing of your employees through
+                                nutrition support. Healthier and happier
+                                employees promote improved productivity,
+                                longevity, and a better workplace culture. Some
+                                services offered include nutrition
+                                presentations, interactive activities, or 1:1
+                                counselling sessions.
                                 <br />
                                 <br />
                                 Contact us today to discuss the unique needs of
-                                your corporation.
+                                your organisation.
+                            </p>
+                            <h3>Menu Review</h3>
+                            <p>
+                                Do you provide meals as part of your business?
+                                Provide assurance of nutritional balance, and
+                                credibility to clients by having your menu
+                                reviewed and critiqued by a registered
+                                dietitian.
+                                <br />
+                                <br />
+                                Contact us today to discuss the unique needs of
+                                your organisation.
                             </p>
                             <div
                                 className="appointment"
