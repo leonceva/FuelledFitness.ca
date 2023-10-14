@@ -14,6 +14,7 @@
     "react": "^18.2.0",
     "react-adaptive-image": "^1.9.1",
     "react-bootstrap": "^2.4.0",
+    "react-cookie": "^6.1.1",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.1",
@@ -53,6 +54,8 @@
     "react-scripts": "^5.0.1"
   },
   "overrides": {
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "postcss": ">=8.4.31"
+
   }
 }
