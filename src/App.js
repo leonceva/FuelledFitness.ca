@@ -37,6 +37,10 @@ function App() {
                 {
                     path: "/account",
                     element: <MyAccount />
+                },
+                {
+                    path: "/login",
+                    element: <MyAccount />
                 }
             ],
         },
