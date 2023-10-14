@@ -147,23 +147,10 @@ export const ContactMeForm = () => {
                 onExpire={() => {
                     setVerified(false);
                 }}
-<<<<<<< HEAD:src/components/ContactMeForm.jsx
-            >
-                <Reaptcha
-                    id="recaptcha"
-                    sitekey="6LeqyxkoAAAAAMkMdeTVT-ADWy1cgYy_qAXzyymT"
-                    onVerify={() => {
-                        setVerified(true);
-                    }}
-                    ref={captchaRef}
-                />
-            </span>
-=======
                 onError={(e) => {
                     console.log(e);
                 }}
             />
->>>>>>> main:src/components/Form.jsx
 
             <button
                 className={`${
