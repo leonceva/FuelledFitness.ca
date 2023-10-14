@@ -22,7 +22,9 @@
     "reaptcha": "^1.12.1",
     "sort-by": "^0.0.2",
     "styled-components": "^6.0.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "postcss": ">=8.4.31"
+
   },
   "scripts": {
     "start": "react-scripts start",
