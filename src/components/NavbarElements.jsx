@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { NavLink as Link } from "react-router-dom";
-import logo from "../images/1.svg";
-import brand_logo from "../images/5.svg";
+import logo from "../images/fuelled-fitness-logo.svg";
+import brand_logo from "../images/fuelled-fitness-letters.svg";
 
 const MOBILE_MODE_LIMIT = `892px`;
 
