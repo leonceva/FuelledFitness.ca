@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { styled } from "styled-components";
-import test1 from "../images/ARC00892.jpg";
-import test2 from "../images/DSC05302.jpg";
-import test3 from "../images/39753925763_e25c9d8c3b_b.jpg";
+import krystinBusiness from "../images/krystin-business-01.jpg";
+import krystinGym from "../images/krystin-gym-01.jpg";
+import krystinWrestling from "../images/krystin-wrestling-01.jpg";
 import { Link } from "react-router-dom";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
@@ -73,7 +73,7 @@ export const CarouselDiv = styled.div`
             opacity: 0.3;
             left: 0%;
             border-radius: 10px;
-            border: 2px solid black;
+            border: 2px solid #333;
         }
 
         & > .img-show {
@@ -100,38 +100,38 @@ export const CarouselDiv = styled.div`
 
     & > button {
         font-size: 25px;
-        width: 40px;
-        height: 40px;
-        border-width: 2.5px;
-        border-style: solid;
-        border-color: #333;
-        color: #333;
-        border-radius: 15%;
-        background-color: lightgray;
+        width: 6%;
+        height: 70%;
+        border: 0px solid lightgray;
+        background-color: #333;
+        color: lightgray;
         transition: all 0s;
-        box-shadow: 3px 3px 2px #333;
-        &:hover {
-            background-color: gray;
-        }
-        &:active {
-            transition: all 0s;
-            box-shadow: 0 0;
-            translate: 3px 3px;
-        }
     }
 
     & > .left {
         position: absolute;
-        top: 50%;
+        top: 0%;
         left: 0%;
         z-index: 3;
+        border-radius: 10px 0 0 10px;
+        &:active {
+            transition: all 100ms;
+            box-shadow: 0 0;
+            translate: -5px;
+        }
     }
 
     & > .right {
         position: absolute;
-        top: 50%;
+        top: 0%;
         right: 0%;
         z-index: 3;
+        border-radius: 0 10px 10px 0;
+        &:active {
+            transition: all 100ms;
+            box-shadow: 0 0;
+            translate: 5px 0px;
+        }
     }
 
     p {
@@ -190,28 +190,32 @@ export const DesktopCarousel = () => {
                     The captions go in the div below
                  */}
                 <img
+                    loading="lazy"
                     className={imgNumber === 1 ? "img-show" : "img-hide"}
-                    src={test1}
-                    alt="test1"
+                    src={krystinBusiness}
+                    alt="Krystin Business Portrait"
                 />
                 <img
+                    loading="lazy"
                     className={imgNumber === 2 ? "img-show" : "img-hide"}
-                    src={test2}
+                    src={krystinGym}
                     alt="test2"
                 />
                 <img
+                    loading="lazy"
                     className={imgNumber === 3 ? "img-show" : "img-hide"}
-                    src={test3}
+                    src={krystinWrestling}
                     alt="test3"
                 />
                 <img
+                    loading="lazy"
                     className="img-bg"
                     src={
                         imgNumber === 1
-                            ? test1
+                            ? krystinBusiness
                             : imgNumber === 2
-                            ? test2
-                            : test3
+                            ? krystinGym
+                            : krystinWrestling
                     }
                     alt="test1"
                 ></img>
@@ -222,14 +226,16 @@ export const DesktopCarousel = () => {
                     position: "absolute",
                     bottom: "0%",
                     width: "100%",
-                    backgroundColor: "#333",
+                    backgroundColor: "darkgray",
                     zIndex: "2",
-                    color: "white",
-                    borderRadius: "10px",
+                    color: "#333",
+                    border: "solid #333 calc(min(0.5vw,0.5vh))",
+                    borderRadius: "1vw",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     overflow: "auto",
+                    fontWeight: "bold",
                 }}
             >
                 {/*
@@ -238,24 +244,25 @@ export const DesktopCarousel = () => {
                 */}
                 {imgNumber === 1 && (
                     <p>
-                        Fuel Your Health & Performance: Nutrition for All -
-                        General Population and Athletes Alike, Welcome Aboard!
-                        Get Ready for a Nourishing Journey
+                        Achieve your goals by mastering both nutrition and
+                        training. Discover the power of coaching that seamlessly
+                        bridges the worlds of nutrition and training!
                     </p>
                 )}
                 {imgNumber === 2 && (
                     <p>
-                        Let's Unlock Your Health Potential with My BSc. Food
-                        Science with a Specialization in Dietetics, and B.
-                        Kinesiology
+                        You are unique, and your program should be too. Unlock
+                        your potential with personalised coaching through
+                        nutrition and training programs that have been tailored
+                        to your unique goals and aspirations.
                     </p>
                 )}
                 {imgNumber === 3 && (
                     <p>
-                        As a national-level athlete in wrestling and
-                        powerlifting, I bring invaluable experience to my
-                        training, ensuring your success with personalized
-                        expertise and dedication.
+                        Can you see where you want to go, but are having trouble
+                        getting there? Partner with us and find clarity on your
+                        journey. Remove the guesswork, and start working on a
+                        plan to bring your dreams to life today!
                     </p>
                 )}
             </div>
@@ -310,12 +317,11 @@ export const PreviewDiv = styled.div`
 
     & > .preview-item {
         margin: 1vh 1vw;
-
+        border: solid #333 calc(min(0.5vw, 0.5vh));
         border-radius: 1vw;
         background-color: darkgray;
         transition: 0.5s;
         overflow: auto;
-        font-weight: 500;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -329,10 +335,10 @@ export const PreviewDiv = styled.div`
 
         & > div {
             font-size: calc(min(2.5vw, 2.5vh));
-            font-weight: 500;
+            font-weight: bold;
 
             & .preview-btn {
-                background-color: #d0dce7;
+                background-color: #d0dceb;
                 border: 2px solid #333;
                 border-radius: 10px;
                 padding: 1vh 2vw;
@@ -340,7 +346,7 @@ export const PreviewDiv = styled.div`
                 box-shadow: 3px 3px 2px #333;
 
                 &:hover {
-                    background-color: #6e88a1;
+                    background-color: #87ceeb;
                     cursor: pointer;
                 }
                 &:active {
@@ -356,8 +362,8 @@ export const DesktopPreview = () => {
     return (
         <PreviewDiv>
             <div className="preview-item">
-                <h3>Empower Your Health - Book Your Consultation</h3>
-                <div>Online and In-Person options available!</div>
+                <h3>Book Your Consultation Today</h3>
+                <div>Online and in-person options available</div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div
                         className="preview-btn"
@@ -368,15 +374,13 @@ export const DesktopPreview = () => {
                             );
                         }}
                     >
-                        Let's Get Started
+                        Book Appointment
                     </div>
                 </div>
             </div>
             <div className="preview-item">
-                <h3>Inspiring Healthier Lives</h3>
-                <div>
-                    Get to Know Your Dedicated Dietitian and Personal Trainer!
-                </div>
+                <h3>Expert Support for You</h3>
+                <div>Get to know your nutrition and training expert</div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="preview-btn">
                         <Link
@@ -384,16 +388,16 @@ export const DesktopPreview = () => {
                                 textDecoration: "inherit",
                                 color: "inherit",
                             }}
-                            to="/aboutMe"
+                            to="/about"
                         >
-                            Read My Story
+                            Read More
                         </Link>
                     </div>
                 </div>
             </div>
             <div className="preview-item">
-                <h3>Discover the Path to Sustainable Health</h3>
-                <div>Connect with Us on Socials or Send us an Email</div>
+                <h3>Stay in Touch</h3>
+                <div>Connect with us on social media or send us an email</div>
                 <div
                     style={{
                         display: "flex",
@@ -635,16 +639,8 @@ export const MobileDiv = styled.div`
                 & > .preview-button {
                     border-color: #333;
                     color: #333;
-                    background-color: aliceblue;
+                    background-color: #d0dceb;
                     box-shadow: 3px 3px 2px #333;
-                }
-
-                & > .preview-button:hover {
-                    background-color: #333;
-                    color: aliceblue;
-                    border-color: aliceblue;
-                    box-shadow: 0px 0px;
-                    translate: 2px 2px;
                 }
             }
 
@@ -733,28 +729,32 @@ export const MobileCarousel = () => {
             >
                 <div className="carousel">
                     <img
+                        loading="lazy"
                         className={imgNumber === 1 ? "img-show" : "img-hide"}
-                        src={test1}
+                        src={krystinBusiness}
                         alt="test1"
                     />
                     <img
+                        loading="lazy"
                         className={imgNumber === 2 ? "img-show" : "img-hide"}
-                        src={test2}
+                        src={krystinGym}
                         alt="test2"
                     />
                     <img
+                        loading="lazy"
                         className={imgNumber === 3 ? "img-show" : "img-hide"}
-                        src={test3}
+                        src={krystinWrestling}
                         alt="test3"
                     />
                     <img
+                        loading="lazy"
                         className="img-bg"
                         src={
                             imgNumber === 1
-                                ? test1
+                                ? krystinBusiness
                                 : imgNumber === 2
-                                ? test2
-                                : test3
+                                ? krystinGym
+                                : krystinWrestling
                         }
                         alt="test1"
                     ></img>
@@ -762,28 +762,30 @@ export const MobileCarousel = () => {
                 <div className="scroll-hand-container">
                     <img className="hand" src={handSwipe} alt="hand-swipe" />
                 </div>
-
                 <div className="caption">
                     {imgNumber === 1 && (
                         <p>
-                            Fuel Your Health & Performance: Nutrition for All -
-                            General Population and Athletes Alike, Welcome
-                            Aboard! Get Ready for a Nourishing Journey
+                            Achieve your goals by mastering both nutrition and
+                            training. Discover the power of coaching that
+                            seamlessly bridges the worlds of nutrition and
+                            training!
                         </p>
                     )}
                     {imgNumber === 2 && (
                         <p>
-                            Let's Unlock Your Health Potential with My BSc. Food
-                            Science with a Specialization in Dietetics, and B.
-                            Kinesiology
+                            You are unique, and your program should be too.
+                            Unlock your potential with personalised coaching
+                            through nutrition and training programs that have
+                            been tailored to your unique goals and aspirations.
                         </p>
                     )}
                     {imgNumber === 3 && (
                         <p>
-                            As a national-level athlete in wrestling and
-                            powerlifting, I bring invaluable experience to my
-                            training, ensuring your success with personalized
-                            expertise and dedication.
+                            Can you see where you want to go, but are having
+                            trouble getting there? Partner with us and find
+                            clarity on your journey. Remove the guesswork, and
+                            start working on a plan to bring your dreams to life
+                            today!
                         </p>
                     )}
                 </div>
@@ -796,8 +798,8 @@ export const MobilePreview = () => {
     return (
         <div className="previews">
             <div className="preview-item-focus">
-                <h3>Empower Your Health - Book Your Consultation</h3>
-                <p>Online and In-Person options available!</p>
+                <h3>Book Your Consultation Today</h3>
+                <p>Online and in-person options available</p>
                 <p>
                     <span
                         className="preview-button"
@@ -808,15 +810,13 @@ export const MobilePreview = () => {
                             );
                         }}
                     >
-                        Book A Consult
+                        Book Appointment
                     </span>
                 </p>
             </div>
             <div className="preview-item-focus">
-                <h3>Inspiring Healthier Lives</h3>
-                <p>
-                    Get to Know Your Dedicated Dietitian and Personal Trainer!
-                </p>
+                <h3>Expert Support for You</h3>
+                <p>Get to know your nutrition and training expert</p>
                 <p>
                     <span className="preview-button">
                         <Link
@@ -824,16 +824,16 @@ export const MobilePreview = () => {
                                 textDecoration: "inherit",
                                 color: "inherit",
                             }}
-                            to="/aboutMe"
+                            to="/about"
                         >
-                            Read My Story
+                            Read More
                         </Link>
                     </span>
                 </p>
             </div>
             <div className="preview-item-focus">
-                <h3>Discover the Path to Sustainable Health</h3>
-                <p>Connect with Us on Socials or Send us an Email</p>
+                <h3>Stay in Touch</h3>
+                <p>Connect with us on social media or send us an email</p>
                 <div className="links">
                     <InstagramLink
                         width="min(10vw, 8vh)"

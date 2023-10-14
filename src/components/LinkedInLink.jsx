@@ -6,7 +6,7 @@ const LinkedInLink = (props) => {
     return (
         <>
             <div className="image pt-1 pb-1">
-                <a href="https://www.linkedin.com/in/krystin-paquette-5223131a7/?originalSubdomain=ca">
+                <a href="https://www.linkedin.com/in/krystin-rd">
                     <img
                         src={linkedin_logo}
                         alt="LinkedIn Logo"

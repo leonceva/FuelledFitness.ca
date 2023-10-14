@@ -16,7 +16,7 @@ export const Map = () => {
                     setApiKey(res.data);
                 })
                 .catch((res) => {
-                    console.log(`Failed to get key: ${res}`);
+                    //console.log(`Failed to get key: ${res}`);
                     setApiKey(0);
                 });
         };

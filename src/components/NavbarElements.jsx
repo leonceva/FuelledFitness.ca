@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 import { NavLink as Link } from "react-router-dom";
-import logo from "../images/1.svg";
-import brand_logo from "../images/5.svg";
+import logo from "../images/fuelled-fitness-logo.svg";
+import brand_logo from "../images/fuelled-fitness-letters.svg";
 
 const MOBILE_MODE_LIMIT = `892px`;
 
 export const Nav = styled.nav`
-    background-image: linear-gradient(to right, #d0dce7, #6e88a1);
+    background-image: linear-gradient(to left, #d0dceb, #87ceeb); // New
+    //background-image: linear-gradient(to right, #DAE1C8, #6FADC8); // Option
+    // background-color: #333;
     display: flex;
     align-items: center;
     height: 100%;
@@ -28,7 +30,7 @@ export const NavBrand = () => {
                     </BrandImgDiv>
                 </div>
                 <div className="col">
-                    <BrandImgDiv style={{ translate: "100% -50%" }}>
+                    <BrandImgDiv style={{ translate: "100% -70%" }}>
                         <Link to="/home">
                             <BrandImg src={brand_logo} alt="Brand Logo" />
                         </Link>
@@ -48,8 +50,8 @@ export const BrandImgDiv = styled.div`
 `;
 
 export const BrandImg = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
 
     @media screen and (max-width: 360px) {
         display: none;
@@ -68,8 +70,8 @@ export const NavMenu = (props) => {
                 </NavLink>
             </li>
             <li>
-                <NavLink className="link" to="/aboutMe">
-                    About Me
+                <NavLink className="link" to="/about">
+                    About
                 </NavLink>
             </li>
             <li className="dropdown">
@@ -78,7 +80,7 @@ export const NavMenu = (props) => {
                     onMouseLeave={() => setDropdownHover(false)}
                 >
                     <NavLink className="link" to="/services">
-                        Services{" "}
+                        Services
                     </NavLink>
                     {dropdownHover ? (
                         <i className="bi bi-caret-down"></i>
@@ -97,13 +99,13 @@ export const NavMenu = (props) => {
                         <>
                             <NavLink
                                 className="dropdown-link"
-                                to="/services#nutrition"
+                                to="/services#nutrition-individuals"
                             >
                                 Nutrition
                             </NavLink>
                             <NavLink
                                 className="dropdown-link"
-                                to="/services#training"
+                                to="/services#training-online"
                             >
                                 Training
                             </NavLink>
@@ -112,8 +114,8 @@ export const NavMenu = (props) => {
                 </div>
             </li>
             <li>
-                <NavLink className="link" to="contactMe">
-                    Contact Me
+                <NavLink className="link" to="contact">
+                    Contact
                 </NavLink>
             </li>
             <li>
@@ -139,7 +141,7 @@ export const NavMenuUL = styled.ul`
 
     .link {
         text-align: center;
-        font-size: calc(min(2vw, 2.5vh));
+        font-size: calc(min(2.5vw, 3vh));
         font-weight: 600;
     }
 
@@ -178,7 +180,7 @@ export const NavMenuUL = styled.ul`
                 text-align: center;
                 margin: 0 -10px;
                 width: 100%;
-                font-size: calc(min(1.5vw, 2vh));
+                font-size: calc(min(2vw, 2.5vh));
             }
             & > .dropdown-link:hover {
                 background-color: lightgray;
@@ -352,15 +354,15 @@ export const ModalMenu = (props) => {
                         <NavLink className="expanded-link" to="/home">
                             Home
                         </NavLink>
-                        <NavLink className="expanded-link" to="/aboutMe">
-                            About Me
+                        <NavLink className="expanded-link" to="/about">
+                            About
                         </NavLink>
 
                         <NavLink className="expanded-link" to="/services">
                             Services
                         </NavLink>
-                        <NavLink className="expanded-link" to="/contactMe">
-                            Contact Me
+                        <NavLink className="expanded-link" to="/contact">
+                            Contact
                         </NavLink>
                     </>
                 )}
