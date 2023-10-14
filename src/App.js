@@ -7,6 +7,7 @@ import Homepage from "./routes/Homepage";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
 import Services from "./routes/Services";
+import MyAccount from "./routes/MyAccount";
 
 function App() {
 
@@ -32,6 +33,10 @@ function App() {
                 {
                     path: "/services",
                     element: <Services />
+                },
+                {
+                    path: "/account",
+                    element: <MyAccount />
                 }
             ],
         },

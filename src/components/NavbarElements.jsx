@@ -118,6 +118,11 @@ export const NavMenu = (props) => {
                     Contact
                 </NavLink>
             </li>
+            <li>
+                <NavLink className="link" to="account">
+                    My Account
+                </NavLink>
+            </li>
         </NavMenuUL>
     );
 };
