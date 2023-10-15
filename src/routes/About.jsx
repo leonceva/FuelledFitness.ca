@@ -81,7 +81,7 @@ export const DesktopContent = () => {
 
 export const DesktopContentDiv = styled.div`
     height: calc(100%);
-    overflow-y: scroll;
+    overflow-y: auto;
     text-align: justify;
 
     & img {

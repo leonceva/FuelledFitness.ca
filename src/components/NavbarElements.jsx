@@ -119,6 +119,11 @@ export const NavMenu = (props) => {
                 </NavLink>
             </li>
             <li>
+                <NavLink className="link" to="athletes">
+                    Athletes
+                </NavLink>
+            </li>
+            <li>
                 <NavLink className="link" to="account">
                     My Account
                 </NavLink>
@@ -146,10 +151,9 @@ export const NavMenuUL = styled.ul`
     }
 
     & > li {
-        min-width: 10vw;
         position: relative;
         text-align: center;
-        margin: 0 2vw;
+        margin: 0 1.5vw;
 
         & > button {
             display: inline-block;

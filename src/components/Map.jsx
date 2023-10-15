@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
-//import map from "../images/staticmap.png";
 
 const MOBILE_MODE_LIMIT = 892;
 
@@ -16,7 +15,6 @@ export const Map = () => {
                     setApiKey(res.data);
                 })
                 .catch((res) => {
-                    //console.log(`Failed to get key: ${res}`);
                     setApiKey(0);
                 });
         };

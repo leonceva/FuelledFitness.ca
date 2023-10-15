@@ -1,0 +1,43 @@
+{
+    "users": [
+        {
+            "user_id": "01",
+            "user_email": "alberto.leon.c@gmail.com",
+            "first_name": "Alberto",
+            "last_name": "Leon",
+            "password": "test123",
+            "login_type": "password",
+            "user_type": "active"
+        }
+    ],
+    "athletes": [
+        {
+            "id": "0",
+            "name": "Nikki",
+            "last_name": "Moon-Keca",
+            "sport": "Brazilian Jiu-Jitsu",
+            "bio": "Meet Nikki, a remarkable Brazilian Jiu-Jitsu (BJJ) athlete, and a university mathematics major. This talented young woman exemplifies the perfect blend of brains and brawn. With a fierce dedication to her BJJ training and a passion for the intricacies of mathematics, she's breaking stereotypes and making a name for herself both on the mats and in the classroom. Nikki is living proof that intelligence and strength go hand in hand, as she continues to conquer challenges, both in her academic pursuits and on the BJJ competition circuit. Watch out for this unstoppable force, as she combines her analytical mind and martial arts skills to reach new heights in both realms."
+        },
+        {
+            "id": "1",
+            "name": "John",
+            "last_name": "Doe",
+            "sport": "N/A",
+            "bio": "N/A"
+        },
+        {
+            "id": "2",
+            "name": "Jane",
+            "last_name": "Doe",
+            "sport": "TBD",
+            "bio": "TBD"
+        },
+        {
+            "id": "3",
+            "name": "Krystin",
+            "last_name": "Paquette",
+            "sport": "Yoked Dancer",
+            "bio": "Best wifey"
+        }
+    ]
+}
