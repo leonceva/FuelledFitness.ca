@@ -56,6 +56,5 @@
   "overrides": {
     "node-fetch": "^2.6.7",
     "postcss": ">=8.4.31"
-
   }
 }

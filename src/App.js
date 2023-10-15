@@ -8,6 +8,7 @@ import About from "./routes/About";
 import Contact from "./routes/Contact";
 import Services from "./routes/Services";
 import MyAccount from "./routes/MyAccount";
+import Athletes from "./routes/Athletes";
 
 function App() {
 
@@ -39,8 +40,8 @@ function App() {
                     element: <MyAccount />
                 },
                 {
-                    path: "/login",
-                    element: <MyAccount />
+                    path: "/athletes",
+                    element: <Athletes />
                 }
             ],
         },

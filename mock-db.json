@@ -1,0 +1,11 @@
+{
+	"users": {
+		"user_id": "01",
+		"user_email": "alberto.leon.c@gmail.com",
+		"first_name": "Alberto",
+		"last_name": "Leon",
+		"password": "test123",
+		"login_type": "password",
+		"user_type": "active"
+	}
+}

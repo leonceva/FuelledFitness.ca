@@ -45,7 +45,9 @@ const LoginForm = () => {
         e.preventDefault();
         console.log("Form submitted");
         if (validateEmail()) {
-            console.log(`User: ${formData.email}\nPass: ${formData.password}`);
+            console.log(
+                `User: ${formData.email}\nPassword: ${formData.password}`
+            );
             //TODO -- Send User info to validate with a server
             setFormData({ email: "", password: "" });
         } else {
