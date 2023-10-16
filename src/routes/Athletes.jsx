@@ -2,6 +2,7 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import styled from "styled-components";
 import AthleteCard from "../components/AthleteCard";
+import Application from "../components/Application";
 
 import database from "../mock-db.json";
 import no_img from "../images/athletes/no-img.jpg";
@@ -19,13 +20,18 @@ const Athletes = () => {
 
 export const DesktopContent = (props) => {
     const athletes = props.athletes;
+    const [showApplication, setShowAppilcation] = useState(false);
     const [showAthlete, setShowAthlete] = useState(null);
     const [athleteImg, setAthleteImg] = useState(null);
 
     return (
         <>
             <DesktopDiv
-                style={showAthlete ? { opacity: "0.4" } : { opacity: "1" }}
+                style={
+                    showAthlete || showApplication
+                        ? { opacity: "0.4" }
+                        : { opacity: "1" }
+                }
             >
                 <h3>Athlete Sponsorship Program</h3>
                 <p>
@@ -42,7 +48,13 @@ export const DesktopContent = (props) => {
                 </p>
                 <div className="application">
                     <h4>Think you'd be a good fit?</h4>
-                    <button>Apply Now</button>
+                    <button
+                        onClick={() => {
+                            setShowAppilcation(true);
+                        }}
+                    >
+                        Apply Now
+                    </button>
                 </div>
                 <h3>Support Their Dreams</h3>
                 <p>
@@ -99,6 +111,19 @@ export const DesktopContent = (props) => {
                             X
                         </button>
                     </AthleteBio>
+                </>
+            )}
+            {showApplication && (
+                <>
+                    <BioBackground
+                        className="bio-bg"
+                        onClick={() => {
+                            setShowAppilcation(false);
+                        }}
+                    />
+                    <ApplicationDiv>
+                        <Application />
+                    </ApplicationDiv>
                 </>
             )}
         </>
@@ -232,6 +257,34 @@ export const BioBackground = styled.div`
     z-index: 2;
     background-color: transparent;
     border-radius: 1vw;
+`;
+
+export const ApplicationDiv = styled.div`
+    z-index: 3;
+    position: absolute;
+    width: 60%;
+    height: 70%;
+    top: 15%;
+    left: 20%;
+    background-color: #d0dceb;
+    border: solid #333 calc(min(0.5vw, 0.5vh));
+    border-radius: 1vw;
+
+    & > form {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+        & > h3 {
+            margin-top: 1vh;
+        }
+
+        & > .input-text {
+            display: flex;
+            flex-direction: row;
+        }
+    }
 `;
 
 export const MobileContent = (props) => {
