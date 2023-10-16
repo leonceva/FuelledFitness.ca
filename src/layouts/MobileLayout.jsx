@@ -29,6 +29,10 @@ export const MobileContainer = styled.div`
         display: none;
     }
 
+    @media screen and (width: ${MOBILE_MODE_LIMIT}) {
+        display: inherit;
+    }
+
     & > .mobile-content {
         background-image: linear-gradient(to right, white, lightgray, white);
         height: auto;

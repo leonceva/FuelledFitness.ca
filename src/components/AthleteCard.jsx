@@ -49,6 +49,7 @@ export const AthleteCardDiv = styled.div`
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        border-radius: 0 0 0.5vw 0.5vw;
     }
 
     &:hover {

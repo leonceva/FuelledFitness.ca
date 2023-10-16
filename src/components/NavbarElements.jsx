@@ -146,7 +146,7 @@ export const NavMenuUL = styled.ul`
 
     .link {
         text-align: center;
-        font-size: calc(min(2.5vw, 3vh));
+        font-size: calc(min(2.5vw, 2.9vh));
         font-weight: 600;
     }
 
@@ -367,6 +367,12 @@ export const ModalMenu = (props) => {
                         </NavLink>
                         <NavLink className="expanded-link" to="/contact">
                             Contact
+                        </NavLink>
+                        <NavLink className="expanded-link" to="/athletes">
+                            Athletes
+                        </NavLink>
+                        <NavLink className="expanded-link" to="/account">
+                            My Account
                         </NavLink>
                     </>
                 )}

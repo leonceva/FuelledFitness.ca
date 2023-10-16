@@ -12,7 +12,7 @@ const Athletes = () => {
     return (
         <>
             <DesktopLayout content={<DesktopContent athletes={athletes} />} />
-            <MobileLayout content={<MobileContent />} />
+            <MobileLayout content={<MobileContent athletes={athletes} />} />
         </>
     );
 };
@@ -22,19 +22,9 @@ export const DesktopContent = (props) => {
     const [showAthlete, setShowAthlete] = useState(null);
     const [athleteImg, setAthleteImg] = useState(null);
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        if (showAthlete) {
-            if (e.target.className.includes("athlete-bio") === false) {
-                setShowAthlete(null);
-            }
-        }
-    };
-
     return (
         <>
             <DesktopDiv
-                onClick={handleClick}
                 style={showAthlete ? { opacity: "0.4" } : { opacity: "1" }}
             >
                 <h3>Athlete Sponsorship Program</h3>
@@ -85,7 +75,12 @@ export const DesktopContent = (props) => {
             </DesktopDiv>
             {showAthlete && (
                 <>
-                    <BioBackground className="bio-bg" onClick={handleClick} />
+                    <BioBackground
+                        className="bio-bg"
+                        onClick={() => {
+                            setShowAthlete(null);
+                        }}
+                    />
                     <AthleteBio className="athlete-bio">
                         <img src={athleteImg ? athleteImg : no_img} alt="" />
                         <div className="bio-container">
@@ -111,10 +106,9 @@ export const DesktopContent = (props) => {
 };
 
 export const DesktopDiv = styled.div`
-    height: calc(100% - 2vh);
+    height: 100%;
     width: 100%;
-    margin: 1vh 0;
-    padding: 0 2vw;
+    padding-right: 2vw;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -167,9 +161,9 @@ export const DesktopDiv = styled.div`
         display: flex;
         flex-direction: row;
         width: 100%;
-        height: 100%;
         justify-content: space-evenly;
         flex-wrap: wrap;
+        margin-bottom: 2vh;
 
         & > .card-container {
             width: 30%;
@@ -240,8 +234,97 @@ export const BioBackground = styled.div`
     border-radius: 1vw;
 `;
 
-export const MobileContent = () => {
-    return <></>;
+export const MobileContent = (props) => {
+    const athletes = props.athletes;
+
+    return (
+        <>
+            <MobileDiv>
+                <h3>Athlete Sponsorship Program</h3>
+                <p>
+                    Our Athlete Sponsorship Program is a testament to our
+                    unwavering commitment to athletes who embody dedication,
+                    passion, and an unwavering pursuit of excellence in sports.
+                    This program offers a unique opportunity for athletes to
+                    take their performance to the next level. Through our
+                    sponsorship, you can access personalized training and
+                    nutrition plans, premium nutrition products, increased
+                    exposure, financial support, a supportive community, and
+                    ongoing guidance. Join us in this remarkable journey and let
+                    us help you reach your full athletic potential.
+                </p>
+                <div className="application">
+                    <h4>Think you'd be a good fit?</h4>
+                    <button>Apply Now</button>
+                </div>
+                <h3>Support Their Dreams</h3>
+                <p>
+                    Check out the athletes profiles below to read about their
+                    journey, and to find out how you can support their continued
+                    success.
+                </p>
+                <div className="athletes">
+                    {athletes.map((athlete) => {
+                        return (
+                            <div className="card-container" key={athlete.name}>
+                                <AthleteCard athlete={athlete} />
+                            </div>
+                        );
+                    })}
+                </div>
+            </MobileDiv>
+        </>
+    );
 };
+
+export const MobileDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2vh;
+
+    & > p {
+        text-align: justify;
+        margin: 1vh 2vw;
+    }
+
+    & > .application {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 2vh;
+
+        & > button {
+            border: solid 2px #333;
+            color: #333;
+            border-radius: 3vw;
+            padding: 0.5vh 1vw;
+            box-shadow: 2px 2px 2px #333;
+            background-color: #d0dceb;
+            margin-left: 2vw;
+            width: fit-content;
+            height: fit-content;
+        }
+    }
+
+    & > .athletes {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+
+        & > .card-container {
+            height: 40vh;
+            width: 45%;
+            margin-bottom: 2vh;
+        }
+    }
+`;
 
 export default Athletes;
