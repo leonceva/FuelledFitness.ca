@@ -6,7 +6,7 @@ const InstagramLink = (props) => {
     return (
         <>
             <div className="image pt-1 pb-1">
-                <a href="https://www.instagram.com/coach.krystin">
+                <a href="https://www.instagram.com/fuelledfitness.ca">
                     <img
                         src={instagram_logo}
                         alt="Instagram Logo"
