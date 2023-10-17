@@ -8,7 +8,6 @@ import krystinWrestling from "../images/krystin-wrestling-01.jpg";
 import { Link } from "react-router-dom";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
-import EmailLink from "../components/EmailLink";
 import handSwipe from "../images/slide-left-right-icon.svg";
 
 const Homepage = () => {
@@ -408,7 +407,6 @@ export const DesktopPreview = () => {
                 >
                     <InstagramLink width="min(4vw, 8vh)" />
                     <LinkedInLink width="min(4vw, 8vh)" />
-                    <EmailLink width="min(4vw, 8vh)" />
                 </div>
             </div>
         </PreviewDiv>
@@ -843,7 +841,6 @@ export const MobilePreview = () => {
                         width="min(10vw, 8vh)"
                         height="min(10vw, 8vh)"
                     />
-                    <EmailLink width="min(10vw, 8vh)" height="min(10vw, 8vh)" />
                 </div>
             </div>
         </div>
