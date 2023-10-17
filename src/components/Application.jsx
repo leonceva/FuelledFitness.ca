@@ -71,7 +71,6 @@ const Application = () => {
                         name="socials"
                         id="socials"
                         placeholder="Instagram, YouTube, LinkedIn, etc.."
-                        required
                     />
                 </div>
 
