@@ -405,7 +405,7 @@ export const InfoDesktop = (props) => {
             )}
             {option === "online" && service === "training" && (
                 <>
-                    <h2>Online</h2>
+                    <h2>Online Coaching</h2>
                     <p>
                         Discover the ultimate online coaching experience with a
                         personalized program and consistent support. Our online
