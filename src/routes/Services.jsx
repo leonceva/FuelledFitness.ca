@@ -334,22 +334,22 @@ export const InfoDesktop = (props) => {
                 <>
                     <h2>Nutrition Counselling</h2>
                     <p>
-                        Say goodbye to guesswork, and hello to a personalised
+                        Say goodbye to guesswork, and hello to a personalized
                         nutrition plan! Work 1:1 with a Registered Dietitian to
                         achieve your goals. Whether you're striving for peak
                         performance, weight loss, improved energy levels, or
                         optimal health and wellbeing for yourself and your
-                        family, we offer personalised strategies to support you
+                        family, we offer personalized strategies to support you
                         in achieving your goals. <br /> <br />
                         Initial Consult (60 minutes) - $140 <br />
                         Follow-up (45 minutes) - $105
                     </p>
-                    <h2>Personalised Strategies</h2>
+                    <h2>Personalized Strategies</h2>
                     <p>
                         In some cases your Registered Dietitian may recommend a
                         meal plan to support you in achieving your goals. A meal
-                        plan is not the answer for everyone. Your registered
-                        dietitian will work with you to address the challenges
+                        plan is not the answer for everyone. Your Registered
+                        Dietitian will work with you to address the challenges
                         you face to optimally achieve your nutrition goals. Some
                         examples may include food diary review, recipe curation,
                         grocery store tours, pantry review, and cooking lessons.
@@ -395,7 +395,7 @@ export const InfoDesktop = (props) => {
                         Do you provide meals as part of your business? Provide
                         assurance of nutritional balance, and credibility to
                         clients by having your menu reviewed and critiqued by a
-                        registered dietitian.
+                        Registered Dietitian.
                         <br />
                         <br />
                         Contact us today to discuss the unique needs of your
@@ -407,12 +407,12 @@ export const InfoDesktop = (props) => {
                 <>
                     <h2>Online</h2>
                     <p>
-                        Online Coaching Discover the ultimate online coaching
-                        experience with a personalised program and consistent
-                        support. Our online coaching program is delivered in
-                        4-week intervals with a tailored workout plan, weekly
-                        video review and feedback, and on-demand expert guidance
-                        through virtual support with your coach. <br />
+                        Discover the ultimate online coaching experience with a
+                        personalized program and consistent support. Our online
+                        coaching program is delivered in 4-week intervals with a
+                        tailored workout plan, weekly video review and feedback,
+                        and on-demand expert guidance through virtual support
+                        with your coach. <br />
                         <br />
                         $150 / 4-weeks
                     </p>
@@ -422,10 +422,10 @@ export const InfoDesktop = (props) => {
                 <>
                     <h2>Personal Training</h2>
                     <p>
-                        Experience personalised 1:1 coaching with hands on
+                        Experience personalized 1:1 coaching with hands on
                         guidance, immediate feedback, and continuous support
                         throughout your session. Our personal training sessions
-                        include a customised weekly program to follow, ensuring
+                        include a customized weekly program to follow, ensuring
                         continuous progress in between sessions with your coach.
                         <br />
                         <br />1 x per week - $100 per session <br />2 x per week
@@ -553,12 +553,12 @@ export const MobileContent = (props) => {
                             <h3>Nutrition Counselling</h3>
                             <p>
                                 Say goodbye to guesswork, and hello to a
-                                personalised nutrition plan! Work 1:1 with a
+                                personalized nutrition plan! Work 1:1 with a
                                 Registered Dietitian to achieve your goals.
                                 Whether you're striving for peak performance,
                                 weight loss, improved energy levels, or optimal
                                 health and wellbeing for yourself and your
-                                family, we offer personalised strategies to
+                                family, we offer personalized strategies to
                                 support you in achieving your goals. <br />
                                 <br />
                                 Initial Consult (60 minutes) - $140 <br />
@@ -567,7 +567,7 @@ export const MobileContent = (props) => {
                                 In some cases your Registered Dietitian may
                                 recommend a meal plan to support you in
                                 achieving your goals. A meal plan is not the
-                                answer for everyone. Your registered dietitian
+                                answer for everyone. Your Registered Dietitian
                                 will work with you to address the challenges you
                                 face to optimally achieve your nutrition goals.
                                 Some examples may include food diary review,
@@ -633,22 +633,22 @@ export const MobileContent = (props) => {
                         <>
                             <h3>Online Coaching</h3>
                             <p>
-                                Online Coaching Discover the ultimate online
-                                coaching experience with a personalised program
-                                and consistent support. Our online coaching
-                                program is delivered in 4-week intervals with a
-                                tailored workout plan, weekly video review and
-                                feedback, and on-demand expert guidance through
-                                virtual support with your coach. <br />
+                                Discover the ultimate online coaching experience
+                                with a personalized program and consistent
+                                support. Our online coaching program is
+                                delivered in 4-week intervals with a tailored
+                                workout plan, weekly video review and feedback,
+                                and on-demand expert guidance through virtual
+                                support with your coach. <br />
                                 <br />
                                 $150 / 4-weeks
                             </p>
                             <h3>Personal Training</h3>
                             <p>
-                                Experience personalised 1:1 coaching with hands
+                                Experience personalized 1:1 coaching with hands
                                 on guidance, immediate feedback, and continuous
                                 support throughout your session. Our personal
-                                training sessions include a customised weekly
+                                training sessions include a customized weekly
                                 program to follow, ensuring continuous progress
                                 in between sessions with your coach.
                                 <br />

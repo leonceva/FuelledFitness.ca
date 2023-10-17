@@ -252,7 +252,7 @@ export const DesktopCarousel = () => {
                 {imgNumber === 2 && (
                     <p>
                         You are unique, and your program should be too. Unlock
-                        your potential with personalised coaching through
+                        your potential with personalized coaching through
                         nutrition and training programs that have been tailored
                         to your unique goals and aspirations.
                     </p>
@@ -774,7 +774,7 @@ export const MobileCarousel = () => {
                     {imgNumber === 2 && (
                         <p>
                             You are unique, and your program should be too.
-                            Unlock your potential with personalised coaching
+                            Unlock your potential with personalized coaching
                             through nutrition and training programs that have
                             been tailored to your unique goals and aspirations.
                         </p>
