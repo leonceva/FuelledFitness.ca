@@ -263,8 +263,9 @@ export const ApplicationDiv = styled.div`
     z-index: 3;
     position: absolute;
     width: 60%;
-    height: 70%;
-    top: 15%;
+    max-height: 80%;
+    min-height: max-content;
+    top: 10%;
     left: 20%;
     background-color: #d0dceb;
     border: solid #333 calc(min(0.5vw, 0.5vh));
@@ -273,16 +274,93 @@ export const ApplicationDiv = styled.div`
     & > form {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: space-between;
         align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
 
         & > h3 {
-            margin-top: 1vh;
+            margin-bottom: 0.5vh;
         }
 
         & > .input-text {
+            width: 100%;
             display: flex;
             flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5vh;
+
+            & label {
+                width: 20%;
+                text-align: end;
+                padding-left: 2vw;
+            }
+
+            & input {
+                width: 75%;
+                margin-left: 2%;
+                margin-right: 3%;
+            }
+        }
+
+        & > .about {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            max-height: 10%;
+
+            & label {
+                width: 20%;
+                text-align: end;
+                padding-left: 2vw;
+            }
+
+            & textarea {
+                width: 75%;
+                margin-left: 2%;
+                margin-right: 3%;
+                resize: none;
+            }
+        }
+
+        & > .error-msg {
+            width: 100%;
+            margin-top: -0.5vh;
+            margin-bottom: 1vh;
+        }
+
+        > .submit-btn {
+            width: 30%;
+            background-color: #d0dceb;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 1vh 2vw;
+            color: #333;
+            box-shadow: 3px 3px 2px #333;
+            margin-bottom: 1.5vh;
+
+            &::after {
+                content: "Submit Application";
+            }
+
+            &:hover {
+                background-color: #87ceeb;
+                cursor: pointer;
+            }
+            &:active {
+                translate: 3px 3px;
+                box-shadow: 0 0 0;
+            }
+        }
+
+        > .submitted::after {
+            content: "Message Sent!";
         }
     }
 `;

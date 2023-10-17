@@ -10,6 +10,7 @@ export const ContactMeForm = () => {
         message: "",
     });
 
+    // React States
     const captchaRef = useRef(null);
     const [verified, setVerified] = useState(false);
     const [formError, setFormError] = useState(false);
@@ -25,6 +26,7 @@ export const ContactMeForm = () => {
         });
     };
 
+    // Input Validation
     const validateInputs = () => {
         if (formData.name.length < 1 || formData.name.length > 50) {
             setFormError(true);
@@ -53,6 +55,7 @@ export const ContactMeForm = () => {
         }
     };
 
+    // Form submit handler
     const handleSubmit = (e) => {
         e.preventDefault();
         //console.log("Handle Submit");
