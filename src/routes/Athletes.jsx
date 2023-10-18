@@ -265,6 +265,7 @@ export const ApplicationDiv = styled.div`
     width: 60%;
     max-height: 80%;
     min-height: max-content;
+    overflow-y: auto;
     top: 10%;
     left: 20%;
     background-color: #d0dceb;
@@ -316,13 +317,13 @@ export const ApplicationDiv = styled.div`
             max-height: 10%;
 
             & label {
-                width: 20%;
+                width: 35%;
                 text-align: end;
                 padding-left: 2vw;
             }
 
             & textarea {
-                width: 75%;
+                width: 60%;
                 margin-left: 2%;
                 margin-right: 3%;
                 resize: none;
@@ -336,7 +337,7 @@ export const ApplicationDiv = styled.div`
         }
 
         > .submit-btn {
-            width: 30%;
+            width: max-content;
             background-color: #d0dceb;
             border: 2px solid #333;
             border-radius: 10px;

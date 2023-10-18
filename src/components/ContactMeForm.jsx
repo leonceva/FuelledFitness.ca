@@ -51,7 +51,7 @@ export const ContactMeForm = () => {
             return true;
         } else {
             setFormError(true);
-            setMessageError("Invalid Email entered");
+            setMessageError("Invalid email entered");
         }
     };
 
@@ -62,7 +62,7 @@ export const ContactMeForm = () => {
         if (validateInputs()) {
             //console.log("Inputs validated");
             if (verified) {
-                console.log("Verified");
+                // console.log("Verified");
                 // Async Function to Send Form Data
                 const sendFormData = async () => {
                     //console.log("Submitted:");
@@ -95,12 +95,11 @@ export const ContactMeForm = () => {
                         });
                 };
                 sendFormData();
-                setEmailSent(true);
             } else {
                 //console.log("Not verified");
                 setFormError(true);
                 setMessageError(
-                    "Please complete the CAPTCHA before sending your message. Thank you!"
+                    "Please complete the CAPTCHA before sending your message"
                 );
             }
         }
