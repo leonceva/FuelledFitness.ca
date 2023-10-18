@@ -396,7 +396,7 @@ export const DesktopPreview = () => {
             </div>
             <div className="preview-item">
                 <h3>Stay in Touch</h3>
-                <div>Connect with us on social media or send us an email</div>
+                <div>Connect with us on social media</div>
                 <div
                     style={{
                         display: "flex",
@@ -831,7 +831,7 @@ export const MobilePreview = () => {
             </div>
             <div className="preview-item-focus">
                 <h3>Stay in Touch</h3>
-                <p>Connect with us on social media or send us an email</p>
+                <p>Connect with us on social media</p>
                 <div className="links">
                     <InstagramLink
                         width="min(10vw, 8vh)"
