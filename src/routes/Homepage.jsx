@@ -8,7 +8,6 @@ import krystinWrestling from "../images/krystin-wrestling-01.jpg";
 import { Link } from "react-router-dom";
 import InstagramLink from "../components/InstagramLink";
 import LinkedInLink from "../components/LinkedInLink";
-import EmailLink from "../components/EmailLink";
 import handSwipe from "../images/slide-left-right-icon.svg";
 
 const Homepage = () => {
@@ -252,7 +251,7 @@ export const DesktopCarousel = () => {
                 {imgNumber === 2 && (
                     <p>
                         You are unique, and your program should be too. Unlock
-                        your potential with personalised coaching through
+                        your potential with personalized coaching through
                         nutrition and training programs that have been tailored
                         to your unique goals and aspirations.
                     </p>
@@ -397,7 +396,7 @@ export const DesktopPreview = () => {
             </div>
             <div className="preview-item">
                 <h3>Stay in Touch</h3>
-                <div>Connect with us on social media or send us an email</div>
+                <div>Connect with us on social media</div>
                 <div
                     style={{
                         display: "flex",
@@ -408,7 +407,6 @@ export const DesktopPreview = () => {
                 >
                     <InstagramLink width="min(4vw, 8vh)" />
                     <LinkedInLink width="min(4vw, 8vh)" />
-                    <EmailLink width="min(4vw, 8vh)" />
                 </div>
             </div>
         </PreviewDiv>
@@ -774,7 +772,7 @@ export const MobileCarousel = () => {
                     {imgNumber === 2 && (
                         <p>
                             You are unique, and your program should be too.
-                            Unlock your potential with personalised coaching
+                            Unlock your potential with personalized coaching
                             through nutrition and training programs that have
                             been tailored to your unique goals and aspirations.
                         </p>
@@ -833,7 +831,7 @@ export const MobilePreview = () => {
             </div>
             <div className="preview-item-focus">
                 <h3>Stay in Touch</h3>
-                <p>Connect with us on social media or send us an email</p>
+                <p>Connect with us on social media</p>
                 <div className="links">
                     <InstagramLink
                         width="min(10vw, 8vh)"
@@ -843,7 +841,6 @@ export const MobilePreview = () => {
                         width="min(10vw, 8vh)"
                         height="min(10vw, 8vh)"
                     />
-                    <EmailLink width="min(10vw, 8vh)" height="min(10vw, 8vh)" />
                 </div>
             </div>
         </div>

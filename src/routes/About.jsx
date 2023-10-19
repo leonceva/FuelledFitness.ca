@@ -25,7 +25,7 @@ export const DesktopContent = () => {
                     programs, catering to everyone from elite athletes to
                     individuals seeking healthier lifestyles. Our mission is to
                     help you reach peak health and performance through
-                    personalised strategies.
+                    personalized strategies.
                 </p>
                 <img
                     src={krystin_img1}
@@ -35,7 +35,7 @@ export const DesktopContent = () => {
                 <h3>Krystin Paquette</h3>
                 <p>
                     My educational foundation includes a BSc. in Nutrition and
-                    Food Science with a specialisation in Dietetics,
+                    Food Science with a specialization in Dietetics,
                     complemented by a Bachelor of Kinesiology degree. By
                     bridging the areas of nutrition and training, I can offer a
                     comprehensive coaching experience tailored to your unique
@@ -134,7 +134,7 @@ export const MobileContent = () => {
                         training programs, catering to everyone from elite
                         athletes to individuals seeking healthier lifestyles.
                         Our mission is to help you reach peak health and
-                        performance through personalised strategies.
+                        performance through personalized strategies.
                     </p>
 
                     <img
@@ -145,7 +145,7 @@ export const MobileContent = () => {
                     <h3>Krystin Paquette</h3>
                     <p>
                         My educational foundation includes a BSc. in Nutrition
-                        and Food Science with a specialisation in Dietetics,
+                        and Food Science with a specialization in Dietetics,
                         complemented by a Bachelor of Kinesiology degree. By
                         bridging the areas of nutrition and training, I can
                         offer a comprehensive coaching experience tailored to
