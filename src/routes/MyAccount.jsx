@@ -2,8 +2,11 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
+import { useOutletContext } from "react-router-dom";
 
 const MyAccount = () => {
+    const test = useOutletContext();
+    console.log(test);
     return (
         <>
             <DesktopLayout content={<DesktopContent />} />
