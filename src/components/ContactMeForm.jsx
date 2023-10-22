@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import Reaptcha from "reaptcha";
 
+const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
+
 export const ContactMeForm = () => {
     // Form content state data
     const [formData, setFormData] = useState({
@@ -140,7 +142,7 @@ export const ContactMeForm = () => {
             />
 
             <Reaptcha
-                sitekey="6LeqyxkoAAAAAMkMdeTVT-ADWy1cgYy_qAXzyymT"
+                sitekey={reaptchaKey}
                 onVerify={() => {
                     setVerified(true);
                     setFormError(false);

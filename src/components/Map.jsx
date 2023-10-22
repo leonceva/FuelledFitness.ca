@@ -1,26 +1,9 @@
-import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import axios from "axios";
 
 const MOBILE_MODE_LIMIT = 892;
 
 export const Map = () => {
-    const [apiKey, setApiKey] = useState(null);
-
-    useEffect(() => {
-        const fetchKey = async () => {
-            await axios
-                .post("https://api.fuelledfitness.ca:8443/googleMapsApiKey")
-                .then((res) => {
-                    setApiKey(res.data);
-                })
-                .catch((res) => {
-                    setApiKey(0);
-                });
-        };
-
-        fetchKey();
-    }, []);
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
     // Use to determine the size of the google maps image
     let mapWidth, mapHeight;
@@ -37,39 +20,13 @@ export const Map = () => {
 
     return (
         <>
-            {apiKey === null && (
-                <LoaderBox
-                    className="loader-box"
-                    style={{
-                        width: `${mapWidth}px`,
-                        height: `${mapHeight}px`,
-                    }}
-                >
-                    Loading...
-                </LoaderBox>
-            )}
-
-            {apiKey === 0 && (
-                <LoaderBox
-                    className="loader-box"
-                    style={{
-                        width: `${mapWidth}px`,
-                        height: `${mapHeight}px`,
-                    }}
-                >
-                    Failed to Load
-                </LoaderBox>
-            )}
-
-            {apiKey !== null && apiKey !== 0 && (
-                <iframe
-                    title="map"
-                    width={mapWidth}
-                    height={mapHeight}
-                    loading="lazy"
-                    src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJASX-87gHzkwRZsp9skl07KQ&key=${apiKey}`}
-                ></iframe>
-            )}
+            <iframe
+                title="map"
+                width={mapWidth}
+                height={mapHeight}
+                loading="lazy"
+                src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJASX-87gHzkwRZsp9skl07KQ&key=${apiKey}`}
+            ></iframe>
         </>
     );
 };
