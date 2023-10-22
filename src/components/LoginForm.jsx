@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import google_logo from "../images/g-logo.png";
 import { useState } from "react";
+import axios from "axios";
+import AuthContext from "../context/AuthProvider";
+import { useContext } from "react";
 
 const LoginForm = () => {
     // Form content
@@ -9,7 +12,10 @@ const LoginForm = () => {
         password: "",
     });
 
-    const [emailError, setEmailError] = useState(false);
+    const [formError, setFormError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("Invalid email");
+
+    const { auth, setAuth } = useContext(AuthContext);
 
     // Validate email format
     function validateEmail() {
@@ -20,10 +26,11 @@ const LoginForm = () => {
                 /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             )
         ) {
-            setEmailError(false);
+            setFormError(false);
             return true;
         } else {
-            setEmailError(true);
+            setErrorMessage("Invalid email");
+            setFormError(true);
             return false;
         }
     }
@@ -32,7 +39,7 @@ const LoginForm = () => {
         // Update data from form
         const { name, value } = e.target;
         if (name === "email") {
-            setEmailError(false);
+            setFormError(false);
         }
         // Update from data content
         setFormData((prevFormData) => {
@@ -43,13 +50,35 @@ const LoginForm = () => {
     // Handle form submission
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("Form submitted");
+        // console.log("Form submitted");
         if (validateEmail()) {
-            console.log(
-                `User: ${formData.email}\nPassword: ${formData.password}`
-            );
+            // console.log(`User: ${formData.email}\nPassword: ${formData.password}`);
             //TODO -- Send User info to validate with a server
-            setFormData({ email: "", password: "" });
+            const sendLoginInfo = async () => {
+                axios
+                    .post("http://localhost:8080/checkLogin", {
+                        email: formData.email.toLowerCase(),
+                        password: formData.password,
+                    })
+                    .then((res) => {
+                        const userEmail = res.data.email;
+                        const userType = res.data.userType;
+                        const userAccessToken = res.data.accessToken;
+                        //console.log(`Login Succesful\nEmail: ${userEmail}\nUser Type: ${userType}\nAccess Token: ${userAccessToken}`);
+                        setFormError(false);
+                        setAuth({ userEmail, userType, userAccessToken });
+                        console.log(auth);
+
+                        // TODO -- On succesful Login
+                        // setFormData({ email: "", password: "" });
+                    })
+                    .catch((res) => {
+                        console.log("Error: " + res.response.status);
+                        setErrorMessage("Invalid Password");
+                        setFormError(true);
+                    });
+            };
+            sendLoginInfo();
         } else {
             console.log("Invalid Email format");
         }
@@ -77,7 +106,7 @@ const LoginForm = () => {
             >
                 <label className="label" htmlFor="email">
                     Email:{" "}
-                    {emailError && <span className="error">Invalid email</span>}
+                    {formError && <span className="error">{errorMessage}</span>}
                 </label>
                 <input
                     id="email"

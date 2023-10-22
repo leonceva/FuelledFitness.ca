@@ -2,11 +2,10 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
-import { useOutletContext } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
+import { useContext } from "react";
 
 const MyAccount = () => {
-    const test = useOutletContext();
-    console.log(test);
     return (
         <>
             <DesktopLayout content={<DesktopContent />} />
@@ -16,9 +15,17 @@ const MyAccount = () => {
 };
 
 export const DesktopContent = () => {
+    const { auth } = useContext(AuthContext);
+    console.log(auth);
     return (
         <DesktopDiv>
-            <LoginForm />
+            {auth.userEmail ? (
+                <div>
+                    <h2>Logged in as: {auth.userEmail}</h2>
+                </div>
+            ) : (
+                <LoginForm />
+            )}
         </DesktopDiv>
     );
 };
