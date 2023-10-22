@@ -5,7 +5,7 @@ import axios from "axios";
 const MOBILE_MODE_LIMIT = 892;
 
 export const Map = () => {
-    console.log(process.env.GOOGLE_MAPS_KEY);
+    console.log(process.env.REACT_APP_GOOGLE_MAPS_KEY);
     const [apiKey, setApiKey] = useState(null);
 
     useEffect(() => {
