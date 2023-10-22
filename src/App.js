@@ -9,7 +9,6 @@ import Contact from "./routes/Contact";
 import Services from "./routes/Services";
 import MyAccount from "./routes/MyAccount";
 import Athletes from "./routes/Athletes";
-import PersistentLogin from "./routes/PersistentLogin";
 
 function App() {
 
@@ -38,11 +37,7 @@ function App() {
                 },
                 {
                     path: "/account",
-                    element: <PersistentLogin />,
-                    children: [ {
-                        path: "/account",
-                        element: <MyAccount />
-                    } ]
+                    element: <MyAccount />
                 },
                 {
                     path: "/athletes",

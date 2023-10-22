@@ -9,8 +9,10 @@
     "axios": "^1.5.0",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
+    "crypto": "^1.0.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
+    "postcss": ">=8.4.31",
     "react": "^18.2.0",
     "react-adaptive-image": "^1.9.1",
     "react-bootstrap": "^2.4.0",
@@ -22,9 +24,7 @@
     "reaptcha": "^1.12.1",
     "sort-by": "^0.0.2",
     "styled-components": "^6.0.4",
-    "web-vitals": "^2.1.4",
-    "postcss": ">=8.4.31"
-
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
