@@ -1,10 +1,9 @@
 import { styled } from "styled-components";
 
 const MOBILE_MODE_LIMIT = 892;
+const apiKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 export const Map = () => {
-    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
-
     // Use to determine the size of the google maps image
     let mapWidth, mapHeight;
     const screenWidth = window.innerWidth;
