@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
-//import map from "../images/staticmap.png";
 
 const MOBILE_MODE_LIMIT = 892;
 
 export const Map = () => {
+    console.log(process.env.GOOGLE_MAPS_KEY);
     const [apiKey, setApiKey] = useState(null);
 
     useEffect(() => {
