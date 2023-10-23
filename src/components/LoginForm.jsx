@@ -55,25 +55,29 @@ const LoginForm = () => {
             // console.log(`User: ${formData.email}\nPassword: ${formData.password}`);
             //TODO -- Send User info to validate with a server
             const sendLoginInfo = async () => {
-                axios
-                    .post("http://localhost:8080/checkLogin", {
-                        email: formData.email.toLowerCase(),
-                        password: formData.password,
-                    })
+                await axios
+                    .post(
+                        "http://localhost:8080/checkLogin",
+                        {
+                            email: formData.email.toLowerCase(),
+                            password: formData.password,
+                        },
+                        {
+                            withCredentials: true,
+                        }
+                    )
                     .then((res) => {
                         const userEmail = res.data.email;
                         const userType = res.data.userType;
-                        const userAccessToken = res.data.accessToken;
-                        //console.log(`Login Succesful\nEmail: ${userEmail}\nUser Type: ${userType}\nAccess Token: ${userAccessToken}`);
+                        const accessToken = res.data.accessToken;
                         setFormError(false);
-                        setAuth({ userEmail, userType, userAccessToken });
-                        console.log(auth);
+                        setAuth({ userEmail, userType, accessToken });
 
                         // TODO -- On succesful Login
                         // setFormData({ email: "", password: "" });
                     })
                     .catch((res) => {
-                        console.log("Error: " + res.response.status);
+                        console.log("Error: " + res.response);
                         setErrorMessage("Invalid Password");
                         setFormError(true);
                     });
@@ -105,7 +109,7 @@ const LoginForm = () => {
                 onSubmit={handleSubmit}
             >
                 <label className="label" htmlFor="email">
-                    Email:{" "}
+                    Email:
                     {formError && <span className="error">{errorMessage}</span>}
                 </label>
                 <input
@@ -125,7 +129,6 @@ const LoginForm = () => {
                 <input
                     id="password"
                     name="password"
-                    autoComplete="password"
                     type="password"
                     className="input"
                     placeholder="Type your password"

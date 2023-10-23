@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
+import useRefreshToken from "../hooks/useRefreshToken";
 
 const MyAccount = () => {
     return (
@@ -16,16 +17,26 @@ const MyAccount = () => {
 
 export const DesktopContent = () => {
     const { auth } = useContext(AuthContext);
-    console.log(auth);
+    const refresh = useRefreshToken();
     return (
         <DesktopDiv>
-            {auth.userEmail ? (
+            {/* {auth.userEmail ? (
                 <div>
                     <h2>Logged in as: {auth.userEmail}</h2>
                 </div>
             ) : (
                 <LoginForm />
-            )}
+            )} */}
+            <LoginForm />
+            <br />
+            <button
+                onClick={() => {
+                    refresh();
+                }}
+            >
+                Refresh
+            </button>
+            <br />
         </DesktopDiv>
     );
 };
