@@ -10,7 +10,7 @@ const useAxiosPrivate = () => {
     useEffect(() => {
         const requestIntercept = axiosPrivate.interceptors.request.use(
             (config) => {
-                console.log(`Axios Private Config: ${JSON.stringify(config)}`);
+                // console.log(`Axios Private Config: ${JSON.stringify(config)}`);
                 if (!config.headers["Authorization"]) {
                     // First attempt
                     config.headers[
@@ -28,18 +28,16 @@ const useAxiosPrivate = () => {
             (response) => response,
             async (error) => {
                 const prevRequest = error?.config;
+                // console.log(`Previous Request:\n${JSON.stringify(prevRequest)}`);
                 // 403 when token is expired and if prevRequest.send is false
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
                     prevRequest.sent = true;
                     console.log("Requesting New Access Token");
                     const newAccessToken = await refresh();
-                    console.log(`New Access Token:\n${newAccessToken}`);
                     prevRequest.headers[
                         "Authorization"
                     ] = `Bearer ${newAccessToken}`;
-                    console.log(
-                        `Previous Request:\n${JSON.stringify(prevRequest)}`
-                    );
+
                     return axiosPrivate(prevRequest);
                 }
                 return Promise.reject(error);

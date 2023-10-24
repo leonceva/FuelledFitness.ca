@@ -3,9 +3,9 @@ import useAuth from "./useAuth";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
-
+    // console.log("Refreshing Token..");
     const refresh = async () => {
-        const res = await axios.get("/refresh", {
+        const res = await axios.get("/refreshToken", {
             withCredentials: true,
         });
 

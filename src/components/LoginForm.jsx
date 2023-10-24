@@ -15,7 +15,7 @@ const LoginForm = () => {
     const [formError, setFormError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("Invalid email");
 
-    const { auth, setAuth } = useContext(AuthContext);
+    const { setAuth } = useContext(AuthContext);
 
     // Validate email format
     function validateEmail() {
@@ -72,7 +72,6 @@ const LoginForm = () => {
                         const accessToken = res.data.accessToken;
                         setFormError(false);
                         setAuth({ userEmail, userType, accessToken });
-                        console.log(JSON.stringify(auth));
 
                         // TODO -- On succesful Login
                         // setFormData({ email: "", password: "" });
