@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import google_logo from "../images/g-logo.png";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 
@@ -53,11 +53,11 @@ const LoginForm = () => {
         // console.log("Form submitted");
         if (validateEmail()) {
             // console.log(`User: ${formData.email}\nPassword: ${formData.password}`);
-            //TODO -- Send User info to validate with a server
+            // Validate with the server
             const sendLoginInfo = async () => {
                 await axios
                     .post(
-                        "http://localhost:8080/checkLogin",
+                        "/checkLogin",
                         {
                             email: formData.email.toLowerCase(),
                             password: formData.password,
@@ -72,12 +72,15 @@ const LoginForm = () => {
                         const accessToken = res.data.accessToken;
                         setFormError(false);
                         setAuth({ userEmail, userType, accessToken });
+                        console.log(JSON.stringify(auth));
 
                         // TODO -- On succesful Login
                         // setFormData({ email: "", password: "" });
                     })
                     .catch((res) => {
-                        console.log("Error: " + res.response);
+                        console.log(
+                            `Error: ${res.response.status} ${res.response.data}`
+                        );
                         setErrorMessage("Invalid Password");
                         setFormError(true);
                     });

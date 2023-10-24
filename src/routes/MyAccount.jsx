@@ -2,9 +2,9 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
-import AuthContext from "../context/AuthProvider";
-import { useContext } from "react";
-import useRefreshToken from "../hooks/useRefreshToken";
+import useAuth from "../hooks/useAuth";
+import ClientDashboard from "../components/ClientDashboard";
+import AdminDashboard from "../components/AdminDashboard";
 
 const MyAccount = () => {
     return (
@@ -16,27 +16,27 @@ const MyAccount = () => {
 };
 
 export const DesktopContent = () => {
-    const { auth } = useContext(AuthContext);
-    const refresh = useRefreshToken();
+    const { auth } = useAuth();
+
+    if (auth.userEmail) {
+        if (auth.userType === "admin") {
+            return (
+                <DesktopDiv>
+                    <AdminDashboard />
+                </DesktopDiv>
+            );
+        } else if (auth.userType === "active") {
+            return (
+                <DesktopDiv>
+                    <ClientDashboard />
+                </DesktopDiv>
+            );
+        }
+    }
+
     return (
         <DesktopDiv>
-            {/* {auth.userEmail ? (
-                <div>
-                    <h2>Logged in as: {auth.userEmail}</h2>
-                </div>
-            ) : (
-                <LoginForm />
-            )} */}
             <LoginForm />
-            <br />
-            <button
-                onClick={() => {
-                    refresh();
-                }}
-            >
-                Refresh
-            </button>
-            <br />
         </DesktopDiv>
     );
 };
