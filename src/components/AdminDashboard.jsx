@@ -32,7 +32,7 @@ const AdminDashboard = () => {
             isMounted = false;
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [count]);
 
     return (
         <>

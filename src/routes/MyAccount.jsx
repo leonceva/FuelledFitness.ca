@@ -17,31 +17,21 @@ const MyAccount = () => {
 
 export const DesktopContent = () => {
     const { auth } = useAuth();
-    // console.log(`auth: ${JSON.stringify(auth)}`);
 
-    if (auth.userEmail) {
-        if (auth.userType === "admin") {
-            return (
-                <DesktopDiv>
-                    <AdminDashboard />
-                </DesktopDiv>
-            );
-        } else if (auth.userType === "active") {
-            return (
-                <DesktopDiv>
-                    <ClientDashboard />
-                </DesktopDiv>
-            );
-        }
+    if (Object.keys(auth).length === 0) {
+        return (
+            <DesktopDiv>
+                <LoginForm />
+            </DesktopDiv>
+        );
+    } else {
+        return (
+            <DesktopDiv>
+                {auth.userType === "admin" && <AdminDashboard />}
+                {auth.userType === "active" && <ClientDashboard />}
+            </DesktopDiv>
+        );
     }
-
-    return (
-        <DesktopDiv>
-            {auth.userType === "admin" && <AdminDashboard />}
-            {auth.userType === "active" && <ClientDashboard />}
-            {Object.keys(auth).length === 0 && <LoginForm />}
-        </DesktopDiv>
-    );
 };
 
 export const DesktopDiv = styled.div`

@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import useAuth from "../hooks/useAuth";
-import { Outlet } from "react-router-dom";
 
 const PersistLogin = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
-    const { auth, persist } = useAuth;
+    const { auth, persist } = useAuth();
 
     // On initial render
     useEffect(() => {
+        let isMounted = true;
+
         const verifyRefreshToken = async () => {
             try {
                 // Request /refreshToken and set a new access token to { auth }
@@ -18,20 +19,19 @@ const PersistLogin = ({ children }) => {
                 // If /refreshToken request failed
                 console.error(err);
             } finally {
-                setIsLoading(false);
+                isMounted && setIsLoading(false);
             }
         };
-
         // Only if accessToken is empty then verify refresh token
-        !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+        if (!auth?.accessToken && persist) {
+            verifyRefreshToken();
+        } else {
+            setIsLoading(false);
+        }
+
+        return () => (isMounted = false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        // console.log(`isLoading: ${isLoading}`);
-        // console.log(`Access Token: ${JSON.stringify(auth?.accessToken)}`);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading]);
 
     return (
         <>{!persist ? children : isLoading ? <p>Loading...</p> : children}</>
