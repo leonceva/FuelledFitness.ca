@@ -17,6 +17,7 @@ const MyAccount = () => {
 
 export const DesktopContent = () => {
     const { auth } = useAuth();
+    // console.log(`auth: ${JSON.stringify(auth)}`);
 
     if (auth.userEmail) {
         if (auth.userType === "admin") {
@@ -36,7 +37,9 @@ export const DesktopContent = () => {
 
     return (
         <DesktopDiv>
-            <LoginForm />
+            {auth.userType === "admin" && <AdminDashboard />}
+            {auth.userType === "active" && <ClientDashboard />}
+            {Object.keys(auth).length === 0 && <LoginForm />}
         </DesktopDiv>
     );
 };

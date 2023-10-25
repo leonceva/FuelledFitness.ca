@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import google_logo from "../images/g-logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
@@ -14,8 +14,7 @@ const LoginForm = () => {
 
     const [formError, setFormError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("Invalid email");
-
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth, persist, setPersist } = useContext(AuthContext);
 
     // Validate email format
     function validateEmail() {
@@ -38,9 +37,8 @@ const LoginForm = () => {
     function handleChange(e) {
         // Update data from form
         const { name, value } = e.target;
-        if (name === "email") {
-            setFormError(false);
-        }
+        // Clear any error message
+        setFormError(false);
         // Update from data content
         setFormData((prevFormData) => {
             return { ...prevFormData, [name]: value };
@@ -71,16 +69,14 @@ const LoginForm = () => {
                         const userType = res.data.userType;
                         const accessToken = res.data.accessToken;
                         setFormError(false);
+                        setFormData({ email: "", password: "" });
                         setAuth({ userEmail, userType, accessToken });
-
-                        // TODO -- On succesful Login
-                        // setFormData({ email: "", password: "" });
                     })
                     .catch((res) => {
                         console.log(
                             `Error: ${res.response.status} ${res.response.data}`
                         );
-                        setErrorMessage("Invalid Password");
+                        setErrorMessage("Invalid Email or Password");
                         setFormError(true);
                     });
             };
@@ -89,6 +85,14 @@ const LoginForm = () => {
             console.log("Invalid Email format");
         }
     }
+
+    function togglePersist() {
+        setPersist((prev) => !prev);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist);
+    }, [persist]);
 
     return (
         <LoginContainer>
@@ -139,6 +143,14 @@ const LoginForm = () => {
                     onChange={handleChange}
                 />
                 <div className="forgot">
+                    <input
+                        type="checkbox"
+                        name="persist"
+                        id="persist"
+                        onChange={togglePersist}
+                        checked={persist}
+                    />
+                    <label htmlFor="persist">Trust Device?</label>
                     <a className="forgot-link" href="/forgotLogin">
                         forgot password?
                     </a>
@@ -151,13 +163,14 @@ const LoginForm = () => {
 
 export const LoginContainer = styled.div`
     border: 2px solid #333;
-    width: calc(min(50%, 50vh));
+    width: calc(min(50%, 50vw));
     border-radius: 20px;
     background-color: #d0dce7;
     display: flex;
     flex-direction: column;
     align-items: start;
     overflow-y: auto;
+    max-height: 90%;
 
     & > h2 {
         padding: 2vh 0;
@@ -255,10 +268,28 @@ export const LoginContainer = styled.div`
             font-size: small;
             padding-bottom: 2vh;
             padding-right: 0.5vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            width: 100%;
+            position: relative;
+            margin-top: 0.5vh;
+
+            & input {
+                margin-left: 0.5vw;
+            }
+
+            & label {
+                text-align: start;
+                padding-left: 0.5vw;
+            }
 
             & > .forgot-link {
                 color: inherit;
                 text-decoration: none;
+                text-align: end;
+                position: absolute;
+                right: 1vw;
 
                 &:hover {
                     color: blue;

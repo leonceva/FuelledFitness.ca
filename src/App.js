@@ -10,6 +10,7 @@ import Services from "./routes/Services";
 import MyAccount from "./routes/MyAccount";
 import Athletes from "./routes/Athletes";
 import { AuthProvider } from "./context/AuthProvider";
+import PersistLogin from "./components/PersistLogin";
 
 function App() {
 
@@ -38,7 +39,14 @@ function App() {
                 },
                 {
                     path: "/account",
-                    element: <AuthProvider><MyAccount /></AuthProvider>
+                    element: <AuthProvider><PersistLogin><MyAccount /></PersistLogin></AuthProvider>,
+                    /* children: [
+                        {
+                            path: "/account",
+                            element: <AuthProvider><MyAccount /></AuthProvider>
+                        }
+                    ] */
+
                 },
                 {
                     path: "/athletes",
@@ -53,6 +61,9 @@ function App() {
             <RouterProvider router={router} />
         </div>
     );
+
+
+
 }
 
 export default App;

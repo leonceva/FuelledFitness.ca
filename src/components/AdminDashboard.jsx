@@ -1,29 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import AuthContext from "../context/AuthProvider";
+import useLogout from "../hooks/useLogout";
 
 const AdminDashboard = () => {
     const { auth } = useContext(AuthContext);
     const [users, setUsers] = useState();
     const axiosPrivate = useAxiosPrivate();
     const [count, setCount] = useState(0);
+    const logout = useLogout();
 
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
 
         const getUsers = async () => {
-            console.log("Getting all users..");
             try {
                 const res = await axiosPrivate.get("/users", {
                     signal: controller.signal,
                 });
-
                 isMounted && setUsers(res.data.rows);
             } catch (err) {
-                console.log(
-                    `Error:${err?.response?.status} ${err?.response?.data}`
-                );
+                console.log(`Error:\n${JSON.stringify(err)}`);
+                await logout();
             }
         };
 
@@ -31,10 +30,9 @@ const AdminDashboard = () => {
 
         return () => {
             isMounted = false;
-            controller.abort();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [count]);
+    }, []);
 
     return (
         <>
@@ -56,11 +54,14 @@ const AdminDashboard = () => {
                     <br />
                     <button onClick={() => setCount(count + 1)}>Test</button>
                     <br />
+                    <button onClick={async () => await logout()}>Logout</button>
                 </ul>
             ) : (
                 <>
                     <p>No Users Found</p>
                     <button onClick={() => setCount(count + 1)}>Test</button>
+                    <br />
+                    <button onClick={async () => await logout()}>Logout</button>
                 </>
             )}
             <br />
