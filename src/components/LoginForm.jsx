@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
+import PersistLoginInfo from "./PersistLoginInfo";
 
 const LoginForm = () => {
     // Form content
@@ -88,6 +89,12 @@ const LoginForm = () => {
         setPersist((prev) => !prev);
     }
 
+    // Set session to last while tab is open
+    useEffect(() => {
+        sessionStorage.setItem("persist", true);
+    }, []);
+
+    // Update persistent state when box is toggled
     useEffect(() => {
         localStorage.setItem("persist", persist);
     }, [persist]);
@@ -140,7 +147,7 @@ const LoginForm = () => {
                     value={formData.password}
                     onChange={handleChange}
                 />
-                <div className="forgot">
+                <div className="login-options">
                     <input
                         type="checkbox"
                         name="persist"
@@ -148,7 +155,8 @@ const LoginForm = () => {
                         onChange={togglePersist}
                         checked={persist}
                     />
-                    <label htmlFor="persist">Trust Device?</label>
+                    <label htmlFor="persist">Remember Device?</label>
+                    <PersistLoginInfo />
                     <a className="forgot-link" href="/forgotLogin">
                         forgot password?
                     </a>
@@ -167,7 +175,6 @@ export const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    overflow-y: auto;
     max-height: 90%;
 
     & > h2 {
@@ -261,7 +268,7 @@ export const LoginContainer = styled.div`
             padding: 0.5vh 1vw;
         }
 
-        & > .forgot {
+        & > .login-options {
             align-self: end;
             font-size: small;
             padding-bottom: 2vh;
@@ -280,6 +287,9 @@ export const LoginContainer = styled.div`
             & label {
                 text-align: start;
                 padding-left: 0.5vw;
+            }
+
+            & > .persist-info {
             }
 
             & > .forgot-link {
