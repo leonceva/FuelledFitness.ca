@@ -1,12 +1,24 @@
 ## Short term goals
-- Add placeholder page for each link
-- Add default render page for '/'
-- Document stylesheet
+- Mobile version for Athletes page:
+    - Athlete card
+    - Apply form
+- Google OAuth for My Account Login
+- My Account mobile mode
+    - Login form
+- Basic Admin dashboard to create user
+    - Email template for when user is created
+        - Better to have a page to allow user to create password?
+        - Better to generate a random password at first?
+- Basic Inactive user dashboard
+    - Access to three week programs, no feedback
+- Basic Active user dashboard
+    - Access to all previous weeks, and feedback
+    - Create a form/upload for check-in
 
 ## Long term goals
-- Mobil Mode layout
-- 'Contact Me' page to have a form, email api
-- Log in section for members
-- Data base for individual plans
-- Log in with authOA
-- Blog post integration?
+- Mobile App with React Native
+- Thorough workout and exercises database
+- Implement complex queries and filtering for admin dashboard
+- Client data storage to be HIPPA complient
+- Calendar integration
+

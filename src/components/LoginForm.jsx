@@ -65,12 +65,10 @@ const LoginForm = () => {
                         }
                     )
                     .then((res) => {
-                        const userEmail = res.data.email;
-                        const userType = res.data.userType;
                         const accessToken = res.data.accessToken;
                         setFormError(false);
                         setFormData({ email: "", password: "" });
-                        setAuth({ userEmail, userType, accessToken });
+                        setAuth({ accessToken });
                     })
                     .catch((res) => {
                         console.log(

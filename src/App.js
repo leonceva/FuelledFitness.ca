@@ -39,14 +39,12 @@ function App() {
                 },
                 {
                     path: "/account",
-                    element: <AuthProvider><PersistLogin><MyAccount /></PersistLogin></AuthProvider>,
-                    /* children: [
-                        {
-                            path: "/account",
-                            element: <AuthProvider><MyAccount /></AuthProvider>
-                        }
-                    ] */
-
+                    element:
+                        <AuthProvider>
+                            <PersistLogin>
+                                <MyAccount />
+                            </PersistLogin>
+                        </AuthProvider>
                 },
                 {
                     path: "/athletes",

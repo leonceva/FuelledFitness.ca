@@ -4,12 +4,12 @@ import styled from "styled-components";
 import AthleteCard from "../components/AthleteCard";
 import Application from "../components/Application";
 
-import database from "../mock-db.json";
+import data from "../frontend-data.json";
 import no_img from "../images/athletes/no-img.jpg";
 import { useState } from "react";
 
 const Athletes = () => {
-    const athletes = database.athletes;
+    const athletes = data.athletes;
     return (
         <>
             <DesktopLayout content={<DesktopContent athletes={athletes} />} />

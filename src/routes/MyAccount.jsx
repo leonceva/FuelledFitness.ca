@@ -5,6 +5,7 @@ import LoginForm from "../components/LoginForm";
 import useAuth from "../hooks/useAuth";
 import ClientDashboard from "../components/ClientDashboard";
 import AdminDashboard from "../components/AdminDashboard";
+import jwt_decode from "jwt-decode";
 
 const MyAccount = () => {
     return (
@@ -17,21 +18,19 @@ const MyAccount = () => {
 
 export const DesktopContent = () => {
     const { auth } = useAuth();
+    const decoded = auth?.accessToken
+        ? jwt_decode(auth.accessToken)
+        : undefined;
 
-    if (Object.keys(auth).length === 0) {
-        return (
-            <DesktopDiv>
-                <LoginForm />
-            </DesktopDiv>
-        );
-    } else {
-        return (
-            <DesktopDiv>
-                {auth.userType === "admin" && <AdminDashboard />}
-                {auth.userType === "active" && <ClientDashboard />}
-            </DesktopDiv>
-        );
-    }
+    const userRole = decoded?.User?.role || null;
+
+    return (
+        <DesktopDiv>
+            {userRole === null && <LoginForm />}
+            {userRole === "admin" && <AdminDashboard />}
+            {userRole === "active" && <ClientDashboard />}
+        </DesktopDiv>
+    );
 };
 
 export const DesktopDiv = styled.div`
