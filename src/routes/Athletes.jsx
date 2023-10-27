@@ -93,7 +93,7 @@ export const DesktopContent = (props) => {
                             setShowAthlete(null);
                         }}
                     />
-                    <AthleteBio className="athlete-bio">
+                    <AthleteBioDesktop className="athlete-bio">
                         <img src={athleteImg ? athleteImg : no_img} alt="" />
                         <div className="bio-container">
                             <h3>
@@ -108,9 +108,9 @@ export const DesktopContent = (props) => {
                                 setShowAthlete(null);
                             }}
                         >
-                            X
+                            <i class="bi bi-x-lg"></i>
                         </button>
-                    </AthleteBio>
+                    </AthleteBioDesktop>
                 </>
             )}
             {showApplication && (
@@ -121,9 +121,17 @@ export const DesktopContent = (props) => {
                             setShowAppilcation(false);
                         }}
                     />
-                    <ApplicationDiv>
+                    <ApplicationDivDesktop>
                         <Application />
-                    </ApplicationDiv>
+                        <button
+                            className="close-bio"
+                            onClick={() => {
+                                setShowAppilcation(false);
+                            }}
+                        >
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </ApplicationDivDesktop>
                 </>
             )}
         </>
@@ -198,7 +206,7 @@ export const DesktopDiv = styled.div`
     }
 `;
 
-export const AthleteBio = styled.div`
+export const AthleteBioDesktop = styled.div`
     position: absolute;
     width: 60%;
     height: 60%;
@@ -248,25 +256,74 @@ export const AthleteBio = styled.div`
     }
 `;
 
+export const AthleteBioMobile = styled.div`
+    position: fixed;
+    top: 30%;
+    width: 90%;
+    max-height: 60%;
+    top: 20%;
+    left: 5%;
+    z-index: 3;
+    background-color: #d0dceb;
+    border: solid #333 calc(min(0.5vw, 0.5vh));
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+
+    & > h3 {
+        width: 100%;
+    }
+
+    & > h4 {
+        width: 100%;
+        border-bottom: solid #333 calc(min(0.5vw, 0.5vh));
+        padding-bottom: 0.5vh;
+    }
+
+    & > .bio-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+
+        & > p {
+            text-align: justify;
+            padding: 0 1.5vw;
+            width: 100%;
+        }
+    }
+
+    & > .close-bio {
+        position: absolute;
+        width: calc(min(7vw, 7vh));
+        height: calc(min(7vw, 7vh));
+        background-color: red;
+        border: solid #333 calc(min(0.5vw, 0.5vh));
+        border-radius: calc(min(1vw, 1vh));
+        right: calc(max(-2.5vw, -2.5vh));
+        top: calc(max(-2.5vw, -2.5vh));
+        font-weight: bolder;
+        font-size: calc(min(3.5vw, 3.5vh));
+    }
+`;
+
 export const BioBackground = styled.div`
     position: absolute;
     width: 100%;
-    height: 95%;
+    height: 100%;
     top: 0;
     left: 0;
     z-index: 2;
     background-color: transparent;
-    border-radius: 1vw;
 `;
 
-export const ApplicationDiv = styled.div`
+export const ApplicationDivDesktop = styled.div`
     z-index: 3;
-    position: absolute;
+    position: fixed;
     width: 60%;
-    max-height: 80%;
+    max-height: 70%;
     min-height: max-content;
     overflow-y: auto;
-    top: 10%;
+    top: 20%;
     left: 20%;
     background-color: #d0dceb;
     border: solid #333 calc(min(0.5vw, 0.5vh));
@@ -317,13 +374,13 @@ export const ApplicationDiv = styled.div`
             max-height: 10%;
 
             & label {
-                width: 35%;
+                width: 20%;
                 text-align: end;
                 padding-left: 2vw;
             }
 
             & textarea {
-                width: 60%;
+                width: 75%;
                 margin-left: 2%;
                 margin-right: 3%;
                 resize: none;
@@ -364,14 +421,157 @@ export const ApplicationDiv = styled.div`
             content: "Message Sent!";
         }
     }
+
+    & > .close-bio {
+        position: fixed;
+        width: calc(min(5vw, 5vh));
+        height: calc(min(5vw, 5vh));
+        background-color: red;
+        border: solid #333 calc(min(0.5vw, 0.5vh));
+        border-radius: calc(min(1vw, 1vh));
+        right: calc(max(-2.5vw, -2.5vh));
+        top: calc(20% - min(2.5vw, 2.5vh));
+        right: calc(20% - min(2.5vw, 2.5vh));
+        font-weight: bolder;
+        font-size: calc(min(2.5vw, 2.5vh));
+    }
+`;
+
+export const ApplicationDivMobile = styled.div`
+    z-index: 3;
+    position: fixed;
+    width: 90%;
+    max-height: 80%;
+    min-height: max-content;
+    overflow-y: auto;
+    top: 15%;
+    left: 5%;
+    background-color: #d0dceb;
+    border: solid #333 calc(min(0.5vw, 0.5vh));
+    border-radius: 1vw;
+
+    & > form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+
+        & > h3 {
+            margin-bottom: 0.5vh;
+        }
+
+        & > .input-text {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5vh;
+
+            & label {
+                width: 20%;
+                text-align: end;
+                padding-left: 2vw;
+            }
+
+            & input {
+                width: 75%;
+                margin-left: 2%;
+                margin-right: 3%;
+            }
+        }
+
+        & > .about {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            max-height: 10%;
+
+            & label {
+                width: 20%;
+                text-align: end;
+                padding-left: 2vw;
+            }
+
+            & textarea {
+                width: 75%;
+                margin-left: 2%;
+                margin-right: 3%;
+                resize: none;
+            }
+        }
+
+        & > .error-msg {
+            width: 100%;
+            margin-top: -0.5vh;
+            margin-bottom: 1vh;
+        }
+
+        > .submit-btn {
+            width: max-content;
+            background-color: #d0dceb;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 1vh 2vw;
+            color: #333;
+            box-shadow: 3px 3px 2px #333;
+            margin-bottom: 1.5vh;
+
+            &::after {
+                content: "Submit Application";
+            }
+
+            &:hover {
+                background-color: #87ceeb;
+                cursor: pointer;
+            }
+            &:active {
+                translate: 3px 3px;
+                box-shadow: 0 0 0;
+            }
+        }
+
+        > .submitted::after {
+            content: "Message Sent!";
+        }
+    }
+
+    & > .close-bio {
+        position: fixed;
+        width: calc(min(7vw, 7vh));
+        height: calc(min(7vw, 7vh));
+        background-color: red;
+        border: solid #333 calc(min(0.5vw, 0.5vh));
+        border-radius: calc(min(1vw, 1vh));
+        right: calc(max(-2.5vw, -2.5vh));
+        top: calc(15% - min(3.5vw, 3.5vh));
+        right: calc(5% - min(3.5vw, 3.5vh));
+        font-weight: bolder;
+        font-size: calc(min(3.5vw, 3.5vh));
+    }
 `;
 
 export const MobileContent = (props) => {
     const athletes = props.athletes;
+    const [showApplication, setShowAppilcation] = useState(false);
+    const [showAthlete, setShowAthlete] = useState(null);
 
     return (
         <>
-            <MobileDiv>
+            <MobileDiv
+                style={
+                    showAthlete || showApplication
+                        ? { opacity: "0.4" }
+                        : { opacity: "1" }
+                }
+            >
                 <h3>Athlete Sponsorship Program</h3>
                 <p>
                     Our Athlete Sponsorship Program is a testament to our
@@ -387,7 +587,13 @@ export const MobileContent = (props) => {
                 </p>
                 <div className="application">
                     <h4>Think you'd be a good fit?</h4>
-                    <button>Apply Now</button>
+                    <button
+                        onClick={() => {
+                            setShowAppilcation(true);
+                        }}
+                    >
+                        Apply Now
+                    </button>
                 </div>
                 <h3>Support Their Dreams</h3>
                 <p>
@@ -398,13 +604,68 @@ export const MobileContent = (props) => {
                 <div className="athletes">
                     {athletes.map((athlete) => {
                         return (
-                            <div className="card-container" key={athlete.name}>
+                            <div
+                                className="card-container"
+                                key={athlete.name}
+                                onClick={() => {
+                                    setShowAthlete(athlete);
+                                }}
+                            >
                                 <AthleteCard athlete={athlete} />
                             </div>
                         );
                     })}
                 </div>
             </MobileDiv>
+            {showAthlete && (
+                <>
+                    <BioBackground
+                        className="bio-bg"
+                        onClick={() => {
+                            setShowAthlete(null);
+                        }}
+                    />
+                    <AthleteBioMobile>
+                        <h3>
+                            {showAthlete.name} {showAthlete.last_name}
+                        </h3>
+                        <h4>Sport: {showAthlete.sport}</h4>
+                        <div className="bio-container">
+                            <p>{showAthlete.bio}</p>
+                        </div>
+
+                        <button
+                            className="close-bio"
+                            onClick={() => {
+                                setShowAthlete(null);
+                            }}
+                        >
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </AthleteBioMobile>
+                </>
+            )}
+            {showApplication && (
+                <>
+                    <BioBackground
+                        className="bio-bg"
+                        onClick={() => {
+                            setShowAppilcation(false);
+                        }}
+                    />
+                    <ApplicationDivMobile>
+                        <Application />
+                        <button
+                            className="close-bio"
+                            onClick={() => {
+                                setShowAppilcation(false);
+                            }}
+                        >
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </ApplicationDivMobile>
+                </>
+            )}
         </>
     );
 };

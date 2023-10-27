@@ -11,6 +11,7 @@ import MyAccount from "./routes/MyAccount";
 import Athletes from "./routes/Athletes";
 import { AuthProvider } from "./context/AuthProvider";
 import PersistLogin from "./components/PersistLogin";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
 
@@ -40,11 +41,13 @@ function App() {
                 {
                     path: "/account",
                     element:
-                        <AuthProvider>
-                            <PersistLogin>
-                                <MyAccount />
-                            </PersistLogin>
-                        </AuthProvider>
+                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}>
+                            <AuthProvider>
+                                <PersistLogin>
+                                    <MyAccount />
+                                </PersistLogin>
+                            </AuthProvider>
+                        </GoogleOAuthProvider>
                 },
                 {
                     path: "/athletes",

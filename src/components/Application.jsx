@@ -187,10 +187,7 @@ const Application = () => {
                 </div>
 
                 <div className="about">
-                    <label htmlFor="about">
-                        Tell us about yourself and why you are seeking to be a
-                        Fuelled Fitness athlete:
-                    </label>
+                    <label htmlFor="about">Tell us about yourself:</label>
                     <textarea
                         rows="3"
                         name="about"

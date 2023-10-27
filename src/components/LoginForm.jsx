@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import google_logo from "../images/g-logo.png";
+//import google_logo from "../images/g-logo.png";
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import PersistLoginInfo from "./PersistLoginInfo";
+import { GoogleLogin } from "@react-oauth/google";
 
 const LoginForm = () => {
     // Form content
@@ -99,13 +100,24 @@ const LoginForm = () => {
         localStorage.setItem("persist", persist);
     }, [persist]);
 
+    const handleSuccessGoogle = (res) => {
+        console.log(res);
+    };
+
+    const handleErrorGoogle = (res) => {
+        console.log(res);
+    };
+
     return (
         <LoginContainer>
             <h2>Login</h2>
-            <div className="google-login">
-                <img src={google_logo} alt="google logo" />
-                <span>Sign in with Google</span>
-            </div>
+            <span className="google-login">
+                <GoogleLogin
+                    clientID={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+                    onSuccess={handleSuccessGoogle}
+                    onError={handleErrorGoogle}
+                />
+            </span>
 
             <div className="or-container">
                 <h4 className="left">left</h4>
@@ -184,38 +196,15 @@ export const LoginContainer = styled.div`
     }
 
     & > .google-login {
-        background-color: white;
         border: 2px #333 solid;
-        border-radius: 10px;
-        width: 80%;
-        align-self: center;
-        padding: 1vh 0;
         box-shadow: 2px 2px 2px #333;
+        width: fit-content;
+        align-self: center;
+
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-
-        &:hover {
-            background-color: #6e88a1;
-            cursor: pointer;
-        }
-        &:active {
-            translate: 2px 2px;
-            box-shadow: 0 0 0;
-        }
-
-        & > img {
-            object-fit: contain;
-            max-height: 3vh;
-            justify-items: center;
-            padding: 0 1vw;
-        }
-
-        & > span {
-            flex: 1;
-            text-align: center;
-        }
     }
 
     & > .or-container {
