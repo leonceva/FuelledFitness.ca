@@ -26,15 +26,35 @@ export const PersistLoginInfoDiv = styled.div`
     align-items: center;
 
     & > .show {
-        content-visibility: visible;
         position: absolute;
         border: 2px solid #333;
         left: 100%;
         margin-left: 1vw;
         max-height: 500%;
-        width: 1000%;
         background-color: white;
         z-index: 2;
+        animation-name: show-info;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        padding: 0.3vh 0.3vw;
+
+        @keyframes show-info {
+            0% {
+                color: transparent;
+                width: 0%;
+                content-visibility: hidden;
+            }
+            30% {
+                width: 1000%;
+            }
+            80% {
+                color: black;
+                content-visibility: show;
+            }
+            100% {
+                width: 1000%;
+            }
+        }
     }
 
     & > .hidden {

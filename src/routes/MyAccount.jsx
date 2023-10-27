@@ -4,7 +4,8 @@ import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import useAuth from "../hooks/useAuth";
 import ClientDashboard from "../components/ClientDashboard";
-import AdminDashboard from "../components/AdminDashboard";
+//import AdminDashboard from "../components/AdminDashboard";
+import AdminDashboardDesktop from "../components/AdminDashboardDesktop";
 import jwt_decode from "jwt-decode";
 
 const MyAccount = () => {
@@ -27,7 +28,9 @@ export const DesktopContent = () => {
     return (
         <DesktopDiv>
             {userRole === null && <LoginForm />}
-            {userRole === "admin" && <AdminDashboard />}
+            {userRole === "admin" && (
+                <AdminDashboardDesktop user={decoded.User} />
+            )}
             {userRole === "active" && <ClientDashboard />}
         </DesktopDiv>
     );

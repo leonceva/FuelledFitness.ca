@@ -6,6 +6,7 @@ import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import PersistLoginInfo from "./PersistLoginInfo";
 import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 const LoginForm = () => {
     // Form content
@@ -102,6 +103,9 @@ const LoginForm = () => {
 
     const handleSuccessGoogle = (res) => {
         console.log(res);
+        var decoded = jwt_decode(res.credential);
+        console.log(`Decoded:\n${JSON.stringify(decoded)}`);
+        //decoded .email .given_name .family_name
     };
 
     const handleErrorGoogle = (res) => {
