@@ -1,7 +1,4 @@
 ## Short term goals
-- Mobile version for Athletes page:
-    - Athlete card
-    - Apply form
 - Google OAuth for My Account Login
 - My Account mobile mode
     - Login form
