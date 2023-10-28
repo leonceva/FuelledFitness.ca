@@ -58,7 +58,7 @@ const LoginForm = () => {
             const sendLoginInfo = async () => {
                 await axios
                     .post(
-                        "/checkLogin",
+                        "/login",
                         {
                             email: formData.email.toLowerCase(),
                             password: formData.password,
@@ -101,15 +101,44 @@ const LoginForm = () => {
         localStorage.setItem("persist", persist);
     }, [persist]);
 
-    const handleSuccessGoogle = (res) => {
-        console.log(res);
+    const handleSuccessGoogle = async (res) => {
+        // console.log(res);
         var decoded = jwt_decode(res.credential);
-        console.log(`Decoded:\n${JSON.stringify(decoded)}`);
-        //decoded .email .given_name .family_name
+        //The values of interest from decoded .email .given_name .family_name
+        console.log(
+            `User Logged in:\n${decoded.given_name} ${decoded.family_name} - ${decoded.email}`
+        );
+        // Validate with the server
+        await axios
+            .post(
+                "/loginGoogle",
+                {
+                    email: decoded.email,
+                    clientID: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
+                },
+                {
+                    withCredentials: true,
+                }
+            )
+            .then((res) => {
+                const accessToken = res.data.accessToken;
+                setFormError(false);
+                setFormData({ email: "", password: "" });
+                setAuth({ accessToken });
+            })
+            .catch((res) => {
+                console.log(
+                    `Error: ${res.response.status} ${res.response.data}`
+                );
+                setErrorMessage("User Not Found");
+                setFormError(true);
+            });
     };
 
     const handleErrorGoogle = (res) => {
-        console.log(res);
+        console.log(JSON.stringify(res));
+        setErrorMessage("Google Authentication Failed");
+        setFormError(true);
     };
 
     return (
@@ -197,6 +226,7 @@ export const LoginContainer = styled.div`
         padding: 2vh 0;
         font-weight: 800;
         align-self: center;
+        font-size: calc(min(3vh, 3vw));
     }
 
     & > .google-login {
@@ -204,7 +234,6 @@ export const LoginContainer = styled.div`
         box-shadow: 2px 2px 2px #333;
         width: fit-content;
         align-self: center;
-
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -221,6 +250,7 @@ export const LoginContainer = styled.div`
         & > h4 {
             font-size: large;
             align-self: center;
+            font-size: calc(min(2.5vh, 2.5vw));
         }
 
         & > .left,
@@ -247,6 +277,7 @@ export const LoginContainer = styled.div`
             align-self: start;
             display: flex;
             width: 100%;
+            font-size: calc(min(2vh, 2vw));
 
             & > .error {
                 color: red;
@@ -259,6 +290,7 @@ export const LoginContainer = styled.div`
             display: block;
             width: 100%;
             padding: 0.5vh 1vw;
+            font-size: calc(min(2vh, 2vw));
         }
 
         & > .login-options {
@@ -280,9 +312,15 @@ export const LoginContainer = styled.div`
             & label {
                 text-align: start;
                 padding-left: 0.5vw;
+                font-size: calc(min(1.5vh, 1.5vw));
+            }
+
+            & i {
+                font-size: calc(min(1.5vh, 1.5vw));
             }
 
             & > .persist-info {
+                font-size: calc(min(1.5vh, 1.5vw));
             }
 
             & > .forgot-link {
@@ -291,6 +329,7 @@ export const LoginContainer = styled.div`
                 text-align: end;
                 position: absolute;
                 right: 1vw;
+                font-size: calc(min(1.5vh, 1.5vw));
 
                 &:hover {
                     color: blue;
@@ -307,6 +346,7 @@ export const LoginContainer = styled.div`
             align-self: center;
             padding: 0.5vh 0;
             box-shadow: 2px 2px 2px #333;
+            font-size: calc(min(2.5vh, 2.5vw));
 
             &:hover {
                 background-color: #6e88a1;

@@ -42,14 +42,7 @@ const AdminDashboardDesktop = (props) => {
                             handleOption("Edit Program");
                         }}
                     >
-                        Edit Program
-                    </span>
-                    <span
-                        onClick={() => {
-                            handleOption("Edit User");
-                        }}
-                    >
-                        Edit User
+                        Edit Programs
                     </span>
                     <span
                         onClick={() => {
@@ -58,6 +51,13 @@ const AdminDashboardDesktop = (props) => {
                     >
                         New User
                     </span>
+                    <span
+                        onClick={() => {
+                            handleOption("Edit User");
+                        }}
+                    >
+                        Edit Users
+                    </span>
                 </div>
                 <div className="logout" onClick={async () => await logout()}>
                     <span>Logout</span>
@@ -65,7 +65,7 @@ const AdminDashboardDesktop = (props) => {
                 </div>
             </div>
             <div className="content">
-                {optionSelected === "New User" && <NewUser />}{" "}
+                {optionSelected === "New User" && <NewUser />}
             </div>
         </DashboardDiv>
     );
@@ -93,6 +93,7 @@ const DashboardDiv = styled.div`
             height: 15%;
             width: 100%;
             margin-top: calc(min(3vw, 3vh));
+            font-size: calc(min(2.5vw, 2.5vh));
             display: flex;
             flex-direction: column;
             justify-content: start;
@@ -111,6 +112,7 @@ const DashboardDiv = styled.div`
             flex-direction: column;
             justify-content: start;
             align-items: center;
+            font-size: calc(min(2.5vw, 2.5vh));
 
             & :hover {
                 cursor: pointer;
@@ -134,6 +136,7 @@ const DashboardDiv = styled.div`
             display: flex;
             flex-direction: row;
             margin-bottom: calc(min(3vw, 3vh));
+            font-size: calc(min(2.5vw, 2.5vh));
 
             & span {
                 width: 70%;

@@ -153,10 +153,12 @@ export const DesktopDiv = styled.div`
         font-weight: normal;
         align-self: start;
         margin: 1vh 0;
+        font-size: 3.5vh;
     }
     & > p {
         text-align: justify;
         align-self: start;
+        font-size: 2.5vh;
     }
     & > .application {
         width: 100%;
@@ -168,13 +170,14 @@ export const DesktopDiv = styled.div`
         & > h4 {
             text-align: left;
             margin-right: 2vw;
+            font-size: calc(min(2.5vw, 2.5vh));
         }
 
         & > button {
             border: solid 2px #333;
             color: #333;
             border-radius: 3vw;
-            font-size: calc(min(1.6vw, 2.5vh));
+            font-size: calc(min(2.5vw, 2.5vh));
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
             background-color: #d0dceb;
@@ -236,9 +239,14 @@ export const AthleteBioDesktop = styled.div`
         margin: 1vh 0 1vh 1vw;
         overflow-y: auto;
 
+        & > h3 {
+            font-size: 2.5vh;
+        }
+
         & > p {
             text-align: justify;
             padding-right: 1vw;
+            font-size: 2vh;
         }
     }
 
@@ -342,6 +350,7 @@ export const ApplicationDivDesktop = styled.div`
 
         & > h3 {
             margin-bottom: 0.5vh;
+            font-size: calc(min(3vw, 3vh));
         }
 
         & > .input-text {
@@ -356,12 +365,14 @@ export const ApplicationDivDesktop = styled.div`
                 width: 20%;
                 text-align: end;
                 padding-left: 2vw;
+                font-size: calc(min(2vw, 2vh));
             }
 
             & input {
                 width: 75%;
                 margin-left: 2%;
                 margin-right: 3%;
+                font-size: calc(min(2vw, 2vh));
             }
         }
 
@@ -377,6 +388,7 @@ export const ApplicationDivDesktop = styled.div`
                 width: 20%;
                 text-align: end;
                 padding-left: 2vw;
+                font-size: calc(min(2vw, 2vh));
             }
 
             & textarea {
@@ -384,6 +396,7 @@ export const ApplicationDivDesktop = styled.div`
                 margin-left: 2%;
                 margin-right: 3%;
                 resize: none;
+                font-size: calc(min(2vw, 2vh));
             }
         }
 
@@ -402,6 +415,7 @@ export const ApplicationDivDesktop = styled.div`
             color: #333;
             box-shadow: 3px 3px 2px #333;
             margin-bottom: 1.5vh;
+            font-size: calc(min(2vw, 2vh));
 
             &::after {
                 content: "Submit Application";

@@ -73,11 +73,12 @@ export const DesktopDiv = styled.div`
             flex-direction: column;
             align-items: center;
             max-height: 90%;
+            font-size: calc(min(1.5vw, 1.5vh));
 
             > h2 {
                 width: 100%;
                 padding-top: 5%;
-                font-size: 3.5vh;
+                font-size: calc(min(3vw, 3vh));
                 font-weight: 700;
                 height: 10%;
             }
@@ -97,6 +98,7 @@ export const DesktopDiv = styled.div`
                 padding: 1vh 2vw;
                 color: #333;
                 box-shadow: 3px 3px 2px #333;
+                font-size: (min(2vw, 2vh));
 
                 &::after {
                     content: "Send Message";

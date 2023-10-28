@@ -18,7 +18,11 @@ export default About;
 export const DesktopContent = () => {
     return (
         <DesktopContentDiv>
-            <div style={{ margin: "1vh 1vw" }}>
+            <div
+                style={{
+                    margin: "1vh 1vw",
+                }}
+            >
                 <h3>About Fuelled Fitness</h3>
                 <p>
                     We're your destination for tailored nutrition and training
@@ -61,6 +65,7 @@ export const DesktopContent = () => {
                     of the way. Reach out through the contact page, or click the
                     "book appointment" button to get started! <br />
                 </p>
+                <br />
                 <div className="btn-container">
                     <button
                         className="appointment"
@@ -84,6 +89,14 @@ export const DesktopContentDiv = styled.div`
     overflow-y: auto;
     text-align: justify;
 
+    & h3 {
+        font-size: calc(min(3.5vw, 3.5vh));
+    }
+
+    & p {
+        font-size: calc(min(2vw, 2vh));
+    }
+
     & img {
         max-height: 45vh;
         max-width: 25vw;
@@ -100,16 +113,17 @@ export const DesktopContentDiv = styled.div`
 
     & .btn-container {
         display: flex;
-        justify-content: center;
+        justify-content: start;
 
         & .appointment {
             border: solid 2px #333;
             color: #333;
             border-radius: 3vw;
-            font-size: 3vh;
+            font-size: calc(min(3vw, 3vh));
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
             background-color: #d0dceb;
+            justify-self: start;
 
             &:hover {
                 background-color: #87ceeb;

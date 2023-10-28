@@ -38,9 +38,11 @@ export const AthleteCardDiv = styled.div`
     justify-content: start;
     background-color: white;
     position: relative;
+    font-size: 3vh;
 
     & > h2 {
         width: 100%;
+        font-size: 2vh;
     }
 
     & > .img {

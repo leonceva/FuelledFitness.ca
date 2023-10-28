@@ -299,13 +299,13 @@ export const DesktopDiv = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
-        font-size: 2.5vh;
+        font-size: calc(min(2.5vw, 2.5vh));
         padding: 0 2vw;
         text-align: justify;
 
         & > h2 {
             text-align: center;
-            font-size: 3.5vh;
+            font-size: calc(min(3.5vw, 3.5vh));
         }
     }
     & > .show {
@@ -467,7 +467,7 @@ export const InfoDiv = styled.div`
     justify-content: center;
 
     & > h3 {
-        font-size: 3vh;
+        font-size: calc(min(3vw, 3vh));
         font-weight: 700;
         margin-bottom: 2vh;
     }
@@ -490,7 +490,7 @@ export const InfoButton = styled.div`
     border-radius: 10px;
     width: 80%;
     align-self: center;
-    font-size: 2.5vh;
+    font-size: calc(min(2.5vw, 2.5vh));
     padding: 0 1vw;
 `;
 
@@ -500,7 +500,7 @@ export const ServiceButton = styled.div`
     min-width: 30%;
     max-width: max-content;
     align-self: center;
-    font-size: 2.5vh;
+    font-size: calc(min(2.5vw, 2.5vh));
     padding: 0 1vw;
 `;
 
@@ -741,13 +741,13 @@ export const MobileDiv = styled.div`
 
         & > h3 {
             text-align: center;
-            font-size: 3vh;
+            font-size: calc(min(3vw, 3vh));
             font-weight: 700;
             padding-top: 2vh;
         }
         & > p {
             padding: 0 1.5vw;
-            font-size: 2vh;
+            font-size: calc(min(2vw, 2vh));
         }
 
         & > .appointment {
@@ -755,7 +755,7 @@ export const MobileDiv = styled.div`
             color: #333;
             border-radius: 3vw;
             position: relative;
-            font-size: 3vh;
+            font-size: calc(min(3vw, 3vh));
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
             background-color: #d0dceb;
