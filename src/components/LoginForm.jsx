@@ -146,6 +146,8 @@ const LoginForm = () => {
             <h2>Login</h2>
             <span className="google-login">
                 <GoogleLogin
+                    width={200}
+                    size="large"
                     clientID={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
                     onSuccess={handleSuccessGoogle}
                     onError={handleErrorGoogle}

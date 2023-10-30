@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const NewUser = () => {
+    const axiosPrivate = useAxiosPrivate();
+
     // Form data content
     const [formData, setFormData] = useState({
         firstName: "",
@@ -10,19 +13,88 @@ const NewUser = () => {
         role: "",
     });
 
+    const [formError, setFormError] = useState(null);
+
     const handlesubmit = (e) => {
+        // Prevent default form behavior
         e.preventDefault();
-        console.log("Form submitted");
+        // Check valid inputs
+        if (validateInputs()) {
+            // Send Form data
+            sendFormData();
+        }
     };
 
+    // Form input field change
     const handleChange = (e) => {
-        console.log("Change");
+        const { name, value } = e.target;
+        // Update form data
+        setFormData((prevFormData) => {
+            return { ...prevFormData, [name]: value };
+        });
     };
+
+    // Input validation
+    const validateInputs = () => {
+        // First name
+        if (formData.firstName.length < 1 || formData.firstName.length > 50) {
+            setFormError("Name must be between 1 and 50 characters");
+            return false;
+        }
+        // Last name
+        if (formData.lastName.length < 1 || formData.lastName.length > 50) {
+            setFormError("Name must be between 1 and 50 characters");
+            return false;
+        }
+        // Email
+        if (
+            !formData.email.match(
+                // eslint-disable-next-line no-useless-escape
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )
+        ) {
+            setFormError("Invalid email");
+            return false;
+        }
+        return true;
+    };
+
+    const sendFormData = async () => {
+        await axiosPrivate
+            .post("/users", {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                role: formData.role,
+            })
+            .then((res) => {
+                // Clear form data
+                console.log("Success");
+                setFormData({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    role: "",
+                });
+            })
+            .catch(async (res) => {
+                console.log(res.code);
+                // If code is 403 -- JWT expired
+            });
+    };
+
     return (
         <>
             <NewUserDiv>
                 <h3>Create New User</h3>
                 <form action="" method="post" onSubmit={handlesubmit}>
+                    <div
+                        className={
+                            formError === null ? "hide-error" : "show-error"
+                        }
+                    >
+                        {formError}
+                    </div>
                     <div className="input">
                         <label htmlFor="first-name">First Name:</label>
                         <input
@@ -59,7 +131,9 @@ const NewUser = () => {
                     <div className="input">
                         <label htmlFor="role">Role:</label>
                         <select name="role" id="role" required>
-                            <option value="">Select the user type</option>
+                            <option style={{ display: "none" }} value="">
+                                Select the user type
+                            </option>
                             <option value="active">Active Client</option>
                             <option value="admin">Admin Account</option>
                             <option value="inactive">Inactive Client</option>
@@ -94,6 +168,25 @@ export const NewUserDiv = styled.div`
         font-size: calc(min(2vw, 2vh));
         height: 60%;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & > .show-error {
+            width: 60%;
+            text-align: end;
+            color: red;
+        }
+
+        & > .hide-error {
+            width: 60%;
+            text-align: end;
+            color: transparent;
+
+            &::after {
+                content: "test";
+            }
+        }
 
         & > .input {
             width: 100%;
@@ -115,14 +208,13 @@ export const NewUserDiv = styled.div`
 
         & button {
             margin-top: 3vh;
-            position: absolute;
-            left: 40%;
             background-color: #d0dceb;
             border: 2px solid #333;
             border-radius: 10px;
             padding: 1vh 2vw;
             color: #333;
             box-shadow: 3px 3px 2px #333;
+            width: max-content;
 
             &:hover {
                 background-color: #87ceeb;

@@ -2,9 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import NewUser from "./admin/NewUser";
 import useLogout from "../hooks/useLogout";
+import useAuth from "../hooks/useAuth";
+import jwt_decode from "jwt-decode";
 
 const AdminDashboardDesktop = (props) => {
-    const user = props.user;
+    const { auth } = useAuth();
+    const decoded = auth?.accessToken
+        ? jwt_decode(auth.accessToken)
+        : undefined;
+
     const logout = useLogout();
     const initialOptionState =
         JSON.parse(sessionStorage.getItem("optionSelected")) || null;
@@ -15,6 +21,9 @@ const AdminDashboardDesktop = (props) => {
         setOptionSelected(option);
         sessionStorage.setItem("optionSelected", JSON.stringify(option));
     };
+
+    const firstName = decoded?.User?.firstName || null;
+    const lastName = decoded?.User?.lastName || null;
 
     return (
         <DashboardDiv>
@@ -27,7 +36,7 @@ const AdminDashboardDesktop = (props) => {
                 >
                     Logged in as:
                     <br />
-                    {`${user.firstName} ${user.lastName}`}
+                    {`${firstName} ${lastName}`}
                 </div>
                 <div className="options">
                     <span

@@ -65,37 +65,6 @@ export const ContactMeForm = () => {
             //console.log("Inputs validated");
             if (verified) {
                 // console.log("Verified");
-                // Async Function to Send Form Data
-                const sendFormData = async () => {
-                    //console.log("Submitted:");
-                    //console.log(`Name:" ${formData.name}, email: ${formData.email}`;
-                    //console.log(`Message: ${formData.message}`);
-                    await axios
-                        .post(
-                            "https://api.fuelledfitness.ca:8443/sendMessage",
-                            {
-                                name: formData.name,
-                                email: formData.email,
-                                message: formData.message,
-                            }
-                        )
-                        .then((res) => {
-                            //console.log("Response: " + res.data);
-                        })
-                        .catch((res) => {
-                            //console.log("Error: " + res.data);
-                            setEmailSent(false);
-                        })
-                        .finally(() => {
-                            // Clear form data
-                            setFormData({
-                                name: "",
-                                email: "",
-                                message: "",
-                            });
-                            setEmailSent(true);
-                        });
-                };
                 sendFormData();
             } else {
                 //console.log("Not verified");
@@ -105,6 +74,34 @@ export const ContactMeForm = () => {
                 );
             }
         }
+    };
+
+    // Async Function to Send Form Data
+    const sendFormData = async () => {
+        //console.log("Submitted:");
+        //console.log(`Name:" ${formData.name}, email: ${formData.email}`;
+        //console.log(`Message: ${formData.message}`);
+        await axios
+            .post("https://api.fuelledfitness.ca:8443/sendMessage", {
+                name: formData.name,
+                email: formData.email,
+                message: formData.message,
+            })
+            .then((res) => {
+                //console.log("Response: " + res.data);
+                // Clear form data
+                setFormData({
+                    name: "",
+                    email: "",
+                    message: "",
+                });
+                setEmailSent(true);
+            })
+            .catch((res) => {
+                //console.log("Error: " + res.data);
+                setEmailSent(false);
+                alert(res.data);
+            });
     };
 
     return (

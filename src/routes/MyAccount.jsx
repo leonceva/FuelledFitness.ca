@@ -27,9 +27,7 @@ export const DesktopContent = () => {
     return (
         <DesktopDiv>
             {userRole === null && <LoginForm />}
-            {userRole === "admin" && (
-                <AdminDashboardDesktop user={decoded.User} />
-            )}
+            {userRole === "admin" && <AdminDashboardDesktop />}
             {userRole === "active" && <ClientDashboard />}
         </DesktopDiv>
     );
