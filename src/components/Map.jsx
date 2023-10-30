@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import axios from "axios";
-
 const MOBILE_MODE_LIMIT = 892;
 
 export const Map = () => {

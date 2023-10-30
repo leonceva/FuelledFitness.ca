@@ -73,11 +73,12 @@ export const DesktopDiv = styled.div`
             flex-direction: column;
             align-items: center;
             max-height: 90%;
+            font-size: calc(min(2vw, 2vh));
 
             > h2 {
                 width: 100%;
                 padding-top: 5%;
-                font-size: 3.5vh;
+                font-size: calc(min(3vw, 3vh));
                 font-weight: 700;
                 height: 10%;
             }
@@ -128,11 +129,11 @@ export const DesktopDiv = styled.div`
         & > .info {
             width: 50%;
             height: 90%;
+            font-size: calc(min(2vw, 2vh));
 
             & > .info-list {
                 list-style: none;
                 text-align: start;
-                font-size: calc(min(2vw, 2vh));
                 height: 100%;
                 display: flex;
                 flex-direction: column;
@@ -143,6 +144,7 @@ export const DesktopDiv = styled.div`
                 & > li {
                     padding: 1vh 0;
                     text-align: center;
+                    font-size: calc(min(2vw, 2vh));
 
                     & > .email {
                         text-decoration: underline;
@@ -156,7 +158,7 @@ export const DesktopDiv = styled.div`
                     & > h2 {
                         width: 100%;
                         padding-top: 5%;
-                        font-size: 3.5vh;
+                        font-size: calc(min(3vw, 3vh));
                         font-weight: 700;
                         height: 10%;
                     }
@@ -239,7 +241,7 @@ export const MobileDiv = styled.div`
         & > .info-list {
             list-style: none;
             text-align: center;
-            font-size: calc(max(3vw, 2vh));
+            font-size: 3vh;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -269,6 +271,7 @@ export const MobileDiv = styled.div`
                         margin: 0.5vh 0;
                         width: 80%;
                         padding: 1vh 1vw;
+                        font-size: 2vh;
                     }
 
                     > textarea {
@@ -277,6 +280,7 @@ export const MobileDiv = styled.div`
                         padding: 1vh 1vw;
                         flex: 1;
                         height: 300vh;
+                        font-size: 2vh;
                     }
 
                     > .submit-btn {

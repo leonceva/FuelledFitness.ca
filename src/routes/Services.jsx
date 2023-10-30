@@ -17,7 +17,7 @@ const Services = () => {
             setServiceSelected("none");
         } else {
             let separator = location.hash.indexOf("-");
-            console.log(`Index of separator: ${separator}`);
+            //console.log(`Index of separator: ${separator}`);
             if (separator === -1) {
                 setServiceSelected(location.hash.slice(1));
             } else {
@@ -230,10 +230,10 @@ export const DesktopDiv = styled.div`
         }
 
         & > h2 {
-            font-size: 3.5vh;
+            font-size: calc(min(3.5vw, 3.5vh));
         }
         & > h3 {
-            font-size: 3vh;
+            font-size: calc(min(3vw, 3vh));
             font-weight: 900;
             width: 100%;
         }
@@ -245,6 +245,7 @@ export const DesktopDiv = styled.div`
             box-shadow: 3px 3px 2px #333;
             margin: 2vh 0;
             width: 100%;
+            font-size: calc(min(2.5vw, 2.5vh));
         }
         & > div:hover {
             background-color: #87ceeb;
@@ -299,7 +300,7 @@ export const DesktopDiv = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
-        font-size: 2.5vh;
+        font-size: calc(min(2.5vw, 2.5vh));
         padding: 0 2vw;
         text-align: justify;
 
@@ -422,7 +423,7 @@ export const InfoDesktop = (props) => {
                 <>
                     <h2>Personal Training</h2>
                     <p>
-                        Experience personalized 1:1 coaching with hands on
+                        Experience personalized 1:1 coaching with hands-on
                         guidance, immediate feedback, and continuous support
                         throughout your session. Our personal training sessions
                         include a customized weekly program to follow, ensuring
@@ -467,7 +468,7 @@ export const InfoDiv = styled.div`
     justify-content: center;
 
     & > h3 {
-        font-size: 3vh;
+        font-size: calc(min(3vw, 3vh));
         font-weight: 700;
         margin-bottom: 2vh;
     }
@@ -490,7 +491,7 @@ export const InfoButton = styled.div`
     border-radius: 10px;
     width: 80%;
     align-self: center;
-    font-size: 2.5vh;
+    font-size: calc(min(2.5vw, 2.5vh));
     padding: 0 1vw;
 `;
 
@@ -500,7 +501,7 @@ export const ServiceButton = styled.div`
     min-width: 30%;
     max-width: max-content;
     align-self: center;
-    font-size: 2.5vh;
+    font-size: calc(min(2.5vw, 2.5vh));
     padding: 0 1vw;
 `;
 
@@ -605,8 +606,8 @@ export const MobileContent = (props) => {
                                 Do you provide meals as part of your business?
                                 Provide assurance of nutritional balance, and
                                 credibility to clients by having your menu
-                                reviewed and critiqued by a registered
-                                dietitian.
+                                reviewed and critiqued by a Registered
+                                Dietitian.
                                 <br />
                                 <br />
                                 Contact us today to discuss the unique needs of
@@ -645,12 +646,12 @@ export const MobileContent = (props) => {
                             </p>
                             <h3>Personal Training</h3>
                             <p>
-                                Experience personalized 1:1 coaching with hands
-                                on guidance, immediate feedback, and continuous
-                                support throughout your session. Our personal
-                                training sessions include a customized weekly
-                                program to follow, ensuring continuous progress
-                                in between sessions with your coach.
+                                Experience personalized 1:1 coaching with
+                                hands-on guidance, immediate feedback, and
+                                continuous support throughout your session. Our
+                                personal training sessions include a customized
+                                weekly program to follow, ensuring continuous
+                                progress in between sessions with your coach.
                                 <br />
                                 <br />1 x per week - $100 per session <br />2 x
                                 per week - $90 per session <br />
@@ -715,7 +716,7 @@ export const MobileDiv = styled.div`
             border-radius: 2vw;
             background-color: #d0dceb;
             transition: all 0.3s;
-            font-size: 4.5vw;
+            font-size: 3vh;
             box-shadow: 3px 3px 2px #333;
             width: 40vw;
         }

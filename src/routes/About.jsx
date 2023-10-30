@@ -98,15 +98,24 @@ export const DesktopContentDiv = styled.div`
         float: right;
     }
 
+    & h3 {
+        font-size: calc(min(3vw, 3vh));
+    }
+
+    & p {
+        font-size: calc(min(2vw, 2vh));
+    }
+
     & .btn-container {
         display: flex;
         justify-content: center;
+        width: auto;
 
         & .appointment {
             border: solid 2px #333;
             color: #333;
             border-radius: 3vw;
-            font-size: 3vh;
+            font-size: calc(min(3vw, 3vh));
             padding: 1vh 2vw;
             box-shadow: 2px 2px 2px #333;
             background-color: #d0dceb;
@@ -209,6 +218,11 @@ export const MobileContentDiv = styled.div`
     }
     h3 {
         margin-top: 2vh;
+        font-size: 3vh;
+    }
+
+    p {
+        font-size: 2vh;
     }
 
     & .btn-container {

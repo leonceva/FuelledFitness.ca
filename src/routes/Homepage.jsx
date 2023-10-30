@@ -500,6 +500,7 @@ export const MobileDiv = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 2vh;
         }
 
         & > .scroll-hand-container {

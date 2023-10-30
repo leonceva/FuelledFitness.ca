@@ -127,6 +127,7 @@ export const LoginContainer = styled.div`
         padding: 2vh 0;
         font-weight: 800;
         align-self: center;
+        font-size: calc(min(3vw, 3vh));
     }
 
     & > .google-login {
