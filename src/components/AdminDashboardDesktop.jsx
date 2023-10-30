@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import NewUser from "./admin/NewUser";
 import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 import jwt_decode from "jwt-decode";
+import NewUser from "./admin/NewUser";
+import EditUser from "./admin/EditUser";
 
 const AdminDashboardDesktop = (props) => {
     const { auth } = useAuth();
@@ -75,6 +76,7 @@ const AdminDashboardDesktop = (props) => {
             </div>
             <div className="content">
                 {optionSelected === "New User" && <NewUser />}
+                {optionSelected === "Edit User" && <EditUser />}
             </div>
         </DashboardDiv>
     );

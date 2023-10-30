@@ -56,6 +56,7 @@ const NewUser = () => {
             setFormError("Invalid email");
             return false;
         }
+        setFormError("");
         return true;
     };
 
@@ -130,13 +131,24 @@ const NewUser = () => {
                     </div>
                     <div className="input">
                         <label htmlFor="role">Role:</label>
-                        <select name="role" id="role" required>
+                        <select
+                            name="role"
+                            id="role"
+                            onChange={handleChange}
+                            required
+                        >
                             <option style={{ display: "none" }} value="">
                                 Select the user type
                             </option>
-                            <option value="active">Active Client</option>
-                            <option value="admin">Admin Account</option>
-                            <option value="inactive">Inactive Client</option>
+                            <option name="role" value="active">
+                                Active Client
+                            </option>
+                            <option name="role" value="admin">
+                                Admin Account
+                            </option>
+                            <option name="role" value="inactive">
+                                Inactive Client
+                            </option>
                         </select>
                     </div>
                     <button>Create User Account</button>

@@ -12,7 +12,7 @@ const useAxiosPrivate = () => {
             (config) => {
                 // console.log(`Axios Private Config: ${JSON.stringify(config)}`);
                 if (!config.headers["Authorization"]) {
-                    // First attempt
+                    // First attempt -- Add authorization header
                     config.headers[
                         "Authorization"
                     ] = `Bearer ${auth?.accessToken}`;
