@@ -3,8 +3,8 @@ import styled from "styled-components";
 import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 import jwt_decode from "jwt-decode";
-import NewUser from "./admin/NewUser";
-import EditUser from "./admin/EditUser";
+import NewUser from "./adminDesktop/NewUser";
+import EditUser from "./adminDesktop/EditUser";
 
 const AdminDashboardDesktop = (props) => {
     const { auth } = useAuth();

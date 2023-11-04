@@ -137,17 +137,14 @@ const NewUser = () => {
                             onChange={handleChange}
                             required
                         >
-                            <option style={{ display: "none" }} value="">
-                                Select the user type
-                            </option>
                             <option name="role" value="active">
                                 Active Client
                             </option>
-                            <option name="role" value="admin">
-                                Admin Account
-                            </option>
                             <option name="role" value="inactive">
                                 Inactive Client
+                            </option>
+                            <option name="role" value="admin">
+                                Admin Account
                             </option>
                         </select>
                     </div>
