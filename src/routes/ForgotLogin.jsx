@@ -3,7 +3,7 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import Reaptcha from "reaptcha";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
 
@@ -18,15 +18,16 @@ const ForgotLogin = () => {
 
 export const DesktopContent = () => {
     const captchaRef = useRef(null);
-    // eslint-disable-next-line no-unused-vars
-    const [verified, setVerified] = useState(false);
+    const [verified, setVerified] = useState(true);
     const [errorMessage, setErrorMessage] = useState(false);
     const [email, setEmail] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateEmail()) {
             if (verified) {
+                // Send email to server endpoint that will generate the reset token
             } else {
                 setErrorMessage("Pleace complete the CAPTCHA");
             }
@@ -101,7 +102,14 @@ export const DesktopContent = () => {
                     />
                     <button>Request Reset Link</button>
                 </form>
-                <Link></Link>
+                <span
+                    className="go-back"
+                    onClick={() => {
+                        navigate(-1);
+                    }}
+                >
+                    Back To Login
+                </span>
             </div>
         </DesktopDiv>
     );
@@ -184,6 +192,17 @@ export const DesktopDiv = styled.div`
                     translate: 2px 2px;
                     box-shadow: 0 0 0;
                 }
+            }
+        }
+
+        & > .go-back {
+            padding-bottom: 1vh;
+            font-weight: bold;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+                color: blue;
             }
         }
     }
