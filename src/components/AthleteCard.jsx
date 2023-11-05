@@ -42,7 +42,6 @@ export const AthleteCardDiv = styled.div`
 
     & > h2 {
         width: 100%;
-        font-size: 2vh;
     }
 
     & > .img {

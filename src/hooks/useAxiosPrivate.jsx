@@ -32,7 +32,7 @@ const useAxiosPrivate = () => {
                 // 403 when token is expired and if prevRequest.send is false
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
                     prevRequest.sent = true;
-                    console.log("Requesting New Access Token");
+                    // console.log("Requesting New Access Token");
                     const newAccessToken = await refresh();
                     prevRequest.headers[
                         "Authorization"

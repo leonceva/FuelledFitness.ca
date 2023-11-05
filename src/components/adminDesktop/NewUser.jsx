@@ -163,19 +163,19 @@ export const NewUserDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    font-size: calc(min(2vw, 2vh));
+    position: relative;
 
     & > h3 {
         font-size: calc(min(3vw, 3vh));
         width: 100%;
         padding-top: 1vh;
-        height: 20%;
     }
 
     & form {
         width: 100%;
-        font-size: calc(min(2vw, 2vh));
-        height: 60%;
+        max-height: 60%;
         position: relative;
         display: flex;
         flex-direction: column;

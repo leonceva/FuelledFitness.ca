@@ -12,6 +12,7 @@ import Athletes from "./routes/Athletes";
 import { AuthProvider } from "./context/AuthProvider";
 import PersistLogin from "./components/PersistLogin";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import ForgotLogin from "./routes/ForgotLogin";
 
 function App() {
 
@@ -52,6 +53,10 @@ function App() {
                 {
                     path: "/athletes",
                     element: <Athletes />
+                },
+                {
+                    path: "/forgotLogin",
+                    element: < ForgotLogin />
                 }
             ],
         },

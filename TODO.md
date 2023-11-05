@@ -1,16 +1,27 @@
 ## Short term goals
-- Google OAuth for My Account Login
-- My Account mobile mode
-    - Login form
+- Password reset
+    - /forgotLogin form and page
+    - server endpoint, create new table (reset_password) with a reset password token, send email to user with link
+    - /resetPassword with a query item to match reset_password token
+
 - Basic Admin dashboard to create user
-    - Email template for when user is created
-        - Better to have a page to allow user to create password?
-        - Better to generate a random password at first?
+    - Create new user
+        - Email template for when user is created
+        - Generate a random password at first
+    - Edit user
+        - create endpoint for update user record
+        - create endpoint for delete user from users
+    - Create new program
+    - Edit existing program
+
 - Basic Inactive user dashboard
     - Access to three week programs, no feedback
+
 - Basic Active user dashboard
     - Access to all previous weeks, and feedback
     - Create a form/upload for check-in
+
+- My Account mobile mode
 
 ## Long term goals
 - Mobile App with React Native

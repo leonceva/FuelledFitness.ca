@@ -83,7 +83,7 @@ const LoginForm = () => {
             };
             sendLoginInfo();
         } else {
-            console.log("Invalid Email format");
+            // console.log("Invalid Email format");
         }
     }
 
