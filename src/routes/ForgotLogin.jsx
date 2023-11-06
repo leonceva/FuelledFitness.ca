@@ -3,7 +3,8 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import Reaptcha from "reaptcha";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "../api/axios";
 
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
 
@@ -18,16 +19,31 @@ const ForgotLogin = () => {
 
 export const DesktopContent = () => {
     const captchaRef = useRef(null);
-    const [verified, setVerified] = useState(true);
+    const [verified, setVerified] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const [email, setEmail] = useState("");
-    const navigate = useNavigate();
+    const [sentReset, setSentReset] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateEmail()) {
             if (verified) {
                 // Send email to server endpoint that will generate the reset token
+                const sendResetInfo = async () => {
+                    await axios
+                        .post("/resetPassword", {
+                            email: email,
+                        })
+                        .then((res) => {
+                            setSentReset(true);
+                        })
+                        .catch((res) => {
+                            setErrorMessage(
+                                "Server error, please try again later"
+                            );
+                        });
+                };
+                sendResetInfo();
             } else {
                 setErrorMessage("Pleace complete the CAPTCHA");
             }
@@ -61,55 +77,74 @@ export const DesktopContent = () => {
         <DesktopDiv>
             <div className="container">
                 <h2>Forgot Password</h2>
-                <p>
-                    Please enter the email address you'd like your password
-                    reset information sent to:
-                </p>
-                <form action="" method="post" onSubmit={handleSubmit}>
-                    <span
-                        className={`error-message ${
-                            errorMessage ? "show" : "hide"
-                        }`}
-                        placeholder=""
-                    >
-                        {errorMessage || "placeholder"}
-                    </span>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        autoComplete="email"
-                        required
-                        placeholder="Enter your e-mail"
-                        onChange={handleChange}
-                        value={email}
-                    />
-                    <Reaptcha
-                        className="captcha"
-                        sitekey={reaptchaKey}
-                        onVerify={() => {
-                            setVerified(true);
-                            setErrorMessage(false);
-                        }}
-                        ref={captchaRef}
-                        onExpire={() => {
-                            setVerified(false);
-                            setErrorMessage("CAPTCHA has expired");
-                        }}
-                        onError={(error) => {
-                            console.log(error);
-                        }}
-                    />
-                    <button>Request Reset Link</button>
-                </form>
-                <span
-                    className="go-back"
-                    onClick={() => {
-                        navigate(-1);
-                    }}
-                >
-                    Back To Login
-                </span>
+                {sentReset && (
+                    <>
+                        <p>
+                            We've sent a password reset link to the requested
+                            email address <strong>{email}</strong> if it exists
+                            in our records. Please check your inbox and follow
+                            the instructions to reset your password.
+                        </p>
+                        <p>
+                            If you don't receive the email within a few minutes,
+                            please check your spam folder. For further
+                            assistance, contact our support team:
+                            <br />
+                            support@fuelledfitness.ca
+                        </p>
+                        <Link className="go-back" to="/account">
+                            Back To Login
+                        </Link>
+                    </>
+                )}
+                {!sentReset && (
+                    <>
+                        <p>
+                            Please enter the email address you'd like your
+                            password reset information sent to:
+                        </p>
+                        <form action="" method="post" onSubmit={handleSubmit}>
+                            <span
+                                className={`error-message ${
+                                    errorMessage ? "show" : "hide"
+                                }`}
+                                placeholder=""
+                            >
+                                {errorMessage || "placeholder"}
+                            </span>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                autoComplete="email"
+                                required
+                                placeholder="Enter your e-mail"
+                                onChange={handleChange}
+                                value={email}
+                            />
+                            <Reaptcha
+                                className="captcha"
+                                sitekey={reaptchaKey}
+                                onVerify={() => {
+                                    setVerified(true);
+                                    setErrorMessage(false);
+                                }}
+                                ref={captchaRef}
+                                onExpire={() => {
+                                    setVerified(false);
+                                    setErrorMessage("CAPTCHA has expired");
+                                }}
+                                onError={(error) => {
+                                    console.log(error);
+                                }}
+                            />
+                            <button>Request Reset Link</button>
+                        </form>
+                        <Link className="go-back" to="/account">
+                            Back To Login
+                        </Link>
+                    </>
+                )}
             </div>
         </DesktopDiv>
     );
