@@ -82,7 +82,7 @@ export const ContactMeForm = () => {
         //console.log(`Name:" ${formData.name}, email: ${formData.email}`;
         //console.log(`Message: ${formData.message}`);
         await axios
-            .post("https://api.fuelledfitness.ca:8443/sendMessage", {
+            .post("http://api.fuelledfitness.ca:8443/sendMessage", {
                 name: formData.name,
                 email: formData.email,
                 message: formData.message,

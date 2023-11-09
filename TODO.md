@@ -1,8 +1,10 @@
 ## Short term goals
+- Apply for out of sandbox AWS SES
+
 - Password reset
-    - /forgotLogin form and page
     - server endpoint, create new table (reset_password) with a reset password token, send email to user with link
     - /resetPassword with a query item to match reset_password token
+    - Create Reset Password page and endpoint to update salted password in database
 
 - Basic Admin dashboard to create user
     - Create new user

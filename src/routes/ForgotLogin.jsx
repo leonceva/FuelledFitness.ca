@@ -38,9 +38,13 @@ export const DesktopContent = () => {
                             setSentReset(true);
                         })
                         .catch((res) => {
-                            setErrorMessage(
-                                "Server error, please try again later"
-                            );
+                            if (res.code === "ERR_BAD_REQUEST") {
+                                setErrorMessage("User not found");
+                            } else {
+                                setErrorMessage(
+                                    "Server error, please try again later"
+                                );
+                            }
                         });
                 };
                 sendResetInfo();
@@ -81,15 +85,13 @@ export const DesktopContent = () => {
                     <>
                         <p>
                             We've sent a password reset link to the requested
-                            email address <strong>{email}</strong> if it exists
-                            in our records. Please check your inbox and follow
-                            the instructions to reset your password.
-                        </p>
-                        <p>
+                            email address <strong>{email}</strong>. Please check
+                            your inbox and follow the instructions to reset your
+                            password.
+                            <br />
                             If you don't receive the email within a few minutes,
                             please check your spam folder. For further
-                            assistance, contact our support team:
-                            <br />
+                            assistance, reach out to our support team:
                             support@fuelledfitness.ca
                         </p>
                         <Link className="go-back" to="/account">

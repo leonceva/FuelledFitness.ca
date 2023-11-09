@@ -93,7 +93,9 @@ const LoginForm = () => {
 
     // Set session to last while tab is open
     useEffect(() => {
+        setPersist(false);
         sessionStorage.setItem("persist", true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Update persistent state when box is toggled

@@ -13,6 +13,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import PersistLogin from "./components/PersistLogin";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import ForgotLogin from "./routes/ForgotLogin";
+import ResetPassword from "./routes/ResetPassword";
 
 function App() {
 
@@ -57,6 +58,10 @@ function App() {
                 {
                     path: "/forgotLogin",
                     element: < ForgotLogin />
+                },
+                {
+                    path: "/resetPassword",
+                    element: < ResetPassword />
                 }
             ],
         },
