@@ -110,7 +110,6 @@ export const DesktopContent = () => {
                                 className={`error-message ${
                                     errorMessage ? "show" : "hide"
                                 }`}
-                                placeholder=""
                             >
                                 {errorMessage || "placeholder"}
                             </span>
