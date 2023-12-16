@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
 import { useSearchParams } from "react-router-dom";
@@ -15,7 +15,7 @@ const ResetPassword = () => {
 };
 
 export const DesktopContent = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const resetToken = searchParams.get("reset_token");
     const [errorMessage, setErrorMessage] = useState(false);
     const [formData, setFormData] = useState({

@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import PersistLoginInfo from "./PersistLoginInfo";
 import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const LoginForm = () => {
     // Form content
@@ -74,11 +74,17 @@ const LoginForm = () => {
                         setAuth({ accessToken });
                     })
                     .catch((res) => {
-                        console.log(
-                            `Error: ${res.response.status} ${res.response.data}`
-                        );
-                        setErrorMessage("Invalid Email or Password");
-                        setFormError(true);
+                        if (res.response !== undefined) {
+                            console.log(
+                                `Error: ${res?.response?.status} ${res?.response?.data}`
+                            );
+                            setErrorMessage("Invalid Email or Password");
+                            setFormError(true);
+                        } else {
+                            console.log(`Error: ${res?.code} ${res?.message}`);
+                            setErrorMessage("Login Failed");
+                            setFormError(true);
+                        }
                     });
             };
             sendLoginInfo();
@@ -105,7 +111,7 @@ const LoginForm = () => {
 
     const handleSuccessGoogle = async (res) => {
         // console.log(res);
-        var decoded = jwt_decode(res.credential);
+        var decoded = jwtDecode(res.credential);
         //The values of interest from decoded .email .given_name .family_name
         console.log(
             `User Logged in:\n${decoded.given_name} ${decoded.family_name} - ${decoded.email}`
@@ -219,6 +225,7 @@ const LoginForm = () => {
 export const LoginContainer = styled.div`
     border: 2px solid #333;
     width: calc(min(50%, 50vw));
+    max-width: 600px;
     border-radius: 20px;
     background-color: #d0dce7;
     display: flex;

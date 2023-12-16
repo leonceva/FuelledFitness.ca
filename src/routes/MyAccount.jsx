@@ -5,7 +5,7 @@ import LoginForm from "../components/LoginForm";
 import useAuth from "../hooks/useAuth";
 import ClientDashboard from "../components/ClientDashboard";
 import AdminDashboardDesktop from "../components/AdminDashboardDesktop";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const MyAccount = () => {
     return (
@@ -18,9 +18,7 @@ const MyAccount = () => {
 
 export const DesktopContent = () => {
     const { auth } = useAuth();
-    const decoded = auth?.accessToken
-        ? jwt_decode(auth.accessToken)
-        : undefined;
+    const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
 
     const userRole = decoded?.User?.role || null;
 

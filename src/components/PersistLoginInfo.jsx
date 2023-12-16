@@ -11,9 +11,7 @@ const PersistLoginInfo = () => {
                 onMouseLeave={() => setDisplay(false)}
                 class="bi bi-info-circle"
             ></i>
-            <div className={`${display ? "show" : "hidden"}`}>
-                We recommend using this feature only on trusted devices.
-            </div>
+            <div className={`${display ? "show" : "hidden"}`}></div>
         </PersistLoginInfoDiv>
     );
 };
@@ -37,6 +35,10 @@ export const PersistLoginInfoDiv = styled.div`
         animation-duration: 1s;
         animation-fill-mode: forwards;
         padding: 0.3vh 0.3vw;
+
+        &::after {
+            content: "We recommend using this feature only on trusted devices.";
+        }
 
         @keyframes show-info {
             0% {

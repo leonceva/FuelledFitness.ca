@@ -2,15 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import NewUser from "./adminDesktop/NewUser";
 import EditUser from "./adminDesktop/EditUser";
 
 const AdminDashboardDesktop = (props) => {
     const { auth } = useAuth();
-    const decoded = auth?.accessToken
-        ? jwt_decode(auth.accessToken)
-        : undefined;
+    const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
 
     const logout = useLogout();
     const initialOptionState =
