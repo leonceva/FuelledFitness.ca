@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DesktopLayout from "../layouts/DesktopLayout";
 import MobileLayout from "../layouts/MobileLayout";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "../api/axios";
 
@@ -23,6 +23,8 @@ export const DesktopContent = () => {
         confirmPassword: "",
     });
 
+    const navigate = useNavigate();
+
     // For submit handler
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,10 +37,29 @@ export const DesktopContent = () => {
                         newPassword: formData.newPassword,
                     })
                     .then((res) => {
-                        console.log(res);
+                        console.log("Password Reset Succesful");
+                        setErrorMessage(false);
+                        navigate("/account", { replace: true });
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.log(
+                            `Error: ${err?.response?.status} - ${err?.response?.data}`
+                        );
+                        if (err?.response?.status === 406) {
+                            setErrorMessage("Invalid Reset Link");
+                        } else if (err?.response?.status === 401) {
+                            setErrorMessage("Expired Reset Link");
+                        } else if (err?.response?.status === 503) {
+                            setErrorMessage("Server Error");
+                        } else {
+                            setErrorMessage("Password Reset Failed");
+                        }
+                    })
+                    .finally(() => {
+                        setFormData({
+                            newPassword: "",
+                            confirmPassword: "",
+                        });
                     });
             } else {
                 setErrorMessage("Passwords don't match");
@@ -123,6 +144,7 @@ export const DesktopContent = () => {
                                 id="newPassword"
                                 autoComplete="new-password"
                                 onChange={handleChange}
+                                value={formData.newPassword}
                             />
                         </div>
                         <div className="input">
@@ -143,6 +165,7 @@ export const DesktopContent = () => {
                                     return false;
                                 }}
                                 onChange={handleChange}
+                                value={formData.confirmPassword}
                             />
                         </div>
                         <button type="submit" onClick={handleSubmit}>

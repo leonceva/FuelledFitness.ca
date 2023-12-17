@@ -21,6 +21,7 @@ export const ContactMeForm = () => {
 
     // Form input field change
     const handleChange = (e) => {
+        setEmailSent(false);
         const { name, value } = e.target;
         // Update form data content
         setFormData((prevFormData) => {
@@ -82,7 +83,8 @@ export const ContactMeForm = () => {
         //console.log(`Name:" ${formData.name}, email: ${formData.email}`;
         //console.log(`Message: ${formData.message}`);
         await axios
-            .post("http://api.fuelledfitness.ca:8443/sendMessage", {
+            // .post("https://api.fuelledfitness.ca:8443/sendMessage", {
+            .post("http://localhost:8080/sendMessage", {
                 name: formData.name,
                 email: formData.email,
                 message: formData.message,

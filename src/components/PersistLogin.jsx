@@ -17,7 +17,7 @@ const PersistLogin = ({ children }) => {
                 await refresh();
             } catch (err) {
                 // If /refreshToken request failed
-                console.error(err);
+                // console.error(err);
             } finally {
                 isMounted && setIsLoading(false);
             }
