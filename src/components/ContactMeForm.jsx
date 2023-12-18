@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import Reaptcha from "reaptcha";
 
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
@@ -84,7 +84,7 @@ export const ContactMeForm = () => {
         //console.log(`Message: ${formData.message}`);
         await axios
             // .post("https://api.fuelledfitness.ca:8443/sendMessage", {
-            .post("http://localhost:8080/sendMessage", {
+            .post("/sendMessage", {
                 name: formData.name,
                 email: formData.email,
                 message: formData.message,
@@ -99,10 +99,12 @@ export const ContactMeForm = () => {
                 });
                 setEmailSent(true);
             })
-            .catch((res) => {
-                //console.log("Error: " + res.data);
+            .catch((err) => {
+                console.log("Error: " + err?.message);
                 setEmailSent(false);
-                alert(res.data);
+                alert(
+                    "Service Unavailable\nPlease try again later\nIf the error persists, contact support@fuelledfitness.ca"
+                );
             });
     };
 

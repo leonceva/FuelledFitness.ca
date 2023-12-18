@@ -74,7 +74,7 @@ const EditUser = () => {
     // When a user is selected from the dropdown search results
     const onClick = (e) => {
         users.map((user) => {
-            console.log(user);
+            // console.log(user);
             if (user[1]?.toString() === e.target.id) {
                 setSelectedUser(user);
                 setSearchValue("");
@@ -88,13 +88,14 @@ const EditUser = () => {
         });
     };
 
-    // When the user data is submitted for changes
+    // To prevent submit on Enter
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     // Get an array of all the users in the database
     const getUsers = async () => {
+        setAwaiting(true);
         await axiosPrivate
             .get("/users")
             .then((res) => {
@@ -112,6 +113,9 @@ const EditUser = () => {
             })
             .catch((res) => {
                 alert(res);
+            })
+            .finally(() => {
+                setAwaiting(false);
             });
     };
 
@@ -165,14 +169,38 @@ const EditUser = () => {
 
     // Update user records in database
     const handleApplyChanges = () => {
-        console.log("Applied Changes");
+        setAwaiting(true);
+        console.log("Applying Changes..");
         const changedElements = document.querySelectorAll("#changed");
         changedElements.forEach((element) => {
             element.remove();
         });
-        // TODO
 
+        // TODO
+        // Send all form data to server
+        updateUserInfo();
         setHasChanged(false);
+    };
+
+    // Patch request to update user data
+    // TODO
+    const updateUserInfo = async () => {
+        await axiosPrivate
+            .patch("/users", {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                role: formData.role,
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                setAwaiting(false);
+            });
     };
 
     // Delete user from database
@@ -189,150 +217,146 @@ const EditUser = () => {
     }, []);
 
     return (
-        <>
-            <EditUserDiv>
-                {awaiting && <Loader />}
-                <h3>Edit Users</h3>
-                <div className="search">
-                    <label htmlFor="search">User:</label>
-                    <div className="search-results">
-                        <input
-                            type="text"
-                            name="user"
-                            id="search"
-                            onChange={onChangeSearch}
-                            value={searchValue}
-                            onKeyDown={onKeyDown}
-                            placeholder="Type a name to begin search"
-                        />
+        <EditUserDiv>
+            {awaiting && <Loader />}
+            <h3>Edit Users</h3>
+            <div className="search">
+                <label htmlFor="search">User:</label>
+                <div className="search-results">
+                    <input
+                        type="text"
+                        name="user"
+                        id="search"
+                        onChange={onChangeSearch}
+                        value={searchValue}
+                        onKeyDown={onKeyDown}
+                        placeholder="Type a name to begin search"
+                    />
 
-                        {searchValue && (
-                            <div className="dropdown">
-                                {users
-                                    ?.filter((user) => {
-                                        return user[0]
-                                            .toLowerCase()
-                                            .includes(
-                                                searchValue.toLowerCase()
-                                            );
-                                    })
-                                    .slice(0, 10)
-                                    .sort()
-                                    .map((user, i) => {
-                                        return (
-                                            <li
-                                                id={user[1]}
-                                                key={user[1]}
-                                                className="dropdown-row"
-                                                onClick={onClick}
-                                            >
-                                                {user[0]}
-                                            </li>
-                                        );
-                                    })}
-                            </div>
-                        )}
-                    </div>
+                    {searchValue && (
+                        <div className="dropdown">
+                            {users
+                                ?.filter((user) => {
+                                    return user[0]
+                                        .toLowerCase()
+                                        .includes(searchValue.toLowerCase());
+                                })
+                                .slice(0, 10)
+                                .sort()
+                                .map((user, i) => {
+                                    return (
+                                        <li
+                                            id={user[1]}
+                                            key={user[1]}
+                                            className="dropdown-row"
+                                            onClick={onClick}
+                                        >
+                                            {user[0]}
+                                        </li>
+                                    );
+                                })}
+                        </div>
+                    )}
                 </div>
-                <br />
-                <form action="" method="put" onSubmit={handleSubmit}>
-                    <div className="input">
-                        <label htmlFor="firstName">First Name:</label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            id="firstName"
-                            onChange={handleChangeForm}
-                            required
-                            value={formData.firstName}
-                        />
-                    </div>
-                    <div className="input">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            id="lastName"
-                            onChange={handleChangeForm}
-                            required
-                            value={formData.lastName}
-                        />
-                    </div>
-                    <div className="input">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            onChange={handleChangeForm}
-                            required
-                            value={formData.email}
-                        />
-                    </div>
-                    <div className="input">
-                        <label htmlFor="role">User Type</label>
-                        <select
-                            name="role"
-                            id="role"
-                            onChange={handleChangeForm}
-                            required
-                            value={formData.role}
-                        >
-                            <option name="role" value="">
-                                ---
-                            </option>
-                            <option name="role" value="active">
-                                Active Client
-                            </option>
-                            <option name="role" value="inactive">
-                                Inactive Client
-                            </option>
-                            <option name="role" value="admin">
-                                Admin Account
-                            </option>
-                        </select>
-                    </div>
-                </form>
+            </div>
+            <br />
+            <form action="" method="put" onSubmit={handleSubmit}>
+                <div className="input">
+                    <label htmlFor="firstName">First Name:</label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        id="firstName"
+                        onChange={handleChangeForm}
+                        required
+                        value={formData.firstName}
+                    />
+                </div>
+                <div className="input">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        onChange={handleChangeForm}
+                        required
+                        value={formData.lastName}
+                    />
+                </div>
+                <div className="input">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        onChange={handleChangeForm}
+                        required
+                        value={formData.email}
+                    />
+                </div>
+                <div className="input">
+                    <label htmlFor="role">User Type</label>
+                    <select
+                        name="role"
+                        id="role"
+                        onChange={handleChangeForm}
+                        required
+                        value={formData.role}
+                    >
+                        <option name="role" value="">
+                            ---
+                        </option>
+                        <option name="role" value="active">
+                            Active Client
+                        </option>
+                        <option name="role" value="inactive">
+                            Inactive Client
+                        </option>
+                        <option name="role" value="admin">
+                            Admin Account
+                        </option>
+                    </select>
+                </div>
+            </form>
+            <div className="btn-container">
+                <button
+                    className={`${hasChanged ? "enabled" : "disabled"}`}
+                    onClick={handleApplyChanges}
+                >
+                    Apply Changes
+                </button>
+                <button
+                    onClick={() => {
+                        resetAll();
+                    }}
+                >
+                    Clear Form
+                </button>
+                <button
+                    className={`delete ${
+                        selectedUser ? "enabled" : "disabled"
+                    }`}
+                    onClick={() => {
+                        setSelectedDelete(true);
+                    }}
+                >
+                    Delete User
+                </button>
+            </div>
+            {selectedDelete && (
                 <div className="btn-container">
-                    <button
-                        className={`${hasChanged ? "enabled" : "disabled"}`}
-                        onClick={handleApplyChanges}
-                    >
-                        Apply Changes
-                    </button>
+                    <p>This cannot be undone, continue?</p>
+                    <button onClick={handleDelete}>Yes</button>
                     <button
                         onClick={() => {
-                            resetAll();
+                            setSelectedDelete(false);
                         }}
                     >
-                        Clear Form
-                    </button>
-                    <button
-                        className={`delete ${
-                            selectedUser ? "enabled" : "disabled"
-                        }`}
-                        onClick={() => {
-                            setSelectedDelete(true);
-                        }}
-                    >
-                        Delete User
+                        No
                     </button>
                 </div>
-                {selectedDelete && (
-                    <div className="btn-container">
-                        <p>This cannot be undone, continue?</p>
-                        <button onClick={handleDelete}>Yes</button>
-                        <button
-                            onClick={() => {
-                                setSelectedDelete(false);
-                            }}
-                        >
-                            No
-                        </button>
-                    </div>
-                )}
-            </EditUserDiv>
-        </>
+            )}
+        </EditUserDiv>
     );
 };
 
@@ -358,6 +382,7 @@ export const EditUserDiv = styled.div`
         width: 100%;
         flex-direction: row;
         justify-content: center;
+        margin-bottom: 5%;
 
         & label {
             width: 20%;

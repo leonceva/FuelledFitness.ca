@@ -56,7 +56,12 @@ const NewUser = () => {
             setFormError("Invalid email");
             return false;
         }
-        setFormError("");
+        // Role
+        if (formData.role === "") {
+            setFormError("User type missing");
+            return false;
+        }
+        setFormError(null);
         return true;
     };
 
@@ -78,80 +83,102 @@ const NewUser = () => {
                     role: "",
                 });
             })
-            .catch(async (res) => {
-                console.log(res.code);
-                // If code is 403 -- JWT expired
+            .catch((err) => {
+                console.log(err?.response?.status);
+
+                if (err?.response?.status) {
+                    switch (err.response.status) {
+                        case 503:
+                            setFormError("Database Error");
+                            break;
+                        case 409:
+                            setFormError("Email already registered");
+                            break;
+                        default:
+                            setFormError("Account creation failed");
+                            break;
+                    }
+                } else {
+                    console.log(err);
+                    setFormError("Service Failed - check logs");
+                }
             });
     };
 
     return (
-        <>
-            <NewUserDiv>
-                <h3>Create New User</h3>
-                <form action="" method="post" onSubmit={handlesubmit}>
-                    <div
-                        className={
-                            formError === null ? "hide-error" : "show-error"
-                        }
+        <NewUserDiv>
+            <h3>Create New User</h3>
+            <form action="" method="post" onSubmit={handlesubmit}>
+                <div
+                    className={formError === null ? "hide-error" : "show-error"}
+                >
+                    {formError}
+                </div>
+                <div className="input">
+                    <label htmlFor="first-name">First Name:</label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        id="first-name"
+                        required
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        autoComplete="off"
+                    />
+                </div>
+                <div className="input">
+                    <label htmlFor="last-name">Last Name:</label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        id="last-name"
+                        required
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        autoComplete="off"
+                    />
+                </div>
+                <div className="input">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        autoComplete="off"
+                    />
+                </div>
+                <div className="input">
+                    <label htmlFor="role">Role:</label>
+                    <select
+                        name="role"
+                        id="role"
+                        onChange={handleChange}
+                        required
                     >
-                        {formError}
-                    </div>
-                    <div className="input">
-                        <label htmlFor="first-name">First Name:</label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            id="first-name"
-                            required
-                            value={formData.firstName}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label htmlFor="last-name">Last Name:</label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            id="last-name"
-                            required
-                            value={formData.lastName}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            required
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="input">
-                        <label htmlFor="role">Role:</label>
-                        <select
+                        <option
                             name="role"
-                            id="role"
-                            onChange={handleChange}
-                            required
+                            value=""
+                            style={{ display: "none" }}
                         >
-                            <option name="role" value="active">
-                                Active Client
-                            </option>
-                            <option name="role" value="inactive">
-                                Inactive Client
-                            </option>
-                            <option name="role" value="admin">
-                                Admin Account
-                            </option>
-                        </select>
-                    </div>
-                    <button>Create User Account</button>
-                </form>
-            </NewUserDiv>
-        </>
+                            Select User Type
+                        </option>
+                        <option name="role" value="active">
+                            Active Client
+                        </option>
+                        <option name="role" value="inactive">
+                            Inactive Client
+                        </option>
+                        <option name="role" value="admin">
+                            Admin Account
+                        </option>
+                    </select>
+                </div>
+                <button>Create User Account</button>
+            </form>
+        </NewUserDiv>
     );
 };
 
@@ -190,10 +217,11 @@ export const NewUserDiv = styled.div`
         & > .hide-error {
             width: 60%;
             text-align: end;
-            color: transparent;
+            color: red;
+            opacity: 0;
 
             &::after {
-                content: "test";
+                content: "placeholder";
             }
         }
 
@@ -211,7 +239,7 @@ export const NewUserDiv = styled.div`
             select {
                 width: 40%;
                 height: 100%;
-                padding: calc(min(0.5vh, 0.5vh)) 0;
+                padding: calc(min(0.5vh, 0.5vh));
             }
         }
 

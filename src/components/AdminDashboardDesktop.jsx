@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
 import NewUser from "./adminDesktop/NewUser";
 import EditUser from "./adminDesktop/EditUser";
+import NewProgram from "./adminDesktop/NewProgram";
 
 const AdminDashboardDesktop = (props) => {
     const { auth } = useAuth();
@@ -73,9 +74,11 @@ const AdminDashboardDesktop = (props) => {
                 </div>
             </div>
             <div className="content">
+                {optionSelected === "New Program" && <NewProgram />}
                 {optionSelected === "New User" && <NewUser />}
                 {optionSelected === "Edit User" && <EditUser />}
             </div>
+            <div className="version">v.Alpha 1</div>
         </DashboardDiv>
     );
 };
@@ -86,6 +89,8 @@ const DashboardDiv = styled.div`
     border-radius: calc(min(3vw, 3vh));
     display: flex;
     flex-direction: row;
+    position: relative;
+    z-index: 1;
 
     & > .sidebar {
         width: 20%;
@@ -170,6 +175,16 @@ const DashboardDiv = styled.div`
         border: 2px solid #333;
         border-top-right-radius: calc(min(3vw, 3vh));
         border-bottom-right-radius: calc(min(3vw, 3vh));
+    }
+
+    & > .version {
+        position: absolute;
+        z-index: 3;
+        background-color: inherit;
+        left: calc(20% + 2px);
+        bottom: calc(0% + 2px);
+        font-size: calc(min(2vw, 2vh));
+        padding-left: 1%;
     }
 `;
 
