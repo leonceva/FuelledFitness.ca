@@ -3,9 +3,10 @@
 - Basic Admin dashboard to create user
 
   - Create new user
+
     - Endpoint implementation
     - Email template for when user is created
-    - Generate a random password at first
+
   - Edit user
 
     - create endpoint for update user record
