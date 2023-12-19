@@ -2,11 +2,6 @@
 
 - Basic Admin dashboard to create user
 
-  - Create new user
-
-    - Endpoint implementation
-    - Email template for when user is created
-
   - Edit user
 
     - create endpoint for update user record
@@ -24,7 +19,17 @@
   - Access to all previous weeks, and feedback
   - Create a form/upload for check-in
 
-- My Account mobile mode
+- Active User mobile mode
+
+- Inactive User mobile mode
+
+- Admin dashboard mobile mode
+
+- Email HTML template for:
+  - Reset Password request
+  - Account created
+  - New Program Created for Client
+  - Account Information Edited/Deleted
 
 ## Long term goals
 
