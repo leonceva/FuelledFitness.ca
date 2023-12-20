@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const NewProgram = () => {
-    return <NewProgramDiv>New Program</NewProgramDiv>;
+const EditProgram = () => {
+    return <EditProgramDiv>Edit Program</EditProgramDiv>;
 };
 
-export default NewProgram;
+export default EditProgram;
 
-export const NewProgramDiv = styled.div`
+export const EditProgramDiv = styled.div`
     width: 100%;
     height: 100%;
     display: flex;

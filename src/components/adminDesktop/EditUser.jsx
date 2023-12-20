@@ -17,7 +17,7 @@ const EditUser = () => {
         firstName: "",
         lastName: "",
         email: "",
-        role: "",
+        role: "active",
     });
 
     const resetAll = () => {
@@ -25,7 +25,7 @@ const EditUser = () => {
             firstName: "",
             lastName: "",
             email: "",
-            role: "",
+            role: "active",
         });
         setSelectedUser("");
         setSearchValue("");
@@ -170,20 +170,21 @@ const EditUser = () => {
     // Update user records in database
     const handleApplyChanges = () => {
         setAwaiting(true);
-        console.log("Applying Changes..");
+        // console.log("Applying Changes..");
         const changedElements = document.querySelectorAll("#changed");
         changedElements.forEach((element) => {
             element.remove();
         });
 
-        // TODO
         // Send all form data to server
-        updateUserInfo();
+        try {
+            updateUserInfo();
+            resetAll();
+        } catch {}
         setHasChanged(false);
     };
 
     // Patch request to update user data
-    // TODO
     const updateUserInfo = async () => {
         await axiosPrivate
             .patch("/users", {
@@ -191,14 +192,16 @@ const EditUser = () => {
                 lastName: formData.lastName,
                 email: formData.email,
                 role: formData.role,
+                id: selectedUser[1],
             })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => {
                 console.log(err);
             })
             .finally(() => {
+                getUsers();
                 setAwaiting(false);
             });
     };
@@ -303,9 +306,6 @@ const EditUser = () => {
                         required
                         value={formData.role}
                     >
-                        <option name="role" value="">
-                            ---
-                        </option>
                         <option name="role" value="active">
                             Active Client
                         </option>

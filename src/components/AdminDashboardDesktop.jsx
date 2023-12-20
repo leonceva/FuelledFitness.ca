@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import NewUser from "./adminDesktop/NewUser";
 import EditUser from "./adminDesktop/EditUser";
 import NewProgram from "./adminDesktop/NewProgram";
+import EditProgram from "./adminDesktop/EditProgram";
 
 const AdminDashboardDesktop = (props) => {
     const { auth } = useAuth();
@@ -13,7 +14,7 @@ const AdminDashboardDesktop = (props) => {
 
     const logout = useLogout();
     const initialOptionState =
-        JSON.parse(sessionStorage.getItem("optionSelected")) || null;
+        JSON.parse(sessionStorage.getItem("optionSelected")) || "New Program";
 
     const [optionSelected, setOptionSelected] = useState(initialOptionState);
 
@@ -75,6 +76,7 @@ const AdminDashboardDesktop = (props) => {
             </div>
             <div className="content">
                 {optionSelected === "New Program" && <NewProgram />}
+                {optionSelected === "Edit Program" && <EditProgram />}
                 {optionSelected === "New User" && <NewUser />}
                 {optionSelected === "Edit User" && <EditUser />}
             </div>
