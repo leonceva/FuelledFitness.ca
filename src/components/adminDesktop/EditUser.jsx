@@ -180,8 +180,9 @@ const EditUser = () => {
         try {
             updateUserInfo();
             resetAll();
-        } catch {}
-        setHasChanged(false);
+        } catch {
+            setAwaiting(false);
+        }
     };
 
     // Patch request to update user data
@@ -199,6 +200,25 @@ const EditUser = () => {
             })
             .catch((err) => {
                 console.log(err);
+                if (err?.response?.status) {
+                    switch (err.response.status) {
+                        case 500:
+                            alert("Database Error");
+                            break;
+                        case 404:
+                            alert("User not found in database");
+                            break;
+                        case 401:
+                            alert("Unauthorized account request");
+                            break;
+                        default:
+                            alert("Account creation failed");
+                            break;
+                    }
+                } else {
+                    console.log(err);
+                    alert("Service Failed - check logs");
+                }
             })
             .finally(() => {
                 getUsers();
@@ -208,9 +228,31 @@ const EditUser = () => {
 
     // Delete user from database
     const handleDelete = () => {
-        // TODO
-        console.log("Deleted");
-        resetAll();
+        setAwaiting(true);
+        console.log("Deleting user..");
+        try {
+            deleteUser();
+            resetAll();
+        } catch {
+            setAwaiting(false);
+        }
+    };
+
+    const deleteUser = async () => {
+        await axiosPrivate
+            .delete("/users", {
+                id: selectedUser[1],
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                getUsers();
+                setAwaiting(false);
+            });
     };
 
     useEffect(() => {
@@ -345,7 +387,9 @@ const EditUser = () => {
             </div>
             {selectedDelete && (
                 <div className="btn-container">
-                    <p>This cannot be undone, continue?</p>
+                    <p>
+                        <strong>This cannot be undone, continue?</strong>
+                    </p>
                     <button onClick={handleDelete}>Yes</button>
                     <button
                         onClick={() => {

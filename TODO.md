@@ -19,6 +19,10 @@
   - Access to all previous weeks, and feedback
   - Create a form/upload for check-in
 
+- For desktop dashboards create a small pop-up for completed actions
+
+  - to fade after 5 seconds ?
+
 - Active User mobile mode
 
 - Inactive User mobile mode
