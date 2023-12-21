@@ -240,9 +240,7 @@ const EditUser = () => {
 
     const deleteUser = async () => {
         await axiosPrivate
-            .delete("/users", {
-                id: selectedUser[1],
-            })
+            .delete("/users", { data: { id: selectedUser[1] } })
             .then((res) => {
                 console.log(res);
             })
