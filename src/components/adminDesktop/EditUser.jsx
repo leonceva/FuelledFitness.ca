@@ -242,10 +242,29 @@ const EditUser = () => {
         await axiosPrivate
             .delete("/users", { data: { id: selectedUser[1] } })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
             })
             .catch((err) => {
                 console.log(err);
+                if (err?.response?.status) {
+                    switch (err.response.status) {
+                        case 500:
+                            alert("Databse error");
+                            break;
+                        case 404:
+                            alert("User not found in database");
+                            break;
+                        case 401:
+                            alert("Unauthorized account request");
+                            break;
+                        default:
+                            alert("Account creation failed");
+                            break;
+                    }
+                } else {
+                    console.log(err);
+                    alert("Service Failed - check logs");
+                }
             })
             .finally(() => {
                 getUsers();
@@ -408,7 +427,7 @@ export const EditUserDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     position: relative;
     font-size: calc(min(2vw, 2vh));
     z-index: 1;
@@ -417,6 +436,7 @@ export const EditUserDiv = styled.div`
         font-size: calc(min(3vw, 3vh));
         width: 100%;
         padding: 1vh 0;
+        margin-top: 5%;
     }
 
     & > .search {

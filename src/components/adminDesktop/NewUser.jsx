@@ -190,7 +190,7 @@ export const NewUserDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     font-size: calc(min(2vw, 2vh));
     position: relative;
 
@@ -198,6 +198,7 @@ export const NewUserDiv = styled.div`
         font-size: calc(min(3vw, 3vh));
         width: 100%;
         padding-top: 1vh;
+        margin-top: 5%;
     }
 
     & form {

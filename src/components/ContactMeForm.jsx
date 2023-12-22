@@ -152,9 +152,6 @@ export const ContactMeForm = () => {
                 onExpire={() => {
                     setVerified(false);
                 }}
-                onError={(e) => {
-                    console.log(e);
-                }}
             />
 
             <button
