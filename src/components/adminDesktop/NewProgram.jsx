@@ -31,7 +31,7 @@ const NewProgram = () => {
 
         if (e.code === "Enter") {
             if (currentSearchIndex.current !== null) {
-                console.log(searchElements[currentSearchIndex.current]);
+                // console.log(searchElements[currentSearchIndex.current]);
                 searchElements[currentSearchIndex.current].click();
             }
         }
@@ -107,7 +107,7 @@ const NewProgram = () => {
     const onClick = (e) => {
         users.map((user) => {
             if (user[0] === e.target.innerHTML) {
-                console.log(`${user} matches`);
+                // console.log(`${user} matches`);
                 setSelectedUser(user);
                 setSearchValue("");
                 setSearchIndex(null);
