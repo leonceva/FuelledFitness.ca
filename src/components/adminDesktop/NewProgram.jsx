@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import Loader from "./Loader";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const NewProgram = () => {
     const axiosPrivate = useAxiosPrivate();
     const [users, setUsers] = useState(null);
     const [selectedUser, setSelectedUser] = useState("");
     const [searchValue, setSearchValue] = useState("");
+    const [searchIndex, setSearchIndex] = useState(null);
+    const currentSearchIndex = useRef(searchIndex);
     const [awaiting, setAwaiting] = useState(false);
 
     const resetAll = () => {
@@ -18,25 +20,85 @@ const NewProgram = () => {
     // Handle change to the user search field
     const onChangeSearch = (e) => {
         setSearchValue(e.target.value);
+        setSearchIndex(null);
     };
 
     // When pressed Enter in search, select top option as the user
     const onKeyDown = (e) => {
+        // Get all the list elements from the search result
+        const searchElements = document.querySelectorAll(".dropdown-row");
+        const countSearchElements = searchElements.length;
+
         if (e.code === "Enter") {
-            const firstUser = e.target.nextSibling?.firstChild || null;
-            // console.log(firstUser);
-            if (firstUser) {
-                users.map((user) => {
-                    if (
-                        user[1].toString() ===
-                        e.target.nextSibling.firstChild.id
-                    ) {
-                        setSelectedUser(user);
-                        setSearchValue("");
-                        return null;
-                    }
-                    return null;
+            if (currentSearchIndex.current !== null) {
+                console.log(searchElements[currentSearchIndex.current]);
+                searchElements[currentSearchIndex.current].click();
+            }
+        }
+        if (e.code === "ArrowDown") {
+            // Initial case
+            if (searchIndex === null) {
+                setSearchIndex(0);
+                currentSearchIndex.current = 0;
+            }
+            // If reached the end at bottom, wrap around to index 0
+            else if (searchIndex >= countSearchElements - 1) {
+                setSearchIndex(0);
+                currentSearchIndex.current = 0;
+            }
+            // Otherwise, add 1 to index
+            else {
+                setSearchIndex(currentSearchIndex.current + 1);
+                currentSearchIndex.current++;
+            }
+
+            // Remove highlight from all list elements
+            searchElements.forEach((element) => {
+                element.classList.remove("hover");
+            });
+            // Highlight only current index element
+            if (currentSearchIndex.current !== null) {
+                // Remove hover class from all search li elements
+                searchElements?.forEach((element) => {
+                    element?.classList?.remove("hover");
                 });
+                // Add hover class to current index li element
+                searchElements[currentSearchIndex.current]?.classList?.add(
+                    "hover"
+                );
+            }
+        }
+        if (e.code === "ArrowUp") {
+            // Initial case
+            if (searchIndex === null) {
+                setSearchIndex(countSearchElements - 1);
+                currentSearchIndex.current = countSearchElements - 1;
+            }
+            // If reached the end at top, wrap around to last index
+            else if (searchIndex <= 0) {
+                setSearchIndex(countSearchElements - 1);
+                currentSearchIndex.current = countSearchElements - 1;
+            }
+            // Otherwise, remove 1 to index
+            else {
+                setSearchIndex(currentSearchIndex.current - 1);
+                currentSearchIndex.current--;
+            }
+
+            // Remove highlight from all list elements
+            searchElements.forEach((element) => {
+                element.classList.remove("hover");
+            });
+            // Highlight only current index element
+            if (currentSearchIndex.current !== null) {
+                // Remove hover class from all search li elements
+                searchElements?.forEach((element) => {
+                    element?.classList?.remove("hover");
+                });
+                // Add hover class to current index li element
+                searchElements[currentSearchIndex.current]?.classList?.add(
+                    "hover"
+                );
             }
         }
     };
@@ -44,10 +106,11 @@ const NewProgram = () => {
     // When a user is selected from the dropdown search results
     const onClick = (e) => {
         users.map((user) => {
-            // console.log(user);
-            if (user[1]?.toString() === e.target.id) {
+            if (user[0] === e.target.innerHTML) {
+                console.log(`${user} matches`);
                 setSelectedUser(user);
                 setSearchValue("");
+                setSearchIndex(null);
                 return null;
             }
             return null;
@@ -55,6 +118,7 @@ const NewProgram = () => {
     };
 
     // To prevent submit on Enter
+    // eslint-disable-next-line no-unused-vars
     const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -120,7 +184,7 @@ const NewProgram = () => {
                                 .map((user, i) => {
                                     return (
                                         <li
-                                            id={user[1]}
+                                            id={`user-${i}`}
                                             key={user[1]}
                                             className="dropdown-row"
                                             onClick={onClick}
@@ -214,13 +278,16 @@ export const NewProgramDiv = styled.div`
                         background-color: lightgray;
                     }
                 }
+
+                & > .hover {
+                    background-color: lightgray;
+                }
             }
         }
     }
 
     & > .new-program {
         width: 100%;
-        background-color: red;
         flex: 1;
     }
 `;
