@@ -184,7 +184,7 @@ const DashboardDiv = styled.div`
         z-index: 3;
         background-color: inherit;
         left: calc(20% + 2px);
-        bottom: calc(0% + 2px);
+        top: calc(10 0% + 2px);
         font-size: calc(min(2vw, 2vh));
         padding-left: 1%;
     }

@@ -11,10 +11,17 @@ const NewProgram = () => {
     const [searchIndex, setSearchIndex] = useState(null);
     const currentSearchIndex = useRef(searchIndex);
     const [awaiting, setAwaiting] = useState(false);
+    const [mobilityData, setMobilityData] = useState([]);
+    const [strengthData, setStrengthData] = useState([]);
+    const [conditioningData, setConditioningData] = useState([]);
 
     const resetAll = () => {
         setSelectedUser("");
         setSearchValue("");
+        setSearchIndex(null);
+        setMobilityData([]);
+        setStrengthData([]);
+        setConditioningData([]);
     };
 
     // Handle change to the user search field
@@ -117,12 +124,6 @@ const NewProgram = () => {
         });
     };
 
-    // To prevent submit on Enter
-    // eslint-disable-next-line no-unused-vars
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
-
     // Get an array of all the users in the database
     const getUsers = async () => {
         setAwaiting(true);
@@ -147,6 +148,28 @@ const NewProgram = () => {
             .finally(() => {
                 setAwaiting(false);
             });
+    };
+
+    // To add a Mobility item
+    const addMobilityItem = () => {
+        setMobilityData((prevData) => {
+            return [...prevData, { name: "", sets: "", reps: "", comment: "" }];
+        });
+    };
+
+    // To remove a mobility item
+    const removeMobilityItem = (index) => {
+        const items = [...mobilityData];
+        items.splice(index, 1);
+        setMobilityData(items);
+    };
+
+    // Handle mobility item data change
+    const handleMobilityChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...mobilityData];
+        list[index][name] = value;
+        setMobilityData(list);
     };
 
     useEffect(() => {
@@ -204,14 +227,116 @@ const NewProgram = () => {
                             <span className="name">
                                 <strong>{`Selected User: ${selectedUser[0]}`}</strong>
                             </span>
+                            <div className="btn-container">
+                                Add Item:
+                                <button onClick={addMobilityItem}>
+                                    Mobility
+                                </button>
+                                <button>Exercise</button>
+                                <button>Cardio</button>
+                            </div>
                         </div>
-                        <div className="mobility"></div>
-                        <div className="exercise"></div>
-                        <div className="conditioning"></div>
+                        <div className="contents">
+                            <div className="category" id="mobility">
+                                <span className="title">
+                                    <strong>Mobility</strong>
+                                </span>
+                                {mobilityData?.map((item, index) => {
+                                    return (
+                                        <div
+                                            className="item-mobility"
+                                            id={`mobility-${index}`}
+                                        >
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                id={`name-${index}-mobility`}
+                                                placeholder="Name"
+                                                autoComplete="off"
+                                                value={mobilityData[index].name}
+                                                onChange={(e) =>
+                                                    handleMobilityChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                type="number"
+                                                name="sets"
+                                                id={`sets-${index}-mobility`}
+                                                placeholder="Sets"
+                                                autoComplete="off"
+                                                value={mobilityData[index].sets}
+                                                onChange={(e) =>
+                                                    handleMobilityChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                type="number"
+                                                name="reps"
+                                                id={`reps-${index}-mobility`}
+                                                placeholder="Reps"
+                                                autoComplete="off"
+                                                value={mobilityData[index].reps}
+                                                onChange={(e) =>
+                                                    handleMobilityChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                type="text"
+                                                name="comment"
+                                                id={`comment-${index}-mobility`}
+                                                placeholder="Comment"
+                                                autoComplete="off"
+                                                value={
+                                                    mobilityData[index].comment
+                                                }
+                                                onChange={(e) =>
+                                                    handleMobilityChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <button
+                                                onClick={() => {
+                                                    removeMobilityItem(index);
+                                                }}
+                                            >
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="category" id="strength">
+                                <span className="title">
+                                    <strong>Strength Training</strong>
+                                </span>
+                            </div>
+                            <div className="category" id="conditioning">
+                                <span className="title">
+                                    <strong>Conditioning</strong>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div className="btn-container">
                         <button>Submit</button>
-                        <button>Clear All</button>
+                        <button
+                            onClick={() => {
+                                resetAll();
+                            }}
+                        >
+                            Clear All
+                        </button>
                     </div>
                 </>
             )}
@@ -230,6 +355,8 @@ export const NewProgramDiv = styled.div`
     align-items: center;
     font-size: calc(min(2vw, 2vh));
     position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
 
     & > h3 {
         font-size: calc(min(3vw, 3vh));
@@ -243,7 +370,7 @@ export const NewProgramDiv = styled.div`
         width: 100%;
         flex-direction: row;
         justify-content: center;
-        margin-bottom: 5%;
+        margin-bottom: 2.5%;
 
         & label {
             width: 20%;
@@ -289,5 +416,136 @@ export const NewProgramDiv = styled.div`
     & > .new-program {
         width: 100%;
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+
+        & > .header {
+            width: 95%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+
+            & > .btn-container {
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+                justify-content: end;
+                align-items: center;
+
+                & > button {
+                    margin: 0 2.5%;
+                    background-color: #d0dceb;
+                    border: 2px solid #333;
+                    border-radius: 10px;
+                    padding: 3px 8px;
+                    color: #333;
+                    box-shadow: 3px 3px 2px #333;
+                    width: max-content;
+
+                    &:hover {
+                        background-color: #87ceeb;
+                        cursor: pointer;
+                    }
+                    &:active {
+                        translate: 3px 3px;
+                        box-shadow: 0 0 0;
+                    }
+                }
+            }
+        }
+        & > .contents {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+
+            & > .category {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+                margin: 5px 0;
+                border: solid #333;
+                border-width: 0 0 2px 0;
+
+                & > .title {
+                    width: 100%;
+                    text-align: start;
+                    align-self: start;
+                    padding-left: 5%;
+                }
+
+                & > .item-mobility {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    margin-bottom: 5px;
+
+                    & > input[name="name"] {
+                        width: calc(40% - 7em);
+                    }
+                    & > input[name="sets"] {
+                        width: 5em;
+                    }
+                    & > input[name="reps"] {
+                        width: 5em;
+                    }
+                    & > input[name="comment"] {
+                        width: calc(60% - 7em);
+                    }
+                    & > button {
+                        background-color: red;
+                        border: 2px solid #333;
+                        border-radius: 5px;
+                        box-shadow: 2px 2px 2px #333;
+
+                        &:hover {
+                            background-color: darkred;
+                            cursor: pointer;
+                        }
+                        &:active {
+                            translate: 2px 2px;
+                            box-shadow: 0 0 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & > .btn-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 5px 0;
+
+        & > button {
+            background-color: #d0dceb;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 3px 8px;
+            color: #333;
+            box-shadow: 3px 3px 2px #333;
+            width: max-content;
+
+            &:hover {
+                background-color: #87ceeb;
+                cursor: pointer;
+            }
+            &:active {
+                translate: 3px 3px;
+                box-shadow: 0 0 0;
+            }
+        }
     }
 `;
