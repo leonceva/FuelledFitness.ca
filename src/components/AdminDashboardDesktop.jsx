@@ -183,10 +183,11 @@ const DashboardDiv = styled.div`
         position: absolute;
         z-index: 3;
         background-color: inherit;
-        left: calc(20% + 2px);
-        top: calc(10 0% + 2px);
+        bottom: 0%;
+        right: 80%;
         font-size: calc(min(2vw, 2vh));
         padding-left: 1%;
+        color: #d0dceb;
     }
 `;
 

@@ -11,9 +11,11 @@ const NewProgram = () => {
     const [searchIndex, setSearchIndex] = useState(null);
     const currentSearchIndex = useRef(searchIndex);
     const [awaiting, setAwaiting] = useState(false);
+    const [units, setUnits] = useState("kg");
     const [mobilityData, setMobilityData] = useState([]);
     const [strengthData, setStrengthData] = useState([]);
     const [conditioningData, setConditioningData] = useState([]);
+    const [releaseDate, setReleaseDate] = useState(null);
 
     const resetAll = () => {
         setSelectedUser("");
@@ -150,7 +152,17 @@ const NewProgram = () => {
             });
     };
 
-    // To add a Mobility item
+    // To toggle between kg and lbs
+    const handleUnitChange = () => {
+        if (units === "kg") {
+            setUnits("lbs");
+        }
+        if (units === "lbs") {
+            setUnits("kg");
+        }
+    };
+
+    // To add a mobility item
     const addMobilityItem = () => {
         setMobilityData((prevData) => {
             return [...prevData, { name: "", sets: "", reps: "", comment: "" }];
@@ -172,11 +184,85 @@ const NewProgram = () => {
         setMobilityData(list);
     };
 
+    // To add a strength item
+    const addStrengthItem = () => {
+        setStrengthData((prevData) => {
+            return [
+                ...prevData,
+                { name: "", sets: "", reps: "", load: "", comment: "" },
+            ];
+        });
+    };
+
+    // To remove a strength item
+    const removeStrengthItem = (index) => {
+        const items = [...strengthData];
+        items.splice(index, 1);
+        setStrengthData(items);
+    };
+
+    // Handle strength item data change
+    const handleStrengthChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...strengthData];
+        list[index][name] = value;
+        setStrengthData(list);
+    };
+
+    // To add a condtioning item
+    const addConditioningItem = () => {
+        setConditioningData((prevData) => {
+            return [...prevData, { name: "", duration: "", comments: "" }];
+        });
+    };
+
+    // To remove a conditioning item
+    const removeConditioningItem = (index) => {
+        const items = [...conditioningData];
+        items.splice(index, 1);
+        setConditioningData(items);
+    };
+
+    // Handle conditioning item data change
+    const handleConditioningChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...conditioningData];
+        list[index][name] = value;
+        setConditioningData(list);
+    };
+
+    // Handle submit new program
+    const handleSubmit = () => {
+        console.log("submit");
+        const programObject = {
+            mobility: mobilityData,
+            strength: strengthData,
+            conditioning: conditioningData,
+        };
+        console.log(JSON.stringify(programObject));
+    };
+
+    // Handle release date change
+    const handleReleaseChange = (e) => {
+        const { value } = e.target;
+        setReleaseDate(value);
+    };
+
+    // On render
     useEffect(() => {
         resetAll();
         getUsers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // On selected user change
+    useEffect(() => {
+        setSearchValue("");
+        setSearchIndex(null);
+        setMobilityData([]);
+        setStrengthData([]);
+        setConditioningData([]);
+    }, [selectedUser]);
 
     return (
         <NewProgramDiv>
@@ -225,15 +311,35 @@ const NewProgram = () => {
                     <div className="new-program">
                         <div className="header">
                             <span className="name">
-                                <strong>{`Selected User: ${selectedUser[0]}`}</strong>
+                                <strong>{`${selectedUser[0]}`}</strong>
                             </span>
                             <div className="btn-container">
                                 Add Item:
                                 <button onClick={addMobilityItem}>
                                     Mobility
                                 </button>
-                                <button>Exercise</button>
-                                <button>Cardio</button>
+                                <button onClick={addStrengthItem}>
+                                    Exercise
+                                </button>
+                                <button onClick={addConditioningItem}>
+                                    Cardio
+                                </button>
+                                <div className="units">
+                                    kg
+                                    <div
+                                        className="slider"
+                                        onClick={handleUnitChange}
+                                    >
+                                        <div
+                                            className={`circle ${
+                                                units === "kg"
+                                                    ? "left"
+                                                    : "right"
+                                            }`}
+                                        />
+                                    </div>
+                                    lbs
+                                </div>
                             </div>
                         </div>
                         <div className="contents">
@@ -293,7 +399,7 @@ const NewProgram = () => {
                                                 type="text"
                                                 name="comment"
                                                 id={`comment-${index}-mobility`}
-                                                placeholder="Comment"
+                                                placeholder="Comments"
                                                 autoComplete="off"
                                                 value={
                                                     mobilityData[index].comment
@@ -310,7 +416,7 @@ const NewProgram = () => {
                                                     removeMobilityItem(index);
                                                 }}
                                             >
-                                                <i class="bi bi-x-lg"></i>
+                                                <i className="bi bi-x-lg" />
                                             </button>
                                         </div>
                                     );
@@ -320,16 +426,183 @@ const NewProgram = () => {
                                 <span className="title">
                                     <strong>Strength Training</strong>
                                 </span>
+                                {strengthData?.map((item, index) => {
+                                    return (
+                                        <div
+                                            className="item-strength"
+                                            id={`strength-${index}`}
+                                        >
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                id={`name-${index}-strength`}
+                                                placeholder="Name"
+                                                autoComplete="off"
+                                                value={strengthData[index].name}
+                                                onChange={(e) => {
+                                                    handleStrengthChange(
+                                                        e,
+                                                        index
+                                                    );
+                                                }}
+                                            />
+                                            <input
+                                                type="number"
+                                                name="sets"
+                                                id={`sets-${index}-strength`}
+                                                placeholder="Sets"
+                                                autoComplete="off"
+                                                value={strengthData[index].sets}
+                                                onChange={(e) => {
+                                                    handleStrengthChange(
+                                                        e,
+                                                        index
+                                                    );
+                                                }}
+                                            />
+                                            <input
+                                                type="number"
+                                                name="reps"
+                                                id={`reps-${index}-strength`}
+                                                placeholder="Reps"
+                                                autoComplete="off"
+                                                value={strengthData[index].reps}
+                                                onChange={(e) => {
+                                                    handleStrengthChange(
+                                                        e,
+                                                        index
+                                                    );
+                                                }}
+                                            />
+                                            <input
+                                                type="number"
+                                                name="load"
+                                                id={`load-${index}-strength`}
+                                                placeholder="Load"
+                                                autoComplete="off"
+                                                value={strengthData[index].load}
+                                                onChange={(e) => {
+                                                    handleStrengthChange(
+                                                        e,
+                                                        index
+                                                    );
+                                                }}
+                                            />
+                                            <input
+                                                type="text"
+                                                name="comment"
+                                                id={`comment-${index}-strength`}
+                                                placeholder="Comments"
+                                                autoComplete="off"
+                                                value={
+                                                    strengthData[index].comment
+                                                }
+                                                onChange={(e) => {
+                                                    handleStrengthChange(
+                                                        e,
+                                                        index
+                                                    );
+                                                }}
+                                            />
+                                            <button
+                                                onClick={() => {
+                                                    removeStrengthItem(index);
+                                                }}
+                                            >
+                                                <i className="bi bi-x-lg" />
+                                            </button>
+                                        </div>
+                                    );
+                                })}
                             </div>
                             <div className="category" id="conditioning">
                                 <span className="title">
                                     <strong>Conditioning</strong>
                                 </span>
+                                {conditioningData?.map((item, index) => {
+                                    return (
+                                        <div
+                                            className="item-conditioning"
+                                            id={`conditioning-${index}`}
+                                        >
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                id={`name-${index}-conditioning`}
+                                                placeholder="Name"
+                                                autoComplete="off"
+                                                value={
+                                                    conditioningData[index].name
+                                                }
+                                                onChange={(e) =>
+                                                    handleConditioningChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                type="number"
+                                                name="duration"
+                                                id={`duration-${index}-conditioning`}
+                                                placeholder="Time (min)"
+                                                autoComplete="off"
+                                                value={
+                                                    conditioningData[index]
+                                                        .duration
+                                                }
+                                                onChange={(e) =>
+                                                    handleConditioningChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                type="text"
+                                                name="comment"
+                                                id={`comment-${index}-conditioning`}
+                                                placeholder="Comments"
+                                                autoComplete="off"
+                                                value={
+                                                    conditioningData[index]
+                                                        .comment
+                                                }
+                                                onChange={(e) =>
+                                                    handleConditioningChange(
+                                                        e,
+                                                        index
+                                                    )
+                                                }
+                                            />
+                                            <button
+                                                onClick={() => {
+                                                    removeConditioningItem(
+                                                        index
+                                                    );
+                                                }}
+                                            >
+                                                <i className="bi bi-x-lg" />
+                                            </button>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
                     <div className="btn-container">
-                        <button>Submit</button>
+                        <div className="date">
+                            Release On:
+                            <input
+                                type="date"
+                                name="release-date"
+                                value={releaseDate}
+                                onChange={handleReleaseChange}
+                                style={{ marginLeft: "1em" }}
+                                pattern="\d{4}-\d{2}-\d{2}"
+                            />
+                        </div>
+                        <button onClick={handleSubmit}>Submit</button>
                         <button
                             onClick={() => {
                                 resetAll();
@@ -422,11 +695,17 @@ export const NewProgramDiv = styled.div`
         justify-content: start;
 
         & > .header {
-            width: 95%;
+            width: 100%;
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-around;
+
+            & > .name {
+                width: fit-content;
+                text-align: left;
+                padding-left: 5%;
+            }
 
             & > .btn-container {
                 flex: 1;
@@ -434,6 +713,50 @@ export const NewProgramDiv = styled.div`
                 flex-direction: row;
                 justify-content: end;
                 align-items: center;
+                margin-left: 5%;
+                flex-wrap: wrap;
+
+                & > .units {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-right: 3em;
+                    margin-top: 1em;
+
+                    & > .slider {
+                        width: 50px;
+                        position: relative;
+                        height: 1em;
+                        border: 2px solid #333;
+                        border-radius: 5px;
+                        margin: 0 0.6em;
+                        box-shadow: 2px 2px 2px #333;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                        &:active {
+                            box-shadow: 0px 0px 0px;
+                            transform: translate(2px, 2px);
+                        }
+
+                        & > .circle {
+                            height: 0.8em;
+                            width: 0.8em;
+                            background-color: #333;
+                            border-radius: 0.8em;
+                            position: absolute;
+                        }
+                        & > .left {
+                            left: 0.1em;
+                            transition: all 300ms;
+                        }
+                        & > .right {
+                            transition: all 300ms;
+                            left: calc(100% - 0.9em);
+                        }
+                    }
+                }
 
                 & > button {
                     margin: 0 2.5%;
@@ -490,7 +813,7 @@ export const NewProgramDiv = styled.div`
                     margin-bottom: 5px;
 
                     & > input[name="name"] {
-                        width: calc(40% - 7em);
+                        width: calc(40% - 7.5em);
                     }
                     & > input[name="sets"] {
                         width: 5em;
@@ -499,16 +822,90 @@ export const NewProgramDiv = styled.div`
                         width: 5em;
                     }
                     & > input[name="comment"] {
-                        width: calc(60% - 7em);
+                        width: calc(60% - 7.5em);
                     }
                     & > button {
-                        background-color: red;
+                        background-color: darkred;
                         border: 2px solid #333;
                         border-radius: 5px;
                         box-shadow: 2px 2px 2px #333;
 
                         &:hover {
-                            background-color: darkred;
+                            background-color: red;
+                            cursor: pointer;
+                        }
+                        &:active {
+                            translate: 2px 2px;
+                            box-shadow: 0 0 0;
+                        }
+                    }
+                }
+
+                & > .item-strength {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    margin-bottom: 5px;
+
+                    & > input[name="name"] {
+                        width: calc(40% - 10em);
+                    }
+                    & > input[name="sets"] {
+                        width: 5em;
+                    }
+                    & > input[name="reps"] {
+                        width: 5em;
+                    }
+                    & > input[name="load"] {
+                        width: 5em;
+                    }
+                    & > input[name="comment"] {
+                        width: calc(60% - 10em);
+                    }
+                    & > button {
+                        background-color: darkred;
+                        border: 2px solid #333;
+                        border-radius: 5px;
+                        box-shadow: 2px 2px 2px #333;
+
+                        &:hover {
+                            background-color: red;
+                            cursor: pointer;
+                        }
+                        &:active {
+                            translate: 2px 2px;
+                            box-shadow: 0 0 0;
+                        }
+                    }
+                }
+
+                & > .item-conditioning {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    margin-bottom: 5px;
+
+                    & > input[name="name"] {
+                        width: calc(40% - 7.5em);
+                    }
+                    & > input[name="duration"] {
+                        width: 11em;
+                    }
+                    & > input[name="comment"] {
+                        width: calc(60% - 7.5em);
+                    }
+                    & > button {
+                        background-color: darkred;
+                        border: 2px solid #333;
+                        border-radius: 5px;
+                        box-shadow: 2px 2px 2px #333;
+
+                        &:hover {
+                            background-color: red;
                             cursor: pointer;
                         }
                         &:active {
