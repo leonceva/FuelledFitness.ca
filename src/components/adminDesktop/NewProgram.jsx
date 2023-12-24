@@ -172,7 +172,7 @@ const NewProgram = () => {
 		}
 	};
 
-	// Add item
+	// Add mobility item
 	const addMobilityItem = (dayIndex) => {
 		// Deep copy programData object
 		let newProgram = JSON.parse(JSON.stringify(programData));
@@ -189,17 +189,13 @@ const NewProgram = () => {
 	// Remove mobility item
 	const removeMobilityItem = (e) => {
 		const id = e.target.id;
-		console.log(id);
 		const dayIndex = id.charAt(4);
-		console.log(`Day Index: ${dayIndex}`);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
-		console.log(`Item Index: ${itemIndex}`);
 
 		// Deep copy programData object
 		let newProgram = JSON.parse(JSON.stringify(programData));
 		// Copy mobility list without item
 		const mobilityList = [...programData[dayIndex].mobility];
-		console.log(mobilityList);
 		// Remove selected item
 		mobilityList.splice(itemIndex, 1);
 		// Replace with new programData object
@@ -224,6 +220,102 @@ const NewProgram = () => {
 		setProgramData(newProgram);
 	};
 
+	// Add strength item
+	const addStrengthItem = (dayIndex) => {
+		// Deep copy programData object
+		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Copy strength list
+		let strengthList = [...programData[dayIndex].strength];
+		// Add new blank item entry
+		strengthList.push({ name: '', sets: '', reps: '', load: '', comment: '' });
+		// Replace with new list
+		newProgram[dayIndex].strength = strengthList;
+		// Replace with new programData object
+		setProgramData(newProgram);
+	};
+
+	// Remove strength item
+	const removeStrengthItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Deep copy programData object
+		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Copy mobility list without item
+		const strengthList = [...programData[dayIndex].strength];
+		// Remove selected item
+		strengthList.splice(itemIndex, 1);
+		// Replace with new programData object
+		newProgram[dayIndex].strength = strengthList;
+		setProgramData(newProgram);
+	};
+
+	// Handle strength item change
+	const handleStrengthChange = (e) => {
+		const { value, id } = e.target;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Deep copy programData object
+		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Copy mobility list without item
+		let strengthList = [...programData[dayIndex].strength];
+		// Change selected item
+		strengthList[itemIndex].name = value;
+		// Replace with new programData object
+		newProgram[dayIndex].strength = strengthList;
+		setProgramData(newProgram);
+	};
+
+	// Add conditioning item
+	const addConditioningItem = (dayIndex) => {
+		// Deep copy programData object
+		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Copy conditioning list
+		let conditioningList = [...programData[dayIndex].conditioning];
+		// Add new blank item entry
+		conditioningList.push({ name: '', duration: '', comment: '' });
+		// Replace with new list
+		newProgram[dayIndex].conditioning = conditioningList;
+		// Replace with new programData object
+		setProgramData(newProgram);
+	};
+
+	// Remove conditioning item
+	const removeConditioningItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(18, id.indexOf('-', 18));
+
+		// Deep copy programData object
+		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Copy conditioning list without item
+		const conditioningList = [...programData[dayIndex].conditioning];
+		// Remove selected item
+		conditioningList.splice(itemIndex, 1);
+		// Replace with new programData object
+		newProgram[dayIndex].conditioning = conditioningList;
+		setProgramData(newProgram);
+	};
+
+	// Handle conditioning item change
+	const handleConditioningChange = (e) => {
+		const { value, id } = e.target;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(18, id.indexOf('-', 18));
+
+		// Deep copy programData object
+		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Copy conditioning list without item
+		let conditioningList = [...programData[dayIndex].conditioning];
+		// Change selected item
+		conditioningList[itemIndex].name = value;
+		// Replace with new programData object
+		newProgram[dayIndex].conditioning = conditioningList;
+		setProgramData(newProgram);
+	};
+
 	// Toggle between kg and lbs
 	const handleUnitChange = () => {
 		if (units === 'kg') {
@@ -234,15 +326,19 @@ const NewProgram = () => {
 		}
 	};
 
-	// Handle submit new program
-	const handleSubmit = () => {
-		console.log(programData);
-	};
-
 	// Handle release date change
 	const handleReleaseChange = (e) => {
 		const { value } = e.target;
 		setReleaseDate(value);
+	};
+
+	// Handle submit new program
+	const handleSubmit = () => {
+		const programList = [...programData];
+		console.log('Program Data');
+		console.log(programList);
+		console.log(`Release Date: ${releaseDate}`);
+		console.log(`Client Email: ${selectedUser[2]}`);
 	};
 
 	// On render
@@ -261,7 +357,7 @@ const NewProgram = () => {
 	return (
 		<NewProgramDiv>
 			{awaiting && <Loader />}
-			<h3>Create New Weekly Program</h3>
+			<h3>New Weekly Program</h3>
 			<div className='search'>
 				<label htmlFor='search'>User:</label>
 				<div className='search-results'>
@@ -432,13 +528,171 @@ const NewProgram = () => {
 										</div>
 										<div className='category'>
 											<div className='title'>
-												<span>Add Strength</span>
+												<span
+													onClick={() => {
+														addStrengthItem(dayIndex);
+													}}>
+													Add Strength
+												</span>
 											</div>
+											<>
+												{dayObject.strength.map((item, itemIndex) => {
+													return (
+														<div
+															className='item-strength'
+															id={`day-${dayIndex}-strength-${itemIndex}`}>
+															<input
+																type='text'
+																name='name'
+																id={`day-${dayIndex}-strength-${itemIndex}-name`}
+																value={
+																	programData[dayIndex].strength[
+																		itemIndex
+																	].name
+																}
+																placeholder='Name'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
+															/>
+															<input
+																type='number'
+																name='sets'
+																id={`day-${dayIndex}-strength-${itemIndex}-sets`}
+																value={
+																	programData[dayIndex].strength[
+																		itemIndex
+																	].sets
+																}
+																placeholder='Sets'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
+															/>
+															<input
+																type='number'
+																name='reps'
+																id={`day-${dayIndex}-strength-${itemIndex}-reps`}
+																value={
+																	programData[dayIndex].strength[
+																		itemIndex
+																	].reps
+																}
+																placeholder='Reps'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
+															/>
+															<input
+																type='number'
+																name='load'
+																id={`day-${dayIndex}-strength-${itemIndex}-load`}
+																value={
+																	programData[dayIndex].strength[
+																		itemIndex
+																	].load
+																}
+																placeholder='Load'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
+															/>
+															<input
+																type='text'
+																name='comment'
+																id={`day-${dayIndex}-strength-${itemIndex}-comment`}
+																value={
+																	programData[dayIndex].strength[
+																		itemIndex
+																	].comment
+																}
+																placeholder='Comments'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
+															/>
+															<></>
+															<button
+																id={`day-${dayIndex}-strength-${itemIndex}-button`}
+																onClick={(e) =>
+																	removeStrengthItem(e)
+																}>
+																X
+															</button>
+														</div>
+													);
+												})}
+											</>
 										</div>
 										<div className='category'>
 											<div className='title'>
-												<span>Add Conditioning</span>
+												<span
+													onClick={() => {
+														addConditioningItem(dayIndex);
+													}}>
+													Add Conditioning
+												</span>
 											</div>
+											<>
+												{dayObject.conditioning.map((item, itemIndex) => {
+													return (
+														<div
+															className='item-conditioning'
+															id={`day-${dayIndex}-conditioning-${itemIndex}`}>
+															<input
+																type='text'
+																name='name'
+																id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
+																value={
+																	programData[dayIndex]
+																		.conditioning[itemIndex]
+																		.name
+																}
+																placeholder='Name'
+																onChange={(e) => {
+																	handleConditioningChange(e);
+																}}
+															/>
+															<input
+																type='number'
+																name='duration'
+																id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
+																value={
+																	programData[dayIndex]
+																		.conditioning[itemIndex]
+																		.duration
+																}
+																placeholder='Duration'
+																onChange={(e) => {
+																	handleConditioningChange(e);
+																}}
+															/>
+															<input
+																type='text'
+																name='comment'
+																id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
+																value={
+																	programData[dayIndex]
+																		.conditioning[itemIndex]
+																		.comment
+																}
+																placeholder='Comments'
+																onChange={(e) => {
+																	handleConditioningChange(e);
+																}}
+															/>
+															<></>
+															<button
+																id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
+																onClick={(e) =>
+																	removeConditioningItem(e)
+																}>
+																X
+															</button>
+														</div>
+													);
+												})}
+											</>
 										</div>
 									</div>
 								);
@@ -782,6 +1036,7 @@ export const NewProgramDiv = styled.div`
 							border: 2px solid #333;
 							border-radius: 5px;
 							box-shadow: 2px 2px 2px #333;
+							width: 2em;
 
 							&:hover {
 								background-color: red;
@@ -816,6 +1071,7 @@ export const NewProgramDiv = styled.div`
 							border: 2px solid #333;
 							border-radius: 5px;
 							box-shadow: 2px 2px 2px #333;
+							width: 2em;
 
 							&:hover {
 								background-color: red;
