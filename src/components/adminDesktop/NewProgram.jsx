@@ -16,6 +16,7 @@ const NewProgram = () => {
 	const [programData, setProgramData] = useState([
 		{ day: 1, mobility: [], strength: [], conditioning: [] },
 	]);
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const resetAll = () => {
 		setSelectedUser('');
@@ -35,6 +36,11 @@ const NewProgram = () => {
 		// Get all the list elements from the search result
 		const searchElements = document.querySelectorAll('.dropdown-row');
 		const countSearchElements = searchElements.length;
+
+		if (e.code === 'Escape') {
+			setSearchValue('');
+			setSearchIndex(null);
+		}
 
 		if (e.code === 'Enter') {
 			if (currentSearchIndex.current !== null) {
@@ -205,7 +211,7 @@ const NewProgram = () => {
 
 	// Handle mobility item change
 	const handleMobilityChange = (e) => {
-		const { value, id } = e.target;
+		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
 
@@ -214,7 +220,7 @@ const NewProgram = () => {
 		// Copy mobility list without item
 		let mobilityList = [...programData[dayIndex].mobility];
 		// Change selected item
-		mobilityList[itemIndex].name = value;
+		mobilityList[itemIndex][name] = value;
 		// Replace with new programData object
 		newProgram[dayIndex].mobility = mobilityList;
 		setProgramData(newProgram);
@@ -253,7 +259,7 @@ const NewProgram = () => {
 
 	// Handle strength item change
 	const handleStrengthChange = (e) => {
-		const { value, id } = e.target;
+		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
 
@@ -262,7 +268,7 @@ const NewProgram = () => {
 		// Copy mobility list without item
 		let strengthList = [...programData[dayIndex].strength];
 		// Change selected item
-		strengthList[itemIndex].name = value;
+		strengthList[itemIndex][name] = value;
 		// Replace with new programData object
 		newProgram[dayIndex].strength = strengthList;
 		setProgramData(newProgram);
@@ -301,7 +307,7 @@ const NewProgram = () => {
 
 	// Handle conditioning item change
 	const handleConditioningChange = (e) => {
-		const { value, id } = e.target;
+		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(18, id.indexOf('-', 18));
 
@@ -310,7 +316,7 @@ const NewProgram = () => {
 		// Copy conditioning list without item
 		let conditioningList = [...programData[dayIndex].conditioning];
 		// Change selected item
-		conditioningList[itemIndex].name = value;
+		conditioningList[itemIndex][name] = value;
 		// Replace with new programData object
 		newProgram[dayIndex].conditioning = conditioningList;
 		setProgramData(newProgram);
@@ -332,17 +338,67 @@ const NewProgram = () => {
 		setReleaseDate(value);
 	};
 
+	const verifyValues = () => {
+		var errorMessage = '';
+		if (releaseDate === '') {
+			errorMessage = 'Release date cannot be empty';
+		} else {
+			programData.forEach((day, dayIndex) => {
+				// Check if day is empty
+				if (
+					day.mobility.length === 0 &&
+					day.strength.length === 0 &&
+					day.conditioning.length === 0
+				) {
+					errorMessage = `Day ${dayIndex + 1} is empty`;
+				}
+				day.mobility.forEach((item, itemIndex) => {
+					// Check .name
+					if (item.name === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Name is empty`;
+					}
+					// Check .sets
+					// Check .reps
+				});
+				day.strength.forEach((item, itemIndex) => {
+					// Check .name
+					// Check .sets
+					// Check .reps
+					// Check .load
+				});
+				day.conditioning.forEach((item, itemIndex) => {
+					// Check .name
+					// Check .duration
+				});
+			});
+		}
+		if (errorMessage === '') {
+			return true;
+		} else {
+			setErrorMessage(errorMessage);
+			return false;
+		}
+	};
+
 	// Handle submit new program
 	const handleSubmit = () => {
-		const programList = [...programData];
-		console.log('Program Data');
-		console.log(programList);
-		console.log(`Release Date: ${releaseDate}`);
-		console.log(`Client Email: ${selectedUser[2]}`);
+		if (verifyValues() === true) {
+			console.log(`Release Date: ${releaseDate}`);
+			console.log(`Client Email: ${selectedUser[2]}`);
+			console.log(`Load units: ${units}`);
+			const programList = [...programData];
+			console.log('Program Data');
+			console.log(programList);
+		} else {
+			console.log('Program values not valid');
+		}
 	};
 
 	// On render
 	useEffect(() => {
+		console.clear();
 		resetAll();
 		getUsers();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -352,10 +408,40 @@ const NewProgram = () => {
 	useEffect(() => {
 		setSearchValue('');
 		setSearchIndex(null);
+
+		// Set default today's date
+		if (selectedUser !== '') {
+			let yourDate = new Date(); // New Date object
+			const offset = yourDate.getTimezoneOffset(); // Timezone offset (min)
+
+			yourDate = new Date(yourDate.getTime() - offset * 60 * 1000); // Time value - offset (milis)
+			yourDate = yourDate.toISOString().split('T')[0]; // Format yyyy-mm-dd
+			setReleaseDate(yourDate);
+		}
 	}, [selectedUser]);
 
 	return (
 		<NewProgramDiv>
+			{errorMessage !== '' && (
+				<>
+					<div
+						className='error-background'
+						onClick={() => {
+							setErrorMessage('');
+						}}
+					/>
+					<div className='error'>
+						<button
+							className='close'
+							onClick={() => {
+								setErrorMessage('');
+							}}>
+							X
+						</button>
+						<div className='message'>{errorMessage}</div>
+					</div>
+				</>
+			)}
 			{awaiting && <Loader />}
 			<h3>New Weekly Program</h3>
 			<div className='search'>
@@ -662,7 +748,7 @@ const NewProgram = () => {
 																		.conditioning[itemIndex]
 																		.duration
 																}
-																placeholder='Duration'
+																placeholder='Duration (min)'
 																onChange={(e) => {
 																	handleConditioningChange(e);
 																}}
@@ -738,6 +824,48 @@ export const NewProgramDiv = styled.div`
 	position: relative;
 	overflow-x: hidden;
 	overflow-y: scroll;
+
+	& > .error-background {
+		position: absolute;
+		z-index: 3;
+		width: 100%;
+		height: 100%;
+		background-color: #f0e9df;
+		opacity: 0.8;
+	}
+
+	& > .error {
+		position: absolute;
+		z-index: 4;
+		width: fit-content;
+		width: max-content;
+		height: max-content;
+		border: 2px solid #333;
+		border-radius: 10px;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #d0dceb;
+
+		& > .close {
+			width: 2em;
+			background-color: darkred;
+			border: 2px solid #333;
+			border-radius: 5px;
+			position: absolute;
+			right: 0%;
+			top: 0%;
+			transform: translate(50%, -50%);
+
+			&:hover {
+				background-color: red;
+			}
+		}
+
+		& > .message {
+			margin: 2em 4em;
+		}
+	}
 
 	& > h3 {
 		font-size: calc(min(3vw, 3vh));
