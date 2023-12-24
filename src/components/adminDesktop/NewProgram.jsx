@@ -17,6 +17,7 @@ const NewProgram = () => {
 		{ day: 1, mobility: [], strength: [], conditioning: [] },
 	]);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [dateToday, setDateToday] = useState(null);
 
 	const resetAll = () => {
 		setSelectedUser('');
@@ -219,8 +220,10 @@ const NewProgram = () => {
 		let newProgram = JSON.parse(JSON.stringify(programData));
 		// Copy mobility list without item
 		let mobilityList = [...programData[dayIndex].mobility];
+
 		// Change selected item
 		mobilityList[itemIndex][name] = value;
+
 		// Replace with new programData object
 		newProgram[dayIndex].mobility = mobilityList;
 		setProgramData(newProgram);
@@ -360,17 +363,57 @@ const NewProgram = () => {
 						} - Name is empty`;
 					}
 					// Check .sets
+					if (item.sets === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Sets is empty`;
+					}
 					// Check .reps
+					if (item.reps === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Reps is empty`;
+					}
 				});
 				day.strength.forEach((item, itemIndex) => {
 					// Check .name
+					if (item.name === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Name is empty`;
+					}
 					// Check .sets
+					if (item.sets === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Sets is empty`;
+					}
 					// Check .reps
+					if (item.reps === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Reps is empty`;
+					}
 					// Check .load
+					if (item.load === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Load is empty`;
+					}
 				});
 				day.conditioning.forEach((item, itemIndex) => {
 					// Check .name
+					if (item.name === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Name is empty`;
+					}
 					// Check .duration
+					if (item.duration === '') {
+						errorMessage = `Day ${dayIndex + 1}\nMobility #${
+							itemIndex + 1
+						} - Sets is empty`;
+					}
 				});
 			});
 		}
@@ -385,14 +428,14 @@ const NewProgram = () => {
 	// Handle submit new program
 	const handleSubmit = () => {
 		if (verifyValues() === true) {
-			console.log(`Release Date: ${releaseDate}`);
-			console.log(`Client Email: ${selectedUser[2]}`);
-			console.log(`Load units: ${units}`);
+			const userID = selectedUser[1];
 			const programList = [...programData];
-			console.log('Program Data');
-			console.log(programList);
-		} else {
-			console.log('Program values not valid');
+			axiosPrivate
+				.put(`/programs/${userID}`, {
+					data: { program: { programList } },
+				})
+				.then()
+				.catch();
 		}
 	};
 
@@ -401,6 +444,14 @@ const NewProgram = () => {
 		console.clear();
 		resetAll();
 		getUsers();
+
+		let todayDate = new Date(); // New Date object
+		const offset = todayDate.getTimezoneOffset(); // Timezone offset (min)
+
+		todayDate = new Date(todayDate.getTime() - offset * 60 * 1000); // Time value - offset (milis)
+		todayDate = todayDate.toISOString().split('T')[0]; // Format yyyy-mm-dd
+		setDateToday(todayDate);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -409,15 +460,12 @@ const NewProgram = () => {
 		setSearchValue('');
 		setSearchIndex(null);
 
-		// Set default today's date
+		// Set default release date to today
 		if (selectedUser !== '') {
-			let yourDate = new Date(); // New Date object
-			const offset = yourDate.getTimezoneOffset(); // Timezone offset (min)
-
-			yourDate = new Date(yourDate.getTime() - offset * 60 * 1000); // Time value - offset (milis)
-			yourDate = yourDate.toISOString().split('T')[0]; // Format yyyy-mm-dd
-			setReleaseDate(yourDate);
+			setReleaseDate(dateToday);
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedUser]);
 
 	return (
@@ -594,7 +642,7 @@ const NewProgram = () => {
 																		itemIndex
 																	].comment
 																}
-																placeholder='Comments'
+																placeholder='Comments (optional)'
 																onChange={(e) => {
 																	handleMobilityChange(e);
 																}}
@@ -692,7 +740,7 @@ const NewProgram = () => {
 																		itemIndex
 																	].comment
 																}
-																placeholder='Comments'
+																placeholder='Comments (optional)'
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
@@ -762,7 +810,7 @@ const NewProgram = () => {
 																		.conditioning[itemIndex]
 																		.comment
 																}
-																placeholder='Comments'
+																placeholder='Comments (optional)'
 																onChange={(e) => {
 																	handleConditioningChange(e);
 																}}
@@ -794,7 +842,7 @@ const NewProgram = () => {
 								value={releaseDate}
 								onChange={handleReleaseChange}
 								style={{ marginLeft: '1em' }}
-								pattern='\d{4}-\d{2}-\d{2}'
+								min={dateToday}
 							/>
 						</div>
 						<button onClick={handleSubmit}>Submit</button>
