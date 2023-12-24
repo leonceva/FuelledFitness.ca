@@ -197,8 +197,7 @@ export const NewUserDiv = styled.div`
     & > h3 {
         font-size: calc(min(3vw, 3vh));
         width: 100%;
-        padding-top: 1vh;
-        margin-top: 5%;
+        margin-top: 1em;
     }
 
     & form {

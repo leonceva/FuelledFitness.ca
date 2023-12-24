@@ -494,8 +494,8 @@ export const EditUserDiv = styled.div`
     & > h3 {
         font-size: calc(min(3vw, 3vh));
         width: 100%;
-        padding: 1vh 0;
-        margin-top: 5%;
+        margin-top: 1em;
+        margin-bottom: 1em;
     }
 
     & > .search {
@@ -503,7 +503,7 @@ export const EditUserDiv = styled.div`
         width: 100%;
         flex-direction: row;
         justify-content: center;
-        margin-bottom: 5%;
+        margin-bottom: 1em;
 
         & label {
             width: 20%;

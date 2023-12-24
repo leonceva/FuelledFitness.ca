@@ -87,8 +87,7 @@ const AdminDashboardDesktop = (props) => {
 
 const DashboardDiv = styled.div`
     width: 100%;
-    height: 90%;
-    border-radius: calc(min(3vw, 3vh));
+    height: 95%;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -99,8 +98,8 @@ const DashboardDiv = styled.div`
         height: 100%;
         background-color: #333;
         border: 2px solid #333;
-        border-top-left-radius: calc(min(3vw, 3vh));
-        border-bottom-left-radius: calc(min(3vw, 3vh));
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
         display: flex;
         flex-direction: column;
         color: #d0dceb;
@@ -175,8 +174,8 @@ const DashboardDiv = styled.div`
         height: 100%;
         background-color: #d0dceb;
         border: 2px solid #333;
-        border-top-right-radius: calc(min(3vw, 3vh));
-        border-bottom-right-radius: calc(min(3vw, 3vh));
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     & > .version {
