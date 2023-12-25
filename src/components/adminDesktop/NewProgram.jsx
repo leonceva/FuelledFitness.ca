@@ -12,7 +12,7 @@ const NewProgram = () => {
 	const currentSearchIndex = useRef(searchIndex);
 	const [awaiting, setAwaiting] = useState(false);
 	const [units, setUnits] = useState('kg');
-	const [releaseDate, setReleaseDate] = useState(null);
+	const [releaseDate, setReleaseDate] = useState('');
 	const [programData, setProgramData] = useState([
 		{ day: 1, mobility: [], strength: [], conditioning: [] },
 	]);
@@ -312,7 +312,7 @@ const NewProgram = () => {
 	const handleConditioningChange = (e) => {
 		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
-		const itemIndex = id.slice(18, id.indexOf('-', 18));
+		const itemIndex = id.slice(19, id.indexOf('-', 19));
 
 		// Deep copy programData object
 		let newProgram = JSON.parse(JSON.stringify(programData));
@@ -345,6 +345,7 @@ const NewProgram = () => {
 		var errorMessage = '';
 		if (releaseDate === '') {
 			errorMessage = 'Release date cannot be empty';
+			return false;
 		} else {
 			programData.forEach((day, dayIndex) => {
 				// Check if day is empty
@@ -354,67 +355,123 @@ const NewProgram = () => {
 					day.conditioning.length === 0
 				) {
 					errorMessage = `Day ${dayIndex + 1} is empty`;
+					return false;
+				} else {
+					if (day.mobility.length !== 0) {
+						day.mobility.forEach((item, itemIndex) => {
+							// Check .name
+							if (item.name === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Name is empty`;
+								return false;
+							}
+							// Check .sets
+							if (item.sets === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Sets is empty`;
+								return false;
+							} else if (item.sets <= 0) {
+								// Check if negative
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Sets number invalid`;
+							}
+							// Check .reps
+							if (item.reps === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Reps is empty`;
+								return false;
+							} else if (item.reps <= 0) {
+								// Check if negative
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Reps number invalid`;
+							}
+						});
+					}
+					if (day.strength.length !== 0) {
+						day.strength.forEach((item, itemIndex) => {
+							// Check .name
+							if (item.name === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Name is empty`;
+								return false;
+							}
+							// Check .sets
+							if (item.sets === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Sets is empty`;
+								return false;
+							} else if (item.sets <= 0) {
+								// Check if negative
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
+									itemIndex + 1
+								} - Sets number invalid`;
+							}
+							// Check .reps
+							if (item.reps === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Reps is empty`;
+								return false;
+							} else if (item.reps <= 0) {
+								// Check if negative
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
+									itemIndex + 1
+								} - Reps number invalid`;
+							}
+							// Check .load
+							if (item.load === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Load is empty`;
+								return false;
+							} else if (item.load <= 0) {
+								// Check if negative
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
+									itemIndex + 1
+								} - Load number invalid`;
+							}
+						});
+					}
+					if (day.conditioning.length !== 0) {
+						day.conditioning.forEach((item, itemIndex) => {
+							// Check .name
+							if (item.name === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Name is empty`;
+								return false;
+							}
+							// Check .duration
+							if (item.duration === '') {
+								// Check if empty
+								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+									itemIndex + 1
+								} - Sets is empty`;
+								return false;
+							} else if (item.duration <= 0) {
+								// Check if negative
+								errorMessage = `Day ${dayIndex + 1}\nConditioning #${
+									itemIndex + 1
+								} - Duration number invalid`;
+							}
+						});
+					}
 				}
-				day.mobility.forEach((item, itemIndex) => {
-					// Check .name
-					if (item.name === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Name is empty`;
-					}
-					// Check .sets
-					if (item.sets === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Sets is empty`;
-					}
-					// Check .reps
-					if (item.reps === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Reps is empty`;
-					}
-				});
-				day.strength.forEach((item, itemIndex) => {
-					// Check .name
-					if (item.name === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Name is empty`;
-					}
-					// Check .sets
-					if (item.sets === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Sets is empty`;
-					}
-					// Check .reps
-					if (item.reps === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Reps is empty`;
-					}
-					// Check .load
-					if (item.load === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Load is empty`;
-					}
-				});
-				day.conditioning.forEach((item, itemIndex) => {
-					// Check .name
-					if (item.name === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Name is empty`;
-					}
-					// Check .duration
-					if (item.duration === '') {
-						errorMessage = `Day ${dayIndex + 1}\nMobility #${
-							itemIndex + 1
-						} - Sets is empty`;
-					}
-				});
 			});
 		}
 		if (errorMessage === '') {
@@ -432,16 +489,20 @@ const NewProgram = () => {
 			const programList = [...programData];
 			axiosPrivate
 				.put(`/programs/${userID}`, {
-					data: { program: { programList } },
+					email: selectedUser[2],
+					units: units,
+					program: programList,
+					releaseDate: releaseDate,
 				})
-				.then()
+				.then((res) => {
+					console.log(`${res?.status} - ${res?.data}`);
+				})
 				.catch();
 		}
 	};
 
 	// On render
 	useEffect(() => {
-		console.clear();
 		resetAll();
 		getUsers();
 
@@ -618,6 +679,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleMobilityChange(e);
 																}}
+																min={1}
 															/>
 															<input
 																type='number'
@@ -632,6 +694,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleMobilityChange(e);
 																}}
+																min={1}
 															/>
 															<input
 																type='text'
@@ -702,6 +765,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
+																min={1}
 															/>
 															<input
 																type='number'
@@ -716,6 +780,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
+																min={1}
 															/>
 															<input
 																type='number'
@@ -730,6 +795,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
+																min={1}
 															/>
 															<input
 																type='text'
@@ -800,6 +866,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleConditioningChange(e);
 																}}
+																min={1}
 															/>
 															<input
 																type='text'

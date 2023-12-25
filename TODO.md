@@ -1,44 +1,41 @@
 ## Short term goals
 
-- Basic Admin dashboard to create user
+-   Basic Admin dashboard to create user
 
-  - Edit user
+    -   Create new program
+        -   Back-end database INSERT
+    -   Edit existing program
 
-    - create endpoint for update user record
-    - create endpoint for delete user from users
+-   Basic Inactive user dashboard
 
-  - Create new program
-  - Edit existing program
+    -   Access to last three week programs, no feedback
 
-- Basic Inactive user dashboard
+-   Basic Active user dashboard
 
-  - Access to three week programs, no feedback
+    -   Access to all previous weeks, and feedback
+    -   Create a form/upload for check-in
 
-- Basic Active user dashboard
+-   For desktop dashboards create a small pop-up for completed actions
 
-  - Access to all previous weeks, and feedback
-  - Create a form/upload for check-in
+    -   to fade after 5 seconds ?
 
-- For desktop dashboards create a small pop-up for completed actions
+-   Active User mobile mode
 
-  - to fade after 5 seconds ?
+-   Inactive User mobile mode
 
-- Active User mobile mode
+-   Admin dashboard mobile mode
 
-- Inactive User mobile mode
-
-- Admin dashboard mobile mode
-
-- Email HTML template for:
-  - Reset Password request
-  - Account created
-  - New Program Created for Client
-  - Account Information Edited/Deleted
+-   Email HTML template for:
+    -   Reset Password request
+    -   Account created
+    -   New Program Created for Client
+    -   Account Information Edited/Deleted
 
 ## Long term goals
 
-- Mobile App with React Native
-- Thorough workout and exercises database
-- Implement complex queries and filtering for admin dashboard
-- Client data storage to be HIPPA complient
-- Calendar integration
+-   Mobile App with React Native
+-   Similar nutrition platform
+-   Invoice and payment options with Stripe(?)
+-   Thorough workout and exercises database
+-   Implement complex queries and filtering for admin dashboard
+-   Client data storage to be HIPPA complient
