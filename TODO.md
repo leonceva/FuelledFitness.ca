@@ -2,8 +2,6 @@
 
 -   Basic Admin dashboard to create user
 
-    -   Create new program
-        -   Back-end database INSERT
     -   Edit existing program
 
 -   Basic Inactive user dashboard

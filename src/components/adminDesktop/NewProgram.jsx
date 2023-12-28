@@ -16,7 +16,7 @@ const NewProgram = () => {
 	const [programData, setProgramData] = useState([
 		{ day: 1, mobility: [], strength: [], conditioning: [] },
 	]);
-	const [errorMessage, setErrorMessage] = useState('');
+	const [alertMessage, setAlertMessage] = useState('');
 	const [dateToday, setDateToday] = useState(null);
 
 	const resetAll = () => {
@@ -125,6 +125,39 @@ const NewProgram = () => {
 			}
 			return null;
 		});
+	};
+
+	// When search item is hovered
+	const onMouseMove = (e) => {
+		const searchElements = document?.querySelectorAll('.dropdown-row');
+		const itemId = e.target.id;
+		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
+		setSearchIndex(itemIndex);
+		currentSearchIndex.current = itemIndex;
+
+		// Remove highlight from all list elements
+		searchElements.forEach((element) => {
+			element.classList.remove('hover');
+		});
+		// Highlight only current index element
+		if (currentSearchIndex.current !== null) {
+			// Remove hover class from all search li elements
+			searchElements?.forEach((element) => {
+				element?.classList?.remove('hover');
+			});
+			// Add hover class to current index li element
+			searchElements[currentSearchIndex.current]?.classList?.add('hover');
+		}
+	};
+
+	// When a user is no longer hovered with mouse
+	const onMouseLeaveSearch = (e) => {
+		const searchElements = document?.querySelectorAll('.dropdown-row');
+		const itemId = e.target.id;
+		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
+
+		// Remove hover class for element
+		searchElements[itemIndex]?.classList?.remove('hover');
 	};
 
 	// Get an array of all the users in the database
@@ -438,7 +471,7 @@ const NewProgram = () => {
 									itemIndex + 1
 								} - Load is empty`;
 								return false;
-							} else if (item.load <= 0) {
+							} else if (item.load < 0) {
 								// Check if negative
 								errorMessage = `Day ${dayIndex + 1}\nStrength #${
 									itemIndex + 1
@@ -477,7 +510,7 @@ const NewProgram = () => {
 		if (errorMessage === '') {
 			return true;
 		} else {
-			setErrorMessage(errorMessage);
+			setAlertMessage(errorMessage);
 			return false;
 		}
 	};
@@ -496,8 +529,17 @@ const NewProgram = () => {
 				})
 				.then((res) => {
 					console.log(`${res?.status} - ${res?.data}`);
+					setAlertMessage(res?.data);
+					if (res?.status === 201) {
+						setSearchValue('');
+						setSearchIndex(null);
+						setProgramData([{ day: 1, mobility: [], strength: [], conditioning: [] }]);
+					}
 				})
-				.catch();
+				.catch((err) => {
+					alert('Unable to create program, check logs');
+					console.log(err);
+				});
 		}
 	};
 
@@ -531,23 +573,23 @@ const NewProgram = () => {
 
 	return (
 		<NewProgramDiv>
-			{errorMessage !== '' && (
+			{alertMessage !== '' && (
 				<>
 					<div
 						className='error-background'
 						onClick={() => {
-							setErrorMessage('');
+							setAlertMessage('');
 						}}
 					/>
 					<div className='error'>
 						<button
 							className='close'
 							onClick={() => {
-								setErrorMessage('');
+								setAlertMessage('');
 							}}>
 							X
 						</button>
-						<div className='message'>{errorMessage}</div>
+						<div className='message'>{alertMessage}</div>
 					</div>
 				</>
 			)}
@@ -581,7 +623,9 @@ const NewProgram = () => {
 											id={`user-${i}`}
 											key={user[1]}
 											className='dropdown-row'
-											onClick={handleSearchSelect}>
+											onClick={handleSearchSelect}
+											onMouseMove={onMouseMove}
+											onMouseLeave={onMouseLeaveSearch}>
 											{user[0]}
 										</li>
 									);

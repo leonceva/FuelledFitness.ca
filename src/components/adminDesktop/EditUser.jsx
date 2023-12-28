@@ -1,644 +1,668 @@
-import styled from "styled-components";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { useEffect, useState, useRef } from "react";
-import Loader from "./Loader";
+import styled from 'styled-components';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useEffect, useState, useRef } from 'react';
+import Loader from './Loader';
 
 const EditUser = () => {
-    const axiosPrivate = useAxiosPrivate();
-    const [users, setUsers] = useState(null);
-    const [selectedUser, setSelectedUser] = useState("");
-    const [searchValue, setSearchValue] = useState("");
-    const [searchIndex, setSearchIndex] = useState(null);
-    const currentSearchIndex = useRef(searchIndex);
-    const [hasChanged, setHasChanged] = useState(false);
-    const [selectedDelete, setSelectedDelete] = useState(false);
-    // eslint-disable-next-line no-unused-vars
-    const [awaiting, setAwaiting] = useState(false);
+	const axiosPrivate = useAxiosPrivate();
+	const [users, setUsers] = useState(null);
+	const [selectedUser, setSelectedUser] = useState('');
+	const [searchValue, setSearchValue] = useState('');
+	const [searchIndex, setSearchIndex] = useState(null);
+	const currentSearchIndex = useRef(searchIndex);
+	const [hasChanged, setHasChanged] = useState(false);
+	const [selectedDelete, setSelectedDelete] = useState(false);
+	// eslint-disable-next-line no-unused-vars
+	const [awaiting, setAwaiting] = useState(false);
 
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        role: "active",
-    });
+	const [formData, setFormData] = useState({
+		firstName: '',
+		lastName: '',
+		email: '',
+		role: 'active',
+	});
 
-    const resetAll = () => {
-        setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            role: "active",
-        });
-        setSelectedUser("");
-        setSearchValue("");
-        setSearchIndex(null);
-        setHasChanged(false);
-        setSelectedDelete(false);
-        const changedElements = document.querySelectorAll("#changed");
-        changedElements.forEach((element) => {
-            element.remove();
-        });
-        document.getElementById("firstName").disabled = true;
-        document.getElementById("lastName").disabled = true;
-        document.getElementById("email").disabled = true;
-        document.getElementById("role").disabled = true;
-    };
+	const resetAll = () => {
+		setFormData({
+			firstName: '',
+			lastName: '',
+			email: '',
+			role: 'active',
+		});
+		setSelectedUser('');
+		setSearchValue('');
+		setSearchIndex(null);
+		setHasChanged(false);
+		setSelectedDelete(false);
+		const changedElements = document.querySelectorAll('#changed');
+		changedElements.forEach((element) => {
+			element.remove();
+		});
+		document.getElementById('firstName').disabled = true;
+		document.getElementById('lastName').disabled = true;
+		document.getElementById('email').disabled = true;
+		document.getElementById('role').disabled = true;
+	};
 
-    // Handle change to the user search field
-    const onChangeSearch = (e) => {
-        setSearchValue(e.target.value);
-        setSearchIndex(null);
-    };
+	// Handle change to the user search field
+	const onChangeSearch = (e) => {
+		setSearchValue(e.target.value);
+		setSearchIndex(null);
+	};
 
-    // When pressed Enter in search, select top option as the user
-    const onKeyDown = (e) => {
-        // Get all the list elements from the search result
-        const searchElements = document.querySelectorAll(".dropdown-row");
-        const countSearchElements = searchElements.length;
+	// When pressed Enter in search, select top option as the user
+	const onKeyDown = (e) => {
+		// Get all the list elements from the search result
+		const searchElements = document.querySelectorAll('.dropdown-row');
+		const countSearchElements = searchElements.length;
 
-        if (e.code === "Enter") {
-            if (currentSearchIndex.current !== null) {
-                // console.log(searchElements[currentSearchIndex.current]);
-                searchElements[currentSearchIndex.current].click();
-            }
-        }
-        if (e.code === "ArrowDown") {
-            // Initial case
-            if (searchIndex === null) {
-                setSearchIndex(0);
-                currentSearchIndex.current = 0;
-            }
-            // If reached the end at bottom, wrap around to index 0
-            else if (searchIndex >= countSearchElements - 1) {
-                setSearchIndex(0);
-                currentSearchIndex.current = 0;
-            }
-            // Otherwise, add 1 to index
-            else {
-                setSearchIndex(currentSearchIndex.current + 1);
-                currentSearchIndex.current++;
-            }
+		if (e.code === 'Enter') {
+			if (currentSearchIndex.current !== null) {
+				// console.log(searchElements[currentSearchIndex.current]);
+				searchElements[currentSearchIndex.current].click();
+			}
+		}
+		if (e.code === 'ArrowDown') {
+			// Initial case
+			if (searchIndex === null) {
+				setSearchIndex(0);
+				currentSearchIndex.current = 0;
+			}
+			// If reached the end at bottom, wrap around to index 0
+			else if (searchIndex >= countSearchElements - 1) {
+				setSearchIndex(0);
+				currentSearchIndex.current = 0;
+			}
+			// Otherwise, add 1 to index
+			else {
+				setSearchIndex(currentSearchIndex.current + 1);
+				currentSearchIndex.current++;
+			}
 
-            // Remove highlight from all list elements
-            searchElements.forEach((element) => {
-                element.classList.remove("hover");
-            });
-            // Highlight only current index element
-            if (currentSearchIndex.current !== null) {
-                // Remove hover class from all search li elements
-                searchElements?.forEach((element) => {
-                    element?.classList?.remove("hover");
-                });
-                // Add hover class to current index li element
-                searchElements[currentSearchIndex.current]?.classList?.add(
-                    "hover"
-                );
-            }
-        }
-        if (e.code === "ArrowUp") {
-            // Initial case
-            if (searchIndex === null) {
-                setSearchIndex(countSearchElements - 1);
-                currentSearchIndex.current = countSearchElements - 1;
-            }
-            // If reached the end at top, wrap around to last index
-            else if (searchIndex <= 0) {
-                setSearchIndex(countSearchElements - 1);
-                currentSearchIndex.current = countSearchElements - 1;
-            }
-            // Otherwise, remove 1 to index
-            else {
-                setSearchIndex(currentSearchIndex.current - 1);
-                currentSearchIndex.current--;
-            }
+			// Remove highlight from all list elements
+			searchElements.forEach((element) => {
+				element.classList.remove('hover');
+			});
+			// Highlight only current index element
+			if (currentSearchIndex.current !== null) {
+				// Remove hover class from all search li elements
+				searchElements?.forEach((element) => {
+					element?.classList?.remove('hover');
+				});
+				// Add hover class to current index li element
+				searchElements[currentSearchIndex.current]?.classList?.add('hover');
+			}
+		}
+		if (e.code === 'ArrowUp') {
+			// Initial case
+			if (searchIndex === null) {
+				setSearchIndex(countSearchElements - 1);
+				currentSearchIndex.current = countSearchElements - 1;
+			}
+			// If reached the end at top, wrap around to last index
+			else if (searchIndex <= 0) {
+				setSearchIndex(countSearchElements - 1);
+				currentSearchIndex.current = countSearchElements - 1;
+			}
+			// Otherwise, remove 1 to index
+			else {
+				setSearchIndex(currentSearchIndex.current - 1);
+				currentSearchIndex.current--;
+			}
 
-            // Remove highlight from all list elements
-            searchElements.forEach((element) => {
-                element.classList.remove("hover");
-            });
-            // Highlight only current index element
-            if (currentSearchIndex.current !== null) {
-                // Remove hover class from all search li elements
-                searchElements?.forEach((element) => {
-                    element?.classList?.remove("hover");
-                });
-                // Add hover class to current index li element
-                searchElements[currentSearchIndex.current]?.classList?.add(
-                    "hover"
-                );
-            }
-        }
-    };
+			// Remove highlight from all list elements
+			searchElements.forEach((element) => {
+				element.classList.remove('hover');
+			});
+			// Highlight only current index element
+			if (currentSearchIndex.current !== null) {
+				// Remove hover class from all search li elements
+				searchElements?.forEach((element) => {
+					element?.classList?.remove('hover');
+				});
+				// Add hover class to current index li element
+				searchElements[currentSearchIndex.current]?.classList?.add('hover');
+			}
+		}
+	};
 
-    // When a user is selected from the dropdown search results
-    const onClick = (e) => {
-        users.map((user) => {
-            // console.log(user);
-            if (user[0] === e.target.innerHTML) {
-                setSelectedUser(user);
-                setSearchValue("");
-                document.getElementById("firstName").disabled = false;
-                document.getElementById("lastName").disabled = false;
-                document.getElementById("email").disabled = false;
-                document.getElementById("role").disabled = false;
-                return null;
-            }
-            return null;
-        });
-    };
+	// When a user is selected from the dropdown search results
+	const onClick = (e) => {
+		users.map((user) => {
+			// console.log(user);
+			if (user[0] === e.target.innerHTML) {
+				setSelectedUser(user);
+				setSearchValue('');
+				document.getElementById('firstName').disabled = false;
+				document.getElementById('lastName').disabled = false;
+				document.getElementById('email').disabled = false;
+				document.getElementById('role').disabled = false;
+				return null;
+			}
+			return null;
+		});
+	};
 
-    // To prevent submit on Enter
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+	// When search item is hovered
+	const onMouseMove = (e) => {
+		const searchElements = document?.querySelectorAll('.dropdown-row');
+		const itemId = e.target.id;
+		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
+		setSearchIndex(itemIndex);
+		currentSearchIndex.current = itemIndex;
 
-    // Get an array of all the users in the database
-    const getUsers = async () => {
-        setAwaiting(true);
-        await axiosPrivate
-            .get("/users")
-            .then((res) => {
-                setUsers(
-                    res?.data?.rows?.map((user, i) => {
-                        //console.log(res.data.rows);
-                        return [
-                            user.last_name + ", " + user.first_name,
-                            user.user_id,
-                            user.email,
-                            user.user_type,
-                        ];
-                    })
-                );
-            })
-            .catch((res) => {
-                alert(res);
-            })
-            .finally(() => {
-                setAwaiting(false);
-            });
-    };
+		// Remove highlight from all list elements
+		searchElements.forEach((element) => {
+			element.classList.remove('hover');
+		});
+		// Highlight only current index element
+		if (currentSearchIndex.current !== null) {
+			// Remove hover class from all search li elements
+			searchElements?.forEach((element) => {
+				element?.classList?.remove('hover');
+			});
+			// Add hover class to current index li element
+			searchElements[currentSearchIndex.current]?.classList?.add('hover');
+		}
+	};
 
-    // Handle change to the user data form
-    const handleChangeForm = (e) => {
-        const changeSign = document.createElement("i");
-        changeSign.classList.add("bi");
-        changeSign.classList.add("bi-exclamation-circle");
-        changeSign.classList.add("changed");
-        changeSign.setAttribute("id", "changed");
+	// When a user is no longer hovered with mouse
+	const onMouseLeaveSearch = (e) => {
+		const searchElements = document?.querySelectorAll('.dropdown-row');
+		const itemId = e.target.id;
+		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
 
-        e.target.previousSibling.insertAdjacentElement(
-            "beforebegin",
-            changeSign
-        );
+		// Remove hover class for element
+		searchElements[itemIndex]?.classList?.remove('hover');
+	};
 
-        const { name, value } = e.target;
-        // Update form data
-        setFormData((prevFormData) => {
-            return { ...prevFormData, [name]: value };
-        });
-        setHasChanged(true);
-    };
+	// To prevent submit on Enter
+	const handleSubmit = (e) => {
+		e.preventDefault();
+	};
 
-    // When an user is selected, get the details from the database
-    useEffect(() => {
-        setSelectedDelete(false);
-        setHasChanged(false);
-        //
-        if (selectedUser !== "") {
-            const firstName = selectedUser[0].slice(
-                selectedUser[0].indexOf(",") + 2
-            );
-            const lastName = selectedUser[0].slice(
-                0,
-                selectedUser[0].indexOf(",")
-            );
-            const userEmail = selectedUser[2];
-            const userType = selectedUser[3];
+	// Get an array of all the users in the database
+	const getUsers = async () => {
+		setAwaiting(true);
+		await axiosPrivate
+			.get('/users')
+			.then((res) => {
+				setUsers(
+					res?.data?.rows?.map((user, i) => {
+						//console.log(res.data.rows);
+						return [
+							user.last_name + ', ' + user.first_name,
+							user.user_id,
+							user.email,
+							user.user_type,
+						];
+					})
+				);
+			})
+			.catch((res) => {
+				alert(res);
+			})
+			.finally(() => {
+				setAwaiting(false);
+			});
+	};
 
-            setFormData({
-                firstName: firstName,
-                lastName: lastName,
-                email: userEmail,
-                role: userType,
-            });
+	// Handle change to the user data form
+	const handleChangeForm = (e) => {
+		const changeSign = document.createElement('i');
+		changeSign.classList.add('bi');
+		changeSign.classList.add('bi-exclamation-circle');
+		changeSign.classList.add('changed');
+		changeSign.setAttribute('id', 'changed');
 
-            // console.log(`First Name: ${firstName}\nLast Name: ${lastName}\nUser ID: ${userId}\nEmail: ${userEmail}`);
-        }
-    }, [selectedUser]);
+		e.target.previousSibling.insertAdjacentElement('beforebegin', changeSign);
 
-    // Update user records in database
-    const handleApplyChanges = () => {
-        setAwaiting(true);
-        // console.log("Applying Changes..");
-        const changedElements = document.querySelectorAll("#changed");
-        changedElements.forEach((element) => {
-            element.remove();
-        });
+		const { name, value } = e.target;
+		// Update form data
+		setFormData((prevFormData) => {
+			return { ...prevFormData, [name]: value };
+		});
+		setHasChanged(true);
+	};
 
-        // Send all form data to server
-        try {
-            updateUserInfo();
-            resetAll();
-        } catch {
-            setAwaiting(false);
-        }
-    };
+	// When an user is selected, get the details from the database
+	useEffect(() => {
+		setSelectedDelete(false);
+		setHasChanged(false);
+		//
+		if (selectedUser !== '') {
+			const firstName = selectedUser[0].slice(selectedUser[0].indexOf(',') + 2);
+			const lastName = selectedUser[0].slice(0, selectedUser[0].indexOf(','));
+			const userEmail = selectedUser[2];
+			const userType = selectedUser[3];
 
-    // Patch request to update user data
-    const updateUserInfo = async () => {
-        await axiosPrivate
-            .patch("/users", {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                email: formData.email,
-                role: formData.role,
-                id: selectedUser[1],
-            })
-            .then((res) => {
-                // console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-                if (err?.response?.status) {
-                    switch (err.response.status) {
-                        case 500:
-                            alert("Database Error");
-                            break;
-                        case 404:
-                            alert("User not found in database");
-                            break;
-                        case 401:
-                            alert("Unauthorized account request");
-                            break;
-                        default:
-                            alert("Account creation failed");
-                            break;
-                    }
-                } else {
-                    console.log(err);
-                    alert("Service Failed - check logs");
-                }
-            })
-            .finally(() => {
-                getUsers();
-                setAwaiting(false);
-            });
-    };
+			setFormData({
+				firstName: firstName,
+				lastName: lastName,
+				email: userEmail,
+				role: userType,
+			});
 
-    // Delete user from database
-    const handleDelete = () => {
-        setAwaiting(true);
-        console.log("Deleting user..");
-        try {
-            deleteUser();
-            resetAll();
-        } catch {
-            setAwaiting(false);
-        }
-    };
+			// console.log(`First Name: ${firstName}\nLast Name: ${lastName}\nUser ID: ${userId}\nEmail: ${userEmail}`);
+		}
+	}, [selectedUser]);
 
-    const deleteUser = async () => {
-        await axiosPrivate
-            .delete("/users", { data: { id: selectedUser[1] } })
-            .then((res) => {
-                // console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-                if (err?.response?.status) {
-                    switch (err.response.status) {
-                        case 500:
-                            alert("Databse error");
-                            break;
-                        case 404:
-                            alert("User not found in database");
-                            break;
-                        case 401:
-                            alert("Unauthorized account request");
-                            break;
-                        default:
-                            alert("Account creation failed");
-                            break;
-                    }
-                } else {
-                    console.log(err);
-                    alert("Service Failed - check logs");
-                }
-            })
-            .finally(() => {
-                getUsers();
-                setAwaiting(false);
-            });
-    };
+	// Update user records in database
+	const handleApplyChanges = () => {
+		setAwaiting(true);
+		// console.log("Applying Changes..");
+		const changedElements = document.querySelectorAll('#changed');
+		changedElements.forEach((element) => {
+			element.remove();
+		});
 
-    useEffect(() => {
-        resetAll();
-        getUsers();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+		// Send all form data to server
+		try {
+			updateUserInfo();
+			resetAll();
+		} catch {
+			setAwaiting(false);
+		}
+	};
 
-    return (
-        <EditUserDiv>
-            {awaiting && <Loader />}
-            <h3>Edit Users</h3>
-            <div className="search">
-                <label htmlFor="search">User:</label>
-                <div className="search-results">
-                    <input
-                        type="text"
-                        name="user"
-                        id="search"
-                        onChange={onChangeSearch}
-                        value={searchValue}
-                        onKeyDown={onKeyDown}
-                        placeholder="Type a name to begin search"
-                    />
+	// Patch request to update user data
+	const updateUserInfo = async () => {
+		await axiosPrivate
+			.patch('/users', {
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				email: formData.email,
+				role: formData.role,
+				id: selectedUser[1],
+			})
+			.then((res) => {
+				// console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+				if (err?.response?.status) {
+					switch (err.response.status) {
+						case 500:
+							alert('Database Error');
+							break;
+						case 404:
+							alert('User not found in database');
+							break;
+						case 401:
+							alert('Unauthorized account request');
+							break;
+						default:
+							alert('Account creation failed');
+							break;
+					}
+				} else {
+					console.log(err);
+					alert('Service Failed - check logs');
+				}
+			})
+			.finally(() => {
+				getUsers();
+				setAwaiting(false);
+			});
+	};
 
-                    {searchValue && (
-                        <div className="dropdown">
-                            {users
-                                ?.filter((user) => {
-                                    return user[0]
-                                        .toLowerCase()
-                                        .includes(searchValue.toLowerCase());
-                                })
-                                .slice(0, 10)
-                                .sort()
-                                .map((user, i) => {
-                                    return (
-                                        <li
-                                            id={`user-${i}`}
-                                            key={user[1]}
-                                            className="dropdown-row"
-                                            onClick={onClick}
-                                        >
-                                            {user[0]}
-                                        </li>
-                                    );
-                                })}
-                        </div>
-                    )}
-                </div>
-            </div>
-            <br />
-            <form action="" method="put" onSubmit={handleSubmit}>
-                <div className="input">
-                    <label htmlFor="firstName">First Name:</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        id="firstName"
-                        onChange={handleChangeForm}
-                        required
-                        value={formData.firstName}
-                    />
-                </div>
-                <div className="input">
-                    <label htmlFor="lastName">Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        id="lastName"
-                        onChange={handleChangeForm}
-                        required
-                        value={formData.lastName}
-                    />
-                </div>
-                <div className="input">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        onChange={handleChangeForm}
-                        required
-                        value={formData.email}
-                    />
-                </div>
-                <div className="input">
-                    <label htmlFor="role">User Type</label>
-                    <select
-                        name="role"
-                        id="role"
-                        onChange={handleChangeForm}
-                        required
-                        value={formData.role}
-                    >
-                        <option name="role" value="active">
-                            Active Client
-                        </option>
-                        <option name="role" value="inactive">
-                            Inactive Client
-                        </option>
-                        <option name="role" value="admin">
-                            Admin Account
-                        </option>
-                    </select>
-                </div>
-            </form>
-            <div className="btn-container">
-                <button
-                    className={`${hasChanged ? "enabled" : "disabled"}`}
-                    onClick={handleApplyChanges}
-                >
-                    Apply Changes
-                </button>
-                <button
-                    onClick={() => {
-                        resetAll();
-                    }}
-                >
-                    Clear Form
-                </button>
-                <button
-                    className={`delete ${
-                        selectedUser ? "enabled" : "disabled"
-                    }`}
-                    onClick={() => {
-                        setSelectedDelete(true);
-                    }}
-                >
-                    Delete User
-                </button>
-            </div>
-            {selectedDelete && (
-                <div className="btn-container">
-                    <p>
-                        <strong>This cannot be undone, continue?</strong>
-                    </p>
-                    <button onClick={handleDelete}>Yes</button>
-                    <button
-                        onClick={() => {
-                            setSelectedDelete(false);
-                        }}
-                    >
-                        No
-                    </button>
-                </div>
-            )}
-        </EditUserDiv>
-    );
+	// Delete user from database
+	const handleDelete = () => {
+		setAwaiting(true);
+		console.log('Deleting user..');
+		try {
+			deleteUser();
+			resetAll();
+		} catch {
+			setAwaiting(false);
+		}
+	};
+
+	const deleteUser = async () => {
+		await axiosPrivate
+			.delete('/users', { data: { id: selectedUser[1] } })
+			.then((res) => {
+				// console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+				if (err?.response?.status) {
+					switch (err.response.status) {
+						case 500:
+							alert('Databse error');
+							break;
+						case 404:
+							alert('User not found in database');
+							break;
+						case 401:
+							alert('Unauthorized account request');
+							break;
+						default:
+							alert('Account creation failed');
+							break;
+					}
+				} else {
+					console.log(err);
+					alert('Service Failed - check logs');
+				}
+			})
+			.finally(() => {
+				getUsers();
+				setAwaiting(false);
+			});
+	};
+
+	useEffect(() => {
+		resetAll();
+		getUsers();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	return (
+		<EditUserDiv>
+			{awaiting && <Loader />}
+			<h3>Edit Users</h3>
+			<div className='search'>
+				<label htmlFor='search'>User:</label>
+				<div className='search-results'>
+					<input
+						type='text'
+						name='user'
+						id='search'
+						onChange={onChangeSearch}
+						value={searchValue}
+						onKeyDown={onKeyDown}
+						placeholder='Type a name to begin search'
+					/>
+
+					{searchValue && (
+						<div className='dropdown'>
+							{users
+								?.filter((user) => {
+									return user[0]
+										.toLowerCase()
+										.includes(searchValue.toLowerCase());
+								})
+								.slice(0, 10)
+								.sort()
+								.map((user, i) => {
+									return (
+										<li
+											id={`user-${i}`}
+											key={user[1]}
+											className='dropdown-row'
+											onClick={onClick}
+											onMouseMove={onMouseMove}
+											onMouseLeave={onMouseLeaveSearch}>
+											{user[0]}
+										</li>
+									);
+								})}
+						</div>
+					)}
+				</div>
+			</div>
+			<br />
+			<form
+				action=''
+				method='put'
+				onSubmit={handleSubmit}>
+				<div className='input'>
+					<label htmlFor='firstName'>First Name:</label>
+					<input
+						type='text'
+						name='firstName'
+						id='firstName'
+						onChange={handleChangeForm}
+						required
+						value={formData.firstName}
+					/>
+				</div>
+				<div className='input'>
+					<label htmlFor='lastName'>Last Name</label>
+					<input
+						type='text'
+						name='lastName'
+						id='lastName'
+						onChange={handleChangeForm}
+						required
+						value={formData.lastName}
+					/>
+				</div>
+				<div className='input'>
+					<label htmlFor='email'>Email:</label>
+					<input
+						type='email'
+						name='email'
+						id='email'
+						onChange={handleChangeForm}
+						required
+						value={formData.email}
+					/>
+				</div>
+				<div className='input'>
+					<label htmlFor='role'>User Type</label>
+					<select
+						name='role'
+						id='role'
+						onChange={handleChangeForm}
+						required
+						value={formData.role}>
+						<option
+							name='role'
+							value='active'>
+							Active Client
+						</option>
+						<option
+							name='role'
+							value='inactive'>
+							Inactive Client
+						</option>
+						<option
+							name='role'
+							value='admin'>
+							Admin Account
+						</option>
+					</select>
+				</div>
+			</form>
+			<div className='btn-container'>
+				<button
+					className={`${hasChanged ? 'enabled' : 'disabled'}`}
+					onClick={handleApplyChanges}>
+					Apply Changes
+				</button>
+				<button
+					onClick={() => {
+						resetAll();
+					}}>
+					Clear Form
+				</button>
+				<button
+					className={`delete ${selectedUser ? 'enabled' : 'disabled'}`}
+					onClick={() => {
+						setSelectedDelete(true);
+					}}>
+					Delete User
+				</button>
+			</div>
+			{selectedDelete && (
+				<div className='btn-container'>
+					<p>
+						<strong>This cannot be undone, continue?</strong>
+					</p>
+					<button onClick={handleDelete}>Yes</button>
+					<button
+						onClick={() => {
+							setSelectedDelete(false);
+						}}>
+						No
+					</button>
+				</div>
+			)}
+		</EditUserDiv>
+	);
 };
 
 export const EditUserDiv = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    position: relative;
-    font-size: calc(min(2vw, 2vh));
-    z-index: 1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: start;
+	position: relative;
+	font-size: calc(min(2vw, 2vh));
+	z-index: 1;
+	overflow-y: scroll;
 
-    & > h3 {
-        font-size: calc(min(3vw, 3vh));
-        width: 100%;
-        margin-top: 1em;
-        margin-bottom: 1em;
-    }
+	& > h3 {
+		font-size: calc(min(3vw, 3vh));
+		width: 100%;
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
 
-    & > .search {
-        display: flex;
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 1em;
+	& > .search {
+		display: flex;
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
+		margin-bottom: 1em;
 
-        & label {
-            width: 20%;
-            text-align: end;
-            padding-right: 2vw;
-        }
+		& label {
+			width: 20%;
+			text-align: end;
+			padding-right: 2vw;
+		}
 
-        & > .search-results {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+		& > .search-results {
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+			position: relative;
 
-            & > input {
-                width: 100%;
-            }
+			& > input {
+				width: 100%;
+			}
 
-            & > .dropdown {
-                width: 100%;
-                background-color: white;
-                border: solid 1px #333;
-                position: absolute;
-                top: 100%;
-                z-index: 2;
+			& > .dropdown {
+				width: 100%;
+				background-color: white;
+				border: solid 1px #333;
+				position: absolute;
+				top: 100%;
+				z-index: 2;
 
-                & > .dropdown-row {
-                    list-style: none;
-                    padding: 0.5vh 0;
+				& > .dropdown-row {
+					list-style: none;
+					padding: 0.5vh 0;
 
-                    &:hover {
-                        cursor: pointer;
-                        background-color: lightgray;
-                    }
-                }
+					&:hover {
+						cursor: pointer;
+					}
+				}
 
-                & > .hover {
-                    background-color: lightgray;
-                }
-            }
-        }
-    }
+				& > .hover {
+					background-color: lightgray;
+				}
+			}
+		}
+	}
 
-    & form {
-        width: 100%;
-        max-height: 60%;
+	& form {
+		width: 100%;
+		max-height: 60%;
 
-        & > .input {
-            width: 100%;
-            padding: 0.5vh 0;
-            position: relative;
+		& > .input {
+			width: 100%;
+			padding: 0.5vh 0;
+			position: relative;
 
-            & > .changed {
-                position: absolute;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                left: 80%;
-                padding-left: 0.5vw;
-                justify-content: end;
-                font-size: calc(min(2.5vw, 2.5vh));
-            }
+			& > .changed {
+				position: absolute;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				left: 80%;
+				padding-left: 0.5vw;
+				justify-content: end;
+				font-size: calc(min(2.5vw, 2.5vh));
+			}
 
-            & label {
-                width: 20%;
-                text-align: right;
-                padding-right: 2vw;
-            }
+			& label {
+				width: 20%;
+				text-align: right;
+				padding-right: 2vw;
+			}
 
-            & input,
-            select {
-                width: 40%;
-                height: 100%;
-                padding: calc(min(0.5vh, 0.5vh)) 0;
-            }
-        }
-    }
+			& input,
+			select {
+				width: 40%;
+				height: 100%;
+				padding: calc(min(0.5vh, 0.5vh)) 0;
+			}
+		}
+	}
 
-    & > .btn-container {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        justify-self: flex-end;
-        align-items: center;
-        text-align: center;
+	& > .btn-container {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		justify-self: flex-end;
+		align-items: center;
+		text-align: center;
 
-        & button {
-            margin: 2vh 2vw 0;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 1vh 2vw;
-            color: #333;
-            box-shadow: 3px 3px 2px #333;
-            width: max-content;
-            background-color: #d0dceb;
+		& button {
+			margin: 2vh 2vw 0;
+			border: 2px solid #333;
+			border-radius: 10px;
+			padding: 1vh 2vw;
+			color: #333;
+			box-shadow: 3px 3px 2px #333;
+			width: max-content;
+			background-color: #d0dceb;
 
-            &:hover {
-                cursor: pointer;
-                background-color: #87ceeb;
-            }
-            &:active {
-                translate: 3px 3px;
-                box-shadow: 0 0 0;
-            }
-        }
+			&:hover {
+				cursor: pointer;
+				background-color: #87ceeb;
+			}
+			&:active {
+				translate: 3px 3px;
+				box-shadow: 0 0 0;
+			}
+		}
 
-        & > .enabled {
-        }
+		& > .enabled {
+		}
 
-        & > .disabled {
-            background-color: grey;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
+		& > .disabled {
+			background-color: grey;
+			cursor: not-allowed;
+			pointer-events: none;
+		}
 
-        & > .delete {
-            background-color: #ff6666;
-            font-weight: bold;
+		& > .delete {
+			background-color: #ff6666;
+			font-weight: bold;
 
-            &:hover {
-                background-color: red;
-            }
-        }
+			&:hover {
+				background-color: red;
+			}
+		}
 
-        & > p {
-            margin-top: 2vh;
-            padding-top: 1vh;
-            height: 100%;
-            max-width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: end;
-        }
-    }
+		& > p {
+			margin-top: 2vh;
+			padding-top: 1vh;
+			height: 100%;
+			max-width: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: end;
+		}
+	}
 `;
 
 export default EditUser;
