@@ -2,6 +2,8 @@
 
 -   Basic Admin dashboard to create user
 
+-   New program search fix
+
     -   Edit existing program
 
 -   Basic Inactive user dashboard

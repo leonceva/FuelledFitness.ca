@@ -1069,7 +1069,6 @@ export const NewProgramDiv = styled.div`
 
 					&:hover {
 						cursor: pointer;
-						background-color: lightgray;
 					}
 				}
 
