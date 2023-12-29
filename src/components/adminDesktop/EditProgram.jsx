@@ -11,6 +11,7 @@ const EditProgram = () => {
 	const [searchIndex, setSearchIndex] = useState(null);
 	const currentSearchIndex = useRef(searchIndex);
 	const [programList, setProgramList] = useState(null);
+	const [selectedProgram, setSelectedProgram] = useState('');
 
 	const axiosPrivate = useAxiosPrivate();
 
@@ -20,6 +21,7 @@ const EditProgram = () => {
 		setSelectedUser('');
 		setSearchIndex(null);
 		setProgramList(null);
+		setSelectedProgram('');
 	};
 
 	// Get an array of all the users in the database
@@ -204,7 +206,11 @@ const EditProgram = () => {
 
 	// When the program list is updated
 	useEffect(() => {
-		// TODO -- set the default selected program to first item (most recently released)
+		// Set the default selected program to first item (most recently released)
+		if (programList?.length > 0) {
+			// console.log(programList[0]);
+			setSelectedProgram(programList[0]);
+		}
 	}, [programList]);
 
 	useEffect(() => {
@@ -267,7 +273,10 @@ const EditProgram = () => {
 					{programList?.length === 0 && <div>No Program Info</div>}
 					{programList?.length > 0 && (
 						<div className='program-info'>
-							<div className='program-select'></div>
+							<div className='program-select'>
+								<span className='label'>Release Date:</span>
+							</div>
+							{programList[0].email}
 						</div>
 					)}
 				</>
@@ -361,11 +370,26 @@ export const EditProgramDiv = styled.div`
 	}
 
 	& > .program-info {
-		background-color: red;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
+		margin-top: 0.5em;
+		height: max-content;
+		overflow-x: auto;
+
+		& > .program-select {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: start;
+			align-items: center;
+
+			& > .label {
+				padding-left: 5%;
+				margin-right: 0.5em;
+			}
+		}
 	}
 `;

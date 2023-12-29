@@ -1145,7 +1145,6 @@ export const NewProgramDiv = styled.div`
 
 						&:hover {
 							background-color: #5f90a5;
-
 							cursor: pointer;
 						}
 						&:active {
