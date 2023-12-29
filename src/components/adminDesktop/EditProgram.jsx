@@ -202,6 +202,11 @@ const EditProgram = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedUser]);
 
+	// When the program list is updated
+	useEffect(() => {
+		// TODO -- set the default selected program to first item (most recently released)
+	}, [programList]);
+
 	useEffect(() => {
 		resetAll();
 		getUsers();
@@ -260,7 +265,11 @@ const EditProgram = () => {
 						</span>
 					</div>
 					{programList?.length === 0 && <div>No Program Info</div>}
-					{programList?.length > 0 && <div className='programs'>test</div>}
+					{programList?.length > 0 && (
+						<div className='program-info'>
+							<div className='program-select'></div>
+						</div>
+					)}
 				</>
 			)}
 		</EditProgramDiv>
@@ -351,7 +360,12 @@ export const EditProgramDiv = styled.div`
 		}
 	}
 
-	& > .programs {
+	& > .program-info {
 		background-color: red;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
 	}
 `;
