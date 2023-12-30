@@ -1,11 +1,14 @@
 ## Short term goals
 
+-   LoginForm needs mobile mode styles
+
 -   Basic Admin dashboard to create user
 
-    -   Delete existing program - front end and endpoint
+    -   Needs mobile mode styling
 
 -   Basic Inactive user dashboard
 
+    -   LoginForm needs mobile mode styles
     -   Access to last three week programs, no feedback
 
 -   Basic Active user dashboard
