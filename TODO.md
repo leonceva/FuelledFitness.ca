@@ -2,9 +2,7 @@
 
 -   Basic Admin dashboard to create user
 
--   New program search fix
-
-    -   Edit existing program
+    -   Delete existing program - front end and endpoint
 
 -   Basic Inactive user dashboard
 
