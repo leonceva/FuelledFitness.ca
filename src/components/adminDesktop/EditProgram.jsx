@@ -14,6 +14,7 @@ const EditProgram = () => {
 	const [selectedProgram, setSelectedProgram] = useState('');
 	const [alertMessage, setAlertMessage] = useState('');
 	const [allowSubmit, setAllowSubmit] = useState(false);
+	const [clickedDelete, setClickedDelete] = useState(false);
 
 	const axiosPrivate = useAxiosPrivate();
 
@@ -24,6 +25,7 @@ const EditProgram = () => {
 		setProgramList(null);
 		setSelectedProgram('');
 		setAllowSubmit(false);
+		setClickedDelete(false);
 	};
 
 	// Get an array of all the users in the database
@@ -405,6 +407,7 @@ const EditProgram = () => {
 
 	// Handle submit changes to program
 	const handleSubmit = () => {
+		setAwaiting(true);
 		if (verifyValues() === true) {
 			const programID = selectedProgram.program_id;
 			const programList = [...selectedProgram.workout];
@@ -420,15 +423,13 @@ const EditProgram = () => {
 					}
 				})
 				.catch((err) => {
-					alert('Unable to create program, check logs');
+					setAlertMessage('Unable to update program, check logs');
 					console.log(err);
+				})
+				.finally(() => {
+					setAwaiting(false);
 				});
 		}
-	};
-
-	// Handle delete program
-	const handleDelete = () => {
-		setAlertMessage('Delete Program - Needs Implementation');
 	};
 
 	const verifyValues = () => {
@@ -565,6 +566,29 @@ const EditProgram = () => {
 			setAlertMessage(errorMessage);
 			return false;
 		}
+	};
+
+	// Handle delete program
+	const handleDelete = async () => {
+		setAwaiting(true);
+		const programID = selectedProgram.program_id;
+
+		await axiosPrivate
+			.delete(`/programs/${programID}`, { data: { email: selectedUser[2] } })
+			.then((res) => {
+				setAlertMessage(res?.data);
+				if (res?.status === 200) {
+					resetAll();
+				}
+			})
+			.catch((err) => {
+				setAlertMessage('Unable to delete program, check logs');
+				console.log(err);
+			})
+			.finally(() => {
+				setAwaiting(false);
+				setClickedDelete(false);
+			});
 	};
 
 	// When an user is selected, get the details from the database
@@ -932,23 +956,43 @@ const EditProgram = () => {
 								</button>
 							)}
 							<div className='btn-container'>
-								<button
-									className={`${allowSubmit ? '' : 'disabled'}`}
-									onClick={handleSubmit}
-									disabled={!allowSubmit}>
-									Apply Changes
-								</button>
-								<button
-									onClick={() => {
-										resetAll();
-									}}>
-									Clear All
-								</button>
-								<button
-									className='delete'
-									onClick={handleDelete}>
-									Delete Program
-								</button>
+								{clickedDelete && (
+									<>
+										<strong style={{ marginRight: '2em' }}>
+											This action cannont be undone, continue?
+										</strong>
+										<button
+											onClick={() => {
+												setClickedDelete(false);
+											}}>
+											No
+										</button>
+										<button onClick={handleDelete}>Yes</button>
+									</>
+								)}
+								{!clickedDelete && (
+									<>
+										<button
+											className={`${allowSubmit ? '' : 'disabled'}`}
+											onClick={handleSubmit}
+											disabled={!allowSubmit}>
+											Apply Changes
+										</button>
+										<button
+											onClick={() => {
+												resetAll();
+											}}>
+											Clear All
+										</button>
+										<button
+											className='delete'
+											onClick={() => {
+												setClickedDelete(true);
+											}}>
+											Delete Program
+										</button>
+									</>
+								)}
 							</div>
 						</div>
 					)}
@@ -1342,18 +1386,19 @@ export const EditProgramDiv = styled.div`
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			justify-content: space-evenly;
+			justify-content: center;
 			padding: 5px 0;
-			margin: 1em 0;
+			margin: 1em;
 
 			& > button {
 				background-color: #87ceeb;
 				border: 2px solid #333;
 				border-radius: 10px;
-				padding: 3px 8px;
+				padding: 0.5em 1em;
 				color: #333;
 				box-shadow: 3px 3px 2px #333;
 				width: max-content;
+				margin: 0 1em;
 
 				&:hover {
 					background-color: #5f90a5;

@@ -309,7 +309,6 @@ const EditUser = () => {
 	// Delete user from database
 	const handleDelete = () => {
 		setAwaiting(true);
-		console.log('Deleting user..');
 		try {
 			deleteUser();
 			resetAll();
@@ -491,13 +490,13 @@ const EditUser = () => {
 					<p>
 						<strong>This cannot be undone, continue?</strong>
 					</p>
-					<button onClick={handleDelete}>Yes</button>
 					<button
 						onClick={() => {
 							setSelectedDelete(false);
 						}}>
 						No
 					</button>
+					<button onClick={handleDelete}>Yes</button>
 				</div>
 			)}
 		</EditUserDiv>
