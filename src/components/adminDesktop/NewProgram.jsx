@@ -11,7 +11,6 @@ const NewProgram = () => {
 	const [searchIndex, setSearchIndex] = useState(null);
 	const currentSearchIndex = useRef(searchIndex);
 	const [awaiting, setAwaiting] = useState(false);
-	const [units, setUnits] = useState('kg');
 	const [releaseDate, setReleaseDate] = useState('');
 	const [programData, setProgramData] = useState([
 		{ day: 1, mobility: [], strength: [], conditioning: [] },
@@ -234,7 +233,7 @@ const NewProgram = () => {
 
 		// Deep copy programData object
 		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy mobility list without item
+		// Copy mobility list
 		const mobilityList = [...programData[dayIndex].mobility];
 		// Remove selected item
 		mobilityList.splice(itemIndex, 1);
@@ -252,7 +251,7 @@ const NewProgram = () => {
 
 		// Deep copy programData object
 		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy mobility list without item
+		// Copy mobility list
 		let mobilityList = [...programData[dayIndex].mobility];
 
 		// Change selected item
@@ -357,16 +356,6 @@ const NewProgram = () => {
 		// Replace with new programData object
 		newProgram[dayIndex].conditioning = conditioningList;
 		setProgramData(newProgram);
-	};
-
-	// Toggle between kg and lbs
-	const handleUnitChange = () => {
-		if (units === 'kg') {
-			setUnits('lbs');
-		}
-		if (units === 'lbs') {
-			setUnits('kg');
-		}
 	};
 
 	// Handle release date change
@@ -524,7 +513,6 @@ const NewProgram = () => {
 			axiosPrivate
 				.put(`/programs/${userID}`, {
 					email: selectedUser[2],
-					units: units,
 					program: programList,
 					releaseDate: releaseDate,
 				})
@@ -577,12 +565,12 @@ const NewProgram = () => {
 			{alertMessage !== '' && (
 				<>
 					<div
-						className='error-background'
+						className='alert-background'
 						onClick={() => {
 							setAlertMessage('');
 						}}
 					/>
-					<div className='error'>
+					<div className='alert'>
 						<button
 							className='close'
 							onClick={() => {
@@ -659,19 +647,6 @@ const NewProgram = () => {
 										}}>
 										<i className='bi bi-plus-lg' />
 									</button>
-								</div>
-								<div className='units'>
-									kg
-									<div
-										className='slider'
-										onClick={handleUnitChange}>
-										<div
-											className={`circle ${
-												units === 'kg' ? 'left' : 'right'
-											}`}
-										/>
-									</div>
-									lbs
 								</div>
 							</div>
 						</div>
@@ -835,7 +810,7 @@ const NewProgram = () => {
 																		itemIndex
 																	].load
 																}
-																placeholder='Load'
+																placeholder='Load (kg)'
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
@@ -984,7 +959,7 @@ export const NewProgramDiv = styled.div`
 	overflow-x: hidden;
 	overflow-y: scroll;
 
-	& > .error-background {
+	& > .alert-background {
 		position: absolute;
 		z-index: 3;
 		width: 100%;
@@ -993,7 +968,7 @@ export const NewProgramDiv = styled.div`
 		opacity: 0.8;
 	}
 
-	& > .error {
+	& > .alert {
 		position: absolute;
 		z-index: 4;
 		width: fit-content;
@@ -1150,49 +1125,6 @@ export const NewProgramDiv = styled.div`
 						&:active {
 							translate: 2px 2px;
 							box-shadow: 0 0 0;
-						}
-					}
-				}
-
-				& > .units {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					padding-right: 3em;
-					margin: 1em 0.5em 0;
-
-					& > .slider {
-						width: 50px;
-						position: relative;
-						height: 1em;
-						border: 2px solid #333;
-						border-radius: 5px;
-						margin: 0 0.6em;
-						box-shadow: 2px 2px 2px #333;
-						background-color: lightgray;
-
-						&:hover {
-							cursor: pointer;
-						}
-						&:active {
-							box-shadow: 0px 0px 0px;
-							transform: translate(2px, 2px);
-						}
-
-						& > .circle {
-							height: 0.8em;
-							width: 0.8em;
-							background-color: #333;
-							border-radius: 0.8em;
-							position: absolute;
-						}
-						& > .left {
-							left: 0.1em;
-							transition: all 300ms;
-						}
-						& > .right {
-							transition: all 300ms;
-							left: calc(100% - 0.9em);
 						}
 					}
 				}

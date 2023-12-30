@@ -12,12 +12,12 @@ const EditProgram = () => {
 	const currentSearchIndex = useRef(searchIndex);
 	const [programList, setProgramList] = useState(null);
 	const [selectedProgram, setSelectedProgram] = useState('');
+	const [alertMessage, setAlertMessage] = useState('');
 
 	const axiosPrivate = useAxiosPrivate();
 
 	const resetAll = () => {
 		setSearchValue('');
-		setUsers(null);
 		setSelectedUser('');
 		setSearchIndex(null);
 		setProgramList(null);
@@ -195,7 +195,49 @@ const EditProgram = () => {
 		searchElements[itemIndex]?.classList?.remove('hover');
 	};
 
-	// Add moblity item
+	// Remove day
+	const removeDay = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy workout list
+		let workoutList = [...selectedProgram.workout];
+		// Remove selected item
+		workoutList.splice(dayIndex, 1);
+		// Replace with new list
+		editedProgram.workout = workoutList;
+		// Update .day
+		for (let i = 0; i < editedProgram?.workout?.length; i++) {
+			editedProgram.workout[i].day = i + 1;
+		}
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Add day
+	const addDay = () => {
+		const numDay = selectedProgram?.workout?.length;
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy workout list
+		let workoutList = [
+			...selectedProgram.workout,
+			{
+				day: numDay + 1,
+				mobility: [],
+				strength: [],
+				conditioning: [],
+			},
+		];
+		// Replace with new list
+		editedProgram.workout = workoutList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Add mobility item
 	const addMobilityItem = (dayIndex) => {
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
@@ -227,6 +269,127 @@ const EditProgram = () => {
 		setSelectedProgram(editedProgram);
 	};
 
+	// Handle mobility item change
+	const handleMobilityChange = (e) => {
+		const { name, value, id } = e.target;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Change background color to show item has changed
+		e.target.classList.add('changed');
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy mobility list
+		let mobilityList = [...selectedProgram.workout[dayIndex].mobility];
+		// Change selected item
+		mobilityList[itemIndex][name] = value;
+		// Replace with new list
+		editedProgram.workout[dayIndex].mobility = mobilityList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Add strength item
+	const addStrengthItem = (dayIndex) => {
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy strength list
+		let strengthList = [...selectedProgram.workout[dayIndex].strength];
+		// Add new blank item entry
+		strengthList.push({ name: '', sets: '', reps: '', load: '', comment: '' });
+		// Replace with new list
+		editedProgram.workout[dayIndex].strength = strengthList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Remove strength item
+	const removeStrengthItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy strength list
+		let strengthList = [...selectedProgram.workout[dayIndex].strength];
+		// Remove selected item
+		strengthList.splice(itemIndex, 1);
+		// Replace with new list
+		editedProgram.workout[dayIndex].strength = strengthList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Handle strength item change
+	const handleStrengthChange = (e) => {
+		const { name, value, id } = e.target;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy strength list
+		let strengthList = [...selectedProgram.workout[dayIndex].strength];
+		// Change selected item
+		strengthList[itemIndex][name] = value;
+		// Replace with new list
+		editedProgram.workout[dayIndex].strength = strengthList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Add conditioning item
+	const addConditioningItem = (dayIndex) => {
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy conditioning list
+		let conditioningList = [...selectedProgram.workout[dayIndex].conditioning];
+		// Add new blank item entry
+		conditioningList.push({ name: '', duration: '', comment: '' });
+		// Replace with new list
+		editedProgram.workout[dayIndex].conditioning = conditioningList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Remove conditioning item
+	const removeConditioningItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(18, id.indexOf('-', 18));
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy conditioning list
+		let conditioningList = [...selectedProgram.workout[dayIndex].conditioning];
+		// Remove selected item
+		conditioningList.splice(itemIndex, 1);
+		// Replace with new list
+		editedProgram.workout[dayIndex].conditioning = conditioningList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Handle conditioning item change
+	const handleConditioningChange = (e) => {
+		const { name, value, id } = e.target;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(18, id.indexOf('-', 18));
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy conditioning list
+		let conditioningList = [...selectedProgram.workout[dayIndex].conditioning];
+		// Change selected item
+		conditioningList[itemIndex][name] = value;
+		// Replace with new list
+		editedProgram.workout[dayIndex].conditioning = conditioningList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
 	// When an user is selected, get the details from the database
 	useEffect(() => {
 		if (selectedUser !== '') {
@@ -252,6 +415,26 @@ const EditProgram = () => {
 
 	return (
 		<EditProgramDiv>
+			{alertMessage !== '' && (
+				<>
+					<div
+						className='alert-background'
+						onClick={() => {
+							setAlertMessage('');
+						}}
+					/>
+					<div className='alert'>
+						<button
+							className='close'
+							onClick={() => {
+								setAlertMessage('');
+							}}>
+							X
+						</button>
+						<div className='message'>{alertMessage}</div>
+					</div>
+				</>
+			)}
 			{awaiting && <Loader />}
 			<h3>Edit Program</h3>
 			<div className='search'>
@@ -338,6 +521,13 @@ const EditProgram = () => {
 										<div className='day'>
 											<div className='title'>
 												<strong>{`Day ${day.day}`}</strong>
+												<button
+													id={`day-${dayIndex}`}
+													onClick={(e) => {
+														removeDay(e);
+													}}>
+													Remove Day
+												</button>
 											</div>
 											<div className='category'>
 												<div className='title'>
@@ -359,6 +549,9 @@ const EditProgram = () => {
 																id={`day-${dayIndex}-mobility-${itemIndex}-name`}
 																value={day.mobility[itemIndex].name}
 																placeholder='Name'
+																onChange={(e) => {
+																	handleMobilityChange(e);
+																}}
 															/>
 															<input
 																type='number'
@@ -367,6 +560,9 @@ const EditProgram = () => {
 																value={day.mobility[itemIndex].sets}
 																placeholder='Sets'
 																min={1}
+																onChange={(e) => {
+																	handleMobilityChange(e);
+																}}
 															/>
 															<input
 																type='number'
@@ -375,6 +571,9 @@ const EditProgram = () => {
 																value={day.mobility[itemIndex].reps}
 																placeholder='Reps'
 																min={1}
+																onChange={(e) => {
+																	handleMobilityChange(e);
+																}}
 															/>
 															<input
 																type='text'
@@ -384,6 +583,9 @@ const EditProgram = () => {
 																	day.mobility[itemIndex].comment
 																}
 																placeholder='Comments (optional)'
+																onChange={(e) => {
+																	handleMobilityChange(e);
+																}}
 															/>
 															<button
 																id={`day-${dayIndex}-mobility-${itemIndex}-button`}
@@ -398,7 +600,13 @@ const EditProgram = () => {
 											</div>
 											<div className='category'>
 												<div className='title'>
-													<span>Strength</span>
+													<span
+														onClick={() => {
+															addStrengthItem(dayIndex);
+														}}>
+														{' '}
+														Add Strength
+													</span>
 												</div>
 												{day.strength?.map((item, itemIndex) => {
 													return (
@@ -411,6 +619,9 @@ const EditProgram = () => {
 																id={`day-${dayIndex}-strength-${itemIndex}-name`}
 																value={day.strength[itemIndex].name}
 																placeholder='Name'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
 															/>
 															<input
 																type='number'
@@ -419,6 +630,9 @@ const EditProgram = () => {
 																value={day.strength[itemIndex].sets}
 																placeholder='Sets'
 																min={1}
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
 															/>
 															<input
 																type='number'
@@ -427,6 +641,9 @@ const EditProgram = () => {
 																value={day.strength[itemIndex].reps}
 																placeholder='Reps'
 																min={1}
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
 															/>
 															<input
 																type='number'
@@ -435,6 +652,9 @@ const EditProgram = () => {
 																value={day.strength[itemIndex].load}
 																placeholder='Reps'
 																min={0}
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
 															/>
 															<input
 																type='text'
@@ -444,9 +664,15 @@ const EditProgram = () => {
 																	day.strength[itemIndex].comment
 																}
 																placeholder='Comments (optional)'
+																onChange={(e) => {
+																	handleStrengthChange(e);
+																}}
 															/>
 															<button
-																id={`day-${dayIndex}-strength-${itemIndex}-button`}>
+																id={`day-${dayIndex}-strength-${itemIndex}-button`}
+																onClick={(e) =>
+																	removeStrengthItem(e)
+																}>
 																X
 															</button>
 														</div>
@@ -455,7 +681,12 @@ const EditProgram = () => {
 											</div>
 											<div className='category'>
 												<div className='title'>
-													<span>Conditioning</span>
+													<span
+														onClick={() => {
+															addConditioningItem(dayIndex);
+														}}>
+														Add Conditioning
+													</span>
 												</div>
 												{day.conditioning?.map((item, itemIndex) => {
 													return (
@@ -470,6 +701,9 @@ const EditProgram = () => {
 																	day.conditioning[itemIndex].name
 																}
 																placeholder='Name'
+																onChange={(e) => {
+																	handleConditioningChange(e);
+																}}
 															/>
 															<input
 																type='number'
@@ -481,6 +715,9 @@ const EditProgram = () => {
 																}
 																placeholder='Duration (min)'
 																min={1}
+																onChange={(e) => {
+																	handleConditioningChange(e);
+																}}
 															/>
 															<input
 																type='text'
@@ -491,9 +728,15 @@ const EditProgram = () => {
 																		.comment
 																}
 																placeholder='Comments (optional)'
+																onChange={(e) => {
+																	handleConditioningChange(e);
+																}}
 															/>
 															<button
-																id={`day-${dayIndex}-conditioning-${itemIndex}-button`}>
+																id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
+																onClick={(e) =>
+																	removeConditioningItem(e)
+																}>
 																X
 															</button>
 														</div>
@@ -504,9 +747,21 @@ const EditProgram = () => {
 									);
 								})}
 							</div>
+							{selectedProgram?.workout?.length < 7 && (
+								<button
+									className='add-day'
+									onClick={addDay}>
+									Add Day
+								</button>
+							)}
 							<div className='btn-container'>
 								<button>Apply Changes</button>
-								<button>Clear All</button>
+								<button
+									onClick={() => {
+										resetAll();
+									}}>
+									Clear All
+								</button>
 								<button className='delete'>Delete Program</button>
 							</div>
 						</div>
@@ -530,6 +785,48 @@ export const EditProgramDiv = styled.div`
 	position: relative;
 	z-index: 1;
 	overflow-y: scroll;
+
+	& > .alert-background {
+		position: absolute;
+		z-index: 3;
+		width: 100%;
+		height: 100%;
+		background-color: #f0e9df;
+		opacity: 0.8;
+	}
+
+	& > .alert {
+		position: absolute;
+		z-index: 4;
+		width: fit-content;
+		width: max-content;
+		height: max-content;
+		border: 2px solid #333;
+		border-radius: 10px;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #d0dceb;
+
+		& > .close {
+			width: 2em;
+			background-color: darkred;
+			border: 2px solid #333;
+			border-radius: 5px;
+			position: absolute;
+			right: 0%;
+			top: 0%;
+			transform: translate(50%, -50%);
+
+			&:hover {
+				background-color: red;
+			}
+		}
+
+		& > .message {
+			margin: 2em 4em;
+		}
+	}
 
 	& > h3 {
 		font-size: calc(min(3vw, 3vh));
@@ -651,8 +948,33 @@ export const EditProgramDiv = styled.div`
 					width: 100%;
 					margin-top: 0.5em;
 					margin-bottom: 1em;
-					padding-left: 2em;
-					text-align: left;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: start;
+
+					& > strong {
+						padding-left: 2em;
+					}
+
+					& > button {
+						margin-left: 2em;
+						border: 2px solid #333;
+						border-radius: 10px;
+						padding: 3px 8px;
+						color: #333;
+						box-shadow: 2px 2px 2px #333;
+						width: max-content;
+						background-color: #ff6666;
+
+						&:hover {
+							background-color: red;
+						}
+						&:active {
+							box-shadow: 0 0 0;
+							transform: translate(2px, 2px);
+						}
+					}
 				}
 
 				& > .category {
@@ -805,6 +1127,28 @@ export const EditProgramDiv = styled.div`
 			}
 		}
 
+		& > .add-day {
+			background-color: #87ceeb;
+			border: 2px solid #333;
+			border-radius: 10px;
+			padding: 3px 8px;
+			color: #333;
+			box-shadow: 3px 3px 2px #333;
+			width: max-content;
+			margin: 1em 0 0 2em;
+
+			align-self: flex-start;
+
+			&:hover {
+				background-color: #5f90a5;
+				cursor: pointer;
+			}
+			&:active {
+				translate: 3px 3px;
+				box-shadow: 0 0 0;
+			}
+		}
+
 		& > .btn-container {
 			width: 100%;
 			display: flex;
@@ -840,5 +1184,10 @@ export const EditProgramDiv = styled.div`
 				}
 			}
 		}
+	}
+
+	.changed {
+		background-color: #fee08b;
+		transition: background-color 300ms ease;
 	}
 `;
