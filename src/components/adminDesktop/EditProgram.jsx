@@ -13,6 +13,7 @@ const EditProgram = () => {
 	const [programList, setProgramList] = useState(null);
 	const [selectedProgram, setSelectedProgram] = useState('');
 	const [alertMessage, setAlertMessage] = useState('');
+	const [allowSubmit, setAllowSubmit] = useState(false);
 
 	const axiosPrivate = useAxiosPrivate();
 
@@ -22,6 +23,7 @@ const EditProgram = () => {
 		setSearchIndex(null);
 		setProgramList(null);
 		setSelectedProgram('');
+		setAllowSubmit(false);
 	};
 
 	// Get an array of all the users in the database
@@ -197,6 +199,7 @@ const EditProgram = () => {
 
 	// Remove day
 	const removeDay = (e) => {
+		setAllowSubmit(true);
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
 
@@ -218,7 +221,9 @@ const EditProgram = () => {
 
 	// Add day
 	const addDay = () => {
+		setAllowSubmit(true);
 		const numDay = selectedProgram?.workout?.length;
+
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
 		// Copy workout list
@@ -239,6 +244,8 @@ const EditProgram = () => {
 
 	// Add mobility item
 	const addMobilityItem = (dayIndex) => {
+		setAllowSubmit(true);
+
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
 		// Copy mobility list
@@ -253,6 +260,7 @@ const EditProgram = () => {
 
 	// Remove mobility item
 	const removeMobilityItem = (e) => {
+		setAllowSubmit(true);
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
@@ -271,12 +279,10 @@ const EditProgram = () => {
 
 	// Handle mobility item change
 	const handleMobilityChange = (e) => {
+		setAllowSubmit(true);
 		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
-
-		// Change background color to show item has changed
-		e.target.classList.add('changed');
 
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
@@ -292,6 +298,8 @@ const EditProgram = () => {
 
 	// Add strength item
 	const addStrengthItem = (dayIndex) => {
+		setAllowSubmit(true);
+
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
 		// Copy strength list
@@ -306,6 +314,7 @@ const EditProgram = () => {
 
 	// Remove strength item
 	const removeStrengthItem = (e) => {
+		setAllowSubmit(true);
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
@@ -324,6 +333,7 @@ const EditProgram = () => {
 
 	// Handle strength item change
 	const handleStrengthChange = (e) => {
+		setAllowSubmit(true);
 		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
@@ -342,6 +352,8 @@ const EditProgram = () => {
 
 	// Add conditioning item
 	const addConditioningItem = (dayIndex) => {
+		setAllowSubmit(true);
+
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
 		// Copy conditioning list
@@ -356,6 +368,7 @@ const EditProgram = () => {
 
 	// Remove conditioning item
 	const removeConditioningItem = (e) => {
+		setAllowSubmit(true);
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(18, id.indexOf('-', 18));
@@ -388,6 +401,170 @@ const EditProgram = () => {
 		editedProgram.workout[dayIndex].conditioning = conditioningList;
 		// Replace with new object
 		setSelectedProgram(editedProgram);
+	};
+
+	// Handle submit changes to program
+	const handleSubmit = () => {
+		if (verifyValues() === true) {
+			const programID = selectedProgram.program_id;
+			const programList = [...selectedProgram.workout];
+			axiosPrivate
+				.patch(`/programs/${programID}`, {
+					email: selectedUser[2],
+					program: programList,
+				})
+				.then((res) => {
+					setAlertMessage(res?.data);
+					if (res?.status === 201) {
+						resetAll();
+					}
+				})
+				.catch((err) => {
+					alert('Unable to create program, check logs');
+					console.log(err);
+				});
+		}
+	};
+
+	// Handle delete program
+	const handleDelete = () => {
+		setAlertMessage('Delete Program - Needs Implementation');
+	};
+
+	const verifyValues = () => {
+		var errorMessage = '';
+		selectedProgram?.workout?.forEach((day, dayIndex) => {
+			// Check if day is empty
+			if (
+				day.mobility.length === 0 &&
+				day.strength.length === 0 &&
+				day.conditioning.length === 0
+			) {
+				errorMessage = `Day ${dayIndex + 1} is empty`;
+				return false;
+			} else {
+				if (day.mobility.length !== 0) {
+					day.mobility.forEach((item, itemIndex) => {
+						// Check .name
+						if (item.name === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								itemIndex + 1
+							} - Name is empty`;
+							return false;
+						}
+						// Check .sets
+						if (item.sets === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								itemIndex + 1
+							} - Sets is empty`;
+							return false;
+						} else if (item.sets <= 0) {
+							// Check if negative
+							errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								itemIndex + 1
+							} - Sets number invalid`;
+						}
+						// Check .reps
+						if (item.reps === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								itemIndex + 1
+							} - Reps is empty`;
+							return false;
+						} else if (item.reps <= 0) {
+							// Check if negative
+							errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								itemIndex + 1
+							} - Reps number invalid`;
+						}
+					});
+				}
+				if (day.strength.length !== 0) {
+					day.strength.forEach((item, itemIndex) => {
+						// Check .name
+						if (item.name === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Name is empty`;
+							return false;
+						}
+						// Check .sets
+						if (item.sets === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Sets is empty`;
+							return false;
+						} else if (item.sets <= 0) {
+							// Check if negative
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Sets number invalid`;
+						}
+						// Check .reps
+						if (item.reps === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Reps is empty`;
+							return false;
+						} else if (item.reps <= 0) {
+							// Check if negative
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Reps number invalid`;
+						}
+						// Check .load
+						if (item.load === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Load is empty`;
+							return false;
+						} else if (item.load < 0) {
+							// Check if negative
+							errorMessage = `Day ${dayIndex + 1}\nStrength #${
+								itemIndex + 1
+							} - Load number invalid`;
+						}
+					});
+				}
+				if (day.conditioning.length !== 0) {
+					day.conditioning.forEach((item, itemIndex) => {
+						// Check .name
+						if (item.name === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nConditioning #${
+								itemIndex + 1
+							} - Name is empty`;
+							return false;
+						}
+						// Check .duration
+						if (item.duration === '') {
+							// Check if empty
+							errorMessage = `Day ${dayIndex + 1}\nConditioning #${
+								itemIndex + 1
+							} - Sets is empty`;
+							return false;
+						} else if (item.duration <= 0) {
+							// Check if negative
+							errorMessage = `Day ${dayIndex + 1}\nConditioning #${
+								itemIndex + 1
+							} - Duration number invalid`;
+						}
+					});
+				}
+			}
+		});
+		if (errorMessage === '') {
+			return true;
+		} else {
+			setAlertMessage(errorMessage);
+			return false;
+		}
 	};
 
 	// When an user is selected, get the details from the database
@@ -755,14 +932,23 @@ const EditProgram = () => {
 								</button>
 							)}
 							<div className='btn-container'>
-								<button>Apply Changes</button>
+								<button
+									className={`${allowSubmit ? '' : 'disabled'}`}
+									onClick={handleSubmit}
+									disabled={!allowSubmit}>
+									Apply Changes
+								</button>
 								<button
 									onClick={() => {
 										resetAll();
 									}}>
 									Clear All
 								</button>
-								<button className='delete'>Delete Program</button>
+								<button
+									className='delete'
+									onClick={handleDelete}>
+									Delete Program
+								</button>
 							</div>
 						</div>
 					)}
@@ -785,20 +971,22 @@ export const EditProgramDiv = styled.div`
 	position: relative;
 	z-index: 1;
 	overflow-y: scroll;
+	position: relative;
 
 	& > .alert-background {
-		position: absolute;
+		position: fixed;
 		z-index: 3;
 		width: 100%;
 		height: 100%;
+		left: 0;
+		top: 0;
 		background-color: #f0e9df;
 		opacity: 0.8;
 	}
 
 	& > .alert {
-		position: absolute;
+		position: fixed;
 		z-index: 4;
-		width: fit-content;
 		width: max-content;
 		height: max-content;
 		border: 2px solid #333;
@@ -1186,8 +1374,11 @@ export const EditProgramDiv = styled.div`
 		}
 	}
 
-	.changed {
-		background-color: #fee08b;
-		transition: background-color 300ms ease;
+	.disabled {
+		background-color: gray !important;
+		&:active {
+			translate: 0px 0px !important;
+			box-shadow: 3px 3px 2px #333 !important;
+		}
 	}
 `;

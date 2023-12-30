@@ -370,7 +370,7 @@ const NewProgram = () => {
 			errorMessage = 'Release date cannot be empty';
 			return false;
 		} else {
-			programData.forEach((day, dayIndex) => {
+			programData?.forEach((day, dayIndex) => {
 				// Check if day is empty
 				if (
 					day.mobility.length === 0 &&
@@ -423,7 +423,7 @@ const NewProgram = () => {
 							// Check .name
 							if (item.name === '') {
 								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
 									itemIndex + 1
 								} - Name is empty`;
 								return false;
@@ -431,7 +431,7 @@ const NewProgram = () => {
 							// Check .sets
 							if (item.sets === '') {
 								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
 									itemIndex + 1
 								} - Sets is empty`;
 								return false;
@@ -444,7 +444,7 @@ const NewProgram = () => {
 							// Check .reps
 							if (item.reps === '') {
 								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
 									itemIndex + 1
 								} - Reps is empty`;
 								return false;
@@ -457,7 +457,7 @@ const NewProgram = () => {
 							// Check .load
 							if (item.load === '') {
 								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								errorMessage = `Day ${dayIndex + 1}\nStrength #${
 									itemIndex + 1
 								} - Load is empty`;
 								return false;
@@ -474,7 +474,7 @@ const NewProgram = () => {
 							// Check .name
 							if (item.name === '') {
 								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								errorMessage = `Day ${dayIndex + 1}\nConditioning #${
 									itemIndex + 1
 								} - Name is empty`;
 								return false;
@@ -482,7 +482,7 @@ const NewProgram = () => {
 							// Check .duration
 							if (item.duration === '') {
 								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nMobility #${
+								errorMessage = `Day ${dayIndex + 1}\nConditioning #${
 									itemIndex + 1
 								} - Sets is empty`;
 								return false;
@@ -517,7 +517,6 @@ const NewProgram = () => {
 					releaseDate: releaseDate,
 				})
 				.then((res) => {
-					console.log(`${res?.status} - ${res?.data}`);
 					setAlertMessage(res?.data);
 					if (res?.status === 201) {
 						setSearchValue('');
@@ -960,7 +959,7 @@ export const NewProgramDiv = styled.div`
 	overflow-y: scroll;
 
 	& > .alert-background {
-		position: absolute;
+		position: fixed;
 		z-index: 3;
 		width: 100%;
 		height: 100%;
@@ -969,9 +968,8 @@ export const NewProgramDiv = styled.div`
 	}
 
 	& > .alert {
-		position: absolute;
+		position: fixed;
 		z-index: 4;
-		width: fit-content;
 		width: max-content;
 		height: max-content;
 		border: 2px solid #333;
