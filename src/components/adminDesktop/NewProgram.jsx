@@ -33,7 +33,7 @@ const NewProgram = () => {
 	};
 
 	// Key events search bar
-	const onKeyDown = (e) => {
+	const onKeyDownSearch = (e) => {
 		// Get all the list elements from the search result
 		const searchElements = document.querySelectorAll('.dropdown-row');
 		const countSearchElements = searchElements.length;
@@ -114,7 +114,7 @@ const NewProgram = () => {
 	};
 
 	// click events dropdown search results
-	const handleSearchSelect = (e) => {
+	const onClickSearch = (e) => {
 		users.map((user) => {
 			if (user[0] === e.target.innerHTML) {
 				// console.log(`${user} matches`);
@@ -128,7 +128,7 @@ const NewProgram = () => {
 	};
 
 	// When search item is hovered
-	const onMouseMove = (e) => {
+	const onMouseMoveSearch = (e) => {
 		const searchElements = document?.querySelectorAll('.dropdown-row');
 		const itemId = e.target.id;
 		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
@@ -238,8 +238,9 @@ const NewProgram = () => {
 		const mobilityList = [...programData[dayIndex].mobility];
 		// Remove selected item
 		mobilityList.splice(itemIndex, 1);
-		// Replace with new programData object
+		// Replace with new list
 		newProgram[dayIndex].mobility = mobilityList;
+		// Replace with new programData object
 		setProgramData(newProgram);
 	};
 
@@ -604,7 +605,7 @@ const NewProgram = () => {
 						id='search'
 						onChange={onChangeSearch}
 						value={searchValue}
-						onKeyDown={onKeyDown}
+						onKeyDown={onKeyDownSearch}
 						placeholder='Type a name to begin search'
 					/>
 					{searchValue && (
@@ -623,8 +624,8 @@ const NewProgram = () => {
 											id={`user-${i}`}
 											key={user[1]}
 											className='dropdown-row'
-											onClick={handleSearchSelect}
-											onMouseMove={onMouseMove}
+											onClick={onClickSearch}
+											onMouseMove={onMouseMoveSearch}
 											onMouseLeave={onMouseLeaveSearch}>
 											{user[0]}
 										</li>
@@ -754,7 +755,6 @@ const NewProgram = () => {
 																	handleMobilityChange(e);
 																}}
 															/>
-															<></>
 															<button
 																id={`day-${dayIndex}-mobility-${itemIndex}-button`}
 																onClick={(e) =>
@@ -839,7 +839,7 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
-																min={1}
+																min={0}
 															/>
 															<input
 																type='text'
@@ -1205,6 +1205,9 @@ export const NewProgramDiv = styled.div`
 			flex-direction: column;
 			justify-content: start;
 			align-items: center;
+			border: solid #333;
+			border-width: 2px 0 0 0;
+			margin-top: 1em;
 
 			& > .day {
 				width: 100%;
@@ -1220,6 +1223,7 @@ export const NewProgramDiv = styled.div`
 					font-size: 1.2em;
 					text-align: left;
 					padding-left: 2em;
+					margin-bottom: 1em;
 				}
 
 				& > .category {
@@ -1234,7 +1238,7 @@ export const NewProgramDiv = styled.div`
 						width: 100%;
 						text-align: start;
 						align-self: start;
-						padding-left: 5em;
+						padding-left: 2em;
 						margin-bottom: 1em;
 
 						& > span {
@@ -1380,6 +1384,7 @@ export const NewProgramDiv = styled.div`
 		align-items: center;
 		justify-content: space-evenly;
 		padding: 5px 0;
+		margin: 1em 0;
 
 		& > button {
 			background-color: #87ceeb;

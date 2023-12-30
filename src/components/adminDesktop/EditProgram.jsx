@@ -150,7 +150,7 @@ const EditProgram = () => {
 	};
 
 	// When a user is selected from the dropdown search results
-	const onClick = (e) => {
+	const onClickSearch = (e) => {
 		users.map((user) => {
 			// console.log(user);
 			if (user[0] === e.target.innerHTML) {
@@ -163,7 +163,7 @@ const EditProgram = () => {
 	};
 
 	// When search item is hovered
-	const onMouseMove = (e) => {
+	const onMouseMoveSearch = (e) => {
 		const searchElements = document?.querySelectorAll('.dropdown-row');
 		const itemId = e.target.id;
 		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
@@ -195,6 +195,38 @@ const EditProgram = () => {
 		searchElements[itemIndex]?.classList?.remove('hover');
 	};
 
+	// Add moblity item
+	const addMobilityItem = (dayIndex) => {
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy mobility list
+		let mobilityList = [...selectedProgram.workout[dayIndex].mobility];
+		// Add new blank item entry
+		mobilityList.push({ name: '', sets: '', reps: '', comment: '' });
+		// Replace with new list
+		editedProgram.workout[dayIndex].mobility = mobilityList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
+	// Remove mobility item
+	const removeMobilityItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Deep copy edited program
+		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
+		// Copy mobility list
+		let mobilityList = [...selectedProgram.workout[dayIndex].mobility];
+		// Remove selected item
+		mobilityList.splice(itemIndex, 1);
+		// Replace with new list
+		editedProgram.workout[dayIndex].mobility = mobilityList;
+		// Replace with new object
+		setSelectedProgram(editedProgram);
+	};
+
 	// When an user is selected, get the details from the database
 	useEffect(() => {
 		if (selectedUser !== '') {
@@ -208,7 +240,6 @@ const EditProgram = () => {
 	useEffect(() => {
 		// Set the default selected program to first item (most recently released)
 		if (programList?.length > 0) {
-			// console.log(programList[0]);
 			setSelectedProgram(programList[0]);
 		}
 	}, [programList]);
@@ -252,8 +283,8 @@ const EditProgram = () => {
 											id={`user-${i}`}
 											key={user[1]}
 											className='dropdown-row'
-											onClick={onClick}
-											onMouseMove={onMouseMove}
+											onClick={onClickSearch}
+											onMouseMove={onMouseMoveSearch}
 											onMouseLeave={onMouseLeaveSearch}>
 											{user[0]}
 										</li>
@@ -270,13 +301,214 @@ const EditProgram = () => {
 							Client:<strong>{selectedUser[0]}</strong>
 						</span>
 					</div>
+
 					{programList?.length === 0 && <div>No Program Info</div>}
+
 					{programList?.length > 0 && (
-						<div className='program-info'>
+						<div className='program-container'>
 							<div className='program-select'>
-								<span className='label'>Release Date:</span>
+								<label className='label'>Release Date:</label>
+								<select
+									name='release-date'
+									id='release-date'
+									onChange={(e) => {
+										e.preventDefault();
+										e.stopPropagation();
+										setSelectedProgram(programList[e?.target?.value]);
+									}}>
+									{programList.map((program, programIndex) => {
+										if (programIndex < 10) {
+											return (
+												<option value={programIndex}>{`${
+													program.release_date.split('T')[0]
+												}`}</option>
+											);
+										} else {
+											return null;
+										}
+									})}
+								</select>
+								<span className='info'>
+									(only last 10 entries available to edit)
+								</span>
 							</div>
-							{programList[0].email}
+							<div className='program-data'>
+								{selectedProgram?.workout?.map((day, dayIndex) => {
+									return (
+										<div className='day'>
+											<div className='title'>
+												<strong>{`Day ${day.day}`}</strong>
+											</div>
+											<div className='category'>
+												<div className='title'>
+													<span
+														onClick={() => {
+															addMobilityItem(dayIndex);
+														}}>
+														Add Mobility
+													</span>
+												</div>
+												{day.mobility?.map((item, itemIndex) => {
+													return (
+														<div
+															className='item-mobility'
+															id={`day-${dayIndex}-mobility-${itemIndex}`}>
+															<input
+																type='text'
+																name='name'
+																id={`day-${dayIndex}-mobility-${itemIndex}-name`}
+																value={day.mobility[itemIndex].name}
+																placeholder='Name'
+															/>
+															<input
+																type='number'
+																name='sets'
+																id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
+																value={day.mobility[itemIndex].sets}
+																placeholder='Sets'
+																min={1}
+															/>
+															<input
+																type='number'
+																name='reps'
+																id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
+																value={day.mobility[itemIndex].reps}
+																placeholder='Reps'
+																min={1}
+															/>
+															<input
+																type='text'
+																name='comment'
+																id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
+																value={
+																	day.mobility[itemIndex].comment
+																}
+																placeholder='Comments (optional)'
+															/>
+															<button
+																id={`day-${dayIndex}-mobility-${itemIndex}-button`}
+																onClick={(e) =>
+																	removeMobilityItem(e)
+																}>
+																X
+															</button>
+														</div>
+													);
+												})}
+											</div>
+											<div className='category'>
+												<div className='title'>
+													<span>Strength</span>
+												</div>
+												{day.strength?.map((item, itemIndex) => {
+													return (
+														<div
+															className='item-strength'
+															id={`day-${dayIndex}-strength-${itemIndex}`}>
+															<input
+																type='text'
+																name='name'
+																id={`day-${dayIndex}-strength-${itemIndex}-name`}
+																value={day.strength[itemIndex].name}
+																placeholder='Name'
+															/>
+															<input
+																type='number'
+																name='sets'
+																id={`day-${dayIndex}-strength-${itemIndex}-sets`}
+																value={day.strength[itemIndex].sets}
+																placeholder='Sets'
+																min={1}
+															/>
+															<input
+																type='number'
+																name='reps'
+																id={`day-${dayIndex}-strength-${itemIndex}-reps`}
+																value={day.strength[itemIndex].reps}
+																placeholder='Reps'
+																min={1}
+															/>
+															<input
+																type='number'
+																name='reps'
+																id={`day-${dayIndex}-strength-${itemIndex}-load`}
+																value={day.strength[itemIndex].load}
+																placeholder='Reps'
+																min={0}
+															/>
+															<input
+																type='text'
+																name='comment'
+																id={`day-${dayIndex}-strength-${itemIndex}-comment`}
+																value={
+																	day.strength[itemIndex].comment
+																}
+																placeholder='Comments (optional)'
+															/>
+															<button
+																id={`day-${dayIndex}-strength-${itemIndex}-button`}>
+																X
+															</button>
+														</div>
+													);
+												})}
+											</div>
+											<div className='category'>
+												<div className='title'>
+													<span>Conditioning</span>
+												</div>
+												{day.conditioning?.map((item, itemIndex) => {
+													return (
+														<div
+															className='item-conditioning'
+															id={`day-${dayIndex}-conditioning-${itemIndex}`}>
+															<input
+																type='text'
+																name='name'
+																id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
+																value={
+																	day.conditioning[itemIndex].name
+																}
+																placeholder='Name'
+															/>
+															<input
+																type='number'
+																name='duration'
+																id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
+																value={
+																	day.conditioning[itemIndex]
+																		.duration
+																}
+																placeholder='Duration (min)'
+																min={1}
+															/>
+															<input
+																type='text'
+																name='comment'
+																id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
+																value={
+																	day.conditioning[itemIndex]
+																		.comment
+																}
+																placeholder='Comments (optional)'
+															/>
+															<button
+																id={`day-${dayIndex}-conditioning-${itemIndex}-button`}>
+																X
+															</button>
+														</div>
+													);
+												})}
+											</div>
+										</div>
+									);
+								})}
+							</div>
+							<div className='btn-container'>
+								<button>Apply Changes</button>
+								<button>Clear All</button>
+								<button className='delete'>Delete Program</button>
+							</div>
 						</div>
 					)}
 				</>
@@ -369,7 +601,7 @@ export const EditProgramDiv = styled.div`
 		}
 	}
 
-	& > .program-info {
+	& > .program-container {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -377,7 +609,6 @@ export const EditProgramDiv = styled.div`
 		align-items: center;
 		margin-top: 0.5em;
 		height: max-content;
-		overflow-x: auto;
 
 		& > .program-select {
 			width: 100%;
@@ -385,10 +616,228 @@ export const EditProgramDiv = styled.div`
 			flex-direction: row;
 			justify-content: start;
 			align-items: center;
+			margin-bottom: 0.5em;
 
 			& > .label {
 				padding-left: 5%;
 				margin-right: 0.5em;
+			}
+
+			& > .info {
+				margin-left: 0.5em;
+				font-size: 0.8em;
+			}
+		}
+
+		& > .program-data {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			border: solid #333;
+			border-width: 2px 0 0 0;
+
+			& > .day {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				border: solid #333;
+				border-width: 0 0 2px 0;
+
+				& > .title {
+					width: 100%;
+					margin-top: 0.5em;
+					margin-bottom: 1em;
+					padding-left: 2em;
+					text-align: left;
+				}
+
+				& > .category {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+					margin: 5px 0;
+
+					& > .title {
+						width: 100%;
+						text-align: start;
+						align-self: start;
+						padding-left: 2em;
+						margin-bottom: 1em;
+
+						& > span {
+							background-color: #87ceeb;
+							border: 2px solid black;
+							box-shadow: 2px 2px 2px #333;
+							border-radius: 10px;
+							padding: 3px 8px;
+
+							&:hover {
+								background-color: #5f90a5;
+								cursor: pointer;
+							}
+							&:active {
+								box-shadow: 0 0 0;
+								translate: 2px, 2px;
+							}
+						}
+					}
+
+					& > .item-mobility {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-evenly;
+						margin-bottom: 5px;
+
+						& > input[name='name'] {
+							width: calc(40% - 7.5em);
+						}
+						& > input[name='sets'] {
+							width: 5em;
+						}
+						& > input[name='reps'] {
+							width: 5em;
+						}
+						& > input[name='comment'] {
+							width: calc(60% - 7.5em);
+						}
+						& > button {
+							background-color: darkred;
+							border: 2px solid #333;
+							border-radius: 5px;
+							box-shadow: 2px 2px 2px #333;
+							width: 2em;
+
+							&:hover {
+								background-color: red;
+								cursor: pointer;
+							}
+							&:active {
+								translate: 2px 2px;
+								box-shadow: 0 0 0;
+							}
+						}
+					}
+
+					& > .item-strength {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-evenly;
+						margin-bottom: 5px;
+
+						& > input[name='name'] {
+							width: calc(40% - 10em);
+						}
+						& > input[name='sets'] {
+							width: 5em;
+						}
+						& > input[name='reps'] {
+							width: 5em;
+						}
+						& > input[name='load'] {
+							width: 5em;
+						}
+						& > input[name='comment'] {
+							width: calc(60% - 10em);
+						}
+						& > button {
+							background-color: darkred;
+							border: 2px solid #333;
+							border-radius: 5px;
+							box-shadow: 2px 2px 2px #333;
+							width: 2em;
+
+							&:hover {
+								background-color: red;
+								cursor: pointer;
+							}
+							&:active {
+								translate: 2px 2px;
+								box-shadow: 0 0 0;
+							}
+						}
+					}
+
+					& > .item-conditioning {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-evenly;
+						margin-bottom: 5px;
+
+						& > input[name='name'] {
+							width: calc(40% - 7.5em);
+						}
+						& > input[name='duration'] {
+							width: 11em;
+						}
+						& > input[name='comment'] {
+							width: calc(60% - 7.5em);
+						}
+						& > button {
+							background-color: darkred;
+							border: 2px solid #333;
+							border-radius: 5px;
+							box-shadow: 2px 2px 2px #333;
+							width: 2em;
+
+							&:hover {
+								background-color: red;
+								cursor: pointer;
+							}
+							&:active {
+								translate: 2px 2px;
+								box-shadow: 0 0 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		& > .btn-container {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-evenly;
+			padding: 5px 0;
+			margin: 1em 0;
+
+			& > button {
+				background-color: #87ceeb;
+				border: 2px solid #333;
+				border-radius: 10px;
+				padding: 3px 8px;
+				color: #333;
+				box-shadow: 3px 3px 2px #333;
+				width: max-content;
+
+				&:hover {
+					background-color: #5f90a5;
+					cursor: pointer;
+				}
+				&:active {
+					translate: 3px 3px;
+					box-shadow: 0 0 0;
+				}
+			}
+
+			& > .delete {
+				background-color: #ff6666;
+				&:hover {
+					background-color: red;
+				}
 			}
 		}
 	}
