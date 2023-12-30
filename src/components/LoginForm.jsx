@@ -8,6 +8,8 @@ import PersistLoginInfo from './PersistLoginInfo';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
+const MOBILE_MODE_LIMIT = `892px`;
+
 const LoginForm = () => {
 	// Form content
 	const [formData, setFormData] = useState({
@@ -222,151 +224,158 @@ const LoginForm = () => {
 };
 
 export const LoginContainer = styled.div`
-	border: 2px solid #333;
-	width: calc(min(50%, 50vw));
-	max-width: 600px;
-	border-radius: 20px;
-	background-color: #d0dce7;
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	max-height: 90%;
-
-	& > h2 {
-		padding: 2vh 0;
-		font-weight: 800;
-		align-self: center;
-		font-size: calc(min(3vh, 3vw));
-	}
-
-	& > .google-login {
-		border: 2px #333 solid;
-		box-shadow: 2px 2px 2px #333;
-		width: fit-content;
-		align-self: center;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
-
-	& > .or-container {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		justify-content: center;
-		padding-top: 2vh;
-
-		& > h4 {
-			font-size: large;
-			align-self: center;
-			font-size: calc(min(2.5vh, 2.5vw));
-		}
-
-		& > .left,
-		.right {
-			color: transparent;
-			flex: 1;
-			background-color: #333;
-			height: 0.2vh;
-			margin: 0 2vw;
-		}
-	}
-
-	& > .login-form {
-		padding: 2vh 2vw;
-		margin-top: -2vh;
-		width: 100%;
-		height: 100%;
+	// Desktop
+	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
+		border: 2px solid #333;
+		width: calc(min(50%, 50vw));
+		max-width: 600px;
+		border-radius: 20px;
+		background-color: #d0dce7;
 		display: flex;
 		flex-direction: column;
+		align-items: start;
+		max-height: 90%;
 
-		& > .label {
-			display: block;
-			padding: 0.5vh 0;
-			align-self: start;
-			display: flex;
-			width: 100%;
-			font-size: calc(min(2vh, 2vw));
-
-			& > .error {
-				color: red;
-				text-align: end;
-				flex: 1;
-				padding-right: 1vw;
-			}
-		}
-		& > input {
-			display: block;
-			width: 100%;
-			padding: 0.5vh 1vw;
-			font-size: calc(min(2vh, 2vw));
+		& > h2 {
+			padding: 2vh 0;
+			font-weight: 800;
+			align-self: center;
+			font-size: calc(min(3vh, 3vw));
 		}
 
-		& > .login-options {
-			align-self: end;
-			font-size: small;
-			padding-bottom: 2vh;
-			padding-right: 0.5vw;
+		& > .google-login {
+			border: 2px #333 solid;
+			box-shadow: 2px 2px 2px #333;
+			width: fit-content;
+			align-self: center;
 			display: flex;
 			flex-direction: row;
-			justify-content: start;
+			justify-content: center;
+			align-items: center;
+		}
+
+		& > .or-container {
+			display: flex;
+			flex-direction: row;
 			width: 100%;
-			position: relative;
-			margin-top: 0.5vh;
+			justify-content: center;
+			padding-top: 2vh;
 
-			& input {
-				margin-left: 0.5vw;
+			& > h4 {
+				font-size: large;
+				align-self: center;
+				font-size: calc(min(2.5vh, 2.5vw));
 			}
 
-			& label {
-				text-align: start;
-				padding-left: 0.5vw;
-				font-size: calc(min(1.5vh, 1.5vw));
+			& > .left,
+			.right {
+				color: transparent;
+				flex: 1;
+				background-color: #333;
+				height: 0.2vh;
+				margin: 0 2vw;
+			}
+		}
+
+		& > .login-form {
+			padding: 2vh 2vw;
+			margin-top: -2vh;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+
+			& > .label {
+				display: block;
+				padding: 0.5vh 0;
+				align-self: start;
+				display: flex;
+				width: 100%;
+				font-size: calc(min(2vh, 2vw));
+
+				& > .error {
+					color: red;
+					text-align: end;
+					flex: 1;
+					padding-right: 1vw;
+				}
+			}
+			& > input {
+				display: block;
+				width: 100%;
+				padding: 0.5vh 1vw;
+				font-size: calc(min(2vh, 2vw));
 			}
 
-			& i {
-				font-size: calc(min(1.5vh, 1.5vw));
+			& > .login-options {
+				align-self: end;
+				font-size: small;
+				padding-bottom: 2vh;
+				padding-right: 0.5vw;
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				width: 100%;
+				position: relative;
+				margin-top: 0.5vh;
+
+				& input {
+					margin-left: 0.5vw;
+				}
+
+				& label {
+					text-align: start;
+					padding-left: 0.5vw;
+					font-size: calc(min(1.5vh, 1.5vw));
+				}
+
+				& i {
+					font-size: calc(min(1.5vh, 1.5vw));
+				}
+
+				& > .persist-info {
+					font-size: calc(min(1.5vh, 1.5vw));
+				}
+
+				& > .forgot-link {
+					color: inherit;
+					text-decoration: none;
+					text-align: end;
+					position: absolute;
+					right: 1vw;
+					font-size: calc(min(1.5vh, 1.5vw));
+
+					&:hover {
+						color: blue;
+						text-decoration: underline;
+					}
+				}
 			}
 
-			& > .persist-info {
-				font-size: calc(min(1.5vh, 1.5vw));
-			}
-
-			& > .forgot-link {
-				color: inherit;
-				text-decoration: none;
-				text-align: end;
-				position: absolute;
-				right: 1vw;
-				font-size: calc(min(1.5vh, 1.5vw));
+			& > .login-btn {
+				background-color: #879db3;
+				border: 2px #333 solid;
+				border-radius: 10px;
+				width: 80%;
+				align-self: center;
+				padding: 0.5vh 0;
+				box-shadow: 2px 2px 2px #333;
+				font-size: calc(min(2.5vh, 2.5vw));
 
 				&:hover {
-					color: blue;
-					text-decoration: underline;
+					background-color: #6e88a1;
+					cursor: pointer;
+				}
+				&:active {
+					translate: 2px 2px;
+					box-shadow: 0 0 0;
 				}
 			}
 		}
+	}
 
-		& > .login-btn {
-			background-color: #879db3;
-			border: 2px #333 solid;
-			border-radius: 10px;
-			width: 80%;
-			align-self: center;
-			padding: 0.5vh 0;
-			box-shadow: 2px 2px 2px #333;
-			font-size: calc(min(2.5vh, 2.5vw));
-
-			&:hover {
-				background-color: #6e88a1;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 2px 2px;
-				box-shadow: 0 0 0;
-			}
-		}
+	// Mobile
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
 	}
 `;
 
