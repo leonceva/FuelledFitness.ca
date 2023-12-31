@@ -1,5 +1,9 @@
 ## Short term goals
 
+-   Front end axios api to set destination based on .env production or dev
+
+-   Back end reset password link to set destination based on .env production or dev
+
 -   Forgot Login mobile
 
 -   Active User Mobile

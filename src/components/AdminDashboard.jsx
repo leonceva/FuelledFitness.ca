@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import useLogout from '../hooks/useLogout';
 import useAuth from '../hooks/useAuth';
 import { jwtDecode } from 'jwt-decode';
-import NewUser from './adminDesktop/NewUser';
-import EditUser from './adminDesktop/EditUser';
-import NewProgram from './adminDesktop/NewProgram';
-import EditProgram from './adminDesktop/EditProgram';
+import NewUser from './admin/NewUser';
+import EditUser from './admin/EditUser';
+import NewProgram from './admin/NewProgram';
+import EditProgram from './admin/EditProgram';
 
 const MOBILE_MODE_LIMIT = `892px`;
 
