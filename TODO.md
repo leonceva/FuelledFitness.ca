@@ -1,30 +1,24 @@
 ## Short term goals
 
--   LoginForm needs mobile mode styles
+-   Forgot Login mobile
 
--   Basic Admin dashboard to create user
+-   Active User Mobile
 
-    -   Needs mobile mode styling
+    -   Profile Settings
 
--   Basic Inactive user dashboard
+        -   Change Password
+        -   Change Display Name
+        -   Change Email
 
-    -   LoginForm needs mobile mode styles
-    -   Access to last three week programs, no feedback
+    -   Browse Programs
+        -   Display Latest Released on Load
+        -   Allow to submit feedback/check-in
 
--   Basic Active user dashboard
+-   Inactive User Mobile
 
-    -   Access to all previous weeks, and feedback
-    -   Create a form/upload for check-in
+-   Active/Inactive User Desktop
 
--   For desktop dashboards create a small pop-up for completed actions
-
-    -   to fade after 5 seconds ?
-
--   Active User mobile mode
-
--   Inactive User mobile mode
-
--   Admin dashboard mobile mode
+-   Admin Dashboard Mobile
 
 -   Email HTML template for:
     -   Reset Password request
