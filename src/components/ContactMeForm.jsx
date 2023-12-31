@@ -5,8 +5,6 @@ import Reaptcha from 'reaptcha';
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
 
 export const ContactMeForm = () => {
-	console.log(reaptchaKey);
-
 	// Form content state data
 	const [formData, setFormData] = useState({
 		name: '',
