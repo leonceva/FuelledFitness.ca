@@ -1,7 +1,6 @@
 import axios from 'axios';
-/* const BASE_URL = 'http://localhost:8080'; */
-// const BASE_URL = 'http://192.168.2.42:8080';
-const BASE_URL = 'https://api.fuelledfitness.ca:8443';
+
+const BASE_URL = process.env.REACT_APP_AXIOS_BASE_URL;
 
 export default axios.create({
 	baseURL: BASE_URL,
