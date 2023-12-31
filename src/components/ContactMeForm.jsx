@@ -3,6 +3,7 @@ import axios from "axios";
 import Reaptcha from "reaptcha";
 
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
+// console.log(reaptchaKey);
 
 export const ContactMeForm = () => {
     // Form content state data
