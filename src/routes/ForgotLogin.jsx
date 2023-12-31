@@ -113,7 +113,7 @@ export const DesktopContent = () => {
 							<input
 								type='email'
 								name='email'
-								id='email'
+								id='email-desktop'
 								autoComplete='email'
 								required
 								placeholder='Enter your e-mail'
@@ -131,9 +131,6 @@ export const DesktopContent = () => {
 								onExpire={() => {
 									setVerified(false);
 									setErrorMessage('CAPTCHA has expired');
-								}}
-								onError={(error) => {
-									console.log(error);
 								}}
 							/>
 							<button>Request Reset Link</button>
@@ -244,7 +241,116 @@ export const DesktopDiv = styled.div`
 `;
 
 export const MobileContent = () => {
-	return <MobileDiv>In development ...</MobileDiv>;
+	const captchaRef = useRef(null);
+	const [email, setEmail] = useState('');
+	const [verified, setVerified] = useState(false);
+	const [errorMessage, setErrorMessage] = useState(false);
+	const [sentReset, setSentReset] = useState(false);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (validateEmail()) {
+			if (verified) {
+				// Send email to server endpoint that will generate the reset token
+				const sendResetInfo = async () => {
+					await axios
+						.post('/resetPassword', {
+							email: email,
+						})
+						.then((res) => {
+							setSentReset(true);
+						})
+						.catch((res) => {
+							if (res.code === 'ERR_BAD_REQUEST') {
+								setErrorMessage('User not found');
+							} else {
+								setErrorMessage('Server error, please try again later');
+							}
+						});
+				};
+				sendResetInfo();
+			} else {
+				setErrorMessage('Pleace complete the CAPTCHA');
+			}
+		}
+	};
+
+	const handleChange = (e) => {
+		const { value } = e.target;
+		setEmail(value);
+		setErrorMessage(false);
+	};
+
+	// Validate email format
+	const validateEmail = () => {
+		// Check valid email
+		if (
+			email.match(
+				// eslint-disable-next-line no-useless-escape
+				/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			)
+		) {
+			setErrorMessage(false);
+			return true;
+		} else {
+			setErrorMessage('Invalid e-mail entered');
+			return false;
+		}
+	};
+
+	return (
+		<MobileDiv>
+			<div className='container'>
+				<h2>Forgot Password</h2>
+				{sentReset && <></>}
+				{!sentReset && (
+					<>
+						<p>
+							Please enter the email address you'd like your password reset
+							information sent to:
+						</p>
+						<form
+							action=''
+							method='post'
+							onSubmit={handleSubmit}>
+							<span className={`error-message ${errorMessage ? 'show' : 'hide'}`}>
+								{errorMessage || 'placeholder'}
+							</span>
+							<input
+								type='email'
+								name='email'
+								id='email-mobile'
+								autoComplete='email'
+								required
+								placeholder='Enter your e-mail'
+								onChange={handleChange}
+								value={email}
+							/>
+							<Reaptcha
+								className='captcha'
+								sitekey={reaptchaKey}
+								onVerify={() => {
+									setVerified(true);
+									setErrorMessage(false);
+								}}
+								ref={captchaRef}
+								onExpire={() => {
+									setVerified(false);
+									setErrorMessage('CAPTCHA has expired');
+								}}
+							/>
+							<button>Request Reset Link</button>
+						</form>
+						<Link
+							className='go-back'
+							to='/account'>
+							Back To Login
+						</Link>
+					</>
+				)}
+			</div>
+		</MobileDiv>
+	);
 };
 
 export const MobileDiv = styled.div`
@@ -255,6 +361,90 @@ export const MobileDiv = styled.div`
 	padding-bottom: 2vh;
 	min-height: calc(100vh - 100px - 4vh);
 	align-items: center;
+	justify-content: center;
+
+	& > .container {
+		margin-top: -4vh;
+		max-width: 90%;
+		width: max-content;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid #333;
+		border-radius: 15px;
+		background-color: #d0dce7;
+
+		& > h2 {
+			padding-top: 1em;
+		}
+
+		& > p {
+			text-align: start;
+			padding: 0.5em 0.5em;
+		}
+
+		& > form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 95%;
+
+			& > .error-message {
+				width: 100%;
+				text-align: end;
+				padding-right: 0.5em;
+				color: red;
+			}
+
+			& > .show {
+				opacity: 1;
+			}
+
+			& > .hide {
+				opacity: 0;
+			}
+
+			& > input {
+				width: 100%;
+			}
+
+			& > .captcha {
+				margin-top: 1em;
+			}
+
+			& button {
+				max-width: 80%;
+				margin: 1em 0;
+				background-color: #879db3;
+				border: 2px solid #333;
+				border-radius: 10px;
+				padding: 0.3em 0.5em;
+				font-size: calc(max(2vh, 2vw));
+				box-shadow: 2px 2px 2px #333;
+
+				&:hover {
+					background-color: #6e88a1;
+					cursor: pointer;
+				}
+				&:active {
+					translate: 2px 2px;
+					box-shadow: 0 0 0;
+				}
+			}
+		}
+
+		& > .go-back {
+			padding-bottom: 1em;
+			font-weight: bold;
+
+			&:hover {
+				cursor: pointer;
+				text-decoration: underline;
+				color: blue;
+			}
+		}
+	}
 `;
 
 export default ForgotLogin;
