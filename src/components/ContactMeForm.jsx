@@ -3,9 +3,9 @@ import axios from "axios";
 import Reaptcha from "reaptcha";
 
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
-// console.log(reaptchaKey);
 
 export const ContactMeForm = () => {
+    console.log(reaptchaKey);
     // Form content state data
     const [formData, setFormData] = useState({
         name: "",
