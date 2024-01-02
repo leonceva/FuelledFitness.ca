@@ -1,8 +1,8 @@
 ## Short term goals
 
--   Front end axios api to set destination based on .env production or dev
-
 -   Back end reset password link to set destination based on .env production or dev
+
+-   Improved backend logs for login/logout, refreshToken, JWT verification
 
 -   Forgot Login mobile
 
