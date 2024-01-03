@@ -321,12 +321,11 @@ export const LoginContainer = styled.div`
 				min-width: 300px;
 
 				& input {
-					margin-left: 0.5vw;
 				}
 
 				& label {
 					text-align: start;
-					padding-left: 0.5vw;
+					padding-left: 0.5em;
 					font-size: calc(min(1.5vh, 1.5vw));
 				}
 
@@ -342,9 +341,10 @@ export const LoginContainer = styled.div`
 					color: inherit;
 					text-decoration: none;
 					text-align: end;
-					position: absolute;
 					right: 1vw;
 					font-size: calc(min(1.5vh, 1.5vw));
+					position: absolute;
+					right: 0%;
 
 					&:hover {
 						color: blue;

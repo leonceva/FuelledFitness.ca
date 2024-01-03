@@ -965,6 +965,8 @@ export const NewProgramDiv = styled.div`
 		height: 100%;
 		background-color: #f0e9df;
 		opacity: 0.8;
+		left: 0%;
+		top: 0%;
 	}
 
 	& > .alert {
@@ -1004,6 +1006,7 @@ export const NewProgramDiv = styled.div`
 		width: 100%;
 		margin-top: 1em;
 		margin-bottom: 1em;
+		text-align: center;
 	}
 
 	& > .search {
@@ -1011,6 +1014,7 @@ export const NewProgramDiv = styled.div`
 		width: 100%;
 		flex-direction: row;
 		justify-content: center;
+		text-align: center;
 
 		& label {
 			width: 20%;
@@ -1101,6 +1105,7 @@ export const NewProgramDiv = styled.div`
 						border: 2px solid #333;
 						width: 3em;
 						border-radius: 5px;
+						text-align: center;
 					}
 
 					& > span {

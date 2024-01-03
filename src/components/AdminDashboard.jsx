@@ -85,8 +85,9 @@ const AdminDashboard = (props) => {
 };
 
 const DashboardDiv = styled.div`
+	// Desktop Mode
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
-		width: 100%;
+		width: 90%;
 		height: 95%;
 		display: flex;
 		flex-direction: row;
@@ -102,6 +103,8 @@ const DashboardDiv = styled.div`
 			border-bottom-left-radius: 20px;
 			display: flex;
 			flex-direction: column;
+			justify-content: start;
+			align-items: center;
 			color: #d0dceb;
 
 			& > .login-info {
@@ -137,6 +140,7 @@ const DashboardDiv = styled.div`
 				& span {
 					padding: 10% 0;
 					width: 100%;
+					text-align: center;
 
 					&:hover {
 						cursor: pointer;
@@ -190,6 +194,7 @@ const DashboardDiv = styled.div`
 		}
 	}
 
+	// Mobile Mode
 	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
 	}
 `;
