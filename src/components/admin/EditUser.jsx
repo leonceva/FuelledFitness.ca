@@ -520,6 +520,7 @@ export const EditUserDiv = styled.div`
 		width: 100%;
 		margin-top: 1em;
 		margin-bottom: 1em;
+		text-align: center;
 	}
 
 	& > .search {
@@ -577,6 +578,9 @@ export const EditUserDiv = styled.div`
 			width: 100%;
 			padding: 0.5vh 0;
 			position: relative;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
 
 			& > .changed {
 				position: absolute;

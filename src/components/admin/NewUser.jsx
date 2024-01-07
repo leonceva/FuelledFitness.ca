@@ -202,6 +202,7 @@ export const NewUserDiv = styled.div`
 		font-size: calc(min(3vw, 3vh));
 		width: 100%;
 		margin-top: 1em;
+		text-align: center;
 	}
 
 	& form {
@@ -232,6 +233,9 @@ export const NewUserDiv = styled.div`
 		& > .input {
 			width: 100%;
 			padding: 1vh 0;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
 
 			& > label {
 				width: 20%;

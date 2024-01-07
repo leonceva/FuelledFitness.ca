@@ -1065,6 +1065,7 @@ export const EditProgramDiv = styled.div`
 		width: 100%;
 		margin-top: 1em;
 		margin-bottom: 1em;
+		text-align: center;
 	}
 
 	& > .search {
