@@ -1,7 +1,5 @@
 ## Short term goals
 
--   Forgot Login mobile
-
 -   Active User Mobile
 
     -   Profile Settings
@@ -18,7 +16,7 @@
 
 -   Active/Inactive User Desktop
 
--   Admin Dashboard Mobile
+-   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
 
 -   Email HTML template for:
     -   Reset Password request

@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import Footer from '../components/Footer';
 
-const MOBILE_MODE_LIMIT = `892px`;
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 export const DesktopLayout = (props) => {
 	const content = props.content;

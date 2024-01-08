@@ -6,7 +6,7 @@ import AdminDashboard from '../components/AdminDashboard';
 import { jwtDecode } from 'jwt-decode';
 import Footer from '../components/Footer';
 
-const MOBILE_MODE_LIMIT = `892px`;
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const MyAccount = () => {
 	const { auth } = useAuth();
@@ -17,7 +17,7 @@ const MyAccount = () => {
 			<div className='layout'>
 				{userRole === null && <LoginForm />}
 				{userRole === 'admin' && <AdminDashboard />}
-				{userRole === 'active' && <ClientDashboard />}
+				{userRole === 'active' && <ClientDashboard user={decoded.User} />}
 			</div>
 			<Footer />
 		</Div>
@@ -31,7 +31,6 @@ export const Div = styled.div`
 	height: 100%;
 	justify-content: start;
 	align-items: center;
-	background-image: linear-gradient(to right, gray, #f0e9df 10%, #f0e9df 90%, gray);
 
 	& > .layout {
 		@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
@@ -43,6 +42,7 @@ export const Div = styled.div`
 			align-items: center;
 			height: 100%;
 			width: 100%;
+			background-image: linear-gradient(to right, gray, #f0e9df 10%, #f0e9df 90%, gray);
 		}
 
 		// Mobile
@@ -50,11 +50,12 @@ export const Div = styled.div`
 			position: relative;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
+			justify-content: start;
 			align-items: center;
 			width: 100%;
 			height: 100%;
 			z-index: 0;
+			background-image: linear-gradient(to right, white, lightgray, white);
 		}
 	}
 `;

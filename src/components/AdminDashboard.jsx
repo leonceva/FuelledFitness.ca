@@ -8,7 +8,7 @@ import EditUser from './admin/EditUser';
 import NewProgram from './admin/NewProgram';
 import EditProgram from './admin/EditProgram';
 
-const MOBILE_MODE_LIMIT = `892px`;
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const AdminDashboard = (props) => {
 	const { auth } = useAuth();
