@@ -6,14 +6,14 @@ const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const MyAccount = (props) => {
 	const user = props.user;
-	const [firstName, setFirstName] = useState(undefined);
-	const [lastName, setLastName] = useState(undefined);
-	const [email, setEmail] = useState(undefined);
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
 	const [edit, setEdit] = useState(false);
 	const [changePassword, setChangePassword] = useState(false);
 	const [infoMessage, setInfoMessage] = useState(null);
-	const [newPassword, setNewPassword] = useState(undefined);
-	const [confirmPassword, setConfirmPassword] = useState(undefined);
+	const [newPassword, setNewPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const axiosPrivate = useAxiosPrivate();
 
@@ -86,6 +86,21 @@ const MyAccount = (props) => {
 			// Check if both password inputs match
 			if (newPassword === confirmPassword) {
 				// TODO axios endpoint to update password with JWT verify
+				await axiosPrivate
+					.put('/users/changePassword', {
+						email: user.email,
+						newPassword: newPassword,
+					})
+					.then((res) => {
+						if (res?.status === 200) {
+							setChangePassword(false);
+							setNewPassword('');
+							setConfirmPassword('');
+						}
+					})
+					.catch((err) => {
+						setInfoMessage(err?.data || 'Password request failed');
+					});
 			} else {
 				setInfoMessage('Passwords do not match');
 			}
