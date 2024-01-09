@@ -148,7 +148,7 @@ const LoginForm = () => {
 	return (
 		<LoginContainer>
 			<h2>Login</h2>
-			<span className='google-login'>
+			<div className='google-login'>
 				<GoogleLogin
 					width={200}
 					size='large'
@@ -156,7 +156,7 @@ const LoginForm = () => {
 					onSuccess={handleSuccessGoogle}
 					onError={handleErrorGoogle}
 				/>
-			</span>
+			</div>
 
 			<div className='or-container'>
 				<h4 className='left'>left</h4>
@@ -244,9 +244,11 @@ export const LoginContainer = styled.div`
 		}
 
 		& > .google-login {
-			border: 2px #333 solid;
-			box-shadow: 2px 2px 2px #333;
+			border-radius: 5px;
+			min-width: 200px;
 			width: fit-content;
+			min-height: 35px;
+			height: fit-content;
 			align-self: center;
 			display: flex;
 			flex-direction: row;
@@ -400,9 +402,11 @@ export const LoginContainer = styled.div`
 		}
 
 		& > .google-login {
-			border: 2px #333 solid;
-			box-shadow: 2px 2px 2px #333;
+			border-radius: 5px;
+			min-width: 200px;
 			width: fit-content;
+			min-height: 35px;
+			height: fit-content;
 			align-self: center;
 			display: flex;
 			flex-direction: row;
