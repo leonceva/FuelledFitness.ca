@@ -19,6 +19,7 @@ const MyAccount = (props) => {
 
 	const handleChange = (e) => {
 		e.preventDefault();
+		setInfoMessage(null);
 
 		if (e.target.name === 'first-name') {
 			setFirstName(e.target.value);
@@ -79,7 +80,43 @@ const MyAccount = (props) => {
 		return true;
 	};
 
-	const updatePassword = () => {};
+	const updatePassword = async () => {
+		// Check password constraints
+		if (checkConstraints() === true) {
+			// Check if both password inputs match
+			if (newPassword === confirmPassword) {
+				// TODO axios endpoint to update password with JWT verify
+			} else {
+				setInfoMessage('Passwords do not match');
+			}
+		}
+	};
+
+	const checkConstraints = () => {
+		if (newPassword.length < 6) {
+			setInfoMessage('Password must be 6 characters or longer');
+			return false;
+		}
+		if (newPassword.search(/[a-z]/) < 0) {
+			setInfoMessage('Password must contain a lowercase letter');
+			return false;
+		}
+		if (newPassword.search(/[A-Z]/) < 0) {
+			setInfoMessage('Password must contain an uppercase letter');
+			return false;
+		}
+
+		if (newPassword.search(/[0-9]/) < 0) {
+			setInfoMessage('Password must contain a number');
+			return false;
+		}
+		if (newPassword.search(/[^A-Za-z 0-9]/g) < 0) {
+			setInfoMessage('Password must contain a special character');
+			return false;
+		}
+		setInfoMessage(null);
+		return true;
+	};
 
 	useEffect(() => {
 		setFirstName(user.firstName);
@@ -135,28 +172,41 @@ const MyAccount = (props) => {
 					)}
 					{changePassword === true && (
 						<>
+							<div className='password-info'>
+								Please enter the new password for your account. <br />
+								<ul>
+									<li>The new password must be at least 6 characters long.</li>
+									<li>
+										The new password must contain the following: a lowercase
+										leter, an upeprcase letter, a number, and a special
+										character.
+									</li>
+								</ul>
+							</div>
 							<div className='info-type'>
-								<span className='label'>New Password:</span>
 								<input
 									type='password'
 									autoComplete='off'
 									name='new-password'
-									className='info'
+									className='password'
 									value={newPassword}
 									onChange={handleChange}
 									required
+									placeholder='New Password'
 								/>
 							</div>
 							<div className='info-type'>
-								<span className='label'>Confirm Password:</span>
 								<input
 									type='password'
 									autoComplete='off'
 									name='confirm-password'
-									className='info'
+									className='password'
 									value={confirmPassword}
 									onChange={handleChange}
 									required
+									placeholder='Confirm New Password'
+									onPaste={(e) => e.preventDefault()}
+									onDrop={(e) => e.preventDefault()}
 								/>
 							</div>
 						</>
@@ -183,6 +233,9 @@ const MyAccount = (props) => {
 									onClick={() => {
 										setEdit(false);
 										setInfoMessage(null);
+										setFirstName(user.firstName);
+										setLastName(user.lastName);
+										setEmail(user.email);
 									}}>
 									Cancel
 								</button>
@@ -201,6 +254,8 @@ const MyAccount = (props) => {
 									onClick={() => {
 										setChangePassword(false);
 										setInfoMessage(null);
+										setNewPassword(undefined);
+										setConfirmPassword(undefined);
 									}}>
 									Cancel
 								</button>
@@ -244,12 +299,12 @@ export const MobileDiv = styled.div`
 
 				& > span {
 					text-align: right;
-					min-width: 140px;
+					min-width: 100px;
 					max-width: 50%;
 					margin-right: 0.5em;
 				}
 
-				& > input {
+				& > .info {
 					flex: 1;
 					margin-right: 1em;
 					max-width: 300px;
@@ -260,6 +315,17 @@ export const MobileDiv = styled.div`
 					pointer-events: none;
 					background-color: lightgray;
 				}
+
+				& > .password {
+					flex: 1;
+					max-width: 300px;
+					align-self: center;
+				}
+			}
+
+			& > .password-info {
+				width: 100%;
+				padding: 0 1em;
 			}
 
 			& > .btn-container {

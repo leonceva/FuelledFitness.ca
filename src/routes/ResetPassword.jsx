@@ -136,6 +136,7 @@ export const DesktopContent = () => {
 								autoComplete='new-password'
 								onChange={handleChange}
 								value={formData.newPassword}
+								required
 							/>
 						</div>
 						<div className='input'>
@@ -145,16 +146,11 @@ export const DesktopContent = () => {
 								name='confirmPassword'
 								id='confirmPassword'
 								autoComplete='off'
-								onPaste={(e) => {
-									e.preventDefault();
-									return false;
-								}}
-								onDrop={(e) => {
-									e.preventDefault();
-									return false;
-								}}
+								onPaste={(e) => e.preventDefault()}
+								onDrop={(e) => e.preventDefault()}
 								onChange={handleChange}
 								value={formData.confirmPassword}
+								required
 							/>
 						</div>
 						<button
