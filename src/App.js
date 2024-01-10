@@ -7,7 +7,13 @@ import Homepage from "./routes/Homepage";
 import About from "./routes/About";
 import Contact from "./routes/Contact";
 import Services from "./routes/Services";
-// import MyAccount from "./routes/MyAccount";
+import MyAccount from "./routes/MyAccount";
+import Athletes from "./routes/Athletes";
+import { AuthProvider } from "./context/AuthProvider";
+import PersistLogin from "./components/PersistLogin";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import ForgotLogin from "./routes/ForgotLogin";
+import ResetPassword from "./routes/ResetPassword";
 
 function App() {
 
@@ -34,6 +40,29 @@ function App() {
                     path: "/services",
                     element: <Services />
                 },
+                {
+                    path: "/account",
+                    element:
+                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}>
+                            <AuthProvider>
+                                <PersistLogin>
+                                    <MyAccount />
+                                </PersistLogin>
+                            </AuthProvider>
+                        </GoogleOAuthProvider>
+                },
+                {
+                    path: "/athletes",
+                    element: <Athletes />
+                },
+                {
+                    path: "/forgotLogin",
+                    element: < ForgotLogin />
+                },
+                {
+                    path: "/resetPassword",
+                    element: < ResetPassword />
+                }
             ],
         },
     ]);
@@ -43,6 +72,9 @@ function App() {
             <RouterProvider router={router} />
         </div>
     );
+
+
+
 }
 
 export default App;

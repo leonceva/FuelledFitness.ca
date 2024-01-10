@@ -1,12 +1,34 @@
 ## Short term goals
-- Add placeholder page for each link
-- Add default render page for '/'
-- Document stylesheet
+
+-   Active User Mobile
+
+    -   Profile Settings
+
+        -   Change Password
+        -   Change Display Name
+        -   Change Email
+
+    -   Browse Programs
+        -   Display Latest Released on Load
+        -   Allow to submit feedback/check-in
+
+-   Inactive User Mobile
+
+-   Active/Inactive User Desktop
+
+-   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
+
+-   Email HTML template for:
+    -   Reset Password request
+    -   Account created
+    -   New Program Created for Client
+    -   Account Information Edited/Deleted
 
 ## Long term goals
-- Mobil Mode layout
-- 'Contact Me' page to have a form, email api
-- Log in section for members
-- Data base for individual plans
-- Log in with authOA
-- Blog post integration?
+
+-   Mobile App with React Native
+-   Similar nutrition platform
+-   Invoice and payment options with Stripe(?)
+-   Thorough workout and exercises database
+-   Implement complex queries and filtering for admin dashboard
+-   Client data storage to be HIPPA complient
