@@ -13,14 +13,16 @@ const Programs = (props) => {
 	const [selectedProgram, setSelectedProgram] = useState(null);
 
 	const { auth } = useAuth();
-	const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
-	const user = decoded?.User;
+	let decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
+	let user = decoded?.User;
 
 	const axiosPrivate = useAxiosPrivate();
 
 	// Get the array of all programs for the user
 	const getProgramList = async () => {
 		setAwaiting(true);
+		decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
+		user = decoded?.User;
 		await axiosPrivate
 			.get(`/programs/${user.id}`)
 			.then((res) => {
