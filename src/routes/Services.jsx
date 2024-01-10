@@ -17,7 +17,6 @@ const Services = () => {
 			setServiceSelected('none');
 		} else {
 			let separator = location.hash.indexOf('-');
-			console.log(`Index of separator: ${separator}`);
 			if (separator === -1) {
 				setServiceSelected(location.hash.slice(1));
 			} else {

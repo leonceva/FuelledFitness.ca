@@ -13,6 +13,8 @@ export const FooterDiv = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+	border: solid #333;
+	border-width: 2px 0 0 0;
 
 	// For Mobile
 	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {

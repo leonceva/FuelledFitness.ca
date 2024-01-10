@@ -40,9 +40,6 @@ export const MobileContainer = styled.div`
 		width: 100%;
 		z-index: 0;
 		height: 92%;
-		border-color: #333;
-		border-style: solid;
-		border-width: 0.2vh 0;
 	}
 `;
 

@@ -10,13 +10,11 @@ const ClientDashboard = (props) => {
 	const user = props.user;
 
 	const logout = useLogout();
-	const initialOptionState = JSON.parse(sessionStorage.getItem('optionSelected')) || 'Programs';
 
-	const [optionSelected, setOptionSelected] = useState(initialOptionState);
+	const [optionSelected, setOptionSelected] = useState('Programs');
 
 	const handleOption = (option) => {
 		setOptionSelected(option);
-		sessionStorage.setItem('optionSelected', JSON.stringify(option));
 	};
 
 	const firstName = user.firstName || null;

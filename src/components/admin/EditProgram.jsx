@@ -301,7 +301,6 @@ const EditProgram = () => {
 	// Add strength item
 	const addStrengthItem = (dayIndex) => {
 		setAllowSubmit(true);
-
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
 		// Copy strength list
@@ -373,7 +372,7 @@ const EditProgram = () => {
 		setAllowSubmit(true);
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
-		const itemIndex = id.slice(18, id.indexOf('-', 18));
+		const itemIndex = id.slice(19, id.indexOf('-', 19));
 
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
@@ -389,9 +388,10 @@ const EditProgram = () => {
 
 	// Handle conditioning item change
 	const handleConditioningChange = (e) => {
+		setAllowSubmit(true);
 		const { name, value, id } = e.target;
 		const dayIndex = id.charAt(4);
-		const itemIndex = id.slice(18, id.indexOf('-', 18));
+		const itemIndex = id.slice(19, id.indexOf('-', 19));
 
 		// Deep copy edited program
 		let editedProgram = JSON.parse(JSON.stringify(selectedProgram));
@@ -848,10 +848,10 @@ const EditProgram = () => {
 															/>
 															<input
 																type='number'
-																name='reps'
+																name='load'
 																id={`day-${dayIndex}-strength-${itemIndex}-load`}
 																value={day.strength[itemIndex].load}
-																placeholder='Reps'
+																placeholder='Load'
 																min={0}
 																onChange={(e) => {
 																	handleStrengthChange(e);

@@ -101,7 +101,7 @@ const Programs = (props) => {
 						{selectedProgram.workout.map((day, dayIndex) => {
 							return (
 								<div className='workout-day'>
-									<span className='title'>{`Day: ${day.day}`}</span>
+									<span className='title'>{`Day ${day.day}`}</span>
 									{day.mobility.length > 0 && (
 										<table>
 											<tbody>
@@ -110,19 +110,21 @@ const Programs = (props) => {
 													style={{ backgroundColor: '#3EB489' }}>
 													<td colSpan={4}>Mobility</td>
 												</tr>
-												<tr className='item-header'>
-													<td>Name</td>
-													<td>Sets</td>
-													<td>Reps</td>
-													<td>Notes</td>
+												<tr>
+													<td className='item-header name'>Name</td>
+													<td className='item-header value'>Sets</td>
+													<td className='item-header value'> Reps</td>
+													<td className='item-header comment'>Notes</td>
 												</tr>
 												{day.mobility.map((item, itemIndex) => {
 													return (
 														<tr>
-															<td>{item.name}</td>
-															<td>{item.sets}</td>
-															<td>{item.reps}</td>
-															<td>{item?.comment || '-'}</td>
+															<td className='name'>{item.name}</td>
+															<td className='value'>{item.sets}</td>
+															<td className='value'>{item.reps}</td>
+															<td className='comment'>
+																{item?.comment || '-'}
+															</td>
 														</tr>
 													);
 												})}
@@ -137,21 +139,23 @@ const Programs = (props) => {
 													style={{ backgroundColor: '#cc5500' }}>
 													<td colSpan={5}>Strength</td>
 												</tr>
-												<tr className='item-header'>
-													<td>Name</td>
-													<td>Sets</td>
-													<td>Reps</td>
-													<td>Load (kg)</td>
-													<td>Notes</td>
+												<tr>
+													<td className='item-header name'>Name</td>
+													<td className='item-header value'>Sets</td>
+													<td className='item-header value'>Reps</td>
+													<td className='item-header value'>Load (kg)</td>
+													<td className='item-header comment'>Notes</td>
 												</tr>
 												{day.strength.map((item, itemIndex) => {
 													return (
 														<tr>
-															<td>{item.name}</td>
-															<td>{item.sets}</td>
-															<td>{item.reps}</td>
-															<td>{item.load}</td>
-															<td>{item?.comment || '-'}</td>
+															<td className='name'>{item.name}</td>
+															<td className='value'>{item.sets}</td>
+															<td className='value'>{item.reps}</td>
+															<td className='value'>{item.load}</td>
+															<td className='comment'>
+																{item?.comment || '-'}
+															</td>
 														</tr>
 													);
 												})}
@@ -166,17 +170,23 @@ const Programs = (props) => {
 													style={{ backgroundColor: '#FFDB58' }}>
 													<td colSpan={3}>Conditioning</td>
 												</tr>
-												<tr className='item-header'>
-													<td>Name</td>
-													<td>Duration</td>
-													<td>Notes</td>
+												<tr>
+													<td className='item-header name'>Name</td>
+													<td className='item-header value'>
+														Duration (min)
+													</td>
+													<td className='item-header comment'>Notes</td>
 												</tr>
 												{day.conditioning.map((item, itemIndex) => {
 													return (
 														<tr>
-															<td>{item.name}</td>
-															<td>{item.duration}</td>
-															<td>{item?.comment || '-'}</td>
+															<td className='name'>{item.name}</td>
+															<td className='value'>
+																{item.duration}
+															</td>
+															<td className='comment'>
+																{item?.comment || '-'}
+															</td>
 														</tr>
 													);
 												})}
@@ -202,7 +212,8 @@ export const MobileDiv = styled.div`
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
-		align-items: center;
+		align-items: start;
+		overflow-x: auto;
 
 		& > .loader-container {
 			width: 100%;
@@ -220,7 +231,7 @@ export const MobileDiv = styled.div`
 			justify-content: start;
 			margin-top: 1em;
 			margin-left: 1em;
-			margin-bottom: 1em;
+			margin-bottom: 0.5em;
 
 			& > span {
 			}
@@ -230,48 +241,61 @@ export const MobileDiv = styled.div`
 		}
 
 		& > .selected-program {
-			width: 100%;
+			min-width: 100%;
+			width: max-content;
 			height: fit-content;
 			display: flex;
 			flex-direction: column;
-			align-items: center;
-			justify-content: start;
-			border: solid #333;
-			border-width: 2px 0 0 0;
+			align-items: flex-start;
 
 			& > .workout-day {
-				width: 100%;
+				width: max-content;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: start;
-				border: solid #333;
-				border-width: 0 0 2px 0;
-				padding: 1em 0;
-				overflow-y: auto;
+				padding: 0.5em 0;
 
 				& > .title {
 					align-self: flex-start;
+					font-size: 1.2em;
 					padding-left: 1em;
 					font-weight: bold;
 				}
 
 				& > table {
-					margin-top: 0.5em;
-					margin-left: 1em;
+					margin: 0.5em 0.5em;
 					border: 2px solid #333;
 
 					& .item-title {
 						border: solid #333;
 						border-width: 0 0 2px 0;
+						font-weight: bolder;
+					}
+
+					& .item-header {
 						font-weight: bold;
+					}
+
+					& .name {
+						text-align: center;
+						max-width: 125px;
+					}
+
+					& .value {
+						text-align: center;
+						max-width: 85px;
+					}
+
+					& .comment {
+						max-width: 80vw;
 					}
 
 					td {
 						border: 1px solid #333;
 						border-width: 1px 2px 1px 1px;
 						padding: 0.25em 0.5em;
-						text-align: center;
+						text-align: left;
 					}
 				}
 			}
