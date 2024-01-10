@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import LoaderMobile from '../client/LoaderMobile';
+import useAuth from '../hooks/useAuth';
+import { jwtDecode } from 'jwt-decode';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
@@ -10,7 +12,9 @@ const Programs = (props) => {
 	const [programList, setProgramList] = useState(null);
 	const [selectedProgram, setSelectedProgram] = useState(null);
 
-	const user = props.user;
+	const { auth } = useAuth();
+	const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
+	const user = decoded?.User;
 
 	const axiosPrivate = useAxiosPrivate();
 

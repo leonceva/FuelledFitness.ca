@@ -2,14 +2,7 @@
 
 -   Active User Mobile
 
-    -   Profile Settings
-
-        -   Change Password
-        -   Change Display Name
-        -   Change Email
-
     -   Browse Programs
-        -   Display Latest Released on Load
         -   Allow to submit feedback/check-in
 
 -   Inactive User Mobile
