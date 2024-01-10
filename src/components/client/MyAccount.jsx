@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { jwtDecode } from 'jwt-decode';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
