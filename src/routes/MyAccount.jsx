@@ -17,7 +17,7 @@ const MyAccount = () => {
 			<div className='layout'>
 				{userRole === null && <LoginForm />}
 				{userRole === 'admin' && <AdminDashboard />}
-				{userRole === 'active' && <ClientDashboard />}
+				{userRole === 'active' && <ClientDashboard user={decoded.User} />}
 			</div>
 			<Footer />
 		</Div>

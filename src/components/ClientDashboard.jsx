@@ -3,15 +3,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import MyAccount from './client/MyAccount';
 import Programs from './client/Programs';
-import useAuth from '../hooks/useAuth';
-import { jwtDecode } from 'jwt-decode';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const ClientDashboard = (props) => {
-	const { auth } = useAuth();
-	const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
-	const user = decoded?.User;
+	const user = props.user;
 
 	const logout = useLogout();
 
@@ -61,8 +57,8 @@ const ClientDashboard = (props) => {
 					</span>
 				</div>
 				<div className='option-selected'>
-					{optionSelected === 'Programs' && <Programs />}
-					{optionSelected === 'My Account' && <MyAccount />}
+					{optionSelected === 'Programs' && <Programs user={user} />}
+					{optionSelected === 'My Account' && <MyAccount user={user} />}
 				</div>
 			</MobileDiv>
 			<DesktopDiv>

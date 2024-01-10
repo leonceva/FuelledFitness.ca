@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import useAuth from '../../hooks/useAuth';
-import { jwtDecode } from 'jwt-decode';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const MyAccount = (props) => {
+	const user = props.user;
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
@@ -15,10 +14,6 @@ const MyAccount = (props) => {
 	const [infoMessage, setInfoMessage] = useState(null);
 	const [newPassword, setNewPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-
-	const { auth } = useAuth();
-	const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
-	const user = decoded?.User;
 
 	const axiosPrivate = useAxiosPrivate();
 
