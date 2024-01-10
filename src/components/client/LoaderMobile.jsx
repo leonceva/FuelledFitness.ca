@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 import loaderImg from '../../images/loader.svg';
 
-const Loader = () => {
+const LoaderMobile = () => {
 	return (
 		<Loading>
-			<h1>Loading</h1>
+			<h1>Loading..</h1>
 			<img
 				className='loader'
 				alt='loader'
@@ -17,28 +17,23 @@ const Loader = () => {
 
 export const Loading = styled.div`
 	width: 100%;
-	height: 100%;
-	position: absolute;
+	flex: 1;
+	position: relative;
+	height: auto;
 	z-index: 3;
 	background-color: lightgray;
 	opacity: 0.5;
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: start;
-	border-top-right-radius: calc(min(3vw, 3vh));
-	border-bottom-right-radius: calc(min(3vw, 3vh));
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
 
 	& h1 {
-		margin: 3vh 0.5vw 0;
-		height: 10%;
+		margin-top: 30%;
 		font-stretch: expanded;
 	}
 
 	& > .loader {
-		margin-top: calc(3vh + 1%);
-		margin-left: 1vw;
-		height: 8%;
 		animation-name: spin;
 		animation-duration: 1.5s;
 		animation-delay: 0s;
@@ -64,4 +59,4 @@ export const Loading = styled.div`
 	}
 `;
 
-export default Loader;
+export default LoaderMobile;

@@ -809,7 +809,7 @@ const NewProgram = () => {
 																		itemIndex
 																	].load
 																}
-																placeholder='Load (kg)'
+																placeholder='Load'
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}

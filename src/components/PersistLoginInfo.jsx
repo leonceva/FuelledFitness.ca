@@ -9,7 +9,7 @@ const PersistLoginInfo = () => {
 			<i
 				onMouseEnter={() => setDisplay(true)}
 				onMouseLeave={() => setDisplay(false)}
-				class='bi bi-info-circle'></i>
+				className='bi bi-info-circle'></i>
 			<div className={`${display ? 'show' : 'hidden'}`}></div>
 		</PersistLoginInfoDiv>
 	);

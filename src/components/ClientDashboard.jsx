@@ -2,6 +2,7 @@ import useLogout from '../hooks/useLogout';
 import { useState } from 'react';
 import styled from 'styled-components';
 import MyAccount from './client/MyAccount';
+import Programs from './client/Programs';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
@@ -58,12 +59,18 @@ const ClientDashboard = (props) => {
 					</span>
 				</div>
 				<div className='option-selected'>
+					{optionSelected === 'Programs' && <Programs user={user} />}
 					{optionSelected === 'My Account' && <MyAccount user={user} />}
 				</div>
 			</MobileDiv>
 			<DesktopDiv>
 				<h1>Client Dashboard Desktop</h1>
-				<h2>Welcome {user.userEmail}</h2>
+				<h3>User Info</h3>
+				<p>Email: {user.email}</p>
+				<p>First Name: {user.firstName}</p>
+				<p>Last Name: {user.lastName}</p>
+				<p>Role: {user.role}</p>
+				<p>User ID: {user.id}</p>
 				<button
 					onClick={async () => {
 						await logout();
@@ -87,7 +94,7 @@ export const MobileDiv = styled.div`
 		flex-direction: column;
 		align-items: center;
 		justify-content: start;
-		border: 2px solid #333;
+		box-shadow: 0 2px 1px #333;
 		background-color: #d0dceb;
 		overflow-x: hidden;
 		color: #333;

@@ -58,7 +58,7 @@ const EditProgram = () => {
 	const getPrograms = async (userId) => {
 		setAwaiting(true);
 		await axiosPrivate
-			.get(`/programs/${userId}`, { data: { email: `${selectedUser[2]}` } })
+			.get(`/programs/${userId}`)
 			.then((res) => {
 				setProgramList(res?.data);
 			})
