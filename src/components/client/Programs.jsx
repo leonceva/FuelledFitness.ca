@@ -10,15 +10,13 @@ const Programs = (props) => {
 	const [programList, setProgramList] = useState(null);
 	const [selectedProgram, setSelectedProgram] = useState(null);
 
-	const user = props.user;
-
 	const axiosPrivate = useAxiosPrivate();
 
 	// Get the array of all programs for the user
 	const getProgramList = async () => {
 		setAwaiting(true);
 		await axiosPrivate
-			.get(`/programs/${user.id}`)
+			.get(`/programs/`)
 			.then((res) => {
 				let todayDate = new Date(); // New Date object
 				const offset = todayDate.getTimezoneOffset(); // Timezone offset (min)
