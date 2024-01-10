@@ -132,8 +132,8 @@ const LoginForm = () => {
 				setFormData({ email: '', password: '' });
 				setAuth({ accessToken });
 			})
-			.catch((res) => {
-				console.log(`Error: ${res.response.status} ${res.response.data}`);
+			.catch((err) => {
+				console.log(`Error: ${err?.response?.status} ${err?.response?.data}`);
 				setErrorMessage('User Not Found');
 				setFormError(true);
 			});
