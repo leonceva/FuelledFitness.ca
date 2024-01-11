@@ -557,6 +557,7 @@ export const EditUserDiv = styled.div`
 				& > .dropdown-row {
 					list-style: none;
 					padding: 0.5vh 0;
+					text-align: center;
 
 					&:hover {
 						cursor: pointer;
