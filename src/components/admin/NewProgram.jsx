@@ -328,7 +328,7 @@ const NewProgram = () => {
 	const removeConditioningItem = (e) => {
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
-		const itemIndex = id.slice(18, id.indexOf('-', 18));
+		const itemIndex = id.slice(19, id.indexOf('-', 19));
 
 		// Deep copy programData object
 		let newProgram = JSON.parse(JSON.stringify(programData));
