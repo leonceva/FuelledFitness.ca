@@ -199,6 +199,7 @@ const Programs = () => {
 					</div>
 				)}
 			</MobileDiv>
+			<DesktopDiv>In development, use mobile version</DesktopDiv>
 		</>
 	);
 };
@@ -306,8 +307,19 @@ export const MobileDiv = styled.div`
 
 export const DesktopDiv = styled.div`
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
-		display: contents;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		font-size: calc(min(2vw, 2vh));
+		position: relative;
+		z-index: 1;
+		overflow-y: scroll;
+		position: relative;
 	}
+
 	@media screen and ((max-width: ${MOBILE_MODE_LIMIT})or (width: ${MOBILE_MODE_LIMIT})) {
 		display: none;
 	}

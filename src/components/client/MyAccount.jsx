@@ -282,7 +282,7 @@ const MyAccount = (props) => {
 					</div>
 				</form>
 			</MobileDiv>
-			<DesktopDiv></DesktopDiv>
+			<DesktopDiv>In development, use mobile version</DesktopDiv>
 		</>
 	);
 };
