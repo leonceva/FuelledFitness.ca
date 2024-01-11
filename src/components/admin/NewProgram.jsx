@@ -801,7 +801,6 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
-																min={0}
 															/>
 															<input
 																type='text'
@@ -872,7 +871,6 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleConditioningChange(e);
 																}}
-																min={1}
 															/>
 															<input
 																type='text'
