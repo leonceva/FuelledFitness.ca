@@ -7,8 +7,10 @@ import NewUser from './admin/NewUser';
 import EditUser from './admin/EditUser';
 import NewProgram from './admin/NewProgram';
 import EditProgram from './admin/EditProgram';
+import data from '../frontend-data.json';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
+const VERSION = data.version;
 
 const AdminDashboard = (props) => {
 	const { auth } = useAuth();
@@ -79,7 +81,7 @@ const AdminDashboard = (props) => {
 				{optionSelected === 'New User' && <NewUser />}
 				{optionSelected === 'Edit User' && <EditUser />}
 			</div>
-			<div className='version'>v.Alpha 1</div>
+			<div className='version'>{VERSION}</div>
 		</DashboardDiv>
 	);
 };
@@ -114,7 +116,7 @@ const DashboardDiv = styled.div`
 				font-size: calc(min(2.5vw, 2.5vh));
 				display: flex;
 				flex-direction: column;
-				justify-content: start;
+				justify-content: center;
 				align-items: center;
 
 				&:hover {
@@ -189,7 +191,7 @@ const DashboardDiv = styled.div`
 			bottom: 0%;
 			right: 80%;
 			font-size: calc(min(2vw, 2vh));
-			padding-left: 1%;
+			padding-right: 1%;
 			color: #d0dceb;
 		}
 	}

@@ -3,6 +3,8 @@ import Loader from './Loader';
 import { useState, useRef, useEffect } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
+
 const EditProgram = () => {
 	const [awaiting, setAwaiting] = useState(false);
 	const [searchValue, setSearchValue] = useState('');
@@ -519,13 +521,7 @@ const EditProgram = () => {
 							} - Reps number invalid`;
 						}
 						// Check .load
-						if (item.load === '') {
-							// Check if empty
-							errorMessage = `Day ${dayIndex + 1}\nStrength #${
-								itemIndex + 1
-							} - Load is empty`;
-							return false;
-						} else if (item.load < 0) {
+						if (item.load < 0) {
 							// Check if negative
 							errorMessage = `Day ${dayIndex + 1}\nStrength #${
 								itemIndex + 1
@@ -544,13 +540,7 @@ const EditProgram = () => {
 							return false;
 						}
 						// Check .duration
-						if (item.duration === '') {
-							// Check if empty
-							errorMessage = `Day ${dayIndex + 1}\nConditioning #${
-								itemIndex + 1
-							} - Sets is empty`;
-							return false;
-						} else if (item.duration <= 0) {
+						if (item.duration <= 0) {
 							// Check if negative
 							errorMessage = `Day ${dayIndex + 1}\nConditioning #${
 								itemIndex + 1
@@ -615,7 +605,7 @@ const EditProgram = () => {
 	}, []);
 
 	return (
-		<EditProgramDiv>
+		<DesktopDiv>
 			{alertMessage !== '' && (
 				<>
 					<div
@@ -852,7 +842,6 @@ const EditProgram = () => {
 																id={`day-${dayIndex}-strength-${itemIndex}-load`}
 																value={day.strength[itemIndex].load}
 																placeholder='Load'
-																min={0}
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
@@ -915,7 +904,6 @@ const EditProgram = () => {
 																		.duration
 																}
 																placeholder='Duration (min)'
-																min={1}
 																onChange={(e) => {
 																	handleConditioningChange(e);
 																}}
@@ -998,408 +986,380 @@ const EditProgram = () => {
 					)}
 				</>
 			)}
-		</EditProgramDiv>
+		</DesktopDiv>
 	);
 };
 
 export default EditProgram;
 
-export const EditProgramDiv = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-	align-items: center;
-	font-size: calc(min(2vw, 2vh));
-	position: relative;
-	z-index: 1;
-	overflow-y: scroll;
-	position: relative;
-
-	& > .alert-background {
-		position: fixed;
-		z-index: 3;
+export const DesktopDiv = styled.div`
+	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		width: 100%;
 		height: 100%;
-		left: 0;
-		top: 0;
-		background-color: #f0e9df;
-		opacity: 0.8;
-	}
-
-	& > .alert {
-		position: fixed;
-		z-index: 4;
-		width: max-content;
-		height: max-content;
-		border: 2px solid #333;
-		border-radius: 10px;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		background-color: #d0dceb;
-
-		& > .close {
-			width: 2em;
-			background-color: darkred;
-			border: 2px solid #333;
-			border-radius: 5px;
-			position: absolute;
-			right: 0%;
-			top: 0%;
-			transform: translate(50%, -50%);
-
-			&:hover {
-				background-color: red;
-			}
-		}
-
-		& > .message {
-			margin: 2em 4em;
-		}
-	}
-
-	& > h3 {
-		font-size: calc(min(3vw, 3vh));
-		width: 100%;
-		margin-top: 1em;
-		margin-bottom: 1em;
-		text-align: center;
-	}
-
-	& > .search {
-		display: flex;
-		width: 100%;
-		flex-direction: row;
-		justify-content: center;
-		margin-bottom: 1em;
-
-		& label {
-			width: 20%;
-			text-align: end;
-			padding-right: 2vw;
-		}
-
-		& > .search-results {
-			width: 50%;
-			display: flex;
-			flex-direction: column;
-			position: relative;
-
-			& > input {
-				width: 100%;
-			}
-
-			& > .dropdown {
-				width: 100%;
-				background-color: white;
-				border: solid 1px #333;
-				position: absolute;
-				top: 100%;
-				z-index: 2;
-
-				& > .dropdown-row {
-					list-style: none;
-					padding: 0.5vh 0;
-
-					&:hover {
-						cursor: pointer;
-					}
-				}
-
-				& > .hover {
-					background-color: lightgray;
-				}
-			}
-		}
-	}
-
-	& > .header {
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-
-		& > .name {
-			padding-left: 5%;
-
-			& > strong {
-				margin-left: 0.5em;
-			}
-		}
-	}
-
-	& > .program-container {
-		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		margin-top: 0.5em;
-		height: max-content;
+		font-size: calc(min(2vw, 2vh));
+		position: relative;
+		z-index: 1;
+		overflow-y: scroll;
+		position: relative;
 
-		& > .program-select {
+		& > .alert-background {
+			position: fixed;
+			z-index: 3;
 			width: 100%;
-			display: flex;
-			flex-direction: row;
-			justify-content: start;
-			align-items: center;
-			margin-bottom: 0.5em;
+			height: 100%;
+			left: 0;
+			top: 0;
+			background-color: #f0e9df;
+			opacity: 0.8;
+		}
 
-			& > .label {
-				padding-left: 5%;
-				margin-right: 0.5em;
+		& > .alert {
+			position: fixed;
+			z-index: 4;
+			width: max-content;
+			height: max-content;
+			border: 2px solid #333;
+			border-radius: 10px;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #d0dceb;
+
+			& > .close {
+				width: 2em;
+				background-color: darkred;
+				border: 2px solid #333;
+				border-radius: 5px;
+				position: absolute;
+				right: 0%;
+				top: 0%;
+				transform: translate(50%, -50%);
+
+				&:hover {
+					background-color: red;
+				}
 			}
 
-			& > .info {
-				margin-left: 0.5em;
-				font-size: 0.8em;
+			& > .message {
+				margin: 2em 4em;
 			}
 		}
 
-		& > .program-data {
+		& > h3 {
+			font-size: calc(min(3vw, 3vh));
+			width: 100%;
+			margin-top: 1em;
+			margin-bottom: 1em;
+			text-align: center;
+		}
+
+		& > .search {
+			display: flex;
+			width: 100%;
+			flex-direction: row;
+			justify-content: center;
+			margin-bottom: 1em;
+
+			& label {
+				width: 20%;
+				text-align: end;
+				padding-right: 2vw;
+			}
+
+			& > .search-results {
+				width: 50%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+
+				& > input {
+					width: 100%;
+				}
+
+				& > .dropdown {
+					width: 100%;
+					background-color: white;
+					border: solid 1px #333;
+					position: absolute;
+					top: 100%;
+					z-index: 2;
+
+					& > .dropdown-row {
+						list-style: none;
+						padding: 0.5vh 0;
+
+						&:hover {
+							cursor: pointer;
+						}
+					}
+
+					& > .hover {
+						background-color: lightgray;
+					}
+				}
+			}
+		}
+
+		& > .header {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+
+			& > .name {
+				padding-left: 5%;
+
+				& > strong {
+					margin-left: 0.5em;
+				}
+			}
+		}
+
+		& > .program-container {
 			width: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: start;
 			align-items: center;
-			border: solid #333;
-			border-width: 2px 0 0 0;
+			margin-top: 0.5em;
+			height: max-content;
 
-			& > .day {
+			& > .program-select {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+				margin-bottom: 0.5em;
+
+				& > .label {
+					padding-left: 5%;
+					margin-right: 0.5em;
+				}
+
+				& > .info {
+					margin-left: 0.5em;
+					font-size: 0.8em;
+				}
+			}
+
+			& > .program-data {
 				width: 100%;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
 				border: solid #333;
-				border-width: 0 0 2px 0;
+				border-width: 2px 0 0 0;
 
-				& > .title {
-					width: 100%;
-					margin-top: 0.5em;
-					margin-bottom: 1em;
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					justify-content: start;
-
-					& > strong {
-						padding-left: 2em;
-					}
-
-					& > button {
-						margin-left: 2em;
-						border: 2px solid #333;
-						border-radius: 10px;
-						padding: 3px 8px;
-						color: #333;
-						box-shadow: 2px 2px 2px #333;
-						width: max-content;
-						background-color: #ff6666;
-
-						&:hover {
-							background-color: red;
-						}
-						&:active {
-							box-shadow: 0 0 0;
-							transform: translate(2px, 2px);
-						}
-					}
-				}
-
-				& > .category {
+				& > .day {
 					width: 100%;
 					display: flex;
 					flex-direction: column;
 					justify-content: start;
 					align-items: center;
-					margin: 5px 0;
+					border: solid #333;
+					border-width: 0 0 2px 0;
 
 					& > .title {
 						width: 100%;
-						text-align: start;
-						align-self: start;
-						padding-left: 2em;
+						margin-top: 0.5em;
 						margin-bottom: 1em;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: start;
 
-						& > span {
-							background-color: #87ceeb;
-							border: 2px solid black;
-							box-shadow: 2px 2px 2px #333;
+						& > strong {
+							padding-left: 2em;
+						}
+
+						& > button {
+							margin-left: 2em;
+							border: 2px solid #333;
 							border-radius: 10px;
 							padding: 3px 8px;
+							color: #333;
+							box-shadow: 2px 2px 2px #333;
+							width: max-content;
+							background-color: #ff6666;
 
 							&:hover {
-								background-color: #5f90a5;
-								cursor: pointer;
+								background-color: red;
 							}
 							&:active {
 								box-shadow: 0 0 0;
-								translate: 2px, 2px;
+								transform: translate(2px, 2px);
 							}
 						}
 					}
 
-					& > .item-mobility {
+					& > .category {
 						width: 100%;
 						display: flex;
-						flex-direction: row;
+						flex-direction: column;
+						justify-content: start;
 						align-items: center;
-						justify-content: space-evenly;
-						margin-bottom: 5px;
+						margin: 5px 0;
 
-						& > input[name='name'] {
-							width: calc(40% - 7.5em);
-						}
-						& > input[name='sets'] {
-							width: 5em;
-						}
-						& > input[name='reps'] {
-							width: 5em;
-						}
-						& > input[name='comment'] {
-							width: calc(60% - 7.5em);
-						}
-						& > button {
-							background-color: darkred;
-							border: 2px solid #333;
-							border-radius: 5px;
-							box-shadow: 2px 2px 2px #333;
-							width: 2em;
+						& > .title {
+							width: 100%;
+							text-align: start;
+							align-self: start;
+							padding-left: 2em;
+							margin-bottom: 1em;
 
-							&:hover {
-								background-color: red;
-								cursor: pointer;
-							}
-							&:active {
-								translate: 2px 2px;
-								box-shadow: 0 0 0;
+							& > span {
+								background-color: #87ceeb;
+								border: 2px solid black;
+								box-shadow: 2px 2px 2px #333;
+								border-radius: 10px;
+								padding: 3px 8px;
+
+								&:hover {
+									background-color: #5f90a5;
+									cursor: pointer;
+								}
+								&:active {
+									box-shadow: 0 0 0;
+									translate: 2px, 2px;
+								}
 							}
 						}
-					}
 
-					& > .item-strength {
-						width: 100%;
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-						justify-content: space-evenly;
-						margin-bottom: 5px;
+						& > .item-mobility {
+							width: 100%;
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-evenly;
+							margin-bottom: 5px;
 
-						& > input[name='name'] {
-							width: calc(40% - 10em);
-						}
-						& > input[name='sets'] {
-							width: 5em;
-						}
-						& > input[name='reps'] {
-							width: 5em;
-						}
-						& > input[name='load'] {
-							width: 5em;
-						}
-						& > input[name='comment'] {
-							width: calc(60% - 10em);
-						}
-						& > button {
-							background-color: darkred;
-							border: 2px solid #333;
-							border-radius: 5px;
-							box-shadow: 2px 2px 2px #333;
-							width: 2em;
-
-							&:hover {
-								background-color: red;
-								cursor: pointer;
+							& > input[name='name'] {
+								width: calc(40% - 7.5em);
 							}
-							&:active {
-								translate: 2px 2px;
-								box-shadow: 0 0 0;
+							& > input[name='sets'] {
+								width: 5em;
+							}
+							& > input[name='reps'] {
+								width: 5em;
+							}
+							& > input[name='comment'] {
+								width: calc(60% - 7.5em);
+							}
+							& > button {
+								background-color: darkred;
+								border: 2px solid #333;
+								border-radius: 5px;
+								box-shadow: 2px 2px 2px #333;
+								width: 2em;
+
+								&:hover {
+									background-color: red;
+									cursor: pointer;
+								}
+								&:active {
+									translate: 2px 2px;
+									box-shadow: 0 0 0;
+								}
 							}
 						}
-					}
 
-					& > .item-conditioning {
-						width: 100%;
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-						justify-content: space-evenly;
-						margin-bottom: 5px;
+						& > .item-strength {
+							width: 100%;
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-evenly;
+							margin-bottom: 5px;
 
-						& > input[name='name'] {
-							width: calc(40% - 7.5em);
-						}
-						& > input[name='duration'] {
-							width: 11em;
-						}
-						& > input[name='comment'] {
-							width: calc(60% - 7.5em);
-						}
-						& > button {
-							background-color: darkred;
-							border: 2px solid #333;
-							border-radius: 5px;
-							box-shadow: 2px 2px 2px #333;
-							width: 2em;
-
-							&:hover {
-								background-color: red;
-								cursor: pointer;
+							& > input[name='name'] {
+								width: calc(40% - 10em);
 							}
-							&:active {
-								translate: 2px 2px;
-								box-shadow: 0 0 0;
+							& > input[name='sets'] {
+								width: 5em;
+							}
+							& > input[name='reps'] {
+								width: 5em;
+							}
+							& > input[name='load'] {
+								width: 5em;
+							}
+							& > input[name='comment'] {
+								width: calc(60% - 10em);
+							}
+							& > button {
+								background-color: darkred;
+								border: 2px solid #333;
+								border-radius: 5px;
+								box-shadow: 2px 2px 2px #333;
+								width: 2em;
+
+								&:hover {
+									background-color: red;
+									cursor: pointer;
+								}
+								&:active {
+									translate: 2px 2px;
+									box-shadow: 0 0 0;
+								}
+							}
+						}
+
+						& > .item-conditioning {
+							width: 100%;
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-evenly;
+							margin-bottom: 5px;
+
+							& > input[name='name'] {
+								width: calc(40% - 7.5em);
+							}
+							& > input[name='duration'] {
+								width: 11em;
+							}
+							& > input[name='comment'] {
+								width: calc(60% - 7.5em);
+							}
+							& > button {
+								background-color: darkred;
+								border: 2px solid #333;
+								border-radius: 5px;
+								box-shadow: 2px 2px 2px #333;
+								width: 2em;
+
+								&:hover {
+									background-color: red;
+									cursor: pointer;
+								}
+								&:active {
+									translate: 2px 2px;
+									box-shadow: 0 0 0;
+								}
 							}
 						}
 					}
 				}
 			}
-		}
 
-		& > .add-day {
-			background-color: #87ceeb;
-			border: 2px solid #333;
-			border-radius: 10px;
-			padding: 3px 8px;
-			color: #333;
-			box-shadow: 3px 3px 2px #333;
-			width: max-content;
-			margin: 1em 0 0 2em;
-
-			align-self: flex-start;
-
-			&:hover {
-				background-color: #5f90a5;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
-		}
-
-		& > .btn-container {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			padding: 5px 0;
-			margin: 1em;
-
-			& > button {
+			& > .add-day {
 				background-color: #87ceeb;
 				border: 2px solid #333;
 				border-radius: 10px;
-				padding: 0.5em 1em;
+				padding: 3px 8px;
 				color: #333;
 				box-shadow: 3px 3px 2px #333;
 				width: max-content;
-				margin: 0 1em;
+				margin: 1em 0 0 2em;
+
+				align-self: flex-start;
 
 				&:hover {
 					background-color: #5f90a5;
@@ -1411,20 +1371,54 @@ export const EditProgramDiv = styled.div`
 				}
 			}
 
-			& > .delete {
-				background-color: #ff6666;
-				&:hover {
-					background-color: red;
+			& > .btn-container {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				padding: 5px 0;
+				margin: 1em;
+
+				& > button {
+					background-color: #87ceeb;
+					border: 2px solid #333;
+					border-radius: 10px;
+					padding: 0.5em 1em;
+					color: #333;
+					box-shadow: 3px 3px 2px #333;
+					width: max-content;
+					margin: 0 1em;
+
+					&:hover {
+						background-color: #5f90a5;
+						cursor: pointer;
+					}
+					&:active {
+						translate: 3px 3px;
+						box-shadow: 0 0 0;
+					}
 				}
+
+				& > .delete {
+					background-color: #ff6666;
+					&:hover {
+						background-color: red;
+					}
+				}
+			}
+		}
+
+		.disabled {
+			background-color: gray !important;
+			&:active {
+				translate: 0px 0px !important;
+				box-shadow: 3px 3px 2px #333 !important;
 			}
 		}
 	}
 
-	.disabled {
-		background-color: gray !important;
-		&:active {
-			translate: 0px 0px !important;
-			box-shadow: 3px 3px 2px #333 !important;
-		}
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT})or (width: ${MOBILE_MODE_LIMIT})) {
+		display: none;
 	}
 `;

@@ -5,7 +5,7 @@ import LoaderMobile from '../client/LoaderMobile';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
-const Programs = (props) => {
+const Programs = () => {
 	const [awaiting, setAwaiting] = useState(true);
 	const [programList, setProgramList] = useState(null);
 	const [selectedProgram, setSelectedProgram] = useState(null);
@@ -98,7 +98,9 @@ const Programs = (props) => {
 					<div className='selected-program'>
 						{selectedProgram.workout.map((day, dayIndex) => {
 							return (
-								<div className='workout-day'>
+								<div
+									className='workout-day'
+									key={`program-day-${dayIndex + 1}`}>
 									<span className='title'>{`Day ${day.day}`}</span>
 									{day.mobility.length > 0 && (
 										<table>
@@ -150,7 +152,9 @@ const Programs = (props) => {
 															<td className='name'>{item.name}</td>
 															<td className='value'>{item.sets}</td>
 															<td className='value'>{item.reps}</td>
-															<td className='value'>{item.load}</td>
+															<td className='value'>
+																{item?.load || '-'}
+															</td>
 															<td className='comment'>
 																{item?.comment || '-'}
 															</td>
@@ -180,7 +184,7 @@ const Programs = (props) => {
 														<tr>
 															<td className='name'>{item.name}</td>
 															<td className='value'>
-																{item.duration}
+																{item?.duration || '-'}
 															</td>
 															<td className='comment'>
 																{item?.comment || '-'}
@@ -197,6 +201,7 @@ const Programs = (props) => {
 					</div>
 				)}
 			</MobileDiv>
+			<DesktopDiv>In development, use mobile version</DesktopDiv>
 		</>
 	);
 };
@@ -239,7 +244,7 @@ export const MobileDiv = styled.div`
 		}
 
 		& > .selected-program {
-			min-width: 100%;
+			width: 100%;
 			width: max-content;
 			height: fit-content;
 			display: flex;
@@ -262,8 +267,9 @@ export const MobileDiv = styled.div`
 				}
 
 				& > table {
-					margin: 0.5em 0.5em;
+					margin: 0.25em 0.25em;
 					border: 2px solid #333;
+					max-width: calc(100vw - 0.5em);
 
 					& .item-title {
 						border: solid #333;
@@ -298,6 +304,26 @@ export const MobileDiv = styled.div`
 				}
 			}
 		}
+	}
+`;
+
+export const DesktopDiv = styled.div`
+	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		font-size: calc(min(2vw, 2vh));
+		position: relative;
+		z-index: 1;
+		overflow-y: scroll;
+		position: relative;
+	}
+
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT})or (width: ${MOBILE_MODE_LIMIT})) {
+		display: none;
 	}
 `;
 

@@ -455,13 +455,7 @@ const NewProgram = () => {
 								} - Reps number invalid`;
 							}
 							// Check .load
-							if (item.load === '') {
-								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nStrength #${
-									itemIndex + 1
-								} - Load is empty`;
-								return false;
-							} else if (item.load < 0) {
+							if (item.load < 0) {
 								// Check if negative
 								errorMessage = `Day ${dayIndex + 1}\nStrength #${
 									itemIndex + 1
@@ -480,13 +474,7 @@ const NewProgram = () => {
 								return false;
 							}
 							// Check .duration
-							if (item.duration === '') {
-								// Check if empty
-								errorMessage = `Day ${dayIndex + 1}\nConditioning #${
-									itemIndex + 1
-								} - Sets is empty`;
-								return false;
-							} else if (item.duration <= 0) {
+							if (item.duration <= 0) {
 								// Check if negative
 								errorMessage = `Day ${dayIndex + 1}\nConditioning #${
 									itemIndex + 1
@@ -813,7 +801,6 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleStrengthChange(e);
 																}}
-																min={0}
 															/>
 															<input
 																type='text'
@@ -884,7 +871,6 @@ const NewProgram = () => {
 																onChange={(e) => {
 																	handleConditioningChange(e);
 																}}
-																min={1}
 															/>
 															<input
 																type='text'

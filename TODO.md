@@ -1,15 +1,22 @@
 ## Short term goals
 
--   Active User Mobile
+-   Active User Desktop
 
-    -   Browse Programs
-        -   Allow to submit feedback/check-in
-
--   Inactive User Mobile
-
--   Active/Inactive User Desktop
+-   Admin User Desktop User settings
 
 -   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
+
+-   Active User Changes
+
+    -   Create Check-in System
+        -   Exercise completed
+        -   File upload
+
+-   Inactive client changes
+
+    -   Same as active client but only show last 3 programs
+
+    -   Remove ability to submit check-in
 
 -   Email HTML template for:
     -   Reset Password request
