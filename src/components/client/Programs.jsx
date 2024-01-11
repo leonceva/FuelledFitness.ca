@@ -152,7 +152,9 @@ const Programs = () => {
 															<td className='name'>{item.name}</td>
 															<td className='value'>{item.sets}</td>
 															<td className='value'>{item.reps}</td>
-															<td className='value'>{item.load}</td>
+															<td className='value'>
+																{item?.load || '-'}
+															</td>
 															<td className='comment'>
 																{item?.comment || '-'}
 															</td>
@@ -182,7 +184,7 @@ const Programs = () => {
 														<tr>
 															<td className='name'>{item.name}</td>
 															<td className='value'>
-																{item.duration}
+																{item?.duration || '-'}
 															</td>
 															<td className='comment'>
 																{item?.comment || '-'}
