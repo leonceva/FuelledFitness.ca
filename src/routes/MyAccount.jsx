@@ -56,6 +56,7 @@ export const Div = styled.div`
 			height: 100%;
 			z-index: 0;
 			background-image: linear-gradient(to right, white, lightgray, white);
+			overflow-y: hidden;
 		}
 	}
 `;
