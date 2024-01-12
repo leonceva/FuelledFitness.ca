@@ -1,7 +1,5 @@
 ## Short term goals
 
--   Active User Desktop
-
 -   Admin User Desktop User settings
 
 -   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
