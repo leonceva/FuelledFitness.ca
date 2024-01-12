@@ -31,63 +31,68 @@ const AdminDashboard = (props) => {
 	const lastName = decoded?.User?.lastName || null;
 
 	return (
-		<DashboardDiv>
-			<div className='sidebar'>
-				<div
-					className='login-info'
-					onClick={() => {
-						handleOption(null);
-					}}>
-					Logged in as:
-					<br />
-					{`${firstName} ${lastName}`}
+		<>
+			<MobileDiv>
+				<div className='header'></div>
+				<div className='option-selected'></div>
+			</MobileDiv>
+			<DesktopDiv>
+				<div className='sidebar'>
+					<div
+						className='login-info'
+						onClick={() => {
+							handleOption(null);
+						}}>
+						Logged in as:
+						<br />
+						{`${firstName} ${lastName}`}
+					</div>
+					<div className='options'>
+						<span
+							onClick={() => {
+								handleOption('New Program');
+							}}>
+							New Program
+						</span>
+						<span
+							onClick={() => {
+								handleOption('Edit Program');
+							}}>
+							Edit Program
+						</span>
+						<span
+							onClick={() => {
+								handleOption('New User');
+							}}>
+							New User
+						</span>
+						<span
+							onClick={() => {
+								handleOption('Edit User');
+							}}>
+							Edit Users
+						</span>
+					</div>
+					<div
+						className='logout'
+						onClick={async () => await logout()}>
+						<span>Logout</span>
+						<i className='bi bi-box-arrow-right'></i>
+					</div>
 				</div>
-				<div className='options'>
-					<span
-						onClick={() => {
-							handleOption('New Program');
-						}}>
-						New Program
-					</span>
-					<span
-						onClick={() => {
-							handleOption('Edit Program');
-						}}>
-						Edit Program
-					</span>
-					<span
-						onClick={() => {
-							handleOption('New User');
-						}}>
-						New User
-					</span>
-					<span
-						onClick={() => {
-							handleOption('Edit User');
-						}}>
-						Edit Users
-					</span>
+				<div className='content'>
+					{optionSelected === 'New Program' && <NewProgram />}
+					{optionSelected === 'Edit Program' && <EditProgram />}
+					{optionSelected === 'New User' && <NewUser />}
+					{optionSelected === 'Edit User' && <EditUser />}
 				</div>
-				<div
-					className='logout'
-					onClick={async () => await logout()}>
-					<span>Logout</span>
-					<i className='bi bi-box-arrow-right'></i>
-				</div>
-			</div>
-			<div className='content'>
-				{optionSelected === 'New Program' && <NewProgram />}
-				{optionSelected === 'Edit Program' && <EditProgram />}
-				{optionSelected === 'New User' && <NewUser />}
-				{optionSelected === 'Edit User' && <EditUser />}
-			</div>
-			<div className='version'>{VERSION}</div>
-		</DashboardDiv>
+				<div className='version'>{VERSION}</div>
+			</DesktopDiv>
+		</>
 	);
 };
 
-const DashboardDiv = styled.div`
-	// Desktop Mode
+const DesktopDiv = styled.div`
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		width: 90%;
 		height: 95%;
@@ -196,8 +201,38 @@ const DashboardDiv = styled.div`
 		}
 	}
 
-	// Mobile Mode
 	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+		display: none;
+	}
+`;
+
+export const MobileDiv = styled.div`
+	display: none;
+
+	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
+		width: 100%;
+		min-height: calc(100vh - 100px - 4vh);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: start;
+		box-shadow: 0 2px 1px #333;
+		background-color: #d0dceb;
+		overflow-x: hidden;
+		overflow-y: auto;
+		color: #333;
+
+		& > .header {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			color: #d0dceb;
+			background-color: #333;
+			padding-bottom: 2px;
+			padding-top: 1px;
+		}
 	}
 `;
 
