@@ -282,7 +282,148 @@ const MyAccount = (props) => {
 					</div>
 				</form>
 			</MobileDiv>
-			<DesktopDiv>In development, use mobile version</DesktopDiv>
+			<DesktopDiv>
+				<h3>User Account Settings</h3>
+				<form
+					className='user-info'
+					onSubmit={(e) => {
+						e.preventDefault();
+					}}>
+					{changePassword === false && (
+						<>
+							<div className='info-type'>
+								<span className='label'>First Name:</span>
+								<input
+									type='text'
+									autoComplete='first'
+									name='first-name'
+									className={`info ${edit ? '' : 'disabled'}`}
+									value={firstName}
+									onChange={handleChange}
+									required
+								/>
+							</div>
+							<div className='info-type'>
+								<span className='label'>Last Name:</span>
+								<input
+									type='text'
+									name='last-name'
+									className={`info ${edit ? '' : 'disabled'}`}
+									value={lastName}
+									onChange={handleChange}
+									required
+								/>
+							</div>
+							<div className='info-type'>
+								<span className='label'>Email:</span>
+								<input
+									type='email'
+									name='email'
+									className={`info ${edit ? '' : 'disabled'}`}
+									value={email}
+									onChange={handleChange}
+									required
+								/>
+							</div>
+						</>
+					)}
+					{changePassword === true && (
+						<>
+							<div className='password-info'>
+								Please enter the new password for your account. <br />
+								<ul>
+									<li>The new password must be at least 6 characters long.</li>
+									<li>
+										The new password must contain the following: a lowercase
+										leter, an upeprcase letter, a number, and a special
+										character.
+									</li>
+								</ul>
+							</div>
+							<div className='info-type'>
+								<input
+									type='password'
+									autoComplete='off'
+									name='new-password'
+									className='password'
+									value={newPassword}
+									onChange={handleChange}
+									required
+									placeholder='New Password'
+								/>
+							</div>
+							<div className='info-type'>
+								<input
+									type='password'
+									autoComplete='off'
+									name='confirm-password'
+									className='password'
+									value={confirmPassword}
+									onChange={handleChange}
+									required
+									placeholder='Confirm New Password'
+									onPaste={(e) => e.preventDefault()}
+									onDrop={(e) => e.preventDefault()}
+								/>
+							</div>
+						</>
+					)}
+					<div className='btn-container'>
+						{edit === false && changePassword === false && (
+							<>
+								<button onClick={() => setEdit(true)}>Edit Info</button>
+								<button onClick={() => setChangePassword(true)}>
+									Change Password
+								</button>
+							</>
+						)}
+						{edit === true && (
+							<>
+								<button
+									onClick={() => {
+										updateInfo();
+									}}>
+									Apply Changes
+								</button>
+								<button
+									className='cancel'
+									onClick={() => {
+										setEdit(false);
+										setInfoMessage(null);
+										setFirstName(user.firstName);
+										setLastName(user.lastName);
+										setEmail(user.email);
+									}}>
+									Cancel
+								</button>
+							</>
+						)}
+						{changePassword === true && (
+							<>
+								<button
+									onClick={() => {
+										updatePassword();
+									}}>
+									Apply Changes
+								</button>
+								<button
+									className='cancel'
+									onClick={() => {
+										setChangePassword(false);
+										setInfoMessage(null);
+										setNewPassword(undefined);
+										setConfirmPassword(undefined);
+									}}>
+									Cancel
+								</button>
+							</>
+						)}
+					</div>
+					<div className={`info-message ${infoMessage === null ? 'hidden' : ''}`}>
+						{infoMessage}
+					</div>
+				</form>
+			</DesktopDiv>
 		</>
 	);
 };
@@ -405,11 +546,116 @@ export const DesktopDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		font-size: calc(min(2vw, 2vh));
+		font-size: calc(min(2.5vw, 2.5vh));
 		position: relative;
 		z-index: 1;
 		overflow-y: scroll;
 		position: relative;
+
+		& > h3 {
+			font-size: calc(min(3vw, 3vh));
+			width: 100%;
+			margin-top: 1em;
+			text-align: center;
+		}
+
+		& > .user-info {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			margin-top: 1em;
+
+			& > .info-type {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				margin-bottom: 0.5em;
+
+				& > span {
+					text-align: right;
+					min-width: 100px;
+					max-width: 50%;
+					margin-right: 0.5em;
+				}
+
+				& > .info {
+					flex: 1;
+					margin-right: 1em;
+					max-width: 300px;
+					border: 1px solid #333;
+				}
+
+				& > .disabled {
+					pointer-events: none;
+					background-color: lightgray;
+				}
+
+				& > .password {
+					flex: 1;
+					max-width: 300px;
+					align-self: center;
+				}
+			}
+
+			& > .password-info {
+				width: 80%;
+				padding: 0 1em;
+			}
+
+			& > .btn-container {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				margin-top: 1em;
+
+				& > button {
+					margin: 0 0.5em;
+					background-color: #87ceeb;
+					border: 2px solid #333;
+					border-radius: 10px;
+					padding: 3px 8px;
+					color: #333;
+					box-shadow: 2px 2px 2px #333;
+					width: max-content;
+
+					&:hover {
+						background-color: #5f90a5;
+						cursor: pointer;
+					}
+					&:active {
+						translate: 2px 2px;
+						box-shadow: 0 0 0;
+					}
+				}
+
+				& > .cancel {
+					background-color: #ff6666;
+
+					&:hover {
+						background-color: red;
+					}
+				}
+			}
+
+			& > .info-message {
+				color: red;
+				margin-top: 0.5em;
+				text-align: center;
+				opacity: 1;
+			}
+
+			& > .hidden {
+				&::after {
+					content: 'placeholder';
+					opacity: 0;
+				}
+			}
+		}
 	}
 
 	@media screen and ((max-width: ${MOBILE_MODE_LIMIT})or (width: ${MOBILE_MODE_LIMIT})) {
