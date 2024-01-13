@@ -125,13 +125,13 @@ export const NavMenu = (props) => {
 					Contact
 				</NavLink>
 			</li>
-			{/* <li>
+			<li>
 				<NavLink
 					className='link'
 					to='athletes'>
 					Athletes
 				</NavLink>
-			</li> */}
+			</li>
 			<li>
 				<NavLink
 					className='link'
@@ -383,11 +383,11 @@ export const ModalMenu = (props) => {
 							to='/contact'>
 							Contact
 						</NavLink>
-						{/* <NavLink
+						<NavLink
 							className='expanded-link'
 							to='/athletes'>
 							Athletes
-						</NavLink> */}
+						</NavLink>
 						<NavLink
 							className='expanded-link'
 							to='/account'>
