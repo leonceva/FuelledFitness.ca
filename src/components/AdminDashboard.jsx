@@ -74,9 +74,6 @@ const AdminDashboard = (props) => {
 						onTouchStart={() => {
 							handleOption('My Account');
 						}}>
-						{`${firstName?.charAt(0)}. ${
-							lastName?.length > 8 ? lastName.slice(0, 8) + '.' : lastName
-						}`}
 						<i
 							className='bi bi-person-circle'
 							style={{ paddingLeft: '0.5em' }}
@@ -367,6 +364,16 @@ export const MobileDiv = styled.div`
 				flex-direction: row;
 				align-items: center;
 				justify-content: center;
+				margin-top: 1em;
+
+				& > button {
+					background-color: #87ceeb;
+					border: 2px solid #333;
+					border-radius: 10px;
+					padding: 3px 8px;
+					color: #333;
+					width: max-content;
+				}
 			}
 
 			& > .version {

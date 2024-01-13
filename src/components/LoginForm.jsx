@@ -475,6 +475,7 @@ export const LoginContainer = styled.div`
 				display: flex;
 				flex-direction: row;
 				justify-content: start;
+				min-width: 200px;
 				width: 100%;
 				position: relative;
 				margin-top: 0.5vh;
