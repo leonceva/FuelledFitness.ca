@@ -276,10 +276,11 @@ export const DesktopDiv = styled.div`
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		justify-content: start;
+		align-items: center;
 		font-size: calc(min(2vw, 2vh));
-		position: relative;
+		position: absolute;
+		overflow-x: hidden;
 		overflow-y: scroll;
 
 		& > h3 {

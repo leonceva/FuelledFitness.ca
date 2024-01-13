@@ -292,6 +292,7 @@ const DesktopDiv = styled.div`
 			border: 2px solid #333;
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
+			position: relative;
 		}
 
 		& > .version {

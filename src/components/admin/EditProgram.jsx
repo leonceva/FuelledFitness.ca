@@ -1038,10 +1038,9 @@ export const DesktopDiv = styled.div`
 		justify-content: start;
 		align-items: center;
 		font-size: calc(min(2vw, 2vh));
-		position: relative;
-		z-index: 1;
+		position: absolute;
+		overflow-x: hidden;
 		overflow-y: scroll;
-		position: relative;
 
 		& > .alert-background {
 			position: fixed;

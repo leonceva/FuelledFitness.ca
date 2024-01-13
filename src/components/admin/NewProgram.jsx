@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Loader from './Loader';
+import LoaderMobile from '../client/LoaderMobile';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useState, useEffect, useRef } from 'react';
 
@@ -183,7 +184,7 @@ const NewProgram = () => {
 				alert(res);
 			})
 			.finally(() => {
-				setAwaiting(false);
+				setAwaiting(true);
 			});
 	};
 
@@ -545,7 +546,6 @@ const NewProgram = () => {
 		if (selectedUser !== '') {
 			setReleaseDate(dateToday);
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedUser]);
 
@@ -960,6 +960,33 @@ const NewProgram = () => {
 					</>
 				)}
 			</DesktopDiv>
+			<MobileDiv>
+				{alertMessage !== '' && (
+					<>
+						<div
+							className='alert-background'
+							onClick={() => {
+								setAlertMessage('');
+							}}
+						/>
+						<div className='alert'>
+							<button
+								className='close'
+								onClick={() => {
+									setAlertMessage('');
+								}}>
+								X
+							</button>
+							<div className='message'>{alertMessage}</div>
+						</div>
+					</>
+				)}
+				{awaiting && (
+					<div className='loader-wrapper'>
+						<LoaderMobile />
+					</div>
+				)}
+			</MobileDiv>
 		</>
 	);
 };
@@ -975,7 +1002,7 @@ export const DesktopDiv = styled.div`
 		justify-content: start;
 		align-items: center;
 		font-size: calc(min(2vw, 2vh));
-		position: relative;
+		position: absolute;
 		overflow-x: hidden;
 		overflow-y: scroll;
 
@@ -1378,5 +1405,57 @@ export const MobileDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
+		position: relative;
+
+		& > .alert-background {
+			position: fixed;
+			z-index: 3;
+			width: 100%;
+			height: 100%;
+			top: 100px;
+			opacity: 0.8;
+			background-color: #f0e9df;
+		}
+
+		& > .alert {
+			position: fixed;
+			z-index: 4;
+			width: max-content;
+			max-width: 80%;
+			height: max-content;
+			max-height: 60%;
+			border: 2px solid #333;
+			border-radius: 10px;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #d0dceb;
+
+			& > .close {
+				width: 2em;
+				aspect-ratio: 1/1;
+				background-color: darkred;
+				border: 2px solid #333;
+				border-radius: 5px;
+				position: absolute;
+				right: 0%;
+				top: 0%;
+				transform: translate(50%, -50%);
+			}
+
+			& > .message {
+				margin: 0.5em 0.5em;
+			}
+		}
+
+		& > .loader-wrapper {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 `;
