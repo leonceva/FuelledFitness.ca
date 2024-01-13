@@ -79,6 +79,12 @@ export const DesktopContent = (props) => {
 								}}>
 								Training
 							</ServiceButton>
+							<ServiceButton
+								onClick={() => {
+									handleClickService('packages-kickstarter');
+								}}>
+								Packages
+							</ServiceButton>
 							<img
 								src={placeholder}
 								alt='placeholder'
@@ -170,10 +176,48 @@ export const DesktopContent = (props) => {
 						</>
 					)
 				}
+
+				{
+					// Packages
+					serviceSelected === 'packages' && (
+						<>
+							<span className='go-back'>
+								<i
+									onClick={() => {
+										handleClickService('none');
+									}}
+									className='bi bi-arrow-left go-back-btn'
+								/>
+							</span>
+							<h3>Packages</h3>
+							<InfoButton onClick={() => handleClickOption('kickstarter')}>
+								1 Month - Kickstarter
+							</InfoButton>
+							<InfoButton onClick={() => handleClickOption('habit-builder')}>
+								3 Months - Habit Builder
+							</InfoButton>
+							<InfoButton onClick={() => handleClickOption('transformation')}>
+								6 Months - Transformation
+							</InfoButton>
+							<InfoButton
+								className='other-service'
+								onClick={() => {
+									window.open(
+										'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+										'_blank'
+									);
+								}}>
+								Book Appointment
+							</InfoButton>
+						</>
+					)
+				}
 			</div>
 			<div
 				className={`info-container  ${
-					serviceSelected === 'nutrition' || serviceSelected === 'training'
+					serviceSelected === 'nutrition' ||
+					serviceSelected === 'training' ||
+					serviceSelected === 'packages'
 						? 'show'
 						: 'hide'
 				}`}>
@@ -422,6 +466,60 @@ export const InfoDesktop = (props) => {
 					</p>
 				</>
 			)}
+			{option === 'habit-builder' && service === 'packages' && (
+				<>
+					<h2>3 Months - Habit Builder</h2>
+					<p>
+						We recognize and reward ongoing commitment and dedication with discounted
+						personalized fitness and nutrition services.
+					</p>
+					<ul>
+						<li>Initial Nutrition Consultation</li>
+						<li>3 x Follow-up Nutrition Consultation</li>
+						<li>12 x Personal Training Session</li>
+					</ul>
+					<p>
+						$1655 Value <br />
+						You Pay: $1400 (15% off)
+					</p>
+				</>
+			)}
+			{option === 'transformation' && service === 'packages' && (
+				<>
+					<h2>6 Months - Transformation</h2>
+					<p>
+						We recognize and reward ongoing commitment and dedication with discounted
+						personalized fitness and nutrition services.
+					</p>
+					<ul>
+						<li>Initial Nutrition Consultation</li>
+						<li>6 x Follow-up Nutrition Consultation</li>
+						<li>24 x Personal Training Session</li>
+					</ul>
+					<p>
+						$3170 Value <br />
+						You Pay: $2540 (20% off)
+					</p>
+				</>
+			)}
+			{option === 'kickstarter' && service === 'packages' && (
+				<>
+					<h2>1 Month - Kickstarter</h2>
+					<p>
+						We recognize and reward ongoing commitment and dedication with discounted
+						personalized fitness and nutrition services.
+					</p>
+					<ul>
+						<li>Initial Nutrition Consultation</li>
+						<li>1 x Follow-up Nutrition Consultation</li>
+						<li>4 x Personal Training Session</li>
+					</ul>
+					<p>
+						$640 Value <br />
+						You Pay: $575 (10% off)
+					</p>
+				</>
+			)}
 		</>
 	);
 };
@@ -493,6 +591,13 @@ export const MobileContent = (props) => {
 						handleClick('training');
 					}}>
 					Training
+				</div>
+				<div
+					className={`button ${serviceSelected === 'packages' ? 'active' : ''}`}
+					onTouchStart={() => {
+						handleClick('packages');
+					}}>
+					Packages
 				</div>
 			</div>
 			<div className='service-info'>
@@ -640,6 +745,56 @@ export const MobileContent = (props) => {
 						</>
 					)
 				}
+				{serviceSelected === 'packages' && (
+					<>
+						<p>
+							We recognize and reward ongoing commitment and dedication with
+							discounted personalized fitness and nutrition services.
+						</p>
+						<h3>1 Month - Kickstarter</h3>
+						<ul>
+							<li>Initial Nutrition Consultation</li>
+							<li>1 x Follow-up nutrition consultation</li>
+							<li>4 x Personal Training Session</li>
+						</ul>
+						<p style={{ alignSelf: 'start' }}>
+							$640 Value <br />
+							You pay: $575 (10% off)
+						</p>
+
+						<h3>3 Months - Habit Builder</h3>
+						<ul>
+							<li>Initial Nutrition Consultation</li>
+							<li>3 x Follow-up nutrtion consultation</li>
+							<li>12 x Personal Training Session</li>
+						</ul>
+						<p style={{ alignSelf: 'start' }}>
+							$1655 Value <br />
+							You pay: $1400 (15% off)
+						</p>
+
+						<h3>6 Months - Transformation</h3>
+						<ul>
+							<li>Initial Nutrition Consultation</li>
+							<li>6 x Follow-up Nutrition Consultation</li>
+							<li>24 x Personal Training Session</li>
+						</ul>
+						<p style={{ alignSelf: 'start' }}>
+							$3170 Value <br />
+							You pay: $2540 (20% off)
+						</p>
+						<div
+							className='appointment'
+							onClick={() => {
+								window.open(
+									'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+									'_blank'
+								);
+							}}>
+							Get Started
+						</div>
+					</>
+				)}
 			</div>
 		</MobileDiv>
 	);
@@ -657,6 +812,7 @@ export const MobileDiv = styled.div`
 		display: flex;
 		flex-direction: row;
 		justify-content: space-evenly;
+		flex-wrap: wrap;
 
 		& > .button {
 			color: #333;
@@ -668,6 +824,7 @@ export const MobileDiv = styled.div`
 			font-size: 4.5vw;
 			box-shadow: 3px 3px 2px #333;
 			width: 40vw;
+			margin-bottom: 0.5em;
 		}
 		& > .button:hover {
 			cursor: pointer;
@@ -698,6 +855,11 @@ export const MobileDiv = styled.div`
 		& > p {
 			padding: 0 1.5vw;
 			font-size: calc(max(2vw, 2vh));
+		}
+
+		& > ul {
+			font-size: calc(max(2vw, 2vh));
+			align-self: start;
 		}
 
 		& > .appointment {

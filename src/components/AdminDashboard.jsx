@@ -17,10 +17,8 @@ const AdminDashboard = (props) => {
 	const decoded = auth?.accessToken ? jwtDecode(auth.accessToken) : undefined;
 
 	const logout = useLogout();
-	const initialOptionState =
-		JSON.parse(sessionStorage.getItem('optionSelected')) || 'New Program';
 
-	const [optionSelected, setOptionSelected] = useState(initialOptionState);
+	const [optionSelected, setOptionSelected] = useState('New Program');
 
 	const handleOption = (option) => {
 		setOptionSelected(option);
@@ -339,14 +337,17 @@ export const MobileDiv = styled.div`
 			background-color: #333;
 			padding-bottom: 2px;
 			padding-top: 1px;
+			overflow-x: auto;
 
 			& > .option {
 				padding: 0.5em 0.5em;
 				position: relative;
 				touch-action: none;
+				text-align: center;
 
 				& > i {
 					padding-left: 0.5em;
+					padding-right: 0.5em;
 				}
 
 				& > .expand-menu {
@@ -429,6 +430,7 @@ export const MobileDiv = styled.div`
 			& > .content {
 				width: 100%;
 				flex: 1;
+				overflow: auto;
 			}
 
 			& > .version {
