@@ -628,7 +628,7 @@ const EditProgram = () => {
 					</>
 				)}
 				{awaiting && <Loader />}
-				<h3>Edit Program</h3>
+				<h3>Edit Weekly Program</h3>
 				<div className='search'>
 					<label htmlFor='search'>User:</label>
 					<div className='search-results'>
@@ -715,6 +715,7 @@ const EditProgram = () => {
 													<strong>{`Day ${day.day}`}</strong>
 													<button
 														id={`day-${dayIndex}`}
+														key={`day-${dayIndex}`}
 														onClick={(e) => {
 															removeDay(e);
 														}}>
@@ -734,11 +735,13 @@ const EditProgram = () => {
 														return (
 															<div
 																className='item-mobility'
-																id={`day-${dayIndex}-mobility-${itemIndex}`}>
+																id={`day-${dayIndex}-mobility-${itemIndex}`}
+																key={`day-${dayIndex}-mobility-${itemIndex}`}>
 																<input
 																	type='text'
 																	name='name'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-name`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-name`}
 																	value={
 																		day.mobility[itemIndex].name
 																	}
@@ -751,6 +754,7 @@ const EditProgram = () => {
 																	type='number'
 																	name='sets'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-sets`}
 																	value={
 																		day.mobility[itemIndex].sets
 																	}
@@ -764,6 +768,7 @@ const EditProgram = () => {
 																	type='number'
 																	name='reps'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-reps`}
 																	value={
 																		day.mobility[itemIndex].reps
 																	}
@@ -777,6 +782,7 @@ const EditProgram = () => {
 																	type='text'
 																	name='comment'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-comment`}
 																	value={
 																		day.mobility[itemIndex]
 																			.comment
@@ -788,6 +794,7 @@ const EditProgram = () => {
 																/>
 																<button
 																	id={`day-${dayIndex}-mobility-${itemIndex}-button`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-button`}
 																	onClick={(e) =>
 																		removeMobilityItem(e)
 																	}>
@@ -803,7 +810,6 @@ const EditProgram = () => {
 															onClick={() => {
 																addStrengthItem(dayIndex);
 															}}>
-															{' '}
 															Add Strength
 														</span>
 													</div>
@@ -811,11 +817,13 @@ const EditProgram = () => {
 														return (
 															<div
 																className='item-strength'
-																id={`day-${dayIndex}-strength-${itemIndex}`}>
+																id={`day-${dayIndex}-strength-${itemIndex}`}
+																key={`day-${dayIndex}-strength-${itemIndex}`}>
 																<input
 																	type='text'
 																	name='name'
 																	id={`day-${dayIndex}-strength-${itemIndex}-name`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-name`}
 																	value={
 																		day.strength[itemIndex].name
 																	}
@@ -828,6 +836,7 @@ const EditProgram = () => {
 																	type='number'
 																	name='sets'
 																	id={`day-${dayIndex}-strength-${itemIndex}-sets`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-sets`}
 																	value={
 																		day.strength[itemIndex].sets
 																	}
@@ -841,6 +850,7 @@ const EditProgram = () => {
 																	type='number'
 																	name='reps'
 																	id={`day-${dayIndex}-strength-${itemIndex}-reps`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-reps`}
 																	value={
 																		day.strength[itemIndex].reps
 																	}
@@ -854,6 +864,7 @@ const EditProgram = () => {
 																	type='number'
 																	name='load'
 																	id={`day-${dayIndex}-strength-${itemIndex}-load`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-load`}
 																	value={
 																		day.strength[itemIndex].load
 																	}
@@ -866,6 +877,7 @@ const EditProgram = () => {
 																	type='text'
 																	name='comment'
 																	id={`day-${dayIndex}-strength-${itemIndex}-comment`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-comment`}
 																	value={
 																		day.strength[itemIndex]
 																			.comment
@@ -877,6 +889,7 @@ const EditProgram = () => {
 																/>
 																<button
 																	id={`day-${dayIndex}-strength-${itemIndex}-button`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-button`}
 																	onClick={(e) =>
 																		removeStrengthItem(e)
 																	}>
@@ -899,11 +912,13 @@ const EditProgram = () => {
 														return (
 															<div
 																className='item-conditioning'
-																id={`day-${dayIndex}-conditioning-${itemIndex}`}>
+																id={`day-${dayIndex}-conditioning-${itemIndex}`}
+																key={`day-${dayIndex}-conditioning-${itemIndex}`}>
 																<input
 																	type='text'
 																	name='name'
 																	id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
+																	key={`day-${dayIndex}-conditioning-${itemIndex}-name`}
 																	value={
 																		day.conditioning[itemIndex]
 																			.name
@@ -917,6 +932,7 @@ const EditProgram = () => {
 																	type='number'
 																	name='duration'
 																	id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
+																	key={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
 																	value={
 																		day.conditioning[itemIndex]
 																			.duration
@@ -930,6 +946,7 @@ const EditProgram = () => {
 																	type='text'
 																	name='comment'
 																	id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
+																	key={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
 																	value={
 																		day.conditioning[itemIndex]
 																			.comment
@@ -941,6 +958,7 @@ const EditProgram = () => {
 																/>
 																<button
 																	id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
+																	key={`day-${dayIndex}-conditioning-${itemIndex}-button`}
 																	onClick={(e) =>
 																		removeConditioningItem(e)
 																	}>
@@ -1020,10 +1038,9 @@ export const DesktopDiv = styled.div`
 		justify-content: start;
 		align-items: center;
 		font-size: calc(min(2vw, 2vh));
-		position: relative;
-		z-index: 1;
+		position: absolute;
+		overflow-x: hidden;
 		overflow-y: scroll;
-		position: relative;
 
 		& > .alert-background {
 			position: fixed;

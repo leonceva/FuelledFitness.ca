@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Loader from './Loader';
+import LoaderMobile from '../client/LoaderMobile';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useState, useEffect, useRef } from 'react';
 
@@ -545,7 +546,6 @@ const NewProgram = () => {
 		if (selectedUser !== '') {
 			setReleaseDate(dateToday);
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedUser]);
 
@@ -645,7 +645,8 @@ const NewProgram = () => {
 									return (
 										<div
 											className='day'
-											id={`day-${dayIndex}`}>
+											id={`day-${dayIndex}`}
+											key={`day-${dayIndex}`}>
 											<div className='title'>{`Day: ${dayIndex + 1}`}</div>
 											<div className='category'>
 												<div className='title'>
@@ -661,11 +662,13 @@ const NewProgram = () => {
 														return (
 															<div
 																className='item-mobility'
-																id={`day-${dayIndex}-mobility-${itemIndex}`}>
+																id={`day-${dayIndex}-mobility-${itemIndex}`}
+																key={`day-${dayIndex}-mobility-${itemIndex}`}>
 																<input
 																	type='text'
 																	name='name'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-name`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-name`}
 																	value={
 																		programData[dayIndex]
 																			.mobility[itemIndex]
@@ -680,6 +683,7 @@ const NewProgram = () => {
 																	type='number'
 																	name='sets'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-sets`}
 																	value={
 																		programData[dayIndex]
 																			.mobility[itemIndex]
@@ -695,6 +699,7 @@ const NewProgram = () => {
 																	type='number'
 																	name='reps'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-reps`}
 																	value={
 																		programData[dayIndex]
 																			.mobility[itemIndex]
@@ -710,6 +715,7 @@ const NewProgram = () => {
 																	type='text'
 																	name='comment'
 																	id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-comment`}
 																	value={
 																		programData[dayIndex]
 																			.mobility[itemIndex]
@@ -722,6 +728,7 @@ const NewProgram = () => {
 																/>
 																<button
 																	id={`day-${dayIndex}-mobility-${itemIndex}-button`}
+																	key={`day-${dayIndex}-mobility-${itemIndex}-button`}
 																	onClick={(e) =>
 																		removeMobilityItem(e)
 																	}>
@@ -746,11 +753,13 @@ const NewProgram = () => {
 														return (
 															<div
 																className='item-strength'
-																id={`day-${dayIndex}-strength-${itemIndex}`}>
+																id={`day-${dayIndex}-strength-${itemIndex}`}
+																key={`day-${dayIndex}-strength-${itemIndex}`}>
 																<input
 																	type='text'
 																	name='name'
 																	id={`day-${dayIndex}-strength-${itemIndex}-name`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-name`}
 																	value={
 																		programData[dayIndex]
 																			.strength[itemIndex]
@@ -765,6 +774,7 @@ const NewProgram = () => {
 																	type='number'
 																	name='sets'
 																	id={`day-${dayIndex}-strength-${itemIndex}-sets`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-sets`}
 																	value={
 																		programData[dayIndex]
 																			.strength[itemIndex]
@@ -780,6 +790,7 @@ const NewProgram = () => {
 																	type='number'
 																	name='reps'
 																	id={`day-${dayIndex}-strength-${itemIndex}-reps`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-reps`}
 																	value={
 																		programData[dayIndex]
 																			.strength[itemIndex]
@@ -795,6 +806,7 @@ const NewProgram = () => {
 																	type='number'
 																	name='load'
 																	id={`day-${dayIndex}-strength-${itemIndex}-load`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-load`}
 																	value={
 																		programData[dayIndex]
 																			.strength[itemIndex]
@@ -809,6 +821,7 @@ const NewProgram = () => {
 																	type='text'
 																	name='comment'
 																	id={`day-${dayIndex}-strength-${itemIndex}-comment`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-comment`}
 																	value={
 																		programData[dayIndex]
 																			.strength[itemIndex]
@@ -819,9 +832,9 @@ const NewProgram = () => {
 																		handleStrengthChange(e);
 																	}}
 																/>
-																<></>
 																<button
 																	id={`day-${dayIndex}-strength-${itemIndex}-button`}
+																	key={`day-${dayIndex}-strength-${itemIndex}-button`}
 																	onClick={(e) =>
 																		removeStrengthItem(e)
 																	}>
@@ -847,11 +860,13 @@ const NewProgram = () => {
 															return (
 																<div
 																	className='item-conditioning'
-																	id={`day-${dayIndex}-conditioning-${itemIndex}`}>
+																	id={`day-${dayIndex}-conditioning-${itemIndex}`}
+																	key={`day-${dayIndex}-conditioning-${itemIndex}`}>
 																	<input
 																		type='text'
 																		name='name'
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
+																		key={`day-${dayIndex}-conditioning-${itemIndex}-name`}
 																		value={
 																			programData[dayIndex]
 																				.conditioning[
@@ -869,6 +884,7 @@ const NewProgram = () => {
 																		type='number'
 																		name='duration'
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
+																		key={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
 																		value={
 																			programData[dayIndex]
 																				.conditioning[
@@ -886,6 +902,7 @@ const NewProgram = () => {
 																		type='text'
 																		name='comment'
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
+																		key={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
 																		value={
 																			programData[dayIndex]
 																				.conditioning[
@@ -899,9 +916,9 @@ const NewProgram = () => {
 																			);
 																		}}
 																	/>
-																	<></>
 																	<button
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
+																		key={`day-${dayIndex}-conditioning-${itemIndex}-button`}
 																		onClick={(e) =>
 																			removeConditioningItem(
 																				e
@@ -943,6 +960,72 @@ const NewProgram = () => {
 					</>
 				)}
 			</DesktopDiv>
+			<MobileDiv>
+				{alertMessage !== '' && (
+					<>
+						<div
+							className='alert-background'
+							onClick={() => {
+								setAlertMessage('');
+							}}
+						/>
+						<div className='alert'>
+							<button
+								className='close'
+								onClick={() => {
+									setAlertMessage('');
+								}}>
+								X
+							</button>
+							<div className='message'>{alertMessage}</div>
+						</div>
+					</>
+				)}
+				{awaiting && (
+					<div className='loader-wrapper'>
+						<LoaderMobile />
+					</div>
+				)}
+				<div className='search'>
+					<label htmlFor='search'>User:</label>
+					<div className='search-results'>
+						<input
+							type='text'
+							name='search'
+							id='search'
+							onChange={onChangeSearch}
+							value={searchValue}
+							onKeyDown={onKeyDownSearch}
+							placeholder='Type a name to begin search'
+						/>
+						{searchValue && (
+							<div className='dropdown'>
+								{users
+									?.filter((user) => {
+										return user[0]
+											.toLowerCase()
+											.includes(searchValue.toLowerCase());
+									})
+									.slice(0, 10)
+									.sort()
+									.map((user, i) => {
+										return (
+											<li
+												id={`user-${i}`}
+												key={user[1]}
+												className='dropdown-row'
+												onClick={onClickSearch}
+												onMouseMove={onMouseMoveSearch}
+												onMouseLeave={onMouseLeaveSearch}>
+												{user[0]}
+											</li>
+										);
+									})}
+							</div>
+						)}
+					</div>
+				</div>
+			</MobileDiv>
 		</>
 	);
 };
@@ -958,7 +1041,7 @@ export const DesktopDiv = styled.div`
 		justify-content: start;
 		align-items: center;
 		font-size: calc(min(2vw, 2vh));
-		position: relative;
+		position: absolute;
 		overflow-x: hidden;
 		overflow-y: scroll;
 
@@ -1361,5 +1444,67 @@ export const MobileDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
+		position: relative;
+
+		& > .alert-background {
+			position: fixed;
+			z-index: 3;
+			width: 100%;
+			height: 100%;
+			top: 100px;
+			opacity: 0.8;
+			background-color: #f0e9df;
+		}
+
+		& > .alert {
+			position: fixed;
+			z-index: 4;
+			width: max-content;
+			max-width: 80%;
+			height: max-content;
+			max-height: 60%;
+			border: 2px solid #333;
+			border-radius: 10px;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #d0dceb;
+
+			& > .close {
+				width: 2em;
+				aspect-ratio: 1/1;
+				background-color: darkred;
+				border: 2px solid #333;
+				border-radius: 5px;
+				position: absolute;
+				right: 0%;
+				top: 0%;
+				transform: translate(50%, -50%);
+			}
+
+			& > .message {
+				margin: 0.5em 0.5em;
+			}
+		}
+
+		& > .loader-wrapper {
+			position: fixed;
+			height: calc(100vh - 100px - 4vh - 2em - 1ch - 2px);
+			top: calc(100px + 2em + 1ch + 2px);
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		& > .search {
+			display: flex;
+			width: 100%;
+			flex-direction: row;
+			justify-content: center;
+			text-align: center;
+			margin-top: 1em;
+		}
 	}
 `;

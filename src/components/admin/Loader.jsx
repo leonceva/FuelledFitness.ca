@@ -25,7 +25,7 @@ export const Loading = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: start;
+	align-items: center;
 	border-top-right-radius: calc(min(3vw, 3vh));
 	border-bottom-right-radius: calc(min(3vw, 3vh));
 

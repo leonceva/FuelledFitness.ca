@@ -17,6 +17,7 @@ const EditUser = () => {
 	// eslint-disable-next-line no-unused-vars
 	const [awaiting, setAwaiting] = useState(false);
 
+	const [enableForm, setEnableForm] = useState(false);
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
@@ -229,6 +230,12 @@ const EditUser = () => {
 
 	// When an user is selected, get the details from the database
 	useEffect(() => {
+		if (selectedUser === '') {
+			setEnableForm(false);
+		} else {
+			setEnableForm(true);
+		}
+
 		setSelectedDelete(false);
 		setHasChanged(false);
 		//
@@ -363,7 +370,7 @@ const EditUser = () => {
 		<>
 			<DesktopDiv>
 				{awaiting && <Loader />}
-				<h3>Edit Users</h3>
+				<h3>Edit Existing User</h3>
 				<div className='search'>
 					<label htmlFor='search'>User:</label>
 					<div className='search-results'>
@@ -418,10 +425,11 @@ const EditUser = () => {
 							onChange={handleChangeForm}
 							required
 							value={formData.firstName}
+							disabled={!enableForm}
 						/>
 					</div>
 					<div className='input'>
-						<label htmlFor='lastName'>Last Name</label>
+						<label htmlFor='lastName'>Last Name:</label>
 						<input
 							type='text'
 							name='lastName'
@@ -429,6 +437,7 @@ const EditUser = () => {
 							onChange={handleChangeForm}
 							required
 							value={formData.lastName}
+							disabled={!enableForm}
 						/>
 					</div>
 					<div className='input'>
@@ -440,6 +449,7 @@ const EditUser = () => {
 							onChange={handleChangeForm}
 							required
 							value={formData.email}
+							disabled={!enableForm}
 						/>
 					</div>
 					<div className='input'>
@@ -449,7 +459,8 @@ const EditUser = () => {
 							id='role'
 							onChange={handleChangeForm}
 							required
-							value={formData.role}>
+							value={formData.role}
+							disabled={!enableForm}>
 							<option
 								name='role'
 								value='active'>
@@ -503,6 +514,150 @@ const EditUser = () => {
 					</div>
 				)}
 			</DesktopDiv>
+			<MobileDiv>
+				{awaiting && <Loader />}
+				<div className='search'>
+					<label htmlFor='search'>User:</label>
+					<div className='search-results'>
+						<input
+							type='text'
+							name='user'
+							id='search'
+							onChange={onChangeSearch}
+							value={searchValue}
+							onKeyDown={onKeyDown}
+							placeholder='Type a name to begin search'
+						/>
+
+						{searchValue && (
+							<div className='dropdown'>
+								{users
+									?.filter((user) => {
+										return user[0]
+											.toLowerCase()
+											.includes(searchValue.toLowerCase());
+									})
+									.slice(0, 10)
+									.sort()
+									.map((user, i) => {
+										return (
+											<li
+												id={`user-${i}`}
+												key={user[1]}
+												className='dropdown-row'
+												onClick={onClick}
+												onMouseMove={onMouseMove}
+												onMouseLeave={onMouseLeaveSearch}>
+												{user[0]}
+											</li>
+										);
+									})}
+							</div>
+						)}
+					</div>
+				</div>
+				<form
+					action=''
+					method='put'
+					onSubmit={handleSubmit}>
+					<div className='input'>
+						<label htmlFor='firstName'>First Name:</label>
+						<input
+							type='text'
+							name='firstName'
+							id='firstName'
+							onChange={handleChangeForm}
+							required
+							value={formData.firstName}
+							disabled={!enableForm}
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='lastName'>Last Name:</label>
+						<input
+							type='text'
+							name='lastName'
+							id='lastName'
+							onChange={handleChangeForm}
+							required
+							value={formData.lastName}
+							disabled={!enableForm}
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='email'>Email:</label>
+						<input
+							type='email'
+							name='email'
+							id='email'
+							onChange={handleChangeForm}
+							required
+							value={formData.email}
+							disabled={!enableForm}
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='role'>User Type</label>
+						<select
+							name='role'
+							id='role'
+							onChange={handleChangeForm}
+							required
+							value={formData.role}
+							disabled={!enableForm}>
+							<option
+								name='role'
+								value='active'>
+								Active Client
+							</option>
+							<option
+								name='role'
+								value='inactive'>
+								Inactive Client
+							</option>
+							<option
+								name='role'
+								value='admin'>
+								Admin Account
+							</option>
+						</select>
+					</div>
+				</form>
+				<div className='btn-container'>
+					<button
+						className={`${hasChanged ? 'enabled' : 'disabled'}`}
+						onClick={handleApplyChanges}>
+						Apply Changes
+					</button>
+					<button
+						onClick={() => {
+							resetAll();
+						}}>
+						Clear Form
+					</button>
+					<button
+						className={`delete ${selectedUser ? 'enabled' : 'disabled'}`}
+						onClick={() => {
+							setSelectedDelete(true);
+						}}>
+						Delete User
+					</button>
+				</div>
+				{selectedDelete && (
+					<div className='btn-container'>
+						<p>
+							<strong>This cannot be undone, continue?</strong>
+						</p>
+						<button
+							onClick={() => {
+								setSelectedDelete(false);
+							}}>
+							No
+						</button>
+						<button onClick={handleDelete}>Yes</button>
+					</div>
+				)}
+			</MobileDiv>
 		</>
 	);
 };
@@ -513,11 +668,11 @@ export const DesktopDiv = styled.div`
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		justify-content: start;
-		position: relative;
+		align-items: center;
 		font-size: calc(min(2vw, 2vh));
-		z-index: 1;
+		position: absolute;
+		overflow-x: hidden;
 		overflow-y: scroll;
 
 		& > h3 {
@@ -689,6 +844,128 @@ export const MobileDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
+
+		& > .search {
+			width: 85%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			margin: 1em 1em;
+
+			& > label {
+				width: 10ch;
+				padding-right: 1ch;
+				text-align: end;
+			}
+
+			& > .search-results {
+				flex: 1;
+				position: relative;
+				margin-right: 1ch;
+
+				& > input {
+					width: 100%;
+				}
+
+				& > .dropdown {
+					background-color: white;
+					border: solid 1px #333;
+					position: absolute;
+					top: 100%;
+					width: 100%;
+					z-index: 2;
+
+					& > .dropdown-row {
+						width: 100%;
+						list-style: none;
+						padding: 0.5vh 0;
+						text-align: center;
+					}
+				}
+			}
+		}
+
+		& > form {
+			margin: 0 1em 1em;
+			width: 85%;
+
+			& > .input {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+
+				& > .changed {
+					position: absolute;
+					height: 100%;
+					display: flex;
+					align-items: center;
+					left: 100%;
+					padding-left: 0.5vw;
+					justify-content: end;
+					font-size: calc(min(2.5vw, 2.5vh));
+				}
+
+				& > label {
+					width: 10ch;
+					text-align: right;
+					padding-right: 1ch;
+				}
+
+				& > input {
+					flex: 1;
+					margin-bottom: 0.5em;
+					margin-right: 1ch;
+				}
+			}
+		}
+
+		& > .btn-container {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+
+			& button {
+				margin: 2vh 2vw 0;
+				border: 2px solid #333;
+				border-radius: 10px;
+				padding: 1vh 2vw;
+				color: #333;
+				box-shadow: 3px 3px 2px #333;
+				width: max-content;
+				background-color: #d0dceb;
+			}
+
+			& > .enabled {
+			}
+
+			& > .disabled {
+				background-color: grey;
+				cursor: not-allowed;
+				pointer-events: none;
+			}
+
+			& > .delete {
+				background-color: #ff6666;
+				font-weight: bold;
+			}
+
+			& > p {
+				margin-top: 2vh;
+				padding-top: 1vh;
+				height: 100%;
+				max-width: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				text-align: end;
+			}
+		}
 	}
 `;
 
