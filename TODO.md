@@ -1,8 +1,11 @@
 ## Short term goals
 
--   Admin User Desktop User settings
-
 -   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
+
+    -   New User
+    -   Edit User
+    -   New Program
+    -   Edit Program
 
 -   Active User Changes
 
