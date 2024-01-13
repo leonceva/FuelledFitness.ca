@@ -114,6 +114,11 @@ export const NavMenu = (props) => {
 								to='/services#training-online'>
 								Training
 							</NavLink>
+							<NavLink
+								className='dropdown-link'
+								to='/services#packages-kickstarter'>
+								Packages
+							</NavLink>
 						</>
 					)}
 				</div>

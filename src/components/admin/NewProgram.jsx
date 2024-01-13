@@ -184,7 +184,7 @@ const NewProgram = () => {
 				alert(res);
 			})
 			.finally(() => {
-				setAwaiting(true);
+				setAwaiting(false);
 			});
 	};
 
@@ -986,6 +986,45 @@ const NewProgram = () => {
 						<LoaderMobile />
 					</div>
 				)}
+				<div className='search'>
+					<label htmlFor='search'>User:</label>
+					<div className='search-results'>
+						<input
+							type='text'
+							name='search'
+							id='search'
+							onChange={onChangeSearch}
+							value={searchValue}
+							onKeyDown={onKeyDownSearch}
+							placeholder='Type a name to begin search'
+						/>
+						{searchValue && (
+							<div className='dropdown'>
+								{users
+									?.filter((user) => {
+										return user[0]
+											.toLowerCase()
+											.includes(searchValue.toLowerCase());
+									})
+									.slice(0, 10)
+									.sort()
+									.map((user, i) => {
+										return (
+											<li
+												id={`user-${i}`}
+												key={user[1]}
+												className='dropdown-row'
+												onClick={onClickSearch}
+												onMouseMove={onMouseMoveSearch}
+												onMouseLeave={onMouseLeaveSearch}>
+												{user[0]}
+											</li>
+										);
+									})}
+							</div>
+						)}
+					</div>
+				</div>
 			</MobileDiv>
 		</>
 	);
@@ -1450,12 +1489,22 @@ export const MobileDiv = styled.div`
 
 		& > .loader-wrapper {
 			position: fixed;
-			height: 100%;
+			height: calc(100vh - 100px - 4vh - 2em - 1ch - 2px);
+			top: calc(100px + 2em + 1ch + 2px);
 			width: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+		}
+
+		& > .search {
+			display: flex;
+			width: 100%;
+			flex-direction: row;
+			justify-content: center;
+			text-align: center;
+			margin-top: 1em;
 		}
 	}
 `;

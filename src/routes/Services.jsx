@@ -366,14 +366,13 @@ export const InfoDesktop = (props) => {
 						Initial Consult (60 minutes) - $140 <br />
 						Follow-up (45 minutes) - $105
 					</p>
-					<h2>Personalized Strategies</h2>
+					<h2>Meal Plan Add-On</h2>
 					<p>
-						In some cases your Registered Dietitian may recommend a meal plan to support
-						you in achieving your goals. A meal plan is not the answer for everyone.
-						Your Registered Dietitian will work with you to address the challenges you
-						face to optimally achieve your nutrition goals. Some examples may include
-						food diary review, recipe curation, grocery store tours, pantry review, and
-						cooking lessons.
+						A meal plan is not the answer for everyone. Your Registered Dietitian will
+						work with you to address the challenges you face to optimally achieve your
+						nutrition goals. <br />
+						<br />
+						Cost - $80
 					</p>
 				</>
 			)}
@@ -629,13 +628,14 @@ export const MobileContent = (props) => {
 								<br />
 								Initial Consult (60 minutes) - $140 <br />
 								Follow-up (45 minutes) - $105 <br />
+							</p>
+							<h3>Meal Plan Add-On</h3>
+							<p>
+								A meal plan is not the answer for everyone. Your Registered
+								Dietitian will work with you to address the challenges you face to
+								optimally achieve your nutrition goals. <br />
 								<br />
-								In some cases your Registered Dietitian may recommend a meal plan to
-								support you in achieving your goals. A meal plan is not the answer
-								for everyone. Your Registered Dietitian will work with you to
-								address the challenges you face to optimally achieve your nutrition
-								goals. Some examples may include food diary review, recipe curation,
-								grocery store tours, pantry review, and cooking lessons.
+								Cost: $80
 							</p>
 							<h3>Team Nutrition Programs</h3>
 							<p>
