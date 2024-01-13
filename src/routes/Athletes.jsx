@@ -30,14 +30,14 @@ export const DesktopContent = (props) => {
 				style={showAthlete || showApplication ? { opacity: '0.4' } : { opacity: '1' }}>
 				<h3>Athlete Sponsorship Program</h3>
 				<p>
-					Through this program, we aim to support athletes in achieving their performance
-					goals by providing them with personalized nutrition plans, tailored training
-					regimens, and exclusive access to our expert dietitians and trainers. In return,
-					sponsored athletes become ambassadors for our brand, sharing their success
-					stories, progress updates, and promoting our services to their followers. We
-					believe in empowering athletes to reach their peak potential, and our
-					sponsorship program is a testament to our commitment to fostering a community of
-					individuals dedicated to optimal health and performance.
+					Recognizing the financial challenges that often accompany high level training,
+					our sponsorship program aims to ease the financial burden for selected athletes.
+					Sponsored athletes will benefit from personalized nutrition plans and customized
+					workout programs designed to optimize performance and recovery. By offering
+					these services at a reduced cost, the sponsorship enables elite athletes to
+					focus more on their sport, enhancing their chances of success without the added
+					stress of expensive coaching fees. Registered Dietitian services will only be
+					offered in Ontario at this time.
 				</p>
 				<div className='application'>
 					<h4>Think you'd be a good fit?</h4>
@@ -574,14 +574,14 @@ export const MobileContent = (props) => {
 				style={showAthlete || showApplication ? { opacity: '0.4' } : { opacity: '1' }}>
 				<h3>Athlete Sponsorship Program</h3>
 				<p>
-					Through this program, we aim to support athletes in achieving their performance
-					goals by providing them with personalized nutrition plans, tailored training
-					regimens, and exclusive access to our expert dietitians and trainers. In return,
-					sponsored athletes become ambassadors for our brand, sharing their success
-					stories, progress updates, and promoting our services to their followers. We
-					believe in empowering athletes to reach their peak potential, and our
-					sponsorship program is a testament to our commitment to fostering a community of
-					individuals dedicated to optimal health and performance.
+					Recognizing the financial challenges that often accompany high level training,
+					our sponsorship program aims to ease the financial burden for selected athletes.
+					Sponsored athletes will benefit from personalized nutrition plans and customized
+					workout programs designed to optimize performance and recovery. By offering
+					these services at a reduced cost, the sponsorship enables elite athletes to
+					focus more on their sport, enhancing their chances of success without the added
+					stress of expensive coaching fees. Registered Dietitian services will only be
+					offered in Ontario at this time.
 				</p>
 				<div className='application'>
 					<h4>Think you'd be a good fit?</h4>
