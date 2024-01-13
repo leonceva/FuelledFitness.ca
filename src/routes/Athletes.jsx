@@ -30,17 +30,14 @@ export const DesktopContent = (props) => {
 				style={showAthlete || showApplication ? { opacity: '0.4' } : { opacity: '1' }}>
 				<h3>Athlete Sponsorship Program</h3>
 				<p>
-					Our athlete sponsorship program at our dietitian and personal trainer website is
-					designed to foster mutually beneficial partnerships with dedicated athletes who
-					prioritize their health and fitness journey. Through this program, we aim to
-					support athletes in achieving their performance goals by providing them with
-					personalized nutrition plans, tailored training regimens, and exclusive access
-					to our expert dietitians and trainers. In return, sponsored athletes become
-					ambassadors for our brand, sharing their success stories, progress updates, and
-					promoting our services to their followers. We believe in empowering athletes to
-					reach their peak potential, and our sponsorship program is a testament to our
-					commitment to fostering a community of individuals dedicated to optimal health
-					and performance.
+					Through this program, we aim to support athletes in achieving their performance
+					goals by providing them with personalized nutrition plans, tailored training
+					regimens, and exclusive access to our expert dietitians and trainers. In return,
+					sponsored athletes become ambassadors for our brand, sharing their success
+					stories, progress updates, and promoting our services to their followers. We
+					believe in empowering athletes to reach their peak potential, and our
+					sponsorship program is a testament to our commitment to fostering a community of
+					individuals dedicated to optimal health and performance.
 				</p>
 				<div className='application'>
 					<h4>Think you'd be a good fit?</h4>
@@ -577,17 +574,14 @@ export const MobileContent = (props) => {
 				style={showAthlete || showApplication ? { opacity: '0.4' } : { opacity: '1' }}>
 				<h3>Athlete Sponsorship Program</h3>
 				<p>
-					Our athlete sponsorship program at our dietitian and personal trainer website is
-					designed to foster mutually beneficial partnerships with dedicated athletes who
-					prioritize their health and fitness journey. Through this program, we aim to
-					support athletes in achieving their performance goals by providing them with
-					personalized nutrition plans, tailored training regimens, and exclusive access
-					to our expert dietitians and trainers. In return, sponsored athletes become
-					ambassadors for our brand, sharing their success stories, progress updates, and
-					promoting our services to their followers. We believe in empowering athletes to
-					reach their peak potential, and our sponsorship program is a testament to our
-					commitment to fostering a community of individuals dedicated to optimal health
-					and performance.
+					Through this program, we aim to support athletes in achieving their performance
+					goals by providing them with personalized nutrition plans, tailored training
+					regimens, and exclusive access to our expert dietitians and trainers. In return,
+					sponsored athletes become ambassadors for our brand, sharing their success
+					stories, progress updates, and promoting our services to their followers. We
+					believe in empowering athletes to reach their peak potential, and our
+					sponsorship program is a testament to our commitment to fostering a community of
+					individuals dedicated to optimal health and performance.
 				</p>
 				<div className='application'>
 					<h4>Think you'd be a good fit?</h4>

@@ -478,7 +478,7 @@ export const LoginContainer = styled.div`
 				width: 100%;
 				position: relative;
 				margin-top: 0.5vh;
-				min-width: 300px;
+				width: max-content;
 
 				& input {
 					margin-left: 0.5vw;
@@ -486,7 +486,7 @@ export const LoginContainer = styled.div`
 
 				& label {
 					text-align: start;
-					padding-left: 0.5vw;
+					margin: 0 1em 0 0.5em;
 					font-size: calc(max(1.5vh, 1.5vw));
 				}
 
@@ -495,16 +495,16 @@ export const LoginContainer = styled.div`
 				}
 
 				& > .persist-info {
-					display: ;
+					display: none;
 				}
 
 				& > .forgot-link {
 					color: inherit;
 					text-decoration: none;
 					text-align: end;
-					position: absolute;
-					right: 1vw;
+					position: relative;
 					font-size: calc(max(1.5vh, 1.5vw));
+					margin: 0 1em;
 
 					&:hover {
 						color: blue;

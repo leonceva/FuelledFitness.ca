@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useLogout from '../hooks/useLogout';
 import useAuth from '../hooks/useAuth';
@@ -27,14 +27,85 @@ const AdminDashboard = (props) => {
 		sessionStorage.setItem('optionSelected', JSON.stringify(option));
 	};
 
+	const [buttonOptions, setButtonOptions] = useState(null);
+
 	const firstName = decoded?.User?.firstName || null;
 	const lastName = decoded?.User?.lastName || null;
+
+	useEffect(() => {
+		if (optionSelected === 'New Program' || optionSelected === 'Edit Program') {
+			setButtonOptions('Programs');
+		}
+		if (optionSelected === 'New User' || optionSelected === 'Edit User') {
+			setButtonOptions('Users');
+		}
+	}, [optionSelected]);
 
 	return (
 		<>
 			<MobileDiv>
-				<div className='header'></div>
-				<div className='option-selected'></div>
+				<div className='header'>
+					<span
+						className={`option ${
+							optionSelected === 'New Program' || optionSelected === 'Edit Program'
+								? 'selected'
+								: ''
+						}`}
+						onClick={() => {
+							setButtonOptions('Programs');
+							setOptionSelected('New Program');
+						}}>
+						Programs
+					</span>
+					<span
+						className={`option ${
+							optionSelected === 'New User' || optionSelected === 'Edit User'
+								? 'selected'
+								: ''
+						}`}
+						onClick={() => {
+							setButtonOptions('Users');
+							setOptionSelected('New User');
+						}}>
+						Users
+					</span>
+					<span
+						className={`option ${optionSelected === 'My Account' ? 'selected' : ''}`}
+						onTouchStart={() => {
+							handleOption('My Account');
+						}}>
+						{`${firstName?.charAt(0)}. ${
+							lastName?.length > 8 ? lastName.slice(0, 8) + '.' : lastName
+						}`}
+						<i
+							className='bi bi-person-circle'
+							style={{ paddingLeft: '0.5em' }}
+						/>
+					</span>
+					<span
+						className='option'
+						onTouchStart={async () => {
+							await logout();
+						}}>
+						Logout
+						<i
+							className='bi bi-box-arrow-right'
+							style={{ paddingLeft: '0.5em' }}
+						/>
+					</span>
+				</div>
+				<div className='option-selected'>
+					<div className='btn-options'>
+						{buttonOptions === 'Programs' && (
+							<>
+								<button>New</button>
+								<button>Edit</button>
+							</>
+						)}
+						{buttonOptions === 'Users' && <>test</>}
+					</div>
+					<div className='version'>{VERSION}</div>
+				</div>
 			</MobileDiv>
 			<DesktopDiv>
 				<div className='sidebar'>
@@ -232,6 +303,77 @@ export const MobileDiv = styled.div`
 			background-color: #333;
 			padding-bottom: 2px;
 			padding-top: 1px;
+
+			& > .option {
+				padding: 0.5em 0.5em;
+				position: relative;
+				touch-action: none;
+
+				& > i {
+					padding-left: 0.5em;
+				}
+
+				& > .expand-menu {
+					position: absolute;
+					background-color: #333;
+					width: 100%;
+					list-style: none;
+					padding: 0;
+					left: 0%;
+					top: 100%;
+					overflow-x: none;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: start;
+					border-radius: 0 0 10px 10px;
+					display: show;
+
+					& > span {
+						background-color: #333;
+						color: #d0dceb;
+						text-align: center;
+						padding: 0.3em 0;
+					}
+				}
+
+				& > .show {
+					display: show;
+					transition: height 2s ease-in;
+				}
+				& > .hide {
+					display: none;
+					height: 0%;
+				}
+			}
+
+			& > .selected {
+				background-color: #d0dceb;
+				color: #333;
+			}
+		}
+
+		& > .option-selected {
+			width: 100%;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: start;
+
+			& > .btn-options {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+			}
+
+			& > .version {
+				width: 100%;
+				text-align: end;
+				padding-right: 0.5em;
+			}
 		}
 	}
 `;
