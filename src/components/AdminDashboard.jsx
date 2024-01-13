@@ -74,9 +74,6 @@ const AdminDashboard = (props) => {
 						onTouchStart={() => {
 							handleOption('My Account');
 						}}>
-						{`${firstName?.charAt(0)}. ${
-							lastName?.length > 8 ? lastName.slice(0, 8) + '.' : lastName
-						}`}
 						<i
 							className='bi bi-person-circle'
 							style={{ paddingLeft: '0.5em' }}
@@ -98,11 +95,50 @@ const AdminDashboard = (props) => {
 					<div className='btn-options'>
 						{buttonOptions === 'Programs' && (
 							<>
-								<button>New</button>
-								<button>Edit</button>
+								<button
+									className={`${
+										optionSelected === 'New Program' ? 'pressed' : ''
+									}`}
+									onClick={() => {
+										setOptionSelected('New Program');
+									}}>
+									New Program
+								</button>
+								<button
+									className={`${
+										optionSelected === 'Edit Program' ? 'pressed' : ''
+									}`}
+									onClick={() => {
+										setOptionSelected('Edit Program');
+									}}>
+									Edit Program
+								</button>
 							</>
 						)}
-						{buttonOptions === 'Users' && <>test</>}
+						{buttonOptions === 'Users' && (
+							<>
+								<button
+									className={`${optionSelected === 'New User' ? 'pressed' : ''}`}
+									onClick={() => {
+										setOptionSelected('New User');
+									}}>
+									New User
+								</button>
+								<button
+									className={`${optionSelected === 'Edit User' ? 'pressed' : ''}`}
+									onClick={() => {
+										setOptionSelected('Edit User');
+									}}>
+									Edit User
+								</button>
+							</>
+						)}
+					</div>
+					<div className='content'>
+						{optionSelected === 'New Program' && <NewProgram />}
+						{optionSelected === 'Edit Program' && <EditProgram />}
+						{optionSelected === 'New User' && <NewUser />}
+						{optionSelected === 'Edit User' && <EditUser />}
 					</div>
 					<div className='version'>{VERSION}</div>
 				</div>
@@ -360,6 +396,7 @@ export const MobileDiv = styled.div`
 			flex-direction: column;
 			justify-content: start;
 			align-items: start;
+			position: relative;
 
 			& > .btn-options {
 				width: 100%;
@@ -367,6 +404,31 @@ export const MobileDiv = styled.div`
 				flex-direction: row;
 				align-items: center;
 				justify-content: center;
+				margin-top: 1em;
+
+				& > button {
+					background-color: #87ceeb;
+					border: 2px solid #333;
+					border-radius: 10px;
+					padding: 3px 8px;
+					color: #333;
+					width: max-content;
+					box-shadow: 2px 2px 2px #333;
+					margin: 0 5px;
+					transition: all 200ms;
+				}
+
+				& > .pressed {
+					box-shadow: 0 0 0;
+					transform: translate(2px, 2px);
+					background-color: #5f90a5;
+					transition: all 200ms;
+				}
+			}
+
+			& > .content {
+				width: 100%;
+				flex: 1;
 			}
 
 			& > .version {

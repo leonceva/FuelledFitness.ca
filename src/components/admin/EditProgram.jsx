@@ -605,388 +605,407 @@ const EditProgram = () => {
 	}, []);
 
 	return (
-		<DesktopDiv>
-			{alertMessage !== '' && (
-				<>
-					<div
-						className='alert-background'
-						onClick={() => {
-							setAlertMessage('');
-						}}
-					/>
-					<div className='alert'>
-						<button
-							className='close'
+		<>
+			<DesktopDiv>
+				{alertMessage !== '' && (
+					<>
+						<div
+							className='alert-background'
 							onClick={() => {
 								setAlertMessage('');
-							}}>
-							X
-						</button>
-						<div className='message'>{alertMessage}</div>
-					</div>
-				</>
-			)}
-			{awaiting && <Loader />}
-			<h3>Edit Program</h3>
-			<div className='search'>
-				<label htmlFor='search'>User:</label>
-				<div className='search-results'>
-					<input
-						type='text'
-						name='search'
-						id='search'
-						onChange={onChangeSearch}
-						value={searchValue}
-						onKeyDown={onKeyDownSearch}
-						placeholder='Type a name to begin search'
-					/>
-
-					{searchValue && (
-						<div className='dropdown'>
-							{users
-								?.filter((user) => {
-									return user[0]
-										.toLowerCase()
-										.includes(searchValue.toLowerCase());
-								})
-								.slice(0, 10)
-								.sort()
-								.map((user, i) => {
-									return (
-										<li
-											id={`user-${i}`}
-											key={user[1]}
-											className='dropdown-row'
-											onClick={onClickSearch}
-											onMouseMove={onMouseMoveSearch}
-											onMouseLeave={onMouseLeaveSearch}>
-											{user[0]}
-										</li>
-									);
-								})}
+							}}
+						/>
+						<div className='alert'>
+							<button
+								className='close'
+								onClick={() => {
+									setAlertMessage('');
+								}}>
+								X
+							</button>
+							<div className='message'>{alertMessage}</div>
 						</div>
-					)}
-				</div>
-			</div>
-			{selectedUser !== '' && (
-				<>
-					<div className='header'>
-						<span className='name'>
-							Client:<strong>{selectedUser[0]}</strong>
-						</span>
-					</div>
+					</>
+				)}
+				{awaiting && <Loader />}
+				<h3>Edit Program</h3>
+				<div className='search'>
+					<label htmlFor='search'>User:</label>
+					<div className='search-results'>
+						<input
+							type='text'
+							name='search'
+							id='search'
+							onChange={onChangeSearch}
+							value={searchValue}
+							onKeyDown={onKeyDownSearch}
+							placeholder='Type a name to begin search'
+						/>
 
-					{programList?.length === 0 && <div>No Program Info</div>}
-
-					{programList?.length > 0 && (
-						<div className='program-container'>
-							<div className='program-select'>
-								<label className='label'>Release Date:</label>
-								<select
-									name='release-date'
-									id='release-date'
-									onChange={(e) => {
-										e.preventDefault();
-										e.stopPropagation();
-										setSelectedProgram(programList[e?.target?.value]);
-									}}>
-									{programList.map((program, programIndex) => {
-										if (programIndex < 10) {
-											return (
-												<option value={programIndex}>{`${
-													program.release_date.split('T')[0]
-												}`}</option>
-											);
-										} else {
-											return null;
-										}
+						{searchValue && (
+							<div className='dropdown'>
+								{users
+									?.filter((user) => {
+										return user[0]
+											.toLowerCase()
+											.includes(searchValue.toLowerCase());
+									})
+									.slice(0, 10)
+									.sort()
+									.map((user, i) => {
+										return (
+											<li
+												id={`user-${i}`}
+												key={user[1]}
+												className='dropdown-row'
+												onClick={onClickSearch}
+												onMouseMove={onMouseMoveSearch}
+												onMouseLeave={onMouseLeaveSearch}>
+												{user[0]}
+											</li>
+										);
 									})}
-								</select>
-								<span className='info'>
-									(only last 10 entries available to edit)
-								</span>
 							</div>
-							<div className='program-data'>
-								{selectedProgram?.workout?.map((day, dayIndex) => {
-									return (
-										<div className='day'>
-											<div className='title'>
-												<strong>{`Day ${day.day}`}</strong>
-												<button
-													id={`day-${dayIndex}`}
-													onClick={(e) => {
-														removeDay(e);
-													}}>
-													Remove Day
-												</button>
-											</div>
-											<div className='category'>
-												<div className='title'>
-													<span
-														onClick={() => {
-															addMobilityItem(dayIndex);
-														}}>
-														Add Mobility
-													</span>
-												</div>
-												{day.mobility?.map((item, itemIndex) => {
-													return (
-														<div
-															className='item-mobility'
-															id={`day-${dayIndex}-mobility-${itemIndex}`}>
-															<input
-																type='text'
-																name='name'
-																id={`day-${dayIndex}-mobility-${itemIndex}-name`}
-																value={day.mobility[itemIndex].name}
-																placeholder='Name'
-																onChange={(e) => {
-																	handleMobilityChange(e);
-																}}
-															/>
-															<input
-																type='number'
-																name='sets'
-																id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
-																value={day.mobility[itemIndex].sets}
-																placeholder='Sets'
-																min={1}
-																onChange={(e) => {
-																	handleMobilityChange(e);
-																}}
-															/>
-															<input
-																type='number'
-																name='reps'
-																id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
-																value={day.mobility[itemIndex].reps}
-																placeholder='Reps'
-																min={1}
-																onChange={(e) => {
-																	handleMobilityChange(e);
-																}}
-															/>
-															<input
-																type='text'
-																name='comment'
-																id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
-																value={
-																	day.mobility[itemIndex].comment
-																}
-																placeholder='Comments (optional)'
-																onChange={(e) => {
-																	handleMobilityChange(e);
-																}}
-															/>
-															<button
-																id={`day-${dayIndex}-mobility-${itemIndex}-button`}
-																onClick={(e) =>
-																	removeMobilityItem(e)
-																}>
-																X
-															</button>
-														</div>
-													);
-												})}
-											</div>
-											<div className='category'>
-												<div className='title'>
-													<span
-														onClick={() => {
-															addStrengthItem(dayIndex);
-														}}>
-														{' '}
-														Add Strength
-													</span>
-												</div>
-												{day.strength?.map((item, itemIndex) => {
-													return (
-														<div
-															className='item-strength'
-															id={`day-${dayIndex}-strength-${itemIndex}`}>
-															<input
-																type='text'
-																name='name'
-																id={`day-${dayIndex}-strength-${itemIndex}-name`}
-																value={day.strength[itemIndex].name}
-																placeholder='Name'
-																onChange={(e) => {
-																	handleStrengthChange(e);
-																}}
-															/>
-															<input
-																type='number'
-																name='sets'
-																id={`day-${dayIndex}-strength-${itemIndex}-sets`}
-																value={day.strength[itemIndex].sets}
-																placeholder='Sets'
-																min={1}
-																onChange={(e) => {
-																	handleStrengthChange(e);
-																}}
-															/>
-															<input
-																type='number'
-																name='reps'
-																id={`day-${dayIndex}-strength-${itemIndex}-reps`}
-																value={day.strength[itemIndex].reps}
-																placeholder='Reps'
-																min={1}
-																onChange={(e) => {
-																	handleStrengthChange(e);
-																}}
-															/>
-															<input
-																type='number'
-																name='load'
-																id={`day-${dayIndex}-strength-${itemIndex}-load`}
-																value={day.strength[itemIndex].load}
-																placeholder='Load'
-																onChange={(e) => {
-																	handleStrengthChange(e);
-																}}
-															/>
-															<input
-																type='text'
-																name='comment'
-																id={`day-${dayIndex}-strength-${itemIndex}-comment`}
-																value={
-																	day.strength[itemIndex].comment
-																}
-																placeholder='Comments (optional)'
-																onChange={(e) => {
-																	handleStrengthChange(e);
-																}}
-															/>
-															<button
-																id={`day-${dayIndex}-strength-${itemIndex}-button`}
-																onClick={(e) =>
-																	removeStrengthItem(e)
-																}>
-																X
-															</button>
-														</div>
-													);
-												})}
-											</div>
-											<div className='category'>
-												<div className='title'>
-													<span
-														onClick={() => {
-															addConditioningItem(dayIndex);
-														}}>
-														Add Conditioning
-													</span>
-												</div>
-												{day.conditioning?.map((item, itemIndex) => {
-													return (
-														<div
-															className='item-conditioning'
-															id={`day-${dayIndex}-conditioning-${itemIndex}`}>
-															<input
-																type='text'
-																name='name'
-																id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
-																value={
-																	day.conditioning[itemIndex].name
-																}
-																placeholder='Name'
-																onChange={(e) => {
-																	handleConditioningChange(e);
-																}}
-															/>
-															<input
-																type='number'
-																name='duration'
-																id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
-																value={
-																	day.conditioning[itemIndex]
-																		.duration
-																}
-																placeholder='Duration (min)'
-																onChange={(e) => {
-																	handleConditioningChange(e);
-																}}
-															/>
-															<input
-																type='text'
-																name='comment'
-																id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
-																value={
-																	day.conditioning[itemIndex]
-																		.comment
-																}
-																placeholder='Comments (optional)'
-																onChange={(e) => {
-																	handleConditioningChange(e);
-																}}
-															/>
-															<button
-																id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
-																onClick={(e) =>
-																	removeConditioningItem(e)
-																}>
-																X
-															</button>
-														</div>
-													);
-												})}
-											</div>
-										</div>
-									);
-								})}
-							</div>
-							{selectedProgram?.workout?.length < 7 && (
-								<button
-									className='add-day'
-									onClick={addDay}>
-									Add Day
-								</button>
-							)}
-							<div className='btn-container'>
-								{clickedDelete && (
-									<>
-										<strong style={{ marginRight: '2em' }}>
-											This action cannont be undone, continue?
-										</strong>
-										<button
-											onClick={() => {
-												setClickedDelete(false);
-											}}>
-											No
-										</button>
-										<button onClick={handleDelete}>Yes</button>
-									</>
-								)}
-								{!clickedDelete && (
-									<>
-										<button
-											className={`${allowSubmit ? '' : 'disabled'}`}
-											onClick={handleSubmit}
-											disabled={!allowSubmit}>
-											Apply Changes
-										</button>
-										<button
-											onClick={() => {
-												resetAll();
-											}}>
-											Clear All
-										</button>
-										<button
-											className='delete'
-											onClick={() => {
-												setClickedDelete(true);
-											}}>
-											Delete Program
-										</button>
-									</>
-								)}
-							</div>
+						)}
+					</div>
+				</div>
+				{selectedUser !== '' && (
+					<>
+						<div className='header'>
+							<span className='name'>
+								Client:<strong>{selectedUser[0]}</strong>
+							</span>
 						</div>
-					)}
-				</>
-			)}
-		</DesktopDiv>
+
+						{programList?.length === 0 && <div>No Program Info</div>}
+
+						{programList?.length > 0 && (
+							<div className='program-container'>
+								<div className='program-select'>
+									<label className='label'>Release Date:</label>
+									<select
+										name='release-date'
+										id='release-date'
+										onChange={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											setSelectedProgram(programList[e?.target?.value]);
+										}}>
+										{programList.map((program, programIndex) => {
+											if (programIndex < 10) {
+												return (
+													<option value={programIndex}>{`${
+														program.release_date.split('T')[0]
+													}`}</option>
+												);
+											} else {
+												return null;
+											}
+										})}
+									</select>
+									<span className='info'>
+										(only last 10 entries available to edit)
+									</span>
+								</div>
+								<div className='program-data'>
+									{selectedProgram?.workout?.map((day, dayIndex) => {
+										return (
+											<div className='day'>
+												<div className='title'>
+													<strong>{`Day ${day.day}`}</strong>
+													<button
+														id={`day-${dayIndex}`}
+														onClick={(e) => {
+															removeDay(e);
+														}}>
+														Remove Day
+													</button>
+												</div>
+												<div className='category'>
+													<div className='title'>
+														<span
+															onClick={() => {
+																addMobilityItem(dayIndex);
+															}}>
+															Add Mobility
+														</span>
+													</div>
+													{day.mobility?.map((item, itemIndex) => {
+														return (
+															<div
+																className='item-mobility'
+																id={`day-${dayIndex}-mobility-${itemIndex}`}>
+																<input
+																	type='text'
+																	name='name'
+																	id={`day-${dayIndex}-mobility-${itemIndex}-name`}
+																	value={
+																		day.mobility[itemIndex].name
+																	}
+																	placeholder='Name'
+																	onChange={(e) => {
+																		handleMobilityChange(e);
+																	}}
+																/>
+																<input
+																	type='number'
+																	name='sets'
+																	id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
+																	value={
+																		day.mobility[itemIndex].sets
+																	}
+																	placeholder='Sets'
+																	min={1}
+																	onChange={(e) => {
+																		handleMobilityChange(e);
+																	}}
+																/>
+																<input
+																	type='number'
+																	name='reps'
+																	id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
+																	value={
+																		day.mobility[itemIndex].reps
+																	}
+																	placeholder='Reps'
+																	min={1}
+																	onChange={(e) => {
+																		handleMobilityChange(e);
+																	}}
+																/>
+																<input
+																	type='text'
+																	name='comment'
+																	id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
+																	value={
+																		day.mobility[itemIndex]
+																			.comment
+																	}
+																	placeholder='Comments (optional)'
+																	onChange={(e) => {
+																		handleMobilityChange(e);
+																	}}
+																/>
+																<button
+																	id={`day-${dayIndex}-mobility-${itemIndex}-button`}
+																	onClick={(e) =>
+																		removeMobilityItem(e)
+																	}>
+																	X
+																</button>
+															</div>
+														);
+													})}
+												</div>
+												<div className='category'>
+													<div className='title'>
+														<span
+															onClick={() => {
+																addStrengthItem(dayIndex);
+															}}>
+															{' '}
+															Add Strength
+														</span>
+													</div>
+													{day.strength?.map((item, itemIndex) => {
+														return (
+															<div
+																className='item-strength'
+																id={`day-${dayIndex}-strength-${itemIndex}`}>
+																<input
+																	type='text'
+																	name='name'
+																	id={`day-${dayIndex}-strength-${itemIndex}-name`}
+																	value={
+																		day.strength[itemIndex].name
+																	}
+																	placeholder='Name'
+																	onChange={(e) => {
+																		handleStrengthChange(e);
+																	}}
+																/>
+																<input
+																	type='number'
+																	name='sets'
+																	id={`day-${dayIndex}-strength-${itemIndex}-sets`}
+																	value={
+																		day.strength[itemIndex].sets
+																	}
+																	placeholder='Sets'
+																	min={1}
+																	onChange={(e) => {
+																		handleStrengthChange(e);
+																	}}
+																/>
+																<input
+																	type='number'
+																	name='reps'
+																	id={`day-${dayIndex}-strength-${itemIndex}-reps`}
+																	value={
+																		day.strength[itemIndex].reps
+																	}
+																	placeholder='Reps'
+																	min={1}
+																	onChange={(e) => {
+																		handleStrengthChange(e);
+																	}}
+																/>
+																<input
+																	type='number'
+																	name='load'
+																	id={`day-${dayIndex}-strength-${itemIndex}-load`}
+																	value={
+																		day.strength[itemIndex].load
+																	}
+																	placeholder='Load'
+																	onChange={(e) => {
+																		handleStrengthChange(e);
+																	}}
+																/>
+																<input
+																	type='text'
+																	name='comment'
+																	id={`day-${dayIndex}-strength-${itemIndex}-comment`}
+																	value={
+																		day.strength[itemIndex]
+																			.comment
+																	}
+																	placeholder='Comments (optional)'
+																	onChange={(e) => {
+																		handleStrengthChange(e);
+																	}}
+																/>
+																<button
+																	id={`day-${dayIndex}-strength-${itemIndex}-button`}
+																	onClick={(e) =>
+																		removeStrengthItem(e)
+																	}>
+																	X
+																</button>
+															</div>
+														);
+													})}
+												</div>
+												<div className='category'>
+													<div className='title'>
+														<span
+															onClick={() => {
+																addConditioningItem(dayIndex);
+															}}>
+															Add Conditioning
+														</span>
+													</div>
+													{day.conditioning?.map((item, itemIndex) => {
+														return (
+															<div
+																className='item-conditioning'
+																id={`day-${dayIndex}-conditioning-${itemIndex}`}>
+																<input
+																	type='text'
+																	name='name'
+																	id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
+																	value={
+																		day.conditioning[itemIndex]
+																			.name
+																	}
+																	placeholder='Name'
+																	onChange={(e) => {
+																		handleConditioningChange(e);
+																	}}
+																/>
+																<input
+																	type='number'
+																	name='duration'
+																	id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
+																	value={
+																		day.conditioning[itemIndex]
+																			.duration
+																	}
+																	placeholder='Duration (min)'
+																	onChange={(e) => {
+																		handleConditioningChange(e);
+																	}}
+																/>
+																<input
+																	type='text'
+																	name='comment'
+																	id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
+																	value={
+																		day.conditioning[itemIndex]
+																			.comment
+																	}
+																	placeholder='Comments (optional)'
+																	onChange={(e) => {
+																		handleConditioningChange(e);
+																	}}
+																/>
+																<button
+																	id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
+																	onClick={(e) =>
+																		removeConditioningItem(e)
+																	}>
+																	X
+																</button>
+															</div>
+														);
+													})}
+												</div>
+											</div>
+										);
+									})}
+								</div>
+								{selectedProgram?.workout?.length < 7 && (
+									<button
+										className='add-day'
+										onClick={addDay}>
+										Add Day
+									</button>
+								)}
+								<div className='btn-container'>
+									{clickedDelete && (
+										<>
+											<strong style={{ marginRight: '2em' }}>
+												This action cannont be undone, continue?
+											</strong>
+											<button
+												onClick={() => {
+													setClickedDelete(false);
+												}}>
+												No
+											</button>
+											<button onClick={handleDelete}>Yes</button>
+										</>
+									)}
+									{!clickedDelete && (
+										<>
+											<button
+												className={`${allowSubmit ? '' : 'disabled'}`}
+												onClick={handleSubmit}
+												disabled={!allowSubmit}>
+												Apply Changes
+											</button>
+											<button
+												onClick={() => {
+													resetAll();
+												}}>
+												Clear All
+											</button>
+											<button
+												className='delete'
+												onClick={() => {
+													setClickedDelete(true);
+												}}>
+												Delete Program
+											</button>
+										</>
+									)}
+								</div>
+							</div>
+						)}
+					</>
+				)}
+			</DesktopDiv>
+		</>
 	);
 };
 
@@ -1421,5 +1440,18 @@ export const DesktopDiv = styled.div`
 
 	@media screen and ((max-width: ${MOBILE_MODE_LIMIT})or (width: ${MOBILE_MODE_LIMIT})) {
 		display: none;
+	}
+`;
+
+export const MobileDiv = styled.div`
+	display: none;
+
+	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
 	}
 `;

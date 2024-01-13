@@ -3,6 +3,8 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useEffect, useState, useRef } from 'react';
 import Loader from './Loader';
 
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
+
 const EditUser = () => {
 	const axiosPrivate = useAxiosPrivate();
 	const [users, setUsers] = useState(null);
@@ -358,314 +360,335 @@ const EditUser = () => {
 	}, []);
 
 	return (
-		<EditUserDiv>
-			{awaiting && <Loader />}
-			<h3>Edit Users</h3>
-			<div className='search'>
-				<label htmlFor='search'>User:</label>
-				<div className='search-results'>
-					<input
-						type='text'
-						name='user'
-						id='search'
-						onChange={onChangeSearch}
-						value={searchValue}
-						onKeyDown={onKeyDown}
-						placeholder='Type a name to begin search'
-					/>
+		<>
+			<DesktopDiv>
+				{awaiting && <Loader />}
+				<h3>Edit Users</h3>
+				<div className='search'>
+					<label htmlFor='search'>User:</label>
+					<div className='search-results'>
+						<input
+							type='text'
+							name='user'
+							id='search'
+							onChange={onChangeSearch}
+							value={searchValue}
+							onKeyDown={onKeyDown}
+							placeholder='Type a name to begin search'
+						/>
 
-					{searchValue && (
-						<div className='dropdown'>
-							{users
-								?.filter((user) => {
-									return user[0]
-										.toLowerCase()
-										.includes(searchValue.toLowerCase());
-								})
-								.slice(0, 10)
-								.sort()
-								.map((user, i) => {
-									return (
-										<li
-											id={`user-${i}`}
-											key={user[1]}
-											className='dropdown-row'
-											onClick={onClick}
-											onMouseMove={onMouseMove}
-											onMouseLeave={onMouseLeaveSearch}>
-											{user[0]}
-										</li>
-									);
-								})}
-						</div>
-					)}
+						{searchValue && (
+							<div className='dropdown'>
+								{users
+									?.filter((user) => {
+										return user[0]
+											.toLowerCase()
+											.includes(searchValue.toLowerCase());
+									})
+									.slice(0, 10)
+									.sort()
+									.map((user, i) => {
+										return (
+											<li
+												id={`user-${i}`}
+												key={user[1]}
+												className='dropdown-row'
+												onClick={onClick}
+												onMouseMove={onMouseMove}
+												onMouseLeave={onMouseLeaveSearch}>
+												{user[0]}
+											</li>
+										);
+									})}
+							</div>
+						)}
+					</div>
 				</div>
-			</div>
-			<br />
-			<form
-				action=''
-				method='put'
-				onSubmit={handleSubmit}>
-				<div className='input'>
-					<label htmlFor='firstName'>First Name:</label>
-					<input
-						type='text'
-						name='firstName'
-						id='firstName'
-						onChange={handleChangeForm}
-						required
-						value={formData.firstName}
-					/>
-				</div>
-				<div className='input'>
-					<label htmlFor='lastName'>Last Name</label>
-					<input
-						type='text'
-						name='lastName'
-						id='lastName'
-						onChange={handleChangeForm}
-						required
-						value={formData.lastName}
-					/>
-				</div>
-				<div className='input'>
-					<label htmlFor='email'>Email:</label>
-					<input
-						type='email'
-						name='email'
-						id='email'
-						onChange={handleChangeForm}
-						required
-						value={formData.email}
-					/>
-				</div>
-				<div className='input'>
-					<label htmlFor='role'>User Type</label>
-					<select
-						name='role'
-						id='role'
-						onChange={handleChangeForm}
-						required
-						value={formData.role}>
-						<option
+				<br />
+				<form
+					action=''
+					method='put'
+					onSubmit={handleSubmit}>
+					<div className='input'>
+						<label htmlFor='firstName'>First Name:</label>
+						<input
+							type='text'
+							name='firstName'
+							id='firstName'
+							onChange={handleChangeForm}
+							required
+							value={formData.firstName}
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='lastName'>Last Name</label>
+						<input
+							type='text'
+							name='lastName'
+							id='lastName'
+							onChange={handleChangeForm}
+							required
+							value={formData.lastName}
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='email'>Email:</label>
+						<input
+							type='email'
+							name='email'
+							id='email'
+							onChange={handleChangeForm}
+							required
+							value={formData.email}
+						/>
+					</div>
+					<div className='input'>
+						<label htmlFor='role'>User Type</label>
+						<select
 							name='role'
-							value='active'>
-							Active Client
-						</option>
-						<option
-							name='role'
-							value='inactive'>
-							Inactive Client
-						</option>
-						<option
-							name='role'
-							value='admin'>
-							Admin Account
-						</option>
-					</select>
-				</div>
-			</form>
-			<div className='btn-container'>
-				<button
-					className={`${hasChanged ? 'enabled' : 'disabled'}`}
-					onClick={handleApplyChanges}>
-					Apply Changes
-				</button>
-				<button
-					onClick={() => {
-						resetAll();
-					}}>
-					Clear Form
-				</button>
-				<button
-					className={`delete ${selectedUser ? 'enabled' : 'disabled'}`}
-					onClick={() => {
-						setSelectedDelete(true);
-					}}>
-					Delete User
-				</button>
-			</div>
-			{selectedDelete && (
+							id='role'
+							onChange={handleChangeForm}
+							required
+							value={formData.role}>
+							<option
+								name='role'
+								value='active'>
+								Active Client
+							</option>
+							<option
+								name='role'
+								value='inactive'>
+								Inactive Client
+							</option>
+							<option
+								name='role'
+								value='admin'>
+								Admin Account
+							</option>
+						</select>
+					</div>
+				</form>
 				<div className='btn-container'>
-					<p>
-						<strong>This cannot be undone, continue?</strong>
-					</p>
+					<button
+						className={`${hasChanged ? 'enabled' : 'disabled'}`}
+						onClick={handleApplyChanges}>
+						Apply Changes
+					</button>
 					<button
 						onClick={() => {
-							setSelectedDelete(false);
+							resetAll();
 						}}>
-						No
+						Clear Form
 					</button>
-					<button onClick={handleDelete}>Yes</button>
+					<button
+						className={`delete ${selectedUser ? 'enabled' : 'disabled'}`}
+						onClick={() => {
+							setSelectedDelete(true);
+						}}>
+						Delete User
+					</button>
 				</div>
-			)}
-		</EditUserDiv>
+				{selectedDelete && (
+					<div className='btn-container'>
+						<p>
+							<strong>This cannot be undone, continue?</strong>
+						</p>
+						<button
+							onClick={() => {
+								setSelectedDelete(false);
+							}}>
+							No
+						</button>
+						<button onClick={handleDelete}>Yes</button>
+					</div>
+				)}
+			</DesktopDiv>
+		</>
 	);
 };
 
-export const EditUserDiv = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: start;
-	position: relative;
-	font-size: calc(min(2vw, 2vh));
-	z-index: 1;
-	overflow-y: scroll;
-
-	& > h3 {
-		font-size: calc(min(3vw, 3vh));
+export const DesktopDiv = styled.div`
+	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		width: 100%;
-		margin-top: 1em;
-		margin-bottom: 1em;
-		text-align: center;
-	}
-
-	& > .search {
+		height: 100%;
 		display: flex;
-		width: 100%;
-		flex-direction: row;
-		justify-content: center;
-		margin-bottom: 1em;
+		flex-direction: column;
+		align-items: center;
+		justify-content: start;
+		position: relative;
+		font-size: calc(min(2vw, 2vh));
+		z-index: 1;
+		overflow-y: scroll;
 
-		& label {
-			width: 20%;
-			text-align: end;
-			padding-right: 2vw;
-		}
-
-		& > .search-results {
-			width: 50%;
-			display: flex;
-			flex-direction: column;
-			position: relative;
-
-			& > input {
-				width: 100%;
-			}
-
-			& > .dropdown {
-				width: 100%;
-				background-color: white;
-				border: solid 1px #333;
-				position: absolute;
-				top: 100%;
-				z-index: 2;
-
-				& > .dropdown-row {
-					list-style: none;
-					padding: 0.5vh 0;
-					text-align: center;
-
-					&:hover {
-						cursor: pointer;
-					}
-				}
-
-				& > .hover {
-					background-color: lightgray;
-				}
-			}
-		}
-	}
-
-	& form {
-		width: 100%;
-		max-height: 60%;
-
-		& > .input {
+		& > h3 {
+			font-size: calc(min(3vw, 3vh));
 			width: 100%;
-			padding: 0.5vh 0;
-			position: relative;
+			margin-top: 1em;
+			margin-bottom: 1em;
+			text-align: center;
+		}
+
+		& > .search {
 			display: flex;
+			width: 100%;
 			flex-direction: row;
 			justify-content: center;
-
-			& > .changed {
-				position: absolute;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				left: 80%;
-				padding-left: 0.5vw;
-				justify-content: end;
-				font-size: calc(min(2.5vw, 2.5vh));
-			}
+			margin-bottom: 1em;
 
 			& label {
 				width: 20%;
-				text-align: right;
+				text-align: end;
 				padding-right: 2vw;
 			}
 
-			& input,
-			select {
-				width: 40%;
+			& > .search-results {
+				width: 50%;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+
+				& > input {
+					width: 100%;
+				}
+
+				& > .dropdown {
+					width: 100%;
+					background-color: white;
+					border: solid 1px #333;
+					position: absolute;
+					top: 100%;
+					z-index: 2;
+
+					& > .dropdown-row {
+						list-style: none;
+						padding: 0.5vh 0;
+						text-align: center;
+
+						&:hover {
+							cursor: pointer;
+						}
+					}
+
+					& > .hover {
+						background-color: lightgray;
+					}
+				}
+			}
+		}
+
+		& form {
+			width: 100%;
+			max-height: 60%;
+
+			& > .input {
+				width: 100%;
+				padding: 0.5vh 0;
+				position: relative;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+
+				& > .changed {
+					position: absolute;
+					height: 100%;
+					display: flex;
+					align-items: center;
+					left: 80%;
+					padding-left: 0.5vw;
+					justify-content: end;
+					font-size: calc(min(2.5vw, 2.5vh));
+				}
+
+				& label {
+					width: 20%;
+					text-align: right;
+					padding-right: 2vw;
+				}
+
+				& input,
+				select {
+					width: 40%;
+					height: 100%;
+					padding: calc(min(0.5vh, 0.5vh)) 0;
+				}
+			}
+		}
+
+		& > .btn-container {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			justify-self: flex-end;
+			align-items: center;
+			text-align: center;
+
+			& button {
+				margin: 2vh 2vw 0;
+				border: 2px solid #333;
+				border-radius: 10px;
+				padding: 1vh 2vw;
+				color: #333;
+				box-shadow: 3px 3px 2px #333;
+				width: max-content;
+				background-color: #d0dceb;
+
+				&:hover {
+					cursor: pointer;
+					background-color: #87ceeb;
+				}
+				&:active {
+					translate: 3px 3px;
+					box-shadow: 0 0 0;
+				}
+			}
+
+			& > .enabled {
+			}
+
+			& > .disabled {
+				background-color: grey;
+				cursor: not-allowed;
+				pointer-events: none;
+			}
+
+			& > .delete {
+				background-color: #ff6666;
+				font-weight: bold;
+
+				&:hover {
+					background-color: red;
+				}
+			}
+
+			& > p {
+				margin-top: 2vh;
+				padding-top: 1vh;
 				height: 100%;
-				padding: calc(min(0.5vh, 0.5vh)) 0;
+				max-width: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				text-align: end;
 			}
 		}
 	}
 
-	& > .btn-container {
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+		display: none;
+	}
+`;
+
+export const MobileDiv = styled.div`
+	display: none;
+
+	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
 		width: 100%;
+		height: 100%;
 		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		justify-self: flex-end;
+		flex-direction: column;
+		justify-content: start;
 		align-items: center;
-		text-align: center;
-
-		& button {
-			margin: 2vh 2vw 0;
-			border: 2px solid #333;
-			border-radius: 10px;
-			padding: 1vh 2vw;
-			color: #333;
-			box-shadow: 3px 3px 2px #333;
-			width: max-content;
-			background-color: #d0dceb;
-
-			&:hover {
-				cursor: pointer;
-				background-color: #87ceeb;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
-		}
-
-		& > .enabled {
-		}
-
-		& > .disabled {
-			background-color: grey;
-			cursor: not-allowed;
-			pointer-events: none;
-		}
-
-		& > .delete {
-			background-color: #ff6666;
-			font-weight: bold;
-
-			&:hover {
-				background-color: red;
-			}
-		}
-
-		& > p {
-			margin-top: 2vh;
-			padding-top: 1vh;
-			height: 100%;
-			max-width: 50%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			text-align: end;
-		}
 	}
 `;
 
