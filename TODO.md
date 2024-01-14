@@ -2,8 +2,6 @@
 
 -   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
 
-    -   Edit User
-    -   New Program
     -   Edit Program
 
 -   Active User Changes
