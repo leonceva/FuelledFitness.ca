@@ -1983,5 +1983,13 @@ export const MobileDiv = styled.div`
 				}
 			}
 		}
+
+		& > .header {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 `;

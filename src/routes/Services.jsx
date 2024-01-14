@@ -754,7 +754,7 @@ export const MobileContent = (props) => {
 						<h3>1 Month - Kickstarter</h3>
 						<ul>
 							<li>Initial Nutrition Consultation</li>
-							<li>1 x Follow-up nutrition consultation</li>
+							<li>1 x Follow-up Nutrition Consultation</li>
 							<li>4 x Personal Training Session</li>
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
@@ -765,7 +765,7 @@ export const MobileContent = (props) => {
 						<h3>3 Months - Habit Builder</h3>
 						<ul>
 							<li>Initial Nutrition Consultation</li>
-							<li>3 x Follow-up nutrtion consultation</li>
+							<li>3 x Follow-up Nutrition Consultation</li>
 							<li>12 x Personal Training Session</li>
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
