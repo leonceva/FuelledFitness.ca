@@ -1989,7 +1989,330 @@ export const MobileDiv = styled.div`
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			justify-content: center;
+			justify-content: start;
+			margin-left: 0.5em;
+			margin-right: 0.5em;
+
+			& strong {
+				margin-left: 0.5em;
+			}
+		}
+
+		& > .program-container {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			margin-top: 0.5em;
+			height: max-content;
+
+			& > .program-select {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: start;
+				align-items: center;
+				margin-bottom: 0.5em;
+
+				& > .label {
+					margin-left: 0.5em;
+					width: 15ch;
+				}
+
+				& > select {
+					margin: 0 0.5em;
+					width: calc(100% - 1.5em - 15ch);
+				}
+
+				& > .info {
+					margin-left: 0.5em;
+					font-size: 0.8em;
+					width: 100%;
+				}
+			}
+
+			& > .program-data {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				border: solid #333;
+				border-width: 2px 0 0 0;
+
+				& > .day {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+					border: solid #333;
+					border-width: 0 0 2px 0;
+
+					& > .title {
+						width: 100%;
+						margin-top: 0.5em;
+						margin-bottom: 1em;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: start;
+
+						& > strong {
+							padding-left: 2em;
+						}
+
+						& > button {
+							margin-left: 2em;
+							border: 2px solid #333;
+							border-radius: 10px;
+							padding: 3px 8px;
+							color: #333;
+							box-shadow: 2px 2px 2px #333;
+							width: max-content;
+							background-color: #ff6666;
+
+							&:hover {
+								background-color: red;
+							}
+							&:active {
+								box-shadow: 0 0 0;
+								transform: translate(2px, 2px);
+							}
+						}
+					}
+
+					& > .category {
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						justify-content: start;
+						align-items: center;
+						margin: 5px 0;
+
+						& > .title {
+							width: 100%;
+							text-align: start;
+							align-self: start;
+							padding-left: 2em;
+							margin-bottom: 1em;
+
+							& > span {
+								background-color: #87ceeb;
+								border: 2px solid black;
+								box-shadow: 2px 2px 2px #333;
+								border-radius: 10px;
+								padding: 3px 8px;
+
+								&:hover {
+									background-color: #5f90a5;
+									cursor: pointer;
+								}
+								&:active {
+									box-shadow: 0 0 0;
+									translate: 2px, 2px;
+								}
+							}
+						}
+
+						& > .item-mobility {
+							width: 90%;
+							height: fit-content;
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							align-items: center;
+							justify-content: start;
+							margin-bottom: 3px;
+
+							& > input {
+								border: 1px solid #333;
+								margin-top: 0.25em;
+								margin-bottom: 0.25em;
+							}
+
+							& > input[name='name'] {
+								width: calc(100% - 1em - 10ch);
+								margin-right: 0.5em;
+							}
+							& > input[name='sets'] {
+								width: calc(5ch);
+								margin-right: 0.5em;
+							}
+							& > input[name='reps'] {
+								width: calc(5ch);
+							}
+							& > input[name='comment'] {
+								width: calc(100% - 2.5em);
+								margin-right: 0.5em;
+							}
+							& > button {
+								background-color: darkred;
+								border: 2px solid #333;
+								border-radius: 5px;
+								box-shadow: 2px 2px 2px #333;
+								width: 2em;
+							}
+						}
+
+						& > .item-strength {
+							width: 90%;
+							height: fit-content;
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							align-items: center;
+							justify-content: start;
+							margin-bottom: 3px;
+
+							& > input {
+								border: 1px solid #333;
+								margin-top: 0.25em;
+								margin-bottom: 0.25em;
+							}
+
+							& > input[name='name'] {
+								width: calc(100% - 1em - 10ch);
+								margin-right: 0.5em;
+							}
+							& > input[name='sets'] {
+								width: calc(5ch);
+								margin-right: 0.5em;
+							}
+							& > input[name='reps'] {
+								width: calc(5ch);
+							}
+							& > input[name='load'] {
+								width: calc(5ch);
+								margin-right: 0.5em;
+							}
+							& > input[name='comment'] {
+								width: calc(100% - 3em - 5ch);
+								margin-right: 0.5em;
+							}
+							& > button {
+								background-color: darkred;
+								border: 2px solid #333;
+								border-radius: 5px;
+								box-shadow: 2px 2px 2px #333;
+								width: 2em;
+							}
+						}
+
+						& > .item-conditioning {
+							width: 90%;
+							height: fit-content;
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							align-items: center;
+							justify-content: start;
+							margin-bottom: 3px;
+
+							& > input {
+								border: 1px solid #333;
+								margin-top: 0.25em;
+								margin-bottom: 0.25em;
+							}
+
+							& > input[name='name'] {
+								width: calc(100% - 0.5em - 15ch);
+								margin-right: 0.5em;
+							}
+							& > input[name='duration'] {
+								width: calc(15ch);
+							}
+							& > input[name='comment'] {
+								width: calc(100% - 2.5em);
+								margin-right: 0.5em;
+							}
+							& > button {
+								background-color: darkred;
+								border: 2px solid #333;
+								border-radius: 5px;
+								box-shadow: 2px 2px 2px #333;
+								width: 2em;
+							}
+						}
+					}
+				}
+			}
+
+			& > .add-day {
+				background-color: #87ceeb;
+				border: 2px solid #333;
+				border-radius: 10px;
+				padding: 3px 8px;
+				color: #333;
+				box-shadow: 3px 3px 2px #333;
+				width: max-content;
+				margin: 1em 0 0 2em;
+				align-self: flex-start;
+
+				&:hover {
+					background-color: #5f90a5;
+					cursor: pointer;
+				}
+				&:active {
+					translate: 3px 3px;
+					box-shadow: 0 0 0;
+				}
+			}
+
+			& > .btn-container {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: center;
+				margin: 1em;
+				border: solid #333;
+				border-width: 2px 0 0 0;
+
+				& > button {
+					background-color: #87ceeb;
+					border: 2px solid #333;
+					border-radius: 10px;
+					padding: 0.5em 1em;
+					color: #333;
+					box-shadow: 3px 3px 2px #333;
+					width: max-content;
+					margin: 1em 1em 0;
+
+					&:hover {
+						background-color: #5f90a5;
+						cursor: pointer;
+					}
+					&:active {
+						translate: 3px 3px;
+						box-shadow: 0 0 0;
+					}
+				}
+
+				& > .delete {
+					background-color: #ff6666;
+					&:hover {
+						background-color: red;
+					}
+				}
+
+				& > strong {
+					text-align: center;
+					margin: 1em;
+					width: 100%;
+				}
+			}
+		}
+
+		.disabled {
+			background-color: gray !important;
+			&:active {
+				translate: 0px 0px !important;
+				box-shadow: 3px 3px 2px #333 !important;
+			}
 		}
 	}
 `;

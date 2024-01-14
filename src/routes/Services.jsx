@@ -497,7 +497,7 @@ export const InfoDesktop = (props) => {
 					</ul>
 					<p>
 						$1655 Value <br />
-						You Pay: $1400 (15% off)
+						You Pay: $1407 (15% off)
 					</p>
 				</>
 			)}
@@ -515,7 +515,7 @@ export const InfoDesktop = (props) => {
 					</ul>
 					<p>
 						$3170 Value <br />
-						You Pay: $2540 (20% off)
+						You Pay: $2536 (20% off)
 					</p>
 				</>
 			)}
@@ -770,7 +770,7 @@ export const MobileContent = (props) => {
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
 							$1655 Value <br />
-							You pay: $1400 (15% off)
+							You pay: $1407 (15% off)
 						</p>
 
 						<h3>6 Months - Transformation</h3>
@@ -781,7 +781,7 @@ export const MobileContent = (props) => {
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
 							$3170 Value <br />
-							You pay: $2540 (20% off)
+							You pay: $2536 (20% off)
 						</p>
 						<div
 							className='appointment'
