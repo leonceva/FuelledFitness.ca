@@ -1,8 +1,17 @@
 ## Short term goals
 
--   Admin Dashboard Mobile (Check Client dashboard styles for mobile/desktop toggle)
+-   Admin User settings
 
-    -   Edit Program
+-   Exercises table in database
+
+    -   Dropdown for New and Edit Program
+    -   Create new exercise option
+
+-   Create New Templates
+
+-   Edit Template
+
+-   Add Import template to New Program
 
 -   Active User Changes
 

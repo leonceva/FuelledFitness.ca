@@ -338,50 +338,14 @@ export const MobileDiv = styled.div`
 			background-color: #333;
 			padding-bottom: 2px;
 			padding-top: 1px;
-			overflow-x: auto;
 
 			& > .option {
 				padding: 0.5em 0.5em;
-				position: relative;
-				touch-action: none;
-				text-align: center;
+				margin: 0 0.5em;
 
 				& > i {
 					padding-left: 0.5em;
 					padding-right: 0.5em;
-				}
-
-				& > .expand-menu {
-					position: absolute;
-					background-color: #333;
-					width: 100%;
-					list-style: none;
-					padding: 0;
-					left: 0%;
-					top: 100%;
-					overflow-x: none;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					justify-content: start;
-					border-radius: 0 0 10px 10px;
-					display: show;
-
-					& > span {
-						background-color: #333;
-						color: #d0dceb;
-						text-align: center;
-						padding: 0.3em 0;
-					}
-				}
-
-				& > .show {
-					display: show;
-					transition: height 2s ease-in;
-				}
-				& > .hide {
-					display: none;
-					height: 0%;
 				}
 			}
 
@@ -398,7 +362,6 @@ export const MobileDiv = styled.div`
 			flex-direction: column;
 			justify-content: start;
 			align-items: start;
-			position: relative;
 
 			& > .btn-options {
 				width: 100%;

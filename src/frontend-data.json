@@ -9,9 +9,10 @@
 			"instagram": "moonkeca"
 		}
 	],
-	"version": "v.Alpha-1.0.1",
+	"version": "v.Alpha-1.0.2",
 	"patch-notes": {
 		"Alpha-1.0.0": "First prototype launched. Only desktop mode for admin dashboard, only mobile for client dashboard",
-		"Alpha-1.0.1": "Added desktop mode for client dashboard"
+		"Alpha-1.0.1": "Added desktop mode for client dashboard",
+		"Alpha-1.0.2": "Finished mobile mode for admin"
 	}
 }
