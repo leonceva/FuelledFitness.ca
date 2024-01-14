@@ -112,7 +112,7 @@ export const DesktopContent = (props) => {
 							onClick={() => {
 								setShowAthlete(null);
 							}}>
-							<i class='bi bi-x-lg'></i>
+							<i className='bi bi-x-lg'></i>
 						</button>
 					</AthleteBioDesktop>
 				</>
@@ -132,7 +132,7 @@ export const DesktopContent = (props) => {
 							onClick={() => {
 								setShowAppilcation(false);
 							}}>
-							<i class='bi bi-x-lg'></i>
+							<i className='bi bi-x-lg'></i>
 						</button>
 					</ApplicationDivDesktop>
 				</>
@@ -668,7 +668,7 @@ export const MobileContent = (props) => {
 							onClick={() => {
 								setShowAthlete(null);
 							}}>
-							<i class='bi bi-x-lg'></i>
+							<i className='bi bi-x-lg'></i>
 						</button>
 					</AthleteBioMobile>
 				</>
@@ -688,7 +688,7 @@ export const MobileContent = (props) => {
 							onClick={() => {
 								setShowAppilcation(false);
 							}}>
-							<i class='bi bi-x-lg'></i>
+							<i className='bi bi-x-lg'></i>
 						</button>
 					</ApplicationDivMobile>
 				</>
