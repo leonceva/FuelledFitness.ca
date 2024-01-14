@@ -3,10 +3,10 @@ import MobileLayout from '../layouts/MobileLayout';
 import styled from 'styled-components';
 import AthleteCard from '../components/AthleteCard';
 import Application from '../components/Application';
-
 import data from '../frontend-data.json';
 import no_img from '../images/athletes/no-img.jpg';
 import { useState } from 'react';
+import InstagramLogo from '../images/instagram-logo.png';
 
 const Athletes = () => {
 	const athletes = data.athletes;
@@ -54,7 +54,7 @@ export const DesktopContent = (props) => {
 					out how you can support their continued success.
 				</p>
 				<div className='athletes'>
-					{athletes.map((athlete) => {
+					{athletes.map((athlete, athleteIndex) => {
 						return (
 							<div
 								className='card-container'
@@ -69,7 +69,10 @@ export const DesktopContent = (props) => {
 										setAthleteImg(null);
 									}
 								}}>
-								<AthleteCard athlete={athlete} />
+								<AthleteCard
+									athlete={athlete}
+									index={athleteIndex}
+								/>
 							</div>
 						);
 					})}
@@ -94,6 +97,15 @@ export const DesktopContent = (props) => {
 							</h3>
 							<h4>Sport: {showAthlete.sport}</h4>
 							<p>{showAthlete.bio}</p>
+							{showAthlete?.instagram !== null && (
+								<a href={`https://www.instagram.com/${showAthlete.instagram}/`}>
+									<img
+										className='link-logo'
+										src={InstagramLogo}
+										alt={`Link to ${showAthlete.name}'s Instagram Account`}
+									/>
+								</a>
+							)}
 						</div>
 						<button
 							className='close-bio'
@@ -239,6 +251,13 @@ export const AthleteBioDesktop = styled.div`
 			padding-right: 1vw;
 			font-size: 2vh;
 		}
+
+		& > a > img {
+			width: 30px;
+			aspect-ratio: 1/1;
+			border-radius: 30px;
+			border: 1px solid #333;
+		}
 	}
 
 	& > .close-bio {
@@ -257,10 +276,9 @@ export const AthleteBioDesktop = styled.div`
 
 export const AthleteBioMobile = styled.div`
 	position: fixed;
-	top: 30%;
 	width: 90%;
 	max-height: 80%;
-	top: 20%;
+	top: 105px;
 	left: 5%;
 	z-index: 3;
 	background-color: #d0dceb;
@@ -283,9 +301,18 @@ export const AthleteBioMobile = styled.div`
 		width: 100%;
 		height: 100%;
 		overflow-y: auto;
+		padding-bottom: 1em;
+
+		& > a > img {
+			width: 30px;
+			aspect-ratio: 1/1;
+			border-radius: 30px;
+			border: 1px solid #333;
+		}
 
 		& > p {
 			text-align: justify;
+			margin-top: 0.5em;
 			padding: 0 1.5vw;
 			width: 100%;
 		}
@@ -626,9 +653,16 @@ export const MobileContent = (props) => {
 						</h3>
 						<h4>Sport: {showAthlete.sport}</h4>
 						<div className='bio-container'>
+							{showAthlete?.instagram !== null && (
+								<a href={`https://www.instagram.com/${showAthlete.instagram}/`}>
+									<img
+										src={InstagramLogo}
+										alt={`Link to ${showAthlete.name}'s Instagram Account`}
+									/>
+								</a>
+							)}
 							<p>{showAthlete.bio}</p>
 						</div>
-
 						<button
 							className='close-bio'
 							onClick={() => {
