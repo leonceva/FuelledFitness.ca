@@ -465,6 +465,24 @@ export const InfoDesktop = (props) => {
 					</p>
 				</>
 			)}
+			{option === 'kickstarter' && service === 'packages' && (
+				<>
+					<h2>1 Month - Kickstarter</h2>
+					<p>
+						We recognize and reward ongoing commitment and dedication with discounted
+						personalized fitness and nutrition services.
+					</p>
+					<ul>
+						<li>Initial Nutrition Consultation</li>
+						<li>1 x Follow-up Nutrition Appointment</li>
+						<li>4 x Personal Training Session</li>
+					</ul>
+					<p>
+						$640 Value <br />
+						You Pay: $575 (10% off)
+					</p>
+				</>
+			)}
 			{option === 'habit-builder' && service === 'packages' && (
 				<>
 					<h2>3 Months - Habit Builder</h2>
@@ -474,7 +492,7 @@ export const InfoDesktop = (props) => {
 					</p>
 					<ul>
 						<li>Initial Nutrition Consultation</li>
-						<li>3 x Follow-up Nutrition Consultation</li>
+						<li>3 x Follow-up Nutrition Appointment</li>
 						<li>12 x Personal Training Session</li>
 					</ul>
 					<p>
@@ -492,30 +510,12 @@ export const InfoDesktop = (props) => {
 					</p>
 					<ul>
 						<li>Initial Nutrition Consultation</li>
-						<li>6 x Follow-up Nutrition Consultation</li>
+						<li>6 x Follow-up Nutrition Appointment</li>
 						<li>24 x Personal Training Session</li>
 					</ul>
 					<p>
 						$3170 Value <br />
 						You Pay: $2540 (20% off)
-					</p>
-				</>
-			)}
-			{option === 'kickstarter' && service === 'packages' && (
-				<>
-					<h2>1 Month - Kickstarter</h2>
-					<p>
-						We recognize and reward ongoing commitment and dedication with discounted
-						personalized fitness and nutrition services.
-					</p>
-					<ul>
-						<li>Initial Nutrition Consultation</li>
-						<li>1 x Follow-up Nutrition Consultation</li>
-						<li>4 x Personal Training Session</li>
-					</ul>
-					<p>
-						$640 Value <br />
-						You Pay: $575 (10% off)
 					</p>
 				</>
 			)}
@@ -754,7 +754,7 @@ export const MobileContent = (props) => {
 						<h3>1 Month - Kickstarter</h3>
 						<ul>
 							<li>Initial Nutrition Consultation</li>
-							<li>1 x Follow-up Nutrition Consultation</li>
+							<li>1 x Follow-up Nutrition Appointment</li>
 							<li>4 x Personal Training Session</li>
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
@@ -765,7 +765,7 @@ export const MobileContent = (props) => {
 						<h3>3 Months - Habit Builder</h3>
 						<ul>
 							<li>Initial Nutrition Consultation</li>
-							<li>3 x Follow-up Nutrition Consultation</li>
+							<li>3 x Follow-up Nutrition Appointment</li>
 							<li>12 x Personal Training Session</li>
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
@@ -776,7 +776,7 @@ export const MobileContent = (props) => {
 						<h3>6 Months - Transformation</h3>
 						<ul>
 							<li>Initial Nutrition Consultation</li>
-							<li>6 x Follow-up Nutrition Consultation</li>
+							<li>6 x Follow-up Nutrition Appointment</li>
 							<li>24 x Personal Training Session</li>
 						</ul>
 						<p style={{ alignSelf: 'start' }}>
