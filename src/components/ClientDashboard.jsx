@@ -130,11 +130,6 @@ export const MobileDiv = styled.div`
 			& > .option {
 				padding: 0.5em 0.5em;
 				margin: 0 0.5em;
-
-				&:hover {
-					cursor: pointer;
-					box-shadow: 2px 0 0 #d0dceb, -2px 0 0 #d0dceb;
-				}
 			}
 
 			& > .selected {

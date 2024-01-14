@@ -695,7 +695,9 @@ const EditProgram = () => {
 										{programList.map((program, programIndex) => {
 											if (programIndex < 10) {
 												return (
-													<option value={programIndex}>{`${
+													<option
+														value={programIndex}
+														key={`release-desktop-${programIndex}`}>{`${
 														program.release_date.split('T')[0]
 													}`}</option>
 												);
@@ -1114,7 +1116,9 @@ const EditProgram = () => {
 										{programList.map((program, programIndex) => {
 											if (programIndex < 10) {
 												return (
-													<option value={programIndex}>{`${
+													<option
+														value={programIndex}
+														key={`release-mobile-${programIndex}`}>{`${
 														program.release_date.split('T')[0]
 													}`}</option>
 												);
