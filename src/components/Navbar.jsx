@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import logo_img from '../images/fuelled-fitness-logo.svg';
 import logo_letters from '../images/fuelled-fitness-letters.svg';
 
-const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE;
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const Navbar = () => {
 	const [scrollPosition, setPosition] = useState(0);

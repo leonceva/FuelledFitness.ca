@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 
-const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE;
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const Root = () => {
 	const { pathname } = useLocation();
