@@ -23,7 +23,7 @@ code {
 	&:hover {
 		cursor: pointer;
 		background-color: #87ceeb;
-		transition: 0.25s;
+		transition: background-color 0.25s;
 	}
 	&:active {
 		transform: translate(3px, 3px);
@@ -33,4 +33,14 @@ code {
 
 .btn-secondary {
 	box-shadow: 3px 3px 2px #333;
+}
+
+.close-bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	background-color: transparent;
 }

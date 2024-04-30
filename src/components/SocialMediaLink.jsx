@@ -12,10 +12,16 @@ const SocialMediaLink = (props) => {
 	let type_url;
 	let type_alt;
 
+	let link = props.link || null;
+
 	switch (type) {
 		case 'instagram':
 			type_logo = instagram_logo;
-			type_url = 'https://www.instagram.com/coach.krystin/';
+			type_url = `${
+				link === null
+					? 'https://www.instagram.com/coach.krystin/'
+					: `https://www.instagram.com/${link}`
+			}  `;
 			type_alt = 'Instagram Link';
 			break;
 

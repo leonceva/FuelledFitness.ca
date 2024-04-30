@@ -41,12 +41,20 @@ export const RootDiv = styled.div`
 		position: relative;
 
 		@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
-			height: calc(100vh - 150px);
+			height: calc(100vh - 100px);
 			top: 100px;
+			position: absolute;
+			overflow-y: auto;
+			width: 100%;
+			left: 0%;
 		}
 		@media screen and (width: ${MOBILE_MODE_LIMIT}) {
 			height: calc(100vh - 100px);
 			top: 100px;
+			position: absolute;
+			overflow-y: auto;
+			width: 100%;
+			left: 0%;
 		}
 		@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
 			height: calc(100vh - 100px);
