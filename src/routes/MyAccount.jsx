@@ -39,6 +39,7 @@ export const LayoutDiv = styled.div`
 			background-color: #6e88a1;
 			width: auto;
 			max-width: calc(min(800px, 75%));
+			min-width: 350px;
 			height: auto;
 			max-height: calc(min(500px, 75%));
 			overflow-y: auto;
@@ -109,10 +110,39 @@ export const LayoutDiv = styled.div`
 				}
 
 				& > input {
-					width: 100%;
+					width: calc(100% - 2px - 2ch);
 					margin-bottom: 1ch;
 					padding: 1ch;
-					border: 2px solid #333;
+					border: 1px solid #333;
+				}
+
+				& > .login-options {
+					width: 100%;
+					height: auto;
+					display: flex;
+					align-items: center;
+					justify-content: start;
+					font-size: small;
+					margin-bottom: 1ch;
+
+					& > .forgot-link {
+						flex: 1;
+						text-align: end;
+						color: black;
+						text-decoration: none;
+
+						&:hover {
+							color: blue;
+							text-decoration: underline;
+							cursor: pointer;
+						}
+					}
+				}
+
+				& > .btn {
+					width: 100%;
+					max-width: calc(min(80%, 300px));
+					margin: 2ch 0 1ch;
 				}
 			}
 		}

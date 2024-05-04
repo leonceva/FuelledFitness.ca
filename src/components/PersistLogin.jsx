@@ -33,7 +33,27 @@ const PersistLogin = ({ children }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return <>{!persist ? children : isLoading ? <p>Loading...</p> : children}</>;
+	return (
+		<>
+			{!persist ? (
+				children
+			) : isLoading ? (
+				<p
+					style={{
+						width: '100%',
+						height: '100%',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						fontSize: 'xx-large',
+					}}>
+					Loading...
+				</p>
+			) : (
+				children
+			)}
+		</>
+	);
 };
 
 export default PersistLogin;

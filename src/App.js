@@ -1,12 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+// Top Level Routes
 import Root from './routes/Root';
 import ErrorPage from './routes/ErrorPage';
+
+// Route Pages
 import Home from './routes/Home';
 import About from './routes/About';
 import Services from './routes/Services';
 import Contact from './routes/Contact';
 import Athletes from './routes/Athletes';
 import MyAccount from './routes/MyAccount';
+import ForgotLogin from './routes/ForgotLogin';
 
 // Used for login and authentication in '/my-account'
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -50,6 +55,10 @@ const router = createBrowserRouter([
 						</AuthProvider>
 					</GoogleOAuthProvider>
 				),
+			},
+			{
+				path: '/forgotLogin',
+				element: <ForgotLogin />,
 			},
 		],
 	},
