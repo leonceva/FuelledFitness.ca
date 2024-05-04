@@ -8,7 +8,10 @@ import Contact from './routes/Contact';
 import Athletes from './routes/Athletes';
 import MyAccount from './routes/MyAccount';
 
+// Used for login and authentication in '/my-account'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from './context/AuthProvider';
+import PersistLogin from './components/PersistLogin';
 
 const router = createBrowserRouter([
 	{
@@ -39,8 +42,12 @@ const router = createBrowserRouter([
 			{
 				path: '/my-account',
 				element: (
-					<GoogleOAuthProvider>
-						<MyAccount />
+					<GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}>
+						<AuthProvider>
+							<PersistLogin>
+								<MyAccount />
+							</PersistLogin>
+						</AuthProvider>
 					</GoogleOAuthProvider>
 				),
 			},

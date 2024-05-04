@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE;
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const DesktopLayout = (props) => {
 	const content = props.content;
@@ -40,11 +40,6 @@ export const DesktopDiv = styled.div`
 		}
 	}
 
-	// Hide for mobile size
-	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
-		display: none;
-	}
-
 	& > .background {
 		position: fixed;
 		top: 0;
@@ -60,6 +55,11 @@ export const DesktopDiv = styled.div`
 		z-index: 1;
 		position: relative;
 		top: 0;
+	}
+
+	// Hide for mobile size
+	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
+		display: none;
 	}
 `;
 

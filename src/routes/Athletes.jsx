@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
 import data from '../frontend-data.json';
 import AthleteCard from '../components/AthleteCard';
-import Application from '../components/AthleteApplication';
+import Application from '../components/AthleteApplicationForm';
 import Image from '../components/Image';
 import SocialMediaLink from '../components/SocialMediaLink';
 
@@ -296,7 +296,7 @@ export const DesktopDiv = styled.div`
 				overflow-y: auto;
 				top: 20%;
 				left: 20%;
-				background-color: #d0cdeb;
+				background-color: #6e88a1;
 				border: solid #333 3px;
 				border-radius: 10px;
 
@@ -620,7 +620,7 @@ export const DesktopDiv = styled.div`
 				overflow-y: auto;
 				top: 17.5%;
 				left: 10%;
-				background-color: #d0cdeb;
+				background-color: #6e88a1;
 				border: solid #333 3px;
 				border-radius: 10px;
 
