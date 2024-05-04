@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# aws access
+website-krystin.ppk
+
 # production
 /build
 
