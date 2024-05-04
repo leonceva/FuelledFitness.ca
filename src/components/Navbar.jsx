@@ -64,7 +64,7 @@ export const DesktopNavbar = (props) => {
 				<NavLink to='/services'>Services</NavLink>
 				<NavLink to='/contact'>Contact</NavLink>
 				<NavLink to='/athletes'>Athletes</NavLink>
-				<NavLink to='/my-account'>My Account</NavLink>
+				<NavLink to='/myAccount'>My Account</NavLink>
 			</div>
 		</DesktopDiv>
 	);

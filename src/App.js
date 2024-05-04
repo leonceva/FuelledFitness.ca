@@ -17,6 +17,7 @@ import ForgotLogin from './routes/ForgotLogin';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/AuthProvider';
 import PersistLogin from './components/PersistLogin';
+import ResetPassword from './routes/ResetPassword';
 
 const router = createBrowserRouter([
 	{
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
 				element: <Athletes />,
 			},
 			{
-				path: '/my-account',
+				path: '/myAccount',
 				element: (
 					<GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}>
 						<AuthProvider>
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
 			{
 				path: '/forgotLogin',
 				element: <ForgotLogin />,
+			},
+			{
+				path: '/resetPassword',
+				element: <ResetPassword />,
 			},
 		],
 	},

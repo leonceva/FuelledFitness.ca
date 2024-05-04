@@ -93,7 +93,7 @@ export const DesktopContent = () => {
 						</p>
 						<Link
 							className='go-back'
-							to='/account'>
+							to='/myAccount'>
 							Back To Login
 						</Link>
 					</>
@@ -135,7 +135,7 @@ export const DesktopContent = () => {
 						</form>
 						<Link
 							className='go-back'
-							to='/account'>
+							to='/myAccount'>
 							Back To Login
 						</Link>
 					</>
