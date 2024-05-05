@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
+import MobileLayout from '../layouts/MobileLayout';
 import Carousel from '../components/Carousel';
 import SocialMediaLink from '../components/SocialMediaLink';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,7 @@ const home = () => {
 	return (
 		<>
 			<DesktopLayout content={<DesktopContent />} />
+			<MobileLayout content={<MobileContent />} />
 		</>
 	);
 };
@@ -285,3 +287,11 @@ export const DesktopDiv = styled.div`
 		}
 	}
 `;
+
+/************************************************************* MOBILE MODE ****************************************************************************/
+
+export const MobileContent = () => {
+	return <MobileDiv>Home</MobileDiv>;
+};
+
+export const MobileDiv = styled.div``;

@@ -20,10 +20,25 @@
 -   Layout
     -   Desktop
     -   Mobile
+-   Functionalities
+    -   Account Settings
+    -   Create New User
+    -   Edit Existing User
+    -   Create New Program
+    -   Edit Existing Program
+    -   Create New Template
+    -   Edit Existing Template
 
 ## Client Dashboard
 
--   Inactive
+-   Layout
+
     -   Desktop
     -   Mobile
--   Active
+
+-   Inactive Client View
+
+-   Active Client View
+    -   Account Settings
+    -   Program Explorer
+    -   Upload Videos

@@ -60,7 +60,7 @@ export const DesktopDiv = styled.div`
 	}
 
 	// Hide for mobile size
-	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT}) or (width: ${MOBILE_MODE_LIMIT})) {
 		display: none;
 	}
 `;

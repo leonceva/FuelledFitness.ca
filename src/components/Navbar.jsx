@@ -24,9 +24,12 @@ const Navbar = () => {
 	return (
 		<>
 			<DesktopNavbar scrollPosition={scrollPosition} />
+			<MobileNavbar scrollPosition={scrollPosition} />
 		</>
 	);
 };
+
+export default Navbar;
 
 /************************************************************* DESKTOP MODE ****************************************************************************/
 
@@ -138,4 +141,70 @@ export const NavLink = styled(Link)`
 	}
 `;
 
-export default Navbar;
+/************************************************************* MOBILE MODE ****************************************************************************/
+
+export const MobileNavbar = (props) => {
+	const navigate = useNavigate();
+
+	const scrollPosition = props.scrollPosition;
+
+	return (
+		<MobileDiv
+			style={{
+				backgroundColor: `${
+					scrollPosition > 100 ? 'rgba(51, 51, 51, 0.9)' : 'rgba(51, 51, 51, 1)'
+				}`,
+			}}>
+			<img
+				className='logo-img'
+				src={logo_img}
+				alt='Fuelled Fitness Logo'
+				onClick={() => {
+					navigate('/');
+				}}
+			/>
+			<img
+				className='logo-letters'
+				src={logo_letters}
+				alt='Fuelled Fitness'
+				onClick={() => {
+					navigate('/');
+				}}
+			/>
+			<div className='link-menu'></div>
+		</MobileDiv>
+	);
+};
+
+export const MobileDiv = styled.div`
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		overflow: hidden;
+		justify-content: start;
+		position: relative;
+
+		& > .logo-img {
+			cursor: pointer;
+			left: 0;
+			height: 100%;
+			aspect-ratio: 1/1;
+			padding: 0 5px;
+			filter: invert(1);
+		}
+
+		& > .logo-letters {
+			height: 130%;
+			aspect-ratio: 1/1;
+			padding: 0 5px;
+			filter: invert(1);
+		}
+	}
+
+	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
+		display: none;
+	}
+`;

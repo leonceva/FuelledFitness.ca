@@ -7,7 +7,8 @@ const MobileLayout = (props) => {
 	const content = props.content;
 	return (
 		<MobileDiv>
-			<div className='mobile-content'>{content}</div>
+			<div className='background' />
+			<div className='content'>{content}</div>
 			<BackToTop />
 		</MobileDiv>
 	);
@@ -21,7 +22,25 @@ export const MobileDiv = styled.div`
 	align-items: center;
 	justify-content: start;
 	width: 100vw;
+	min-height: calc(100vw - 100px);
 
+	& > .background {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		background-color: #d2d2d2;
+	}
+
+	& > .content {
+		width: 100vw;
+		z-index: 1;
+		position: relative;
+		top: 0;
+	}
+
+	// Hide for desktop size
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		display: none;
 	}
