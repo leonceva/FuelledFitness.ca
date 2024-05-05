@@ -115,13 +115,14 @@ export const DesktopContent = () => {
 			<DesktopDiv>
 				<div className='container'>
 					<h2>Reset Password</h2>
-					<div>
-						Please enter the new password for your account. <br />
+					<div className='password-info'>
+						Please enter the new password for your account, that satisfies the
+						following:
 						<ul>
 							<li>The new password must be at least 6 characters long.</li>
 							<li>
-								The new password must contain the following: a lowercase leter, an
-								upeprcase letter, a number, and a special character.
+								The new password must contain the following: a lowercase letter, an
+								uppercase letter, a number, and a special character.
 							</li>
 						</ul>
 					</div>
@@ -158,6 +159,7 @@ export const DesktopContent = () => {
 							/>
 						</div>
 						<button
+							className='btn'
 							type='submit'
 							onClick={handleSubmit}>
 							Change Password
@@ -188,14 +190,69 @@ export const DesktopDiv = styled.div`
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-		}
 
-		& > h2 {
-			width: 100%;
-			font-size: xx-large;
-			margin: 0;
-			padding: 0;
-			text-align: center;
+			& > h2 {
+				width: 100%;
+				font-size: xx-large;
+				margin: 1ch 0;
+				padding: 0;
+				text-align: center;
+			}
+
+			& > .password-info {
+				width: calc(100% - 4ch);
+				text-align: justify;
+
+				& > ul {
+					margin: 0;
+				}
+			}
+
+			& > form {
+				width: 80%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: start;
+
+				& > .error-message {
+					width: 100%;
+					text-align: end;
+					margin-top: 1ch;
+				}
+
+				& > .hide {
+					color: transparent;
+				}
+
+				& > .show {
+					color: #cc0000;
+				}
+
+				& > .input {
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					justify-content: start;
+					align-items: center;
+					margin: 1ch;
+
+					& > label {
+						flex: 2;
+						text-align: center;
+					}
+
+					& > input {
+						flex: 4;
+						padding: 1ch;
+						border: 1px solid #333;
+					}
+				}
+
+				& > .btn {
+					margin-bottom: 1ch;
+				}
+			}
 		}
 	}
 
