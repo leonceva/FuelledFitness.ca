@@ -12,6 +12,8 @@ const DesktopLayout = (props) => {
 	);
 };
 
+export default DesktopLayout;
+
 export const DesktopDiv = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -62,5 +64,3 @@ export const DesktopDiv = styled.div`
 		display: none;
 	}
 `;
-
-export default DesktopLayout;

@@ -1,5 +1,10 @@
 ## Mobile
 
+-   Components
+
+    -   Navbar
+    -   Layout
+
 -   Routes left
     -   Home
     -   About
