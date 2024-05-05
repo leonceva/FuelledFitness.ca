@@ -1,9 +1,3 @@
-## Desktop
-
--   Routes left
-    -   Reset Password
-    -   Error
-
 ## Mobile
 
 -   Routes left

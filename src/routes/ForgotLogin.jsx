@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 
-const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
 
 const ForgotLogin = () => {
@@ -146,92 +145,87 @@ export const DesktopContent = () => {
 };
 
 export const DesktopDiv = styled.div`
-	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
-		width: 100%;
-		min-height: calc(100vh - 100px);
+	width: 100%;
+	min-height: calc(100vh - 100px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	& > .container {
+		width: auto;
+		max-width: calc(min(800px, 80%));
+		min-width: calc(min(500px, 50%));
+		border: 3px solid #333;
+		border-radius: 10px;
+		background-color: #6e88a1;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 
-		& > .container {
-			width: auto;
-			max-width: calc(min(800px, 80%));
-			min-width: calc(min(500px, 50%));
-			border: 3px solid #333;
-			border-radius: 10px;
-			background-color: #6e88a1;
+		& > h2 {
+			width: 100%;
+			text-align: center;
+			font-size: xx-large;
+			margin: 1ch 0;
+			padding: 0;
+		}
+
+		& > p {
+			width: calc(100% - 4ch);
+			text-align: left;
+			font-size: large;
+			margin: 0;
+		}
+
+		& > form {
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			justify-content: start;
+			margin: 0;
 
-			& > h2 {
-				width: 100%;
-				text-align: center;
-				font-size: xx-large;
-				margin: 1ch 0;
-				padding: 0;
-			}
-
-			& > p {
-				width: calc(100% - 4ch);
-				text-align: left;
+			& > .error-message {
+				width: 80%;
 				font-size: large;
-				margin: 0;
+				text-align: end;
+				margin-bottom: 0.5ch;
+				font-size: large;
 			}
 
-			& > form {
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: start;
-				margin: 0;
-
-				& > .error-message {
-					width: 80%;
-					font-size: large;
-					text-align: end;
-					margin-bottom: 0.5ch;
-					font-size: large;
-				}
-
-				& > .hide {
-					color: transparent;
-				}
-
-				& > .show {
-					color: #cc0000;
-				}
-
-				& input {
-					padding: 1ch;
-					width: 80%;
-					font-size: large;
-					margin-bottom: 1ch;
-				}
-
-				& > .btn {
-					margin-top: 1ch;
-				}
+			& > .hide {
+				color: transparent;
 			}
 
-			& > .go-back {
-				width: 100%;
-				text-align: center;
-				margin: 1ch 0;
-				font-weight: bold;
+			& > .show {
+				color: #cc0000;
+			}
 
-				&:hover {
-					cursor: pointer;
-					text-decoration: underline;
-					color: darkblue;
-				}
+			& input {
+				padding: 1ch;
+				width: 80%;
+				font-size: large;
+				margin-bottom: 1ch;
+			}
+
+			& > .btn {
+				margin-top: 1ch;
 			}
 		}
-	}
 
-	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+		& > .go-back {
+			width: 100%;
+			text-align: center;
+			margin: 1ch 0;
+			font-weight: bold;
+
+			&:hover {
+				cursor: pointer;
+				text-decoration: underline;
+				color: darkblue;
+			}
+		}
 	}
 `;
 

@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
-
 const ResetPassword = () => {
 	return (
 		<>
@@ -172,90 +170,85 @@ export const DesktopContent = () => {
 };
 
 export const DesktopDiv = styled.div`
-	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
-		width: 100%;
-		min-height: calc(100vh - 100px);
+	width: 100%;
+	min-height: calc(100vh - 100px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	& > .container {
+		width: auto;
+		max-width: calc(min(800px, 80%));
+		min-width: calc(min(500px, 50%));
+		border: 3px solid #333;
+		border-radius: 10px;
+		background-color: #6e88a1;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 
-		& > .container {
-			width: auto;
-			max-width: calc(min(800px, 80%));
-			min-width: calc(min(500px, 50%));
-			border: 3px solid #333;
-			border-radius: 10px;
-			background-color: #6e88a1;
+		& > h2 {
+			width: 100%;
+			font-size: xx-large;
+			margin: 1ch 0;
+			padding: 0;
+			text-align: center;
+		}
+
+		& > .password-info {
+			width: calc(100% - 4ch);
+			text-align: justify;
+
+			& > ul {
+				margin: 0;
+			}
+		}
+
+		& > form {
+			width: 80%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			justify-content: start;
 
-			& > h2 {
+			& > .error-message {
 				width: 100%;
-				font-size: xx-large;
-				margin: 1ch 0;
-				padding: 0;
-				text-align: center;
+				text-align: end;
+				margin-top: 1ch;
 			}
 
-			& > .password-info {
-				width: calc(100% - 4ch);
-				text-align: justify;
-
-				& > ul {
-					margin: 0;
-				}
+			& > .hide {
+				color: transparent;
 			}
 
-			& > form {
-				width: 80%;
+			& > .show {
+				color: #cc0000;
+			}
+
+			& > .input {
+				width: 100%;
 				display: flex;
-				flex-direction: column;
-				align-items: center;
+				flex-direction: row;
 				justify-content: start;
+				align-items: center;
+				margin: 1ch;
 
-				& > .error-message {
-					width: 100%;
-					text-align: end;
-					margin-top: 1ch;
+				& > label {
+					flex: 2;
+					text-align: center;
 				}
 
-				& > .hide {
-					color: transparent;
+				& > input {
+					flex: 4;
+					padding: 1ch;
+					border: 1px solid #333;
 				}
+			}
 
-				& > .show {
-					color: #cc0000;
-				}
-
-				& > .input {
-					width: 100%;
-					display: flex;
-					flex-direction: row;
-					justify-content: start;
-					align-items: center;
-					margin: 1ch;
-
-					& > label {
-						flex: 2;
-						text-align: center;
-					}
-
-					& > input {
-						flex: 4;
-						padding: 1ch;
-						border: 1px solid #333;
-					}
-				}
-
-				& > .btn {
-					margin-bottom: 1ch;
-				}
+			& > .btn {
+				margin-bottom: 1ch;
 			}
 		}
-	}
-
-	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
 	}
 `;
