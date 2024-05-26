@@ -19,6 +19,7 @@ export const DesktopDiv = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 
 	// For tablet size
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {

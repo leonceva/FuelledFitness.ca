@@ -97,6 +97,7 @@ export const DesktopDiv = styled.div`
 			aspect-ratio: 1/1;
 			padding: 0 5px;
 			filter: invert(1);
+			cursor: pointer;
 			@media screen and (max-width: 925px) {
 				display: none;
 			}

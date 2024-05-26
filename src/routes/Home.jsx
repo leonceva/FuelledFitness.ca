@@ -187,8 +187,8 @@ export const DesktopDiv = styled.div`
 		& > .preview-container {
 			// Smaller screen size
 			@media screen and ((max-width: 1200px )or (width: 1200px)) {
-				width: 90%;
-				height: max-content;
+				width: 95%;
+				min-height: 200px;
 				margin-bottom: 5px;
 				display: flex;
 				flex-direction: row;

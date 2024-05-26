@@ -7,8 +7,8 @@ import nutrition_low_res from '../images/nutrition-01-placeholder.jpg';
 import nutrition_high_res from '../images/nutrition-01.jpg';
 import training_low_res from '../images/krystin-gym-05-placeholder.jpg';
 import training_high_res from '../images/krystin-gym-05.jpg';
-import nutrigenomics_low_res from '../images/genetics-placeholder.jpg';
-import nutrigenomics_high_res from '../images/genetics.jpg';
+import nutrigenomix_low_res from '../images/genetics-placeholder.jpg';
+import nutrigenomix_high_res from '../images/genetics.jpg';
 
 const Services = () => {
 	return (
@@ -152,34 +152,36 @@ export const DesktopContent = () => {
 			</div>
 			<div
 				className='service-item'
-				onMouseEnter={() => setHoverItem('nutrigenomics')}
+				onMouseEnter={() => setHoverItem('nutrigenomix')}
 				onMouseLeave={() => setHoverItem(null)}
-				onClick={() => setServiceSelected('Nutrigenomics')}>
+				onClick={() => {
+					setServiceSelected('Nutrigenomix');
+					setInfoSelected('about');
+				}}>
 				<Image
 					styleWrapper={{
 						...styleWrapper,
-						...{ opacity: `${hoverItem === 'nutrigenomics' ? '0.4' : '0.2'}` },
+						...{ opacity: `${hoverItem === 'nutrigenomix' ? '0.4' : '0.2'}` },
 					}}
 					styleImage={
 						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
 					}
-					lowResSrc={nutrigenomics_low_res}
-					highResSrc={nutrigenomics_high_res}
+					lowResSrc={nutrigenomix_low_res}
+					highResSrc={nutrigenomix_high_res}
 				/>
 				<div
 					className={`title ${
-						hoverItem === 'nutrigenomics' ? 'title-hover' : 'title-no-hover'
+						hoverItem === 'nutrigenomix' ? 'title-hover' : 'title-no-hover'
 					}`}>
-					Nutrigenomics
+					Nutrigenomix
 				</div>
 				<div
 					className={`info ${
-						hoverItem === 'nutrigenomics' ? 'info-hover' : 'info-no-hover'
+						hoverItem === 'nutrigenomix' ? 'info-hover' : 'info-no-hover'
 					}`}>
-					Whether you're curious about how your genes impact your diet or seeking targeted
-					nutrition advice to optimize your health, our expert team utilizes cutting-edge
-					genetic testing powered by Nutrigenomix for nutrition guidance tailored to your
-					DNA.
+					By analyzing your unique genetic makeup, Nutrigenomix provides tailored dietary
+					recommendations designed to optimize your health, enhance performance, and
+					prevent chronic diseases.
 				</div>
 			</div>
 			<div className={`service-info ${serviceSelected === null ? 'hidden' : ''}`}>
@@ -273,6 +275,32 @@ export const DesktopContent = () => {
 									}}>
 									Book Appointment
 								</div>
+							</div>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && (
+						<>
+							<h2>{serviceSelected}</h2>
+							<div
+								className={`menu-item ${
+									infoSelected === 'about' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('about')}>
+								About
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'testing' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('testing')}>
+								Genetic Testing
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'package' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('package')}>
+								Bundle with Meal Plan
 							</div>
 						</>
 					)}
@@ -402,6 +430,88 @@ export const DesktopContent = () => {
 								<p>Contact us today to learn more.</p>
 							</>
 						)}
+					{serviceSelected === 'Nutrigenomix' && infoSelected === 'about' && (
+						<>
+							<h2>About Nutrigenomix</h2>
+							<p>
+								<strong>
+									Nutrigenomix provides genetic predisposition for a variety of
+									areas:
+								</strong>
+								<ul>
+									<li>Nutrient metabolism</li>
+									<li>Food intolerances and sensitivities</li>
+									<li>Cardiometabolic health</li>
+									<li>Weight management and body composition </li>
+									<li>Eating habits</li>
+									<li>Exercise physiology, fitness, and injury risk</li>
+								</ul>
+							</p>
+							<p>
+								<strong>How is my sample taken?</strong>
+							</p>
+							<p>
+								A saliva test is delivered to your home. It is quick, simple, and
+								painless!
+							</p>
+							<button
+								className='btn'
+								style={{
+									marginTop: '1ch',
+									alignSelf: 'flex-start',
+									marginLeft: '4ch',
+								}}
+								onClick={() => {
+									window.open(
+										'https://nutrigenomix.com/storage/pages/about-nutrigenomix.pdf',
+										'_blank'
+									);
+								}}>
+								Learn More
+							</button>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && infoSelected === 'testing' && (
+						<>
+							<h2>Genetic Testing</h2>
+							<p>
+								An advanced genetic testing service that revolutionizes personalized
+								nutrition.
+							</p>
+							<p>
+								Genetic Testing Package - $650
+								<ul>
+									<li>Nutrigenomix genetic test (70 gene test)</li>
+									<li>
+										Follow-up appointment to review genetic test results (45
+										minutes)
+									</li>
+								</ul>
+							</p>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && infoSelected === 'package' && (
+						<>
+							<h2>Genetic Testing & Meal Plan</h2>
+							<p>
+								Combining the genetic test results with a specially tailored meal
+								plan empowers you to achieve optimal health by leveraging
+								personalized nutrition insights.
+							</p>
+							<p>
+								Genetic Testing and Personalized Meal Plan - $850
+								<ul>
+									<li>Initial nutrition assessment (1 hour)</li>
+									<li>Nutrigenomix genetic test (70 gene test)</li>
+									<li>Personalized meal plan</li>
+									<li>
+										Follow-up appointment to review genetic test results (45
+										minutes)
+									</li>
+								</ul>
+							</p>
+						</>
+					)}
 				</div>
 			</div>
 		</DesktopDiv>
@@ -539,13 +649,14 @@ export const DesktopDiv = styled.div`
 
 			& > .info {
 				flex: 3;
-				height: 100%;
+				height: fit-content;
+				max-height: 100%;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
 				overflow-x: hidden;
-				overflow-y: scroll;
+				overflow-y: auto;
 
 				& > h2 {
 					width: 100%;
@@ -732,10 +843,11 @@ export const DesktopDiv = styled.div`
 
 			& > .info {
 				flex: 3;
-				height: 100%;
+				height: fit-content;
+				max-height: 100%;
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
+				justify-content: start;
 				align-items: center;
 				overflow-x: hidden;
 				overflow-y: auto;

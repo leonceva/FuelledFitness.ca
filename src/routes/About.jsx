@@ -130,6 +130,10 @@ export const DesktopDiv = styled.div`
 		font-weight: bold;
 	}
 
+	& p {
+		font-size: medium;
+	}
+
 	& .btn-container {
 		width: 100%;
 		display: flex;

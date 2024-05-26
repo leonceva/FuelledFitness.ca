@@ -33,6 +33,7 @@ export const LayoutDiv = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		background-color: #d2d2d2;
 
 		/*** Login Form ***/
 		& > .login-form {
