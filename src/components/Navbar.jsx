@@ -148,6 +148,19 @@ export const MobileNavbar = (props) => {
 	const navigate = useNavigate();
 
 	const scrollPosition = props.scrollPosition;
+	const [isExpanded, setIsExpanded] = useState(false);
+
+	const handleClick = () => {
+		document.addEventListener(
+			'click',
+			(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				setIsExpanded(false);
+			},
+			{ once: true }
+		);
+	};
 
 	return (
 		<MobileDiv
@@ -172,7 +185,67 @@ export const MobileNavbar = (props) => {
 					navigate('/');
 				}}
 			/>
-			<div className='link-menu'></div>
+			<div className='nav-button'>
+				<div
+					className={`${isExpanded ? 'change-button-container' : 'button-container'}`}
+					onClick={() => {
+						if (isExpanded === true) {
+							setIsExpanded(false);
+						} else {
+							setIsExpanded(true);
+							document.addEventListener(
+								'click',
+								(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									handleClick();
+								},
+								{ once: true }
+							);
+						}
+					}}>
+					<div className={isExpanded ? 'change-bar-1' : 'bar-1'} />
+					<div className={isExpanded ? 'change-bar-2' : 'bar-2'} />
+					<div className={isExpanded ? 'change-bar-3' : 'bar-3'} />
+				</div>
+				<div className={isExpanded ? 'expanded-menu' : 'expanded-menu-hidden'}>
+					{isExpanded && (
+						<>
+							<NavLink
+								className='expanded-link'
+								to='/home'>
+								Home
+							</NavLink>
+							<NavLink
+								className='expanded-link'
+								to='/about'>
+								About
+							</NavLink>
+
+							<NavLink
+								className='expanded-link'
+								to='/services'>
+								Services
+							</NavLink>
+							<NavLink
+								className='expanded-link'
+								to='/contact'>
+								Contact
+							</NavLink>
+							<NavLink
+								className='expanded-link'
+								to='/athletes'>
+								Athletes
+							</NavLink>
+							<NavLink
+								className='expanded-link'
+								to='/account'>
+								My Account
+							</NavLink>
+						</>
+					)}
+				</div>
+			</div>
 		</MobileDiv>
 	);
 };
@@ -202,6 +275,45 @@ export const MobileDiv = styled.div`
 			aspect-ratio: 1/1;
 			padding: 0 5px;
 			filter: invert(1);
+		}
+
+		& > .nav-button {
+			display: flex;
+			flex: auto;
+			justify-content: end;
+			align-items: center;
+			height: 45px;
+			margin-right: 10px;
+
+			& > .button-container {
+				width: 35px;
+				cursor: pointer;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #d2d2d2;
+				border-radius: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				position: absolute;
+				background-color: #333;
+				padding-top: 4px;
+				padding-bottom: 4px;
+
+				&:active {
+					background-color: red;
+					transition: all 0.3s;
+				}
+
+				& > .bar-1,
+				.bar-2,
+				.bar-3 {
+					width: 35px;
+					height: 5px;
+					background-color: #d2d2d2;
+					margin: 6px 0;
+					transition: 0.4s;
+				}
+			}
 		}
 	}
 
