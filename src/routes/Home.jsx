@@ -139,10 +139,12 @@ export const DesktopDiv = styled.div`
 					z-index: 3;
 					transition: all 500ms;
 
-					&:hover {
-						width: 30px;
-						background-color: #6e88a1; // TODO blue
-						transition: all 200ms;
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							width: 30px;
+							background-color: #6e88a1; // TODO blue
+							transition: all 200ms;
+						}
 					}
 					&:active {
 						transition: all 100ms;
@@ -163,10 +165,12 @@ export const DesktopDiv = styled.div`
 					z-index: 3;
 					transition: all 500ms;
 
-					&:hover {
-						width: 30px;
-						background-color: #6e88a1; // TODO blue
-						transition: all 200ms;
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							width: 30px;
+							background-color: #6e88a1; // TODO blue
+							transition: all 200ms;
+						}
 					}
 
 					&:active {

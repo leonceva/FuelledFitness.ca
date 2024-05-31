@@ -126,11 +126,11 @@ export const DesktopContent = () => {
 					/>
 					<div className='application'>
 						<Application />
-						<div
-							className='close'
-							onClick={() => setShowApplication(false)}>
-							<i className='bi bi-x-lg' />
-						</div>
+					</div>
+					<div
+						className='close'
+						onClick={() => setShowApplication(false)}>
+						<i className='bi bi-x-lg' />
 					</div>
 				</div>
 			)}
@@ -210,6 +210,7 @@ export const DesktopDiv = styled.div`
 
 			& > span {
 				margin: 0 2ch;
+				font-size: large;
 			}
 
 			& > .btn {
@@ -237,11 +238,12 @@ export const DesktopDiv = styled.div`
 				display: flex;
 				background-color: #333;
 				border-radius: 10px;
-
-				&:hover {
-					cursor: pointer;
-					box-shadow: 3px 3px 3px 0 #333;
-					transition: box-shadow 250ms;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						box-shadow: 3px 3px 3px 0 #333;
+						transition: box-shadow 250ms;
+					}
 				}
 
 				&:active {
@@ -395,10 +397,11 @@ export const DesktopDiv = styled.div`
 					justify-content: center;
 					align-items: center;
 					font-size: 25px;
-
-					&:hover {
-						cursor: pointer;
-						background-color: darkred;
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							background-color: darkred;
+						}
 					}
 				}
 			}
@@ -493,9 +496,11 @@ export const DesktopDiv = styled.div`
 				font-size: 20px;
 				z-index: 5;
 
-				&:hover {
-					cursor: pointer;
-					background-color: darkred;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: darkred;
+					}
 				}
 			}
 		}
@@ -535,6 +540,7 @@ export const DesktopDiv = styled.div`
 
 			& > span {
 				margin: 0 2ch;
+				font-size: medium;
 			}
 
 			& > .btn {
@@ -563,10 +569,12 @@ export const DesktopDiv = styled.div`
 				background-color: #333;
 				border-radius: 10px;
 
-				&:hover {
-					cursor: pointer;
-					box-shadow: 3px 3px 3px 0 #333;
-					transition: box-shadow 250ms;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						box-shadow: 3px 3px 3px 0 #333;
+						transition: box-shadow 250ms;
+					}
 				}
 
 				&:active {
@@ -612,13 +620,13 @@ export const DesktopDiv = styled.div`
 			background-color: rgba(31, 31, 31, 0.8);
 
 			& > .application {
-				position: fixed;
-				z-index: 5;
+				position: relative;
+				z-index: 4;
 				width: 80%;
 				height: fit-content;
-				max-height: 80vh;
+				max-height: 70vh;
 				overflow-y: auto;
-				top: 17.5%;
+				top: 20px;
 				left: 10%;
 				background-color: #6e88a1;
 				border: solid #333 3px;
@@ -705,21 +713,24 @@ export const DesktopDiv = styled.div`
 						content: 'Message Sent!';
 					}
 				}
+			}
 
-				& > .close {
-					position: fixed;
-					width: 40px;
-					height: 40px;
-					background-color: red;
-					border: solid #333 3px;
-					border-radius: 5px;
-					top: calc(17.5% - 10px);
-					left: calc(90% - 30px);
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					font-size: 25px;
+			& > .close {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				background-color: red;
+				border: solid #333 3px;
+				border-radius: 5px;
+				top: 10px;
+				left: calc(90% - 10px);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 25px;
+				z-index: 5;
 
+				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
 						background-color: darkred;
@@ -743,7 +754,7 @@ export const DesktopDiv = styled.div`
 				width: 80%;
 				height: 70vh;
 				overflow-y: auto;
-				top: 10%;
+				top: 20px;
 				left: 10%;
 				background-color: #d0cdeb;
 				border: solid #333 3px;
@@ -796,6 +807,7 @@ export const DesktopDiv = styled.div`
 						flex-wrap: wrap;
 						align-items: center;
 						justify-content: space-evenly;
+						padding-bottom: 10px;
 					}
 				}
 			}
@@ -807,17 +819,19 @@ export const DesktopDiv = styled.div`
 				background-color: red;
 				border: solid #333 3px;
 				border-radius: 5px;
-				top: calc(10% - 10px);
-				left: calc(90% - 30px);
+				top: 10px;
+				left: calc(90% - 10px);
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				font-size: 25px;
 				z-index: 5;
 
-				&:hover {
-					cursor: pointer;
-					background-color: darkred;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: darkred;
+					}
 				}
 			}
 		}

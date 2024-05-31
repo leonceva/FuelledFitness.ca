@@ -34,6 +34,7 @@ export const LayoutDiv = styled.div`
 		justify-content: center;
 		align-items: center;
 		background-color: #d2d2d2;
+		position: relative;
 
 		/*** Login Form ***/
 		& > .login-form {
@@ -51,6 +52,7 @@ export const LayoutDiv = styled.div`
 			border: 3px solid #333;
 			border-radius: 10px;
 			padding: 10px 40px;
+			position: absolute;
 
 			& > h2 {
 				width: 100%;
@@ -132,10 +134,12 @@ export const LayoutDiv = styled.div`
 						color: black;
 						text-decoration: none;
 
-						&:hover {
-							color: blue;
-							text-decoration: underline;
-							cursor: pointer;
+						@media (hover: hover) and (pointer: fine) {
+							&:hover {
+								color: blue;
+								text-decoration: underline;
+								cursor: pointer;
+							}
 						}
 					}
 				}

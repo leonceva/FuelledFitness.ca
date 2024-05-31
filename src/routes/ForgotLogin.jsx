@@ -220,10 +220,12 @@ export const DesktopDiv = styled.div`
 			margin: 1ch 0;
 			font-weight: bold;
 
-			&:hover {
-				cursor: pointer;
-				text-decoration: underline;
-				color: darkblue;
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					cursor: pointer;
+					text-decoration: underline;
+					color: darkblue;
+				}
 			}
 		}
 	}

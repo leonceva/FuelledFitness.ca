@@ -537,10 +537,15 @@ export const DesktopDiv = styled.div`
 			display: flex;
 			overflow: auto;
 
-			&:hover {
-				cursor: pointer;
-				transform: 0.25s;
-				box-shadow: 0px 0px 3px 10px #6e88a1;
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					cursor: pointer;
+					box-shadow: 0px 0px 3px 10px #6e88a1;
+				}
+			}
+
+			&:active {
+				box-shadow: 0px 0px 0px 0px;
 			}
 
 			& > .title {
@@ -589,8 +594,8 @@ export const DesktopDiv = styled.div`
 		& > .service-info {
 			position: absolute;
 			width: 100%;
-			height: calc(100% - 20px);
-			top: 10px;
+			height: calc(100% - 10px);
+			top: 5px;
 			z-index: 3;
 			background-color: #333;
 			opacity: 1;
@@ -603,15 +608,16 @@ export const DesktopDiv = styled.div`
 			overflow: hidden;
 
 			& > .menu {
-				flex: 2;
-				height: 100%;
+				height: calc(100% - 50px);
+				top: 50px;
+				width: 40%;
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
+				justify-content: start;
 				align-items: center;
-				border-style: solid;
-				border-width: 0 3px 0 0;
-				border-color: #f2f2f2;
+				position: absolute;
+				left: 0%;
+				overflow-y: auto;
 
 				& > h2 {
 					width: 100%;
@@ -630,10 +636,12 @@ export const DesktopDiv = styled.div`
 					border-color: #333;
 					padding: 0.5ch 2ch;
 
-					&:hover {
-						cursor: pointer;
-						border-color: #f2f2f2;
-						background-color: #6e88a1;
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							border-color: #f2f2f2;
+							background-color: #6e88a1;
+						}
 					}
 				}
 
@@ -648,15 +656,19 @@ export const DesktopDiv = styled.div`
 			}
 
 			& > .info {
-				flex: 3;
-				height: fit-content;
-				max-height: 100%;
+				position: absolute;
+				height: 100%;
+				width: 60%;
+				left: 40%;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
 				overflow-x: hidden;
 				overflow-y: auto;
+				border-style: solid;
+				border-width: 0 0 0 3px;
+				border-color: #f2f2f2;
 
 				& > h2 {
 					width: 100%;
@@ -678,15 +690,17 @@ export const DesktopDiv = styled.div`
 				width: 50px;
 				height: 50px;
 				left: 5px;
-				top: 5px;
+				top: 0px;
 				font-size: 40px;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 
-				&:hover {
-					cursor: pointer;
-					color: red;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						color: red;
+					}
 				}
 				&:active {
 					transform: translate(3px 3px);
@@ -720,10 +734,12 @@ export const DesktopDiv = styled.div`
 			display: flex;
 			overflow: hidden;
 
-			&:hover {
-				cursor: pointer;
-				transition: 0.25s;
-				box-shadow: 0px 0px 3px 10px #6e88a1;
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					cursor: pointer;
+					transition: 0.25s;
+					box-shadow: 0px 0px 3px 10px #6e88a1;
+				}
 			}
 
 			& > .title {
@@ -797,15 +813,16 @@ export const DesktopDiv = styled.div`
 			overflow: hidden;
 
 			& > .menu {
-				flex: 1;
-				height: 100%;
+				height: calc(100% - 50px);
+				top: 50px;
+				width: 40%;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				border-style: solid;
-				border-width: 0 3px 0 0;
-				border-color: #f2f2f2;
+				position: absolute;
+				left: 0%;
+				overflow-y: auto;
 
 				& > h2 {
 					width: 100%;
@@ -824,10 +841,12 @@ export const DesktopDiv = styled.div`
 					border-color: #333;
 					padding: 0.5ch 2ch;
 
-					&:hover {
-						cursor: pointer;
-						border-color: #f2f2f2;
-						background-color: #6e88a1;
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							border-color: #f2f2f2;
+							background-color: #6e88a1;
+						}
 					}
 				}
 
@@ -842,15 +861,19 @@ export const DesktopDiv = styled.div`
 			}
 
 			& > .info {
-				flex: 3;
-				height: fit-content;
-				max-height: 100%;
+				position: absolute;
+				height: 100%;
+				width: 60%;
+				left: 40%;
 				display: flex;
 				flex-direction: column;
-				justify-content: start;
+				justify-content: center;
 				align-items: center;
 				overflow-x: hidden;
 				overflow-y: auto;
+				border-style: solid;
+				border-width: 0 0 0 3px;
+				border-color: #f2f2f2;
 
 				& > h2 {
 					width: 100%;
@@ -878,9 +901,11 @@ export const DesktopDiv = styled.div`
 				justify-content: center;
 				align-items: center;
 
-				&:hover {
-					cursor: pointer;
-					color: red;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						color: red;
+					}
 				}
 				&:active {
 					transform: translate(3px 3px);
