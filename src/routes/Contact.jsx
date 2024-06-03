@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
+import MobileLayout from '../layouts/MobileLayout';
 import SocialMediaLink from '../components/SocialMediaLink';
 import { useState, useEffect } from 'react';
 import ContactMeForm from '../components/ContactForm';
@@ -8,6 +9,7 @@ const Contact = () => {
 	return (
 		<>
 			<DesktopLayout content={<DesktopContent />} />
+			<MobileLayout content={<MobileContent />} />
 		</>
 	);
 };
@@ -319,6 +321,182 @@ export const DesktopDiv = styled.div`
 				border: 3px solid #333;
 				border-radius: 20px;
 			}
+		}
+	}
+`;
+
+/************************************************************* MOBILE MODE ****************************************************************************/
+
+export const MobileContent = () => {
+	const [screenSize, setScreenSize] = useState({
+		width: window.innerWidth,
+		height: window.innerHeight,
+	});
+
+	useEffect(() => {
+		// Callback for when screen is resized
+		const handleResize = () => {
+			setScreenSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
+
+		// Screen resize listener
+		window.addEventListener('resize', handleResize);
+
+		// Clean-up listener
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	let mapWidth, mapHeight;
+	mapWidth = Math.min(500, screenSize.width * 0.9) + 10;
+	mapHeight = Math.min(500, screenSize.height * 0.5) + 25;
+
+	const apiKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
+
+	return (
+		<MobileDiv>
+			<div className='links-container'>
+				<h2>Get In Touch</h2>
+				<div className='social-media-links'>
+					<SocialMediaLink
+						type='instagram'
+						size='50px'
+						hover='#333'
+					/>
+					<SocialMediaLink
+						type='linkedin'
+						size='50px'
+						hover='#333'
+					/>
+				</div>
+			</div>
+			<div className='form-container'>
+				<ContactMeForm />
+			</div>
+			<div className='map-container'>
+				<h3>In-Person Nutrition Consults and Personal Training offered at 613 Lift</h3>
+
+				<iframe
+					className='map'
+					title='map'
+					width={mapWidth}
+					height={mapHeight}
+					loading='lazy'
+					src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJASX-87gHzkwRZsp9skl07KQ&key=${apiKey}`}></iframe>
+			</div>
+		</MobileDiv>
+	);
+};
+
+export const MobileDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 70px;
+
+	& > .links-container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		margin: 10px 0;
+
+		& > h2 {
+			width: 100%;
+			margin: 1ch 0;
+			text-align: center;
+			font-size: x-large;
+		}
+
+		& > .social-media-links {
+			width: 150px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			margin-bottom: 10px;
+		}
+	}
+
+	& > .form-container {
+		width: 100%;
+
+		& > form {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			font-size: large;
+
+			& > h2 {
+				width: 100%;
+				font-size: x-large;
+				text-align: center;
+				margin: 1ch 0;
+			}
+
+			& > .input-text {
+				margin: 1ch 0;
+				width: 80%;
+				max-width: 300px;
+				padding: 5px;
+			}
+
+			& > textarea {
+				width: 80%;
+				max-width: 300px;
+				margin: 1ch 0 2ch;
+				min-height: 5ch;
+				padding: 5px;
+				overflow-y: auto;
+			}
+
+			& > .btn {
+				margin-top: 1ch;
+				box-shadow: none;
+
+				&::after {
+					content: 'Send Message';
+				}
+			}
+
+			& > .submitted::after {
+				content: 'Message Sent!';
+			}
+		}
+	}
+
+	& > .map-container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+
+		& > h3 {
+			width: calc(100% - 4ch);
+			text-align: center;
+			margin: 0;
+			font-size: large;
+			margin-bottom: 10px;
+		}
+
+		& > .map {
+			width: calc(min(500px, 90vw));
+			height: calc(min(500px, 50vh));
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			border: 3px solid #333;
 		}
 	}
 `;

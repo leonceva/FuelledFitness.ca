@@ -46,25 +46,24 @@ function BackToTop() {
 
 export const BackToTopBtn = styled.button`
 	position: fixed;
-	bottom: 2vh;
-	right: 2vh;
+	bottom: 5px;
+	right: 5px;
 	text-align: center;
-	width: 58px;
-	height: 58px;
-	border: solid 2.5px #333;
+	width: 55px;
+	height: 55px;
+	border: solid 3px #333;
 	border-radius: 15%;
-	font-size: 4vh;
+	font-size: 30px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	background-color: lightgray;
-	box-shadow: 3px 3px 2px #333;
+	background-color: #d2d2d2;
+	z-index: 9;
 
 	&:active {
 		translate: 3px 3px;
-		box-shadow: 0 0;
-		background-color: gray;
+		background-color: #a0a0a0;
 	}
 `;
 

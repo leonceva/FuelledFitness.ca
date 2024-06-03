@@ -77,7 +77,6 @@ const Carousel = (props) => {
 		<>
 			<div className='img-div'>
 				<Image
-					className='carousel-img'
 					styleWrapper={styleWrapperCarousel}
 					styleImage={styleImageCarousel}
 					lowResSrc={img_src_lowRes}

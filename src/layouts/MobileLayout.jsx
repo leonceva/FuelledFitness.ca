@@ -22,7 +22,6 @@ export const MobileDiv = styled.div`
 	align-items: center;
 	justify-content: start;
 	width: 100vw;
-	min-height: calc(100vw - 100px);
 
 	& > .background {
 		position: fixed;

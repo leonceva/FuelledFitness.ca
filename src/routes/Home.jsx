@@ -295,7 +295,180 @@ export const DesktopDiv = styled.div`
 /************************************************************* MOBILE MODE ****************************************************************************/
 
 export const MobileContent = () => {
-	return <MobileDiv>Home</MobileDiv>;
+	return (
+		<MobileDiv>
+			<div className='carousel-container'>
+				<Carousel
+					lowRes={[carousel_01_low_res, carousel_02_low_res, carousel_03_low_res]}
+					highRes={[carousel_01_high_res, carousel_02_high_res, carousel_03_high_res]}
+					length={3}
+				/>
+			</div>
+			<div className='preview-container'>
+				<div className='preview-item'>
+					<h2>Book Your Consultation</h2>
+					<div className='sub-heading'>Online and in-person options available</div>
+					<button
+						className='btn'
+						onClick={() => {
+							window.open(
+								'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+								'_blank'
+							);
+						}}>
+						Book Appointment
+					</button>
+				</div>
+				<div className='preview-item'>
+					<h2>Expert Support for You</h2>
+					<div className='sub-heading'>
+						Get to know your nutrition and training expert
+					</div>
+					<button className='btn'>
+						<Link
+							to='/about'
+							style={{ textDecoration: 'inherit', color: 'inherit' }}>
+							Read More
+						</Link>
+					</button>
+				</div>
+				<div className='preview-item'>
+					<h2>Stay in Touch</h2>
+					<div className='sub-heading'>Connect with us on social media</div>
+					<div className='social-media-container'>
+						<SocialMediaLink
+							type='instagram'
+							size='40px'
+						/>
+						<SocialMediaLink
+							type='linkedin'
+							size='40px'
+						/>
+					</div>
+				</div>
+			</div>
+		</MobileDiv>
+	);
 };
 
-export const MobileDiv = styled.div``;
+export const MobileDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+
+	& > .carousel-container {
+		width: 100%;
+		border-style: solid;
+		border-color: #6e88a1;
+		border-width: 5px 0;
+		height: 60vh;
+		position: relative;
+		overflow: hidden;
+
+		& > .img-div {
+			height: 100%;
+			width: 100%;
+			background-color: #333;
+			position: relative;
+
+			& > .left {
+				position: absolute;
+				height: 100%;
+				width: 40px;
+				left: 0;
+				background-color: #333;
+				color: white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 3;
+				transition: all 500ms;
+
+				&:active {
+					width: 50px;
+					background-color: #6e88a1;
+				}
+			}
+
+			& > .right {
+				position: absolute;
+				height: 100%;
+				width: 40px;
+				right: 0;
+				background-color: #333;
+				color: white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 3;
+				transition: all 500ms;
+
+				&:active {
+					width: 50px;
+					background-color: #6e88a1;
+				}
+			}
+
+			& > .background {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				image-rendering: pixelated;
+				opacity: 0.2;
+			}
+		}
+	}
+
+	& > .preview-container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		background-color: #6e88a1;
+		padding-bottom: 5px;
+
+		& > .preview-item {
+			width: calc(100% - 10px);
+			background-color: #333;
+			color: #f2f2f2;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: start;
+			margin: 5px 0;
+
+			& > h2 {
+				width: 100%;
+				text-align: center;
+				font-size: x-large;
+				margin: 1ch 0;
+				padding: 0;
+			}
+
+			& > .sub-heading {
+				width: 100%;
+				text-align: center;
+				font-size: large;
+				padding: 0;
+				margin: 1ch 0;
+			}
+
+			& > button {
+				margin-bottom: 10px;
+				box-shadow: none;
+			}
+
+			& > .social-media-container {
+				width: 150px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-around;
+				height: 50px;
+				margin-bottom: 10px;
+			}
+		}
+	}
+`;

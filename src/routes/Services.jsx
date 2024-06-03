@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
+import MobileLayout from '../layouts/MobileLayout';
 import Image from '../components/Image';
 import { useEffect, useState } from 'react';
 
@@ -14,6 +15,7 @@ const Services = () => {
 	return (
 		<>
 			<DesktopLayout content={<DesktopContent />} />
+			<MobileLayout content={<MobileContent />} />
 		</>
 	);
 };
@@ -920,4 +922,17 @@ export const DesktopDiv = styled.div`
 			transition: 250ms all;
 		}
 	}
+`;
+
+/************************************************************* MOBILE MODE ****************************************************************************/
+
+export const MobileContent = () => {
+	return <MobileDiv></MobileDiv>;
+};
+
+export const MobileDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 `;

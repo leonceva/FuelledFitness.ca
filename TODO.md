@@ -1,15 +1,7 @@
 ## Mobile
 
--   Components
-
-    -   Navbar
-    -   Layout
-
 -   Routes left
-    -   Home
-    -   About
     -   Services
-    -   Contact
     -   Athletes
     -   My Account
     -   Forgot Login

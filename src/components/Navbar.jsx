@@ -213,7 +213,7 @@ export const MobileNavbar = (props) => {
 						<>
 							<NavLink
 								className='expanded-link'
-								to='/home'>
+								to='/'>
 								Home
 							</NavLink>
 							<NavLink
@@ -239,7 +239,7 @@ export const MobileNavbar = (props) => {
 							</NavLink>
 							<NavLink
 								className='expanded-link'
-								to='/account'>
+								to='/myAccount'>
 								My Account
 							</NavLink>
 						</>
@@ -271,6 +271,7 @@ export const MobileDiv = styled.div`
 		}
 
 		& > .logo-letters {
+			cursor: pointer;
 			height: 130%;
 			aspect-ratio: 1/1;
 			padding: 0 5px;
@@ -300,7 +301,6 @@ export const MobileDiv = styled.div`
 				padding-bottom: 4px;
 
 				&:active {
-					background-color: red;
 					transition: all 0.3s;
 				}
 
@@ -313,6 +313,78 @@ export const MobileDiv = styled.div`
 					margin: 6px 0;
 					transition: 0.4s;
 				}
+			}
+
+			& > .change-button-container {
+				width: 35px;
+				cursor: pointer;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #d2d2d2;
+				border-radius: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				position: absolute;
+				background-color: #333;
+				padding-top: 4px;
+				padding-bottom: 4px;
+
+				& > .change-bar-1 {
+					width: 35px;
+					height: 5px;
+					background-color: lightgray;
+					margin: 6px 0;
+					transform: translate(0, 11px) rotate(-45deg);
+					transition: 0.6s;
+				}
+
+				& > .change-bar-2 {
+					width: 35px;
+					height: 5px;
+					background-color: lightgray;
+					margin: 6px 0;
+					margin: 6px 0;
+					opacity: 0;
+				}
+
+				& > .change-bar-3 {
+					width: 35px;
+					height: 5px;
+					background-color: lightgray;
+					margin: 6px 0;
+					transform: translate(0, -11px) rotate(45deg);
+					transition: 0.6s;
+				}
+			}
+
+			& > .expanded-menu {
+				display: flex;
+				flex-direction: column;
+				background-color: #333;
+				border-width: 2px;
+				border-color: #d2d2d2;
+				border-style: solid;
+				border-radius: 10px;
+				z-index: 1;
+				height: auto;
+				width: 200px;
+				position: fixed;
+				right: 10px;
+				top: 80px;
+
+				& > .expanded-link {
+					cursor: pointer;
+					text-align: center;
+					display: flex;
+					justify-content: center;
+					margin: 0.7ch 0;
+					font-size: larger;
+				}
+			}
+
+			& > .expanded-menu-hidden {
+				height: 0px;
+				transition: 0s all;
 			}
 		}
 	}
