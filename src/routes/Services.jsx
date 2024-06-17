@@ -1447,6 +1447,10 @@ export const MobileDiv = styled.div`
 			& > button {
 				box-shadow: none;
 				margin-bottom: 20px;
+
+				&:active {
+					box-shadow: none;
+				}
 			}
 		}
 	}

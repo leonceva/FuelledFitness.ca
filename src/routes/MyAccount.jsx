@@ -155,5 +155,128 @@ export const LayoutDiv = styled.div`
 
 	/************************* MOBILE MODE *************************/
 	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+		width: 100%;
+		min-height: calc(100vh - 100px);
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		background-color: #d2d2d2;
+		position: fixed;
+
+		/*** Login Form ***/
+		& > .login-form {
+			background-color: #6e88a1;
+			max-width: 90%;
+			max-height: 80%;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			border: 3px solid #333;
+			border-radius: 10px;
+			padding: 10px 40px;
+			position: absolute;
+			top: 10%;
+
+			& > h2 {
+				width: 100%;
+				padding: 0;
+				margin: 0;
+				text-align: center;
+				font-size: x-large;
+			}
+
+			& > .google-login {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+
+			& > .or-container {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				padding: 0;
+				margin: 1ch 0;
+
+				& > h4 {
+					padding: 0;
+					margin: 2ch 0;
+				}
+
+				& > .or {
+					margin: 0 1ch;
+					font-size: large;
+				}
+
+				& > .left,
+				.right {
+					flex: 1;
+					margin: 0 5%;
+					border-style: solid;
+					border-width: 0 0 2px;
+					height: 2px;
+					font-size: 0px;
+				}
+			}
+
+			& > .login-form {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: start;
+
+				& > label {
+					width: 100%;
+					margin: 5px 0;
+					font-size: larger;
+				}
+
+				& > input {
+					width: calc(100% - 2px - 2ch);
+					margin-bottom: 1ch;
+					padding: 1ch;
+					border: 1px solid #333;
+					font-size: large;
+				}
+
+				& > .login-options {
+					width: 100%;
+					height: auto;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: start;
+					font-size: small;
+					margin-bottom: 1ch;
+					flex-wrap: wrap;
+
+					& > .persist-info {
+						display: none;
+					}
+
+					& > .forgot-link {
+						flex: 1;
+						text-align: end;
+						color: black;
+						text-decoration: none;
+						padding-left: 2ch;
+					}
+				}
+
+				& > .btn {
+					width: 100%;
+					max-width: calc(min(80%, 300px));
+					margin: 2ch 0 1ch;
+				}
+			}
+		}
 	}
 `;

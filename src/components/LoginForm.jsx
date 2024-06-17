@@ -211,7 +211,7 @@ const LoginForm = () => {
 					<a
 						className='forgot-link'
 						href='/forgotLogin'>
-						forgot password?
+						Forgot Password?
 					</a>
 				</div>
 				<button className='btn'>Login</button>

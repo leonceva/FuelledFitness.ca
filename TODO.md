@@ -1,8 +1,6 @@
 ## Mobile
 
 -   Routes left
-    -   Services
-    -   Athletes
     -   My Account
     -   Forgot Login
     -   Reset Password

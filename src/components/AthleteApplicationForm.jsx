@@ -169,7 +169,7 @@ const Application = () => {
 				</div>
 
 				<div className='input-text'>
-					<label htmlFor='socials'>Social Media Links:</label>
+					<label htmlFor='socials'>Social Media:</label>
 					<input
 						type='text'
 						name='links'
