@@ -175,9 +175,7 @@ export const DesktopDiv = styled.div`
 
 		& > p {
 			width: calc(100% - 4ch);
-			text-align: left;
 			font-size: large;
-			margin: 0;
 		}
 
 		& > form {
@@ -198,13 +196,14 @@ export const DesktopDiv = styled.div`
 
 			& > .hide {
 				color: transparent;
+				font-size: 0ch;
 			}
 
 			& > .show {
 				color: #cc0000;
 			}
 
-			& input {
+			& > input {
 				padding: 1ch;
 				width: 80%;
 				font-size: large;
@@ -377,10 +376,67 @@ export const MobileDiv = styled.div`
 		margin-top: 10%;
 		overflow-y: auto;
 		border: 3px solid #333;
+		border-radius: 10px;
 		background-color: #6e88a1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+
+		& > h2 {
+			width: 100%;
+			text-align: center;
+			font-size: x-large;
+			margin: 1ch 0;
+			padding: 0;
+		}
+
+		& > p {
+			width: calc(100% - 2ch);
+			font-size: large;
+		}
+
+		& > form {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: start;
+
+			& > .error-message {
+				width: 80%;
+				font-size: large;
+				text-align: end;
+				margin-bottom: 0.5ch;
+				font-size: large;
+			}
+
+			& > .hide {
+				color: transparent;
+				font-size: 0ch;
+			}
+
+			& > .show {
+				color: #cc0000;
+			}
+
+			& > input {
+				padding: 1ch;
+				width: 80%;
+				font-size: large;
+				margin-bottom: 1ch;
+			}
+
+			& > .btn {
+				margin-top: 1ch;
+			}
+		}
+
+		& > .go-back {
+			width: 100%;
+			text-align: center;
+			margin: 1ch 0;
+			font-weight: bold;
+		}
 	}
 `;
 
