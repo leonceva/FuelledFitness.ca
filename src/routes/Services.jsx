@@ -440,15 +440,15 @@ export const DesktopContent = () => {
 									Nutrigenomix provides genetic predisposition for a variety of
 									areas:
 								</strong>
-								<ul>
-									<li>Nutrient metabolism</li>
-									<li>Food intolerances and sensitivities</li>
-									<li>Cardiometabolic health</li>
-									<li>Weight management and body composition </li>
-									<li>Eating habits</li>
-									<li>Exercise physiology, fitness, and injury risk</li>
-								</ul>
 							</p>
+							<ul>
+								<li>Nutrient metabolism</li>
+								<li>Food intolerances and sensitivities</li>
+								<li>Cardiometabolic health</li>
+								<li>Weight management and body composition </li>
+								<li>Eating habits</li>
+								<li>Exercise physiology, fitness, and injury risk</li>
+							</ul>
 							<p>
 								<strong>How is my sample taken?</strong>
 							</p>
@@ -480,16 +480,14 @@ export const DesktopContent = () => {
 								An advanced genetic testing service that revolutionizes personalized
 								nutrition.
 							</p>
-							<p>
-								Genetic Testing Package - $650
-								<ul>
-									<li>Nutrigenomix genetic test (70 gene test)</li>
-									<li>
-										Follow-up appointment to review genetic test results (45
-										minutes)
-									</li>
-								</ul>
-							</p>
+							<p>Genetic Testing Package - $650</p>
+							<ul>
+								<li>Nutrigenomix genetic test (70 gene test)</li>
+								<li>
+									Follow-up appointment to review genetic test results (45
+									minutes)
+								</li>
+							</ul>
 						</>
 					)}
 					{serviceSelected === 'Nutrigenomix' && infoSelected === 'package' && (
@@ -500,18 +498,16 @@ export const DesktopContent = () => {
 								plan empowers you to achieve optimal health by leveraging
 								personalized nutrition insights.
 							</p>
-							<p>
-								Genetic Testing and Personalized Meal Plan - $850
-								<ul>
-									<li>Initial nutrition assessment (1 hour)</li>
-									<li>Nutrigenomix genetic test (70 gene test)</li>
-									<li>Personalized meal plan</li>
-									<li>
-										Follow-up appointment to review genetic test results (45
-										minutes)
-									</li>
-								</ul>
-							</p>
+							<p>Genetic Testing and Personalized Meal Plan - $850</p>
+							<ul>
+								<li>Initial nutrition assessment (1 hour)</li>
+								<li>Nutrigenomix genetic test (70 gene test)</li>
+								<li>Personalized meal plan</li>
+								<li>
+									Follow-up appointment to review genetic test results (45
+									minutes)
+								</li>
+							</ul>
 						</>
 					)}
 				</div>
@@ -673,13 +669,19 @@ export const DesktopDiv = styled.div`
 				border-color: #f2f2f2;
 
 				& > h2 {
-					width: 100%;
+					width: calc(100% - 2ch);
 					text-align: center;
 					margin: 1ch 0;
 					padding: 0;
 					font-size: xx-large;
 				}
 				& > p {
+					margin: 1ch 0;
+					text-align: left;
+					width: calc(100% - 8ch);
+					font-size: large;
+				}
+				& > ul {
 					margin: 1ch 0;
 					text-align: left;
 					width: calc(100% - 8ch);
@@ -890,6 +892,12 @@ export const DesktopDiv = styled.div`
 					width: calc(100% - 8ch);
 					font-size: large;
 				}
+				& > {
+					margin: 1ch 0;
+					text-align: left;
+					width: calc(100% - 8ch);
+					font-size: large;
+				}
 			}
 
 			& > .go-back {
@@ -927,12 +935,518 @@ export const DesktopDiv = styled.div`
 /************************************************************* MOBILE MODE ****************************************************************************/
 
 export const MobileContent = () => {
-	return <MobileDiv></MobileDiv>;
+	const styleWrapper = {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		overflowY: 'hidden',
+		overflowX: 'hidden',
+		opacity: '0.3',
+	};
+
+	const styleImage = {
+		position: 'absolute',
+		width: '100%',
+		minHeight: '100%',
+		height: 'auto',
+		right: '0%',
+		top: '0%',
+		zIndex: '1',
+	};
+
+	const [serviceSelected, setServiceSelected] = useState(null);
+	const [infoSelected, setInfoSelected] = useState(null);
+
+	return (
+		<MobileDiv>
+			{serviceSelected === null && (
+				<div className='service-container'>
+					<div
+						className='service-item'
+						onClick={() => {
+							setServiceSelected('Nutrition');
+							setInfoSelected('individuals');
+						}}>
+						<h2>Nutrition</h2>
+						<Image
+							styleWrapper={styleWrapper}
+							styleImage={styleImage}
+							lowResSrc={nutrigenomix_low_res}
+							highResSrc={nutrition_high_res}
+						/>
+					</div>
+					<div
+						className='service-item'
+						onClick={() => {
+							setServiceSelected('Strength Training');
+							setInfoSelected('online-coaching');
+						}}>
+						<h2>Training</h2>
+						<Image
+							styleWrapper={styleWrapper}
+							styleImage={styleImage}
+							lowResSrc={training_low_res}
+							highResSrc={training_high_res}
+						/>
+					</div>
+					<div
+						className='service-item'
+						onClick={() => {
+							setServiceSelected('Nutrigenomix');
+							setInfoSelected('about');
+						}}>
+						<h2>Nutrigenomix</h2>
+						<Image
+							styleWrapper={styleWrapper}
+							styleImage={styleImage}
+							lowResSrc={nutrigenomix_low_res}
+							highResSrc={nutrigenomix_high_res}
+						/>
+					</div>
+				</div>
+			)}
+			{serviceSelected !== null && (
+				<div className='info-container'>
+					<div className='item-menu'>
+						{serviceSelected === 'Nutrition' && (
+							<>
+								<div
+									className={`menu-item ${
+										infoSelected === 'individuals' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('individuals');
+									}}>
+									Individuals
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'team-programs' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('team-programs');
+									}}>
+									Team Programs
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'corporate' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('corporate');
+									}}>
+									Corporate
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'menu-review' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('menu-review');
+									}}>
+									Menu Review
+								</div>
+							</>
+						)}
+						{serviceSelected === 'Strength Training' && (
+							<>
+								<div
+									className={`menu-item ${
+										infoSelected === 'online-coaching' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('online-coaching');
+									}}>
+									Online Coaching
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'personal-training' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('personal-training');
+									}}>
+									Personal Training
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'team-training' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('team-training');
+									}}>
+									Team Training
+								</div>
+							</>
+						)}
+						{serviceSelected === 'Nutrigenomix' && (
+							<>
+								<div
+									className={`menu-item ${
+										infoSelected === 'about' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('about');
+									}}>
+									About Nutrigenomix
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'testing' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('testing');
+									}}>
+									Genetic Testing
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'package' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('package');
+									}}>
+									Bundle with Meal Plan
+								</div>
+							</>
+						)}
+						<div
+							className='menu-item'
+							onClick={() => {
+								setServiceSelected(null);
+								setInfoSelected(null);
+							}}>
+							Go Back
+						</div>
+					</div>
+					<div className='info'>
+						{infoSelected === 'individuals' && (
+							<>
+								<h2>Nutrition Counselling</h2>
+								<p>
+									Say goodbye to guesswork, and hello to a personalized nutrition
+									plan! Work 1:1 with a Registered Dietitian to achieve your
+									goals. Whether you're striving for peak performance, weight
+									loss, improved energy levels, or optimal health and wellbeing
+									for yourself and your family, we offer personalized strategies
+									to support you in achieving your goals.
+								</p>
+								<p>
+									Initial Consult (60 minutes) - $140
+									<br />
+									Follow-up (45 minutes) - $105
+								</p>
+								<h2>Meal Plan Add-On</h2>
+								<p>
+									A meal plan is not the answer for everyone. Your Registered
+									Dietitian will work with you to address the challenges you face
+									to optimally achieve your nutrition goals.
+								</p>
+								<p>Cost - $80</p>
+							</>
+						)}
+						{infoSelected === 'team-programs' && (
+							<>
+								<h2>Team Nutrition Programs</h2>
+								<p>
+									Complement the hard work your athletes are putting in during
+									training with nutrition support. Some services offered include
+									nutrition presentations, interactive activities, or 1:1
+									counselling sessions.
+								</p>
+								<p>
+									Contact us today to design a program that fits the needs of your
+									team.
+								</p>
+							</>
+						)}
+						{infoSelected === 'corporate' && (
+							<>
+								<h2>Employee Nutrition Program</h2>
+								<p>
+									Support the wellbeing of your employees through nutrition
+									support. Healthier and happier employees promote improved
+									productivity, longevity, and a better workplace culture. Some
+									services offered include nutrition presentations, interactive
+									activities, or 1:1 counselling sessions.
+								</p>
+								<p>
+									Contact us today to discuss the unique needs of your
+									organization.
+								</p>
+							</>
+						)}
+						{infoSelected === 'menu-review' && (
+							<>
+								<h2>Menu Review</h2>
+								<p>
+									Do you provide meals as part of your business? Provide assurance
+									of nutritional balance, and credibility to clients by having
+									your menu reviewed and critiqued by a Registered Dietitian.
+								</p>
+								<p>
+									Contact us today to discuss the unique needs of your
+									organization.
+								</p>
+							</>
+						)}
+						{infoSelected === 'online-coaching' && (
+							<>
+								<h2>Online Coaching</h2>
+								<p>
+									Discover the ultimate online coaching experience with a
+									personalized program and consistent support. Our online coaching
+									program is delivered in 4-week intervals with a tailored workout
+									plan, weekly video review and feedback, and on-demand expert
+									guidance through virtual support with your coach.
+								</p>
+								<p>Cost - $150 / 4-weeks</p>
+							</>
+						)}
+						{infoSelected === 'personal-training' && (
+							<>
+								<h2>Personal Training</h2>
+								<p>
+									Experience personalized 1:1 coaching with hands on guidance,
+									immediate feedback, and continuous support throughout your
+									session. Our personal training sessions include a customized
+									weekly program to follow, ensuring continuous progress in
+									between sessions with your coach.
+								</p>
+								<p>
+									1 x per week - $100 per session <br />
+									2 x per week - $90 per session <br />
+									3+ x per week - $75 per session
+								</p>
+								<p>
+									Already a client of online coaching? Add an in-person coaching
+									session for $75
+								</p>
+								<p>
+									Looking for a personal training session without a program to
+									follow? $90 per session.
+								</p>
+							</>
+						)}
+						{infoSelected === 'team-training' && (
+							<>
+								<h2>Team Strength and Conditioning</h2>
+								<p>
+									Enhance performance, prevent injuries, and foster resilience
+									within your team through expertly crafted strength and
+									conditioning programs. Bring your athlete preparation to the
+									next level with a periodized program tailored to the needs of
+									your athletes. We offer flexible options which can accommodate a
+									wide range of team sizes and budgets.
+								</p>
+								<p>Contact us today to learn more.</p>
+							</>
+						)}
+						{infoSelected === 'about' && (
+							<>
+								<h2>About Nutrigenomix</h2>
+								<p>
+									<strong>
+										Nutrigenomix provides genetic predisposition for a variety
+										of areas:
+									</strong>
+								</p>
+								<ul>
+									<li>Nutrient metabolism</li>
+									<li>Food intolerances and sensitivities</li>
+									<li>Cardiometabolic health</li>
+									<li>Weight management and body composition </li>
+									<li>Eating habits</li>
+									<li>Exercise physiology, fitness, and injury risk</li>
+								</ul>
+
+								<p>
+									<strong>How is my sample taken?</strong>
+								</p>
+								<p>
+									A saliva test is delivered to your home. It is quick, simple,
+									and painless!
+								</p>
+								<button
+									className='btn'
+									style={{}}
+									onClick={() => {
+										window.open(
+											'https://nutrigenomix.com/storage/pages/about-nutrigenomix.pdf',
+											'_blank'
+										);
+									}}>
+									Learn More
+								</button>
+							</>
+						)}
+						{infoSelected === 'testing' && (
+							<>
+								<h2>Genetic Testing</h2>
+								<p>
+									An advanced genetic testing service that revolutionizes
+									personalized nutrition.
+								</p>
+								<p>Genetic Testing Package - $650</p>
+								<ul>
+									<li>Nutrigenomix genetic test (70 gene test)</li>
+									<li>
+										Follow-up appointment to review genetic test results (45
+										minutes)
+									</li>
+								</ul>
+							</>
+						)}
+						{infoSelected === 'package' && (
+							<>
+								<h2>Genetic Testing & Meal Plan</h2>
+								<p>
+									Combining the genetic test results with a specially tailored
+									meal plan empowers you to achieve optimal health by leveraging
+									personalized nutrition insights.
+								</p>
+								<p>Genetic Testing and Personalized Meal Plan - $850</p>
+								<ul>
+									<li>Initial nutrition assessment (1 hour)</li>
+									<li>Nutrigenomix genetic test (70 gene test)</li>
+									<li>Personalized meal plan</li>
+									<li>
+										Follow-up appointment to review genetic test results (45
+										minutes)
+									</li>
+								</ul>
+							</>
+						)}
+						<button
+							className='btn'
+							onClick={() => {
+								window.open(
+									'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+									'_blank'
+								);
+							}}>
+							Book Appointment
+						</button>
+					</div>
+				</div>
+			)}
+		</MobileDiv>
+	);
 };
 
 export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	width: 100%;
+	height: 100%;
+	position: relative;
+
+	& > .service-container {
+		width: 100%;
+		height: calc(100vh - 100px);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: center;
+		overflow: hidden;
+
+		& > .service-item {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 90%;
+			height: 30%;
+			background-color: #333;
+			border-radius: 10px;
+			overflow: hidden;
+
+			& > h2 {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				color: #d2d2d2;
+				font-size: x-large;
+				margin: 0;
+				top: 10%;
+				padding: 1ch 0;
+				background-color: rgba(51, 51, 51, 0.8);
+				z-index: 2;
+			}
+		}
+	}
+
+	& > .info-container {
+		color: #d2d2d2;
+		position: absolute;
+		width: calc(100% - 20px);
+		height: calc(100vh - 120px);
+		top: 10px;
+		border-radius: 10px;
+		background-color: #333;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		overflow: hidden;
+
+		& > .item-menu {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+
+			& > .menu-item {
+				width: 100%;
+				text-align: center;
+				padding: 5px 0;
+				font-size: x-large;
+				border: solid #d2d2d2;
+				border-width: 0 0 2px;
+			}
+
+			& > .selected {
+				background-color: #555;
+				font-weight: bold;
+			}
+		}
+
+		& > .info {
+			flex: 1;
+			width: 100%;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+
+			& > h2 {
+				width: 100%;
+				margin: 1ch 0;
+				padding: 0;
+				text-align: center;
+				font-size: x-large;
+			}
+
+			& > p {
+				width: calc(100% - 4ch);
+				font-size: large;
+				margin: 1ch 0;
+			}
+
+			& > ul {
+				width: calc(100% - 8ch);
+				font-size: large;
+			}
+
+			& > button {
+				box-shadow: none;
+				margin-bottom: 20px;
+			}
+		}
+	}
 `;
