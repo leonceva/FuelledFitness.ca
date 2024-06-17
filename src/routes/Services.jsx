@@ -1340,12 +1340,13 @@ export const MobileDiv = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 100%;
+	height: calc(100vh - 100px);
 	position: relative;
+	overflow: hidden;
 
 	& > .service-container {
 		width: 100%;
-		height: calc(100vh - 100px);
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
