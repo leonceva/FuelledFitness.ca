@@ -966,6 +966,10 @@ export const MobileContent = () => {
 						onClick={() => {
 							setServiceSelected('Nutrition');
 							setInfoSelected('individuals');
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth',
+							});
 						}}>
 						<h2>Nutrition</h2>
 						<Image
@@ -980,6 +984,10 @@ export const MobileContent = () => {
 						onClick={() => {
 							setServiceSelected('Strength Training');
 							setInfoSelected('online-coaching');
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth',
+							});
 						}}>
 						<h2>Training</h2>
 						<Image
@@ -994,6 +1002,10 @@ export const MobileContent = () => {
 						onClick={() => {
 							setServiceSelected('Nutrigenomix');
 							setInfoSelected('about');
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth',
+							});
 						}}>
 						<h2>Nutrigenomix</h2>
 						<Image
@@ -1343,7 +1355,7 @@ export const MobileDiv = styled.div`
 	align-items: center;
 	width: 100%;
 	height: calc(100vh - 100px);
-	position: relative;
+	position: absolute;
 	overflow: hidden;
 
 	& > .service-container {
