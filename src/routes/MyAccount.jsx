@@ -38,7 +38,8 @@ export const LayoutDiv = styled.div`
 
 		/*** Login Form ***/
 		& > .login-form {
-			background-color: #6e88a1;
+			background-color: black;
+			color: white;
 			width: auto;
 			max-width: calc(min(800px, 75%));
 			min-width: 350px;
@@ -49,7 +50,7 @@ export const LayoutDiv = styled.div`
 			flex-direction: column;
 			justify-content: space-evenly;
 			align-items: center;
-			border: 3px solid black;
+			border: 3px solid #87ceeb;
 			border-radius: 10px;
 			padding: 10px 40px;
 			position: absolute;
@@ -131,12 +132,12 @@ export const LayoutDiv = styled.div`
 					& > .forgot-link {
 						flex: 1;
 						text-align: end;
-						color: black;
+						color: white;
 						text-decoration: none;
 
 						@media (hover: hover) and (pointer: fine) {
 							&:hover {
-								color: blue;
+								color: #87ceeb;
 								text-decoration: underline;
 								cursor: pointer;
 							}

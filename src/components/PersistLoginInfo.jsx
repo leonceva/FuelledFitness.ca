@@ -29,6 +29,7 @@ export const PersistLoginInfoDiv = styled.div`
 		margin-left: 1ch;
 		height: fit-content;
 		background-color: white;
+		color: black;
 		z-index: 2;
 		animation-name: show-info;
 		animation-duration: 1s;

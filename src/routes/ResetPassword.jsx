@@ -183,9 +183,10 @@ export const DesktopDiv = styled.div`
 		width: auto;
 		max-width: calc(min(800px, 80%));
 		min-width: calc(min(500px, 50%));
-		border: 3px solid black;
+		border: 3px solid #87ceeb;
 		border-radius: 10px;
-		background-color: #6e88a1;
+		background-color: black;
+		color: white;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

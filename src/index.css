@@ -23,7 +23,8 @@ code {
 	&:hover {
 		cursor: pointer;
 		background-color: #87ceeb;
-		transition: background-color 0.25s;
+		transition: all 0.25s;
+		color: black;
 	}
 	&:active {
 		transform: translate(3px, 3px);

@@ -53,8 +53,8 @@ export const DesktopContent = () => {
 
 	// Image styles for bio when card is clicked
 	const styleWrapperBio = {
-		width: '30%',
-		height: '100%',
+		width: '40%',
+		height: '90%',
 		overflowx: 'hidden',
 		overflowY: 'hidden',
 		position: 'absolute',
@@ -154,17 +154,17 @@ export const DesktopContent = () => {
 								{showAthlete[0].name} {showAthlete[0].last_name}
 							</h3>
 							<h4>Sport: {showAthlete[0].sport}</h4>
-							<p>{showAthlete[0].bio}</p>
 							<div className='links-container'>
 								{showAthlete[0]?.instagram !== null && (
 									<SocialMediaLink
 										type='instagram'
 										link={`${showAthlete[0].instagram}`}
-										size='50px'
+										size='40px'
 										hover='black'
 									/>
 								)}
 							</div>
+							<p>{showAthlete[0].bio}</p>
 						</div>
 					</div>
 					<div
@@ -300,7 +300,7 @@ export const DesktopDiv = styled.div`
 				overflow-y: auto;
 				top: 10%;
 				left: 20%;
-				background-color: #6e88a1;
+				background-color: #d2d2d2;
 				border: solid black 3px;
 				border-radius: 10px;
 
@@ -391,7 +391,8 @@ export const DesktopDiv = styled.div`
 				position: absolute;
 				width: 40px;
 				height: 40px;
-				background-color: red;
+				background-color: black;
+				color: white;
 				border: solid black 3px;
 				border-radius: 5px;
 				top: calc(10% - 10px);
@@ -403,7 +404,8 @@ export const DesktopDiv = styled.div`
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						background-color: darkred;
+						background-color: #87ceeb;
+						color: black;
 					}
 				}
 			}
@@ -422,13 +424,11 @@ export const DesktopDiv = styled.div`
 			& > .athlete-bio {
 				position: relative;
 				width: 70%;
-				max-width: 2000px;
 				height: 70vh;
-				max-height: 2000px;
 				overflow-y: auto;
 				top: 10%;
 				left: 15%;
-				background-color: #d0cdeb;
+				background-color: #d2d2d2;
 				border: solid black 3px;
 				border-radius: 10px;
 				z-index: 4;
@@ -443,9 +443,9 @@ export const DesktopDiv = styled.div`
 					flex-direction: column;
 					justify-content: start;
 					align-items: center;
-					width: 62.5%;
+					width: 52.5%;
 					height: 100%;
-					left: 35%;
+					left: 45%;
 
 					& > h3 {
 						width: 100%;
@@ -465,7 +465,7 @@ export const DesktopDiv = styled.div`
 
 					& > p {
 						width: 100%;
-						margin: 2ch 0;
+						margin: 0;
 						padding: 0;
 						font-size: large;
 						text-align: justify;
@@ -479,6 +479,7 @@ export const DesktopDiv = styled.div`
 						flex-wrap: wrap;
 						align-items: center;
 						justify-content: space-evenly;
+						margin: 10px 0;
 					}
 				}
 			}
@@ -487,7 +488,8 @@ export const DesktopDiv = styled.div`
 				position: absolute;
 				width: 40px;
 				height: 40px;
-				background-color: red;
+				background-color: black;
+				color: white;
 				border: solid black 3px;
 				border-radius: 5px;
 				top: calc(10% - 10px);
@@ -501,7 +503,8 @@ export const DesktopDiv = styled.div`
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						background-color: darkred;
+						background-color: #87ceeb;
+						color: black;
 					}
 				}
 			}
@@ -630,7 +633,7 @@ export const DesktopDiv = styled.div`
 				overflow-y: auto;
 				top: 20px;
 				left: 10%;
-				background-color: #6e88a1;
+				background-color: #d2d2d2;
 				border: solid black 3px;
 				border-radius: 10px;
 
@@ -721,7 +724,8 @@ export const DesktopDiv = styled.div`
 				position: absolute;
 				width: 40px;
 				height: 40px;
-				background-color: red;
+				background-color: black;
+				color: white;
 				border: solid black 3px;
 				border-radius: 5px;
 				top: 10px;
@@ -735,7 +739,8 @@ export const DesktopDiv = styled.div`
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						background-color: darkred;
+						background-color: #87ceeb;
+						color: black;
 					}
 				}
 			}
@@ -753,17 +758,17 @@ export const DesktopDiv = styled.div`
 
 			& > .athlete-bio {
 				position: relative;
-				width: 80%;
-				height: 70vh;
+				width: 90%;
+				height: 90%;
 				overflow-y: auto;
 				top: 20px;
-				left: 10%;
-				background-color: #d0cdeb;
+				left: 5%;
+				background-color: #d2d2d2;
 				border: solid black 3px;
 				border-radius: 10px;
 				z-index: 4;
 				display: flex;
-				flex-direction: row;
+				flex-direction: column;
 				justify-content: start;
 				align-items: center;
 
@@ -773,9 +778,9 @@ export const DesktopDiv = styled.div`
 					flex-direction: column;
 					justify-content: start;
 					align-items: center;
-					width: 62.5%;
+					width: 52.5%;
 					height: 100%;
-					left: 35%;
+					left: 45%;
 
 					& > h3 {
 						width: 100%;
@@ -795,10 +800,11 @@ export const DesktopDiv = styled.div`
 
 					& > p {
 						width: 100%;
-						margin: 2ch 0;
+						margin: 0;
 						padding: 0;
 						font-size: large;
 						text-align: justify;
+						padding-bottom: 10px;
 					}
 
 					& > .links-container {
@@ -809,7 +815,7 @@ export const DesktopDiv = styled.div`
 						flex-wrap: wrap;
 						align-items: center;
 						justify-content: space-evenly;
-						padding-bottom: 10px;
+						margin: 10px 0;
 					}
 				}
 			}
@@ -818,11 +824,12 @@ export const DesktopDiv = styled.div`
 				position: absolute;
 				width: 40px;
 				height: 40px;
-				background-color: red;
+				background-color: black;
+				color: white;
 				border: solid black 3px;
 				border-radius: 5px;
 				top: 10px;
-				left: calc(90% - 10px);
+				left: calc(92.5% - 10px);
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -832,7 +839,8 @@ export const DesktopDiv = styled.div`
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						background-color: darkred;
+						background-color: #87ceeb;
+						color: black;
 					}
 				}
 			}

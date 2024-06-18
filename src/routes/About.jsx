@@ -28,7 +28,7 @@ export const DesktopContent = () => {
 		overflowX: 'hidden',
 		overflowY: 'hidden',
 		marginRight: '10px',
-		backgroundColor: '#6e88a1',
+		backgroundColor: '#333',
 		border: '2px solid black',
 	};
 
@@ -52,7 +52,7 @@ export const DesktopContent = () => {
 		overflowX: 'hidden',
 		overflowY: 'hidden',
 		marginTop: '10px',
-		backgroundColor: '#6e88a1',
+		backgroundColor: '#333',
 		border: '2px solid black',
 		left: '50%',
 		transform: 'translate(-50%, 0)',
@@ -76,16 +76,16 @@ export const DesktopContent = () => {
 				</p>
 				<div className='title'>Krystin Paquette</div>
 				<p>
-					My educational foundation includes a BSc. in Nutrition and Food Science with a
-					specialization in Dietetics, complemented by a Bachelor of Kinesiology degree.
-					By bridging the areas of nutrition and training, I can offer a comprehensive
-					coaching experience tailored to your unique needs and aspirations.
+					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
+					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
+					degree. By bridging the areas of nutrition and training, she can offer a
+					comprehensive coaching experience tailored to your unique needs and aspirations.
 				</p>
 				<p>
-					My approach is always grounded in evidence-based practice, and person-centred
-					principles. I believe in adaptive coaching strategies that are tailored to your
-					goals, and that meet you where you are now in order to effectively get you to
-					where you want to be.
+					Her approach is always grounded in evidence-based practice, and person-centred
+					principles. She believes in adaptive coaching strategies that are tailored to
+					your goals, and that meet you where you are now in order to effectively get you
+					to where you want to be.
 				</p>
 				<div className='title'>Let's Get Started!</div>
 				<p>
@@ -191,16 +191,16 @@ export const MobileContent = () => {
 				/>
 				<h2>Krystin Paquette</h2>
 				<p>
-					My educational foundation includes a BSc. in Nutrition and Food Science with a
-					specialization in Dietetics, complemented by a Bachelor of Kinesiology degree.
-					By bridging the areas of nutrition and training, I can offer a comprehensive
-					coaching experience tailored to your unique needs and aspirations.
+					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
+					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
+					degree. By bridging the areas of nutrition and training, she can offer a
+					comprehensive coaching experience tailored to your unique needs and aspirations.
 				</p>
 				<p>
-					My approach is always grounded in evidence-based practice, and person-centred
-					principles. I believe in adaptive coaching strategies that are tailored to your
-					goals, and that meet you where you are now in order to effectively get you to
-					where you want to be.
+					Her approach is always grounded in evidence-based practice, and person-centred
+					principles. She believes in adaptive coaching strategies that are tailored to
+					your goals, and that meet you where you are now in order to effectively get you
+					to where you want to be.
 				</p>
 				<h2>Let's Get Started!</h2>
 				<p>

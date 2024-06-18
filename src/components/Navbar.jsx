@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import logo_img from '../images/fuelled-fitness-logo.svg';
 import logo_letters from '../images/fuelled-fitness-letters.svg';
@@ -42,7 +42,7 @@ export const DesktopNavbar = (props) => {
 		<DesktopDiv
 			style={{
 				backgroundColor: `${
-					scrollPosition > 100 ? 'rgba(51, 51, 51, 0.9)' : 'rgba(51, 51, 51, 1)'
+					scrollPosition > 100 ? 'rgba(0, 0, 0, 0.9)' : 'rgba(0, 0, 0, 1)'
 				}`,
 			}}>
 			<img
@@ -64,7 +64,11 @@ export const DesktopNavbar = (props) => {
 			<div className='link-container'>
 				<NavLink to='/'>Home</NavLink>
 				<NavLink to='/about'>About</NavLink>
-				<NavLink to='/services'>Services</NavLink>
+				<NavLink
+					reloadDocument
+					to='/services'>
+					Services
+				</NavLink>
 				<NavLink to='/contact'>Contact</NavLink>
 				<NavLink to='/athletes'>Athletes</NavLink>
 				<NavLink to='/myAccount'>My Account</NavLink>
@@ -127,7 +131,7 @@ export const NavLink = styled(Link)`
 	font-weight: bold;
 	&:hover {
 		transition: 200ms;
-		box-shadow: 0 3px 0 0 #f2f2f2;
+		color: #87ceeb;
 	}
 
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
@@ -146,6 +150,7 @@ export const NavLink = styled(Link)`
 
 export const MobileNavbar = (props) => {
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const scrollPosition = props.scrollPosition;
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -160,6 +165,13 @@ export const MobileNavbar = (props) => {
 			},
 			{ once: true }
 		);
+	};
+
+	const handleRefresh = () => {
+		// Check if location is already at /services
+		if (location.pathname === '/services') {
+			navigate(0);
+		}
 	};
 
 	return (
@@ -221,8 +233,8 @@ export const MobileNavbar = (props) => {
 								to='/about'>
 								About
 							</NavLink>
-
 							<NavLink
+								onClick={handleRefresh}
 								className='expanded-link'
 								to='/services'>
 								Services

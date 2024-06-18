@@ -125,13 +125,13 @@ export const DesktopContent = () => {
 				onMouseEnter={() => setHoverItem('training')}
 				onMouseLeave={() => setHoverItem(null)}
 				onClick={() => {
-					setServiceSelected('Strength Training');
+					setServiceSelected('Training');
 					setInfoSelected('online-coaching');
 				}}>
 				<Image
 					styleWrapper={{
 						...styleWrapper,
-						...{ opacity: `${hoverItem === 'training' ? '0.4' : '0.2'}` },
+						...{ opacity: `${hoverItem === 'training' ? '0.7' : '0.2'}` },
 					}}
 					styleImage={
 						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
@@ -163,7 +163,7 @@ export const DesktopContent = () => {
 				<Image
 					styleWrapper={{
 						...styleWrapper,
-						...{ opacity: `${hoverItem === 'nutrigenomix' ? '0.4' : '0.2'}` },
+						...{ opacity: `${hoverItem === 'nutrigenomix' ? '0.7' : '0.2'}` },
 					}}
 					styleImage={
 						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
@@ -242,7 +242,7 @@ export const DesktopContent = () => {
 							</div>
 						</>
 					)}
-					{serviceSelected === 'Strength Training' && (
+					{serviceSelected === 'Training' && (
 						<>
 							<h2>{serviceSelected}</h2>
 							<div
@@ -324,6 +324,8 @@ export const DesktopContent = () => {
 								Initial Consult (60 minutes) - $140
 								<br />
 								Follow-up (45 minutes) - $105
+								<br />
+								Follow-up (30 minutes) - $80
 							</p>
 							<h2>Meal Plan Add-On</h2>
 							<p>
@@ -377,61 +379,58 @@ export const DesktopContent = () => {
 							</p>
 						</>
 					)}
-					{serviceSelected === 'Strength Training' &&
-						infoSelected === 'online-coaching' && (
-							<>
-								<h2>Online Coaching</h2>
-								<p>
-									Discover the ultimate online coaching experience with a
-									personalized program and consistent support. Our online coaching
-									program is delivered in 4-week intervals with a tailored workout
-									plan, weekly video review and feedback, and on-demand expert
-									guidance through virtual support with your coach.
-								</p>
-								<p>Cost - $150 / 4-weeks</p>
-							</>
-						)}
-					{serviceSelected === 'Strength Training' &&
-						infoSelected === 'personal-training' && (
-							<>
-								<h2>Personal Training</h2>
-								<p>
-									Experience personalized 1:1 coaching with hands on guidance,
-									immediate feedback, and continuous support throughout your
-									session. Our personal training sessions include a customized
-									weekly program to follow, ensuring continuous progress in
-									between sessions with your coach.
-								</p>
-								<p>
-									1 x per week - $100 per session <br />
-									2 x per week - $90 per session <br />
-									3+ x per week - $75 per session
-								</p>
-								<p>
-									Already a client of online coaching? Add an in-person coaching
-									session for $75
-								</p>
-								<p>
-									Looking for a personal training session without a program to
-									follow? $90 per session.
-								</p>
-							</>
-						)}
-					{serviceSelected === 'Strength Training' &&
-						infoSelected === 'team-training' && (
-							<>
-								<h2>Team Strength and Conditioning</h2>
-								<p>
-									Enhance performance, prevent injuries, and foster resilience
-									within your team through expertly crafted strength and
-									conditioning programs. Bring your athlete preparation to the
-									next level with a periodized program tailored to the needs of
-									your athletes. We offer flexible options which can accommodate a
-									wide range of team sizes and budgets.
-								</p>
-								<p>Contact us today to learn more.</p>
-							</>
-						)}
+					{serviceSelected === 'Training' && infoSelected === 'online-coaching' && (
+						<>
+							<h2>Online Coaching</h2>
+							<p>
+								Discover the ultimate online coaching experience with a personalized
+								program and consistent support. Our online coaching program is
+								delivered in 4-week intervals with a tailored workout plan, weekly
+								video review and feedback, and on-demand expert guidance through
+								virtual support with your coach.
+							</p>
+							<p>Cost - $150 / 4-weeks</p>
+						</>
+					)}
+					{serviceSelected === 'Training' && infoSelected === 'personal-training' && (
+						<>
+							<h2>Personal Training</h2>
+							<p>
+								Experience personalized 1:1 coaching with hands on guidance,
+								immediate feedback, and continuous support throughout your session.
+								Our personal training sessions include a customized weekly program
+								to follow, ensuring continuous progress in between sessions with
+								your coach.
+							</p>
+							<p>
+								1 x per week - $100 per session <br />
+								2 x per week - $90 per session <br />
+								3+ x per week - $75 per session
+							</p>
+							<p>
+								Already a client of online coaching? Add an in-person coaching
+								session for $75
+							</p>
+							<p>
+								Looking for a personal training session without a program to follow?
+								$90 per session.
+							</p>
+						</>
+					)}
+					{serviceSelected === 'Training' && infoSelected === 'team-training' && (
+						<>
+							<h2>Team Strength and Conditioning</h2>
+							<p>
+								Enhance performance, prevent injuries, and foster resilience within
+								your team through expertly crafted strength and conditioning
+								programs. Bring your athlete preparation to the next level with a
+								periodized program tailored to the needs of your athletes. We offer
+								flexible options which can accommodate a wide range of team sizes
+								and budgets.
+							</p>
+							<p>Contact us today to learn more.</p>
+						</>
+					)}
 					{serviceSelected === 'Nutrigenomix' && infoSelected === 'about' && (
 						<>
 							<h2>About Nutrigenomix</h2>
@@ -538,7 +537,7 @@ export const DesktopDiv = styled.div`
 			@media (hover: hover) and (pointer: fine) {
 				&:hover {
 					cursor: pointer;
-					box-shadow: 0px 0px 3px 10px #6e88a1;
+					box-shadow: 0px 0px 3px 10px #87ceeb;
 				}
 			}
 
@@ -637,14 +636,14 @@ export const DesktopDiv = styled.div`
 					@media (hover: hover) and (pointer: fine) {
 						&:hover {
 							cursor: pointer;
-							border-color: #f2f2f2;
-							background-color: #6e88a1;
+							color: #87ceeb;
 						}
 					}
 				}
 
 				& > .menu-item-selected {
-					border-color: #f2f2f2;
+					border-color: #87ceeb;
+					color: #87ceeb;
 				}
 
 				& > .btn-container {
@@ -703,7 +702,7 @@ export const DesktopDiv = styled.div`
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						color: red;
+						color: #87ceeb;
 					}
 				}
 				&:active {
@@ -742,7 +741,7 @@ export const DesktopDiv = styled.div`
 				&:hover {
 					cursor: pointer;
 					transition: 0.25s;
-					box-shadow: 0px 0px 3px 10px #6e88a1;
+					box-shadow: 0px 0px 3px 10px #87ceeb;
 				}
 			}
 
@@ -809,7 +808,7 @@ export const DesktopDiv = styled.div`
 			background-color: black;
 			opacity: 1;
 			border-radius: 20px;
-			color: #f2f2f2;
+			color: white;
 			display: flex;
 			flex-direction: row;
 			justify-content: start;
@@ -848,14 +847,15 @@ export const DesktopDiv = styled.div`
 					@media (hover: hover) and (pointer: fine) {
 						&:hover {
 							cursor: pointer;
-							border-color: #f2f2f2;
-							background-color: #6e88a1;
+							border-color: none;
+							color: #87ceeb;
 						}
 					}
 				}
 
 				& > .menu-item-selected {
-					border-color: #f2f2f2;
+					border-color: #87ceeb;
+					color: #87ceeb;
 				}
 
 				& > .btn-container {
@@ -914,7 +914,7 @@ export const DesktopDiv = styled.div`
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						color: red;
+						color: #87ceeb;
 					}
 				}
 				&:active {
@@ -1135,6 +1135,8 @@ export const MobileContent = () => {
 									Initial Consult (60 minutes) - $140
 									<br />
 									Follow-up (45 minutes) - $105
+									<br />
+									Follow-up (30 minutes) - $80
 								</p>
 								<h2>Meal Plan Add-On</h2>
 								<p>
@@ -1381,7 +1383,7 @@ export const MobileDiv = styled.div`
 	}
 
 	& > .info-container {
-		color: #d2d2d2;
+		color: white;
 		position: absolute;
 		width: calc(100% - 20px);
 		height: calc(100vh - 120px);
@@ -1401,19 +1403,20 @@ export const MobileDiv = styled.div`
 			flex-direction: column;
 			justify-content: start;
 			align-items: center;
+			padding-top: 10px;
 
 			& > .menu-item {
 				width: 100%;
 				text-align: center;
 				padding: 5px 0;
 				font-size: x-large;
-				border: solid #d2d2d2;
-				border-width: 0 0 2px;
+				border: 2px solid black;
 			}
 
 			& > .selected {
-				background-color: #555;
 				font-weight: bold;
+				color: #87ceeb;
+				border: 2px solid #87ceeb;
 			}
 		}
 

@@ -104,7 +104,7 @@ export const DesktopDiv = styled.div`
 
 		& > .carousel-container {
 			width: 450px;
-			border: 5px solid #6e88a1;
+			border: 5px solid black;
 			border-radius: 10px;
 			height: calc(min(70vh, 600px));
 			position: relative;
@@ -130,7 +130,7 @@ export const DesktopDiv = styled.div`
 					height: 100%;
 					width: 25px;
 					left: 0;
-					background-color: black;
+					background-color: #333;
 					color: white;
 					display: flex;
 					align-items: center;
@@ -142,7 +142,7 @@ export const DesktopDiv = styled.div`
 					@media (hover: hover) and (pointer: fine) {
 						&:hover {
 							width: 30px;
-							background-color: #6e88a1; // TODO blue
+							background-color: #87ceeb; // TODO blue
 							transition: all 200ms;
 						}
 					}
@@ -156,7 +156,7 @@ export const DesktopDiv = styled.div`
 					height: 100%;
 					width: 25px;
 					right: 0;
-					background-color: black;
+					background-color: #333;
 					color: white;
 					display: flex;
 					align-items: center;
@@ -168,7 +168,7 @@ export const DesktopDiv = styled.div`
 					@media (hover: hover) and (pointer: fine) {
 						&:hover {
 							width: 30px;
-							background-color: #6e88a1; // TODO blue
+							background-color: #87ceeb; // TODO blue
 							transition: all 200ms;
 						}
 					}
@@ -202,7 +202,7 @@ export const DesktopDiv = styled.div`
 
 				& > .preview-item {
 					width: 30%;
-					border: 5px solid #6e88a1;
+					border: 5px solid black;
 					border-radius: 10px;
 					background-color: black;
 					color: #f2f2f2;
@@ -252,7 +252,7 @@ export const DesktopDiv = styled.div`
 				& > .preview-item {
 					width: 100%;
 					height: fit-content;
-					border: 5px solid #6e88a1;
+					border: 5px solid black;
 					border-radius: 10px;
 					background-color: black;
 					color: #f2f2f2;
@@ -375,7 +375,7 @@ export const MobileDiv = styled.div`
 				height: 100%;
 				width: 40px;
 				left: 0;
-				background-color: #333;
+				background-color: black;
 				color: white;
 				display: flex;
 				align-items: center;
@@ -394,7 +394,7 @@ export const MobileDiv = styled.div`
 				height: 100%;
 				width: 40px;
 				right: 0;
-				background-color: #333;
+				background-color: black;
 				color: white;
 				display: flex;
 				align-items: center;
