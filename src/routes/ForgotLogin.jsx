@@ -158,7 +158,7 @@ export const DesktopDiv = styled.div`
 		width: auto;
 		max-width: calc(min(800px, 80%));
 		min-width: calc(min(500px, 50%));
-		border: 3px solid #333;
+		border: 3px solid black;
 		border-radius: 10px;
 		background-color: #6e88a1;
 		display: flex;
@@ -375,9 +375,10 @@ export const MobileDiv = styled.div`
 		max-height: 80%;
 		margin-top: 10%;
 		overflow-y: auto;
-		border: 3px solid #333;
+		border: 3px solid #87ceeb;
 		border-radius: 10px;
-		background-color: #6e88a1;
+		background-color: black;
+		color: white;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -428,11 +429,13 @@ export const MobileDiv = styled.div`
 
 			& > .btn {
 				margin-top: 1ch;
+				box-shadow: none;
 			}
 		}
 
 		& > .go-back {
 			width: 100%;
+			color: white;
 			text-align: center;
 			margin: 1ch 0;
 			font-weight: bold;

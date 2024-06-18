@@ -166,7 +166,7 @@ export const MobileNavbar = (props) => {
 		<MobileDiv
 			style={{
 				backgroundColor: `${
-					scrollPosition > 100 ? 'rgba(51, 51, 51, 0.9)' : 'rgba(51, 51, 51, 1)'
+					scrollPosition > 100 ? 'rgba(0, 0, 0, 0.9)' : 'rgba(0,0,0, 1)'
 				}`,
 			}}>
 			<img
@@ -296,7 +296,7 @@ export const MobileDiv = styled.div`
 				padding-left: 10px;
 				padding-right: 10px;
 				position: absolute;
-				background-color: #333;
+				background-color: black;
 				padding-top: 4px;
 				padding-bottom: 4px;
 
@@ -325,7 +325,7 @@ export const MobileDiv = styled.div`
 				padding-left: 10px;
 				padding-right: 10px;
 				position: absolute;
-				background-color: #333;
+				background-color: black;
 				padding-top: 4px;
 				padding-bottom: 4px;
 
@@ -360,7 +360,7 @@ export const MobileDiv = styled.div`
 			& > .expanded-menu {
 				display: flex;
 				flex-direction: column;
-				background-color: #333;
+				background-color: black;
 				border-width: 2px;
 				border-color: #d2d2d2;
 				border-style: solid;

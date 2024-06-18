@@ -51,7 +51,7 @@ export const BackToTopBtn = styled.button`
 	text-align: center;
 	width: 55px;
 	height: 55px;
-	border: solid 3px #333;
+	border: solid 3px black;
 	border-radius: 15%;
 	font-size: 30px;
 	display: flex;

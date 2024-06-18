@@ -161,7 +161,7 @@ export const DesktopContent = () => {
 										type='instagram'
 										link={`${showAthlete[0].instagram}`}
 										size='50px'
-										hover='#333'
+										hover='black'
 									/>
 								)}
 							</div>
@@ -234,16 +234,16 @@ export const DesktopDiv = styled.div`
 			& > .card-container {
 				height: 100%;
 				width: 30%;
-				border: 2px solid #333;
+				border: 2px solid black;
 				position: relative;
 				overflow: hidden;
 				display: flex;
-				background-color: #333;
+				background-color: black;
 				border-radius: 10px;
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						box-shadow: 3px 3px 3px 0 #333;
+						box-shadow: 3px 3px 3px 0 black;
 						transition: box-shadow 250ms;
 					}
 				}
@@ -260,7 +260,7 @@ export const DesktopDiv = styled.div`
 					position: relative;
 					overflow: hidden;
 					display: flex;
-					background-color: #333;
+					background-color: black;
 					border-radius: 10px;
 
 					& > h2 {
@@ -272,7 +272,7 @@ export const DesktopDiv = styled.div`
 						margin: 0;
 						padding: 0.5ch;
 						text-align: center;
-						border-color: #333;
+						border-color: black;
 						border-style: solid;
 						border-width: 0 0 2px;
 					}
@@ -301,7 +301,7 @@ export const DesktopDiv = styled.div`
 				top: 10%;
 				left: 20%;
 				background-color: #6e88a1;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 10px;
 
 				& > form {
@@ -392,7 +392,7 @@ export const DesktopDiv = styled.div`
 				width: 40px;
 				height: 40px;
 				background-color: red;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 5px;
 				top: calc(10% - 10px);
 				left: calc(80% - 30px);
@@ -429,7 +429,7 @@ export const DesktopDiv = styled.div`
 				top: 10%;
 				left: 15%;
 				background-color: #d0cdeb;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 10px;
 				z-index: 4;
 				display: flex;
@@ -488,7 +488,7 @@ export const DesktopDiv = styled.div`
 				width: 40px;
 				height: 40px;
 				background-color: red;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 5px;
 				top: calc(10% - 10px);
 				left: calc(85% - 30px);
@@ -564,17 +564,17 @@ export const DesktopDiv = styled.div`
 			& > .card-container {
 				height: 100%;
 				width: 40%;
-				border: 2px solid #333;
+				border: 2px solid black;
 				position: relative;
 				overflow: hidden;
 				display: flex;
-				background-color: #333;
+				background-color: black;
 				border-radius: 10px;
 
 				@media (hover: hover) and (pointer: fine) {
 					&:hover {
 						cursor: pointer;
-						box-shadow: 3px 3px 3px 0 #333;
+						box-shadow: 3px 3px 3px 0 black;
 						transition: box-shadow 250ms;
 					}
 				}
@@ -591,7 +591,7 @@ export const DesktopDiv = styled.div`
 					position: relative;
 					overflow: hidden;
 					display: flex;
-					background-color: #333;
+					background-color: black;
 					border-radius: 10px;
 
 					& > h2 {
@@ -603,7 +603,7 @@ export const DesktopDiv = styled.div`
 						margin: 0;
 						padding: 0.5ch;
 						text-align: center;
-						border-color: #333;
+						border-color: black;
 						border-style: solid;
 						border-width: 0 0 2px;
 					}
@@ -631,7 +631,7 @@ export const DesktopDiv = styled.div`
 				top: 20px;
 				left: 10%;
 				background-color: #6e88a1;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 10px;
 
 				& > form {
@@ -722,7 +722,7 @@ export const DesktopDiv = styled.div`
 				width: 40px;
 				height: 40px;
 				background-color: red;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 5px;
 				top: 10px;
 				left: calc(90% - 10px);
@@ -759,7 +759,7 @@ export const DesktopDiv = styled.div`
 				top: 20px;
 				left: 10%;
 				background-color: #d0cdeb;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 10px;
 				z-index: 4;
 				display: flex;
@@ -819,7 +819,7 @@ export const DesktopDiv = styled.div`
 				width: 40px;
 				height: 40px;
 				background-color: red;
-				border: solid #333 3px;
+				border: solid black 3px;
 				border-radius: 5px;
 				top: 10px;
 				left: calc(90% - 10px);
@@ -967,7 +967,7 @@ export const MobileContent = () => {
 									type='instagram'
 									link={`${showAthlete[0].instagram}`}
 									size='40px'
-									hover='#333'
+									hover='black'
 								/>
 							)}
 						</div>
@@ -1045,11 +1045,11 @@ export const MobileDiv = styled.div`
 		& > .card-container {
 			width: 40%;
 			height: 100%;
-			border: 2px solid #333;
+			border: 2px solid black;
 			position: relative;
 			overflow: hidden;
 			display: flex;
-			background-color: #333;
+			background-color: black;
 			border-radius: 10px;
 
 			& > .athlete-card {
@@ -1058,7 +1058,7 @@ export const MobileDiv = styled.div`
 				position: relative;
 				overflow: hidden;
 				display: flex;
-				background-color: #333;
+				background-color: black;
 				border-radius: 10px;
 
 				& > h2 {
@@ -1070,7 +1070,7 @@ export const MobileDiv = styled.div`
 					margin: 0;
 					padding: 0 0.5ch;
 					text-align: center;
-					border-color: #333;
+					border-color: black;
 					border-style: solid;
 					border-width: 0 0 2px;
 				}
@@ -1096,8 +1096,8 @@ export const MobileDiv = styled.div`
 			max-height: 90%;
 			top: 5%;
 			left: 5%;
-			background-color: #6e88a1;
-			border: solid #333 3px;
+			background-color: #d2d2d2;
+			border: solid black 3px;
 			border-radius: 10px;
 			overflow-y: auto;
 
@@ -1181,20 +1181,6 @@ export const MobileDiv = styled.div`
 					content: 'Message Sent!';
 				}
 			}
-
-			& > .close {
-				position: fixed;
-				width: 30px;
-				height: 30px;
-				background-color: red;
-				border: 3px solid #333;
-				border-radius: 5px;
-				top: calc(20% - 10px);
-				left: calc(80% - 30px);
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
 		}
 
 		& > .close {
@@ -1202,8 +1188,9 @@ export const MobileDiv = styled.div`
 			position: absolute;
 			width: 40px;
 			height: 40px;
-			background-color: red;
-			border: solid #333 3px;
+			background-color: black;
+			color: white;
+			border: solid black 3px;
 			border-radius: 5px;
 			top: calc(5% - 10px);
 			left: calc(95% - 30px);
@@ -1230,8 +1217,8 @@ export const MobileDiv = styled.div`
 			height: 90%;
 			top: 5%;
 			left: 5%;
-			background-color: #d0cdeb;
-			border: solid #333 3px;
+			background-color: #d2d2d2;
+			border: solid black 3px;
 			border-radius: 10px;
 			z-index: 4;
 			display: flex;
@@ -1282,8 +1269,8 @@ export const MobileDiv = styled.div`
 			position: absolute;
 			width: 40px;
 			height: 40px;
-			background-color: red;
-			border: solid #333 3px;
+			background-color: black;
+			border: solid black 3px;
 			border-radius: 5px;
 			top: calc(5% - 10px);
 			left: calc(95% - 30px);
@@ -1291,6 +1278,7 @@ export const MobileDiv = styled.div`
 			justify-content: center;
 			align-items: center;
 			font-size: 25px;
+			color: white;
 		}
 	}
 `;

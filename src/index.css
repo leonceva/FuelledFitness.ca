@@ -15,10 +15,10 @@ code {
 	padding: 10px 20px;
 	margin: 5px;
 	border-radius: 5px;
-	background-color: #d0dceb;
-	border: 2px solid #333;
-	box-shadow: 3px 3px 2px #6e88a1;
-	color: #333;
+	background-color: black;
+	border: 2px solid #87ceeb;
+	box-shadow: 3px 3px 2px #87ceeb;
+	color: white;
 
 	&:hover {
 		cursor: pointer;
@@ -32,7 +32,7 @@ code {
 }
 
 .btn-secondary {
-	box-shadow: 3px 3px 2px #333;
+	box-shadow: 3px 3px 2px black;
 }
 
 .close-bg {

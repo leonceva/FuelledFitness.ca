@@ -49,7 +49,7 @@ export const LayoutDiv = styled.div`
 			flex-direction: column;
 			justify-content: space-evenly;
 			align-items: center;
-			border: 3px solid #333;
+			border: 3px solid black;
 			border-radius: 10px;
 			padding: 10px 40px;
 			position: absolute;
@@ -116,7 +116,7 @@ export const LayoutDiv = styled.div`
 					width: calc(100% - 2px - 2ch);
 					margin-bottom: 1ch;
 					padding: 1ch;
-					border: 1px solid #333;
+					border: 1px solid black;
 				}
 
 				& > .login-options {
@@ -166,7 +166,8 @@ export const LayoutDiv = styled.div`
 
 		/*** Login Form ***/
 		& > .login-form {
-			background-color: #6e88a1;
+			background-color: black;
+			color: white;
 			max-width: 90%;
 			max-height: 80%;
 			overflow-y: auto;
@@ -174,7 +175,7 @@ export const LayoutDiv = styled.div`
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			border: 3px solid #333;
+			border: 3px solid #87ceeb;
 			border-radius: 10px;
 			padding: 10px 40px;
 			position: absolute;
@@ -243,7 +244,7 @@ export const LayoutDiv = styled.div`
 					width: calc(100% - 2px - 2ch);
 					margin-bottom: 1ch;
 					padding: 1ch;
-					border: 1px solid #333;
+					border: 1px solid black;
 					font-size: large;
 				}
 
@@ -265,7 +266,7 @@ export const LayoutDiv = styled.div`
 					& > .forgot-link {
 						flex: 1;
 						text-align: end;
-						color: black;
+						color: white;
 						text-decoration: none;
 						padding-left: 2ch;
 					}
@@ -275,6 +276,7 @@ export const LayoutDiv = styled.div`
 					width: 100%;
 					max-width: calc(min(80%, 300px));
 					margin: 2ch 0 1ch;
+					box-shadow: none;
 				}
 			}
 		}

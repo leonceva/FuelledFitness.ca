@@ -122,7 +122,7 @@ export const DesktopDiv = styled.div`
 			& > .img-div {
 				height: 100%;
 				width: 100%;
-				background-color: #333;
+				background-color: black;
 				position: relative;
 
 				& > .left {
@@ -130,7 +130,7 @@ export const DesktopDiv = styled.div`
 					height: 100%;
 					width: 25px;
 					left: 0;
-					background-color: #333;
+					background-color: black;
 					color: white;
 					display: flex;
 					align-items: center;
@@ -156,7 +156,7 @@ export const DesktopDiv = styled.div`
 					height: 100%;
 					width: 25px;
 					right: 0;
-					background-color: #333;
+					background-color: black;
 					color: white;
 					display: flex;
 					align-items: center;
@@ -204,7 +204,7 @@ export const DesktopDiv = styled.div`
 					width: 30%;
 					border: 5px solid #6e88a1;
 					border-radius: 10px;
-					background-color: #333;
+					background-color: black;
 					color: #f2f2f2;
 					display: flex;
 					flex-direction: column;
@@ -254,7 +254,7 @@ export const DesktopDiv = styled.div`
 					height: fit-content;
 					border: 5px solid #6e88a1;
 					border-radius: 10px;
-					background-color: #333;
+					background-color: black;
 					color: #f2f2f2;
 					display: flex;
 					flex-direction: column;
@@ -359,8 +359,6 @@ export const MobileDiv = styled.div`
 
 	& > .carousel-container {
 		width: 100%;
-		border-style: solid;
-		border-color: #6e88a1;
 		border-width: 5px 0;
 		height: 60vh;
 		position: relative;
@@ -369,7 +367,7 @@ export const MobileDiv = styled.div`
 		& > .img-div {
 			height: 100%;
 			width: 100%;
-			background-color: #333;
+			background-color: black;
 			position: relative;
 
 			& > .left {
@@ -426,18 +424,18 @@ export const MobileDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		background-color: #6e88a1;
-		padding-bottom: 5px;
+		background-color: #d2d2d2;
+		padding: 2.5px 0;
 
 		& > .preview-item {
 			width: calc(100% - 10px);
-			background-color: #333;
+			background-color: black;
 			color: #f2f2f2;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: start;
-			margin: 5px 0;
+			margin: 2.5px 0;
 
 			& > h2 {
 				width: 100%;

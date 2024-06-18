@@ -61,12 +61,12 @@ export const DesktopContent = () => {
 					<SocialMediaLink
 						type='instagram'
 						size='50px'
-						hover='#333'
+						hover='black'
 					/>
 					<SocialMediaLink
 						type='linkedin'
 						size='50px'
-						hover='#333'
+						hover='black'
 					/>
 				</div>
 			</div>
@@ -208,7 +208,7 @@ export const DesktopDiv = styled.div`
 				justify-content: center;
 				align-items: center;
 				overflow: hidden;
-				border: 3px solid #333;
+				border: 3px solid black;
 				border-radius: 20px;
 			}
 		}
@@ -318,7 +318,7 @@ export const DesktopDiv = styled.div`
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				border: 3px solid #333;
+				border: 3px solid black;
 				border-radius: 20px;
 			}
 		}
@@ -365,12 +365,12 @@ export const MobileContent = () => {
 					<SocialMediaLink
 						type='instagram'
 						size='50px'
-						hover='#333'
+						hover='black'
 					/>
 					<SocialMediaLink
 						type='linkedin'
 						size='50px'
-						hover='#333'
+						hover='black'
 					/>
 				</div>
 			</div>
@@ -496,7 +496,7 @@ export const MobileDiv = styled.div`
 			justify-content: center;
 			align-items: center;
 			overflow: hidden;
-			border: 3px solid #333;
+			border: 3px solid black;
 		}
 	}
 `;

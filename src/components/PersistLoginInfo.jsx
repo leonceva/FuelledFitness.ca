@@ -24,7 +24,7 @@ export const PersistLoginInfoDiv = styled.div`
 
 	& > .show {
 		position: absolute;
-		border: 2px solid #333;
+		border: 2px solid black;
 		left: 100%;
 		margin-left: 1ch;
 		height: fit-content;

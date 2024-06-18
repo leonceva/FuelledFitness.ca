@@ -529,7 +529,7 @@ export const DesktopDiv = styled.div`
 			color: #f2f2f2;
 			width: 100%;
 			height: 30%;
-			background-color: #333;
+			background-color: black;
 			border-radius: 20px;
 			position: relative;
 			display: flex;
@@ -595,7 +595,7 @@ export const DesktopDiv = styled.div`
 			height: calc(100% - 10px);
 			top: 5px;
 			z-index: 3;
-			background-color: #333;
+			background-color: black;
 			opacity: 1;
 			border-radius: 20px;
 			color: #f2f2f2;
@@ -631,7 +631,7 @@ export const DesktopDiv = styled.div`
 					font-size: x-large;
 					border-style: solid;
 					border-width: 3px 0;
-					border-color: #333;
+					border-color: black;
 					padding: 0.5ch 2ch;
 
 					@media (hover: hover) and (pointer: fine) {
@@ -732,7 +732,7 @@ export const DesktopDiv = styled.div`
 			color: #f2f2f2;
 			margin: 20px 0;
 			width: 30%;
-			background-color: #333;
+			background-color: black;
 			border-radius: 20px;
 			position: relative;
 			display: flex;
@@ -753,7 +753,7 @@ export const DesktopDiv = styled.div`
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background-color: #333;
+				background-color: black;
 				z-index: 2;
 				font-size: xx-large;
 				text-align: center;
@@ -781,7 +781,7 @@ export const DesktopDiv = styled.div`
 				align-items: center;
 				justify-content: center;
 				padding: 10px 2ch;
-				background-color: #333;
+				background-color: black;
 				z-index: 2;
 				font-size: large;
 				text-align: justify;
@@ -806,7 +806,7 @@ export const DesktopDiv = styled.div`
 			height: calc(100% - 40px);
 			top: 20px;
 			z-index: 3;
-			background-color: #333;
+			background-color: black;
 			opacity: 1;
 			border-radius: 20px;
 			color: #f2f2f2;
@@ -842,7 +842,7 @@ export const DesktopDiv = styled.div`
 					font-size: x-large;
 					border-style: solid;
 					border-width: 3px 0;
-					border-color: #333;
+					border-color: black;
 					padding: 0.5ch 2ch;
 
 					@media (hover: hover) and (pointer: fine) {
@@ -941,7 +941,7 @@ export const MobileContent = () => {
 		height: '100%',
 		overflowY: 'hidden',
 		overflowX: 'hidden',
-		opacity: '0.3',
+		opacity: '0.55',
 	};
 
 	const styleImage = {
@@ -1361,7 +1361,7 @@ export const MobileDiv = styled.div`
 			align-items: center;
 			width: 90%;
 			height: 30%;
-			background-color: #333;
+			background-color: black;
 			border-radius: 10px;
 			overflow: hidden;
 
@@ -1374,7 +1374,7 @@ export const MobileDiv = styled.div`
 				margin: 0;
 				top: 10%;
 				padding: 1ch 0;
-				background-color: rgba(51, 51, 51, 0.8);
+				background-color: rgba(0, 0, 0, 0.5);
 				z-index: 2;
 			}
 		}
@@ -1387,12 +1387,13 @@ export const MobileDiv = styled.div`
 		height: calc(100vh - 120px);
 		top: 10px;
 		border-radius: 10px;
-		background-color: #333;
+		background-color: black;
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
 		overflow: hidden;
+		border: 3px solid black;
 
 		& > .item-menu {
 			width: 100%;
@@ -1424,6 +1425,8 @@ export const MobileDiv = styled.div`
 			flex-direction: column;
 			justify-content: start;
 			align-items: center;
+			background-color: #d2d2d2;
+			color: black;
 
 			& > h2 {
 				width: 100%;

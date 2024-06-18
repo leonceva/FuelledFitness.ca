@@ -29,7 +29,7 @@ export const DesktopContent = () => {
 		overflowY: 'hidden',
 		marginRight: '10px',
 		backgroundColor: '#6e88a1',
-		border: '2px solid #333',
+		border: '2px solid black',
 	};
 
 	const styleImage = {
@@ -53,7 +53,7 @@ export const DesktopContent = () => {
 		overflowY: 'hidden',
 		marginTop: '10px',
 		backgroundColor: '#6e88a1',
-		border: '2px solid #333',
+		border: '2px solid black',
 		left: '50%',
 		transform: 'translate(-50%, 0)',
 	};
@@ -156,8 +156,8 @@ export const MobileContent = () => {
 		aspectRatio: '1/1.05',
 		overflowX: 'hidden',
 		overflowY: 'hidden',
-		backgroundColor: '#6e88a1',
-		border: '2px solid #333',
+		backgroundColor: '#333',
+		border: '2px solid black',
 		alignSelf: 'center',
 	};
 
