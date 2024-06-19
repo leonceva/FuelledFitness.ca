@@ -111,6 +111,16 @@ export const LayoutDiv = styled.div`
 				& > label {
 					width: 100%;
 					margin: 5px 0;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: start;
+
+					& > .error {
+						color: red;
+						flex: 1;
+						text-align: end;
+					}
 				}
 
 				& > input {
