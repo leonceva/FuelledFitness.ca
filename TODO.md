@@ -1,21 +1,13 @@
-## Mobile
-
--   Routes left
-    -   My Account
-    -   Forgot Login
-    -   Reset Password
-
 ## Admin Dashboard
 
 -   Layout
-    -   Desktop
     -   Mobile
 -   Functionalities
-    -   Account Settings
-    -   Create New User
-    -   Edit Existing User
     -   Create New Program
     -   Edit Existing Program
+    -   Create New User
+    -   Edit Existing User
+    -   Account Settings
     -   Create New Template
     -   Edit Existing Template
 

@@ -10,6 +10,8 @@ import NewProgram from './admin/NewProgram';
 import EditProgram from './admin/EditProgram';
 import NewTemplate from './admin/NewTemplate';
 import EditTemplate from './admin/EditTemplate';
+import Version from './admin/Version';
+import data from '../frontend-data.json';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
@@ -43,48 +45,56 @@ const AdminDashboard = () => {
 							{` ${firstName} ${lastName}`}
 						</div>
 						<div className='options'>
-							<div
-								className='option-item'
-								onClick={() => {
-									handleOption('New Program');
-								}}>
-								New Program
+							<div className='item-container'>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('New Program');
+									}}>
+									New Program
+								</div>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('Edit Program');
+									}}>
+									Edit Program
+								</div>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('New User');
+									}}>
+									New User
+								</div>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('Edit User');
+									}}>
+									Edit User
+								</div>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('New Template');
+									}}>
+									New Template
+								</div>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('Edit Template');
+									}}>
+									Edit Template
+								</div>
 							</div>
+
 							<div
-								className='option-item'
+								className='version'
 								onClick={() => {
-									handleOption('Edit Program');
-								}}>
-								Edit Program
-							</div>
-							<div
-								className='option-item'
-								onClick={() => {
-									handleOption('New User');
-								}}>
-								New User
-							</div>
-							<div
-								className='option-item'
-								onClick={() => {
-									handleOption('Edit User');
-								}}>
-								Edit User
-							</div>
-							<div
-								className='option-item'
-								onClick={() => {
-									handleOption('New Template');
-								}}>
-								New Template
-							</div>
-							<div
-								className='option-item'
-								onClick={() => {
-									handleOption('Edit Template');
-								}}>
-								Edit Template
-							</div>
+									handleOption('Version');
+								}}>{`Version: ${data.version}`}</div>
 						</div>
 						<div
 							className='logout'
@@ -101,6 +111,7 @@ const AdminDashboard = () => {
 						{optionSelected === 'Edit User' && <EditUser />}
 						{optionSelected === 'New Template' && <NewTemplate />}
 						{optionSelected === 'Edit Template' && <EditTemplate />}
+						{optionSelected === 'Version' && <Version />}
 					</div>
 				</div>
 			</DesktopDiv>
@@ -183,11 +194,34 @@ export const DesktopDiv = styled.div`
 					align-items: center;
 					padding-top: 1ch;
 
-					& > .option-item {
-						width: fit-content;
-						padding: 0.5ch 3ch;
+					& > .item-container {
+						flex: 1;
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						justify-content: start;
+						align-items: center;
+
+						& > .option-item {
+							width: fit-content;
+							padding: 0.5ch 3ch;
+							text-align: center;
+							font-size: x-large;
+
+							@media (hover: hover) and (pointer: fine) {
+								&:hover {
+									cursor: pointer;
+									color: #87ceeb;
+								}
+							}
+						}
+					}
+
+					& > .version {
+						height: fit-content;
+						padding: 1ch 3ch;
 						text-align: center;
-						font-size: x-large;
+						font-size: smaller;
 
 						@media (hover: hover) and (pointer: fine) {
 							&:hover {
