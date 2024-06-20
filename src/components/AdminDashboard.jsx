@@ -1,8 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useLogout from '../hooks/useLogout';
 import useAuth from '../hooks/useAuth';
 import { jwtDecode } from 'jwt-decode';
 import styled from 'styled-components';
+import Account from './admin/Account';
+import NewUser from './admin/NewUser';
+import EditUser from './admin/EditUser';
+import NewProgram from './admin/NewProgram';
+import EditProgram from './admin/EditProgram';
+import NewTemplate from './admin/NewTemplate';
+import EditTemplate from './admin/EditTemplate';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
@@ -19,19 +26,8 @@ const AdminDashboard = () => {
 		sessionStorage.setItem('optionSelected', JSON.stringify(option));
 	};
 
-	const [buttonOptions, setButtonOptions] = useState(null);
-
 	const firstName = decoded?.User?.firstName || null;
 	const lastName = decoded?.User?.lastName || null;
-
-	useEffect(() => {
-		if (optionSelected === 'New Program' || optionSelected === 'Edit Program') {
-			setButtonOptions('Programs');
-		}
-		if (optionSelected === 'New User' || optionSelected === 'Edit User') {
-			setButtonOptions('Users');
-		}
-	}, [optionSelected]);
 
 	return (
 		<>
@@ -42,11 +38,70 @@ const AdminDashboard = () => {
 							className='login-info'
 							onClick={() => {
 								handleOption('Account');
-							}}></div>
-						<div className='options'></div>
-						<div className='logout'></div>
+							}}>
+							<i className='bi bi-person-circle' />
+							{` ${firstName} ${lastName}`}
+						</div>
+						<div className='options'>
+							<div
+								className='option-item'
+								onClick={() => {
+									handleOption('New Program');
+								}}>
+								New Program
+							</div>
+							<div
+								className='option-item'
+								onClick={() => {
+									handleOption('Edit Program');
+								}}>
+								Edit Program
+							</div>
+							<div
+								className='option-item'
+								onClick={() => {
+									handleOption('New User');
+								}}>
+								New User
+							</div>
+							<div
+								className='option-item'
+								onClick={() => {
+									handleOption('Edit User');
+								}}>
+								Edit User
+							</div>
+							<div
+								className='option-item'
+								onClick={() => {
+									handleOption('New Template');
+								}}>
+								New Template
+							</div>
+							<div
+								className='option-item'
+								onClick={() => {
+									handleOption('Edit Template');
+								}}>
+								Edit Template
+							</div>
+						</div>
+						<div
+							className='logout'
+							onClick={async () => await logout()}>
+							<i className='bi bi-box-arrow-left' />
+							{` Logout`}
+						</div>
 					</div>
-					<div className='selected'>{optionSelected}</div>
+					<div className='selected'>
+						{optionSelected === 'Account' && <Account />}
+						{optionSelected === 'New Program' && <NewProgram />}
+						{optionSelected === 'Edit Program' && <EditProgram />}
+						{optionSelected === 'New User' && <NewUser />}
+						{optionSelected === 'Edit User' && <EditUser />}
+						{optionSelected === 'New Template' && <NewTemplate />}
+						{optionSelected === 'Edit Template' && <EditTemplate />}
+					</div>
 				</div>
 			</DesktopDiv>
 			<MobileDiv>
@@ -88,7 +143,7 @@ export const DesktopDiv = styled.div`
 			align-items: center;
 
 			& > .menu {
-				width: calc(30% - 6px);
+				width: fit-content;
 				height: 100%;
 				background-color: black;
 				position: relative;
@@ -96,36 +151,74 @@ export const DesktopDiv = styled.div`
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
+				border-style: solid;
+				border-color: #d2d2d2;
+				border-width: 0 3px 0 0;
 
 				& > .login-info {
-					flex: 2;
-					width: 100%;
+					height: fit-content;
+					width: calc(100% - 1ch);
 					border-style: solid;
 					border-width: 0 0 2px;
 					border-color: #d2d2d2;
+					font-size: x-large;
+					padding: 1ch 1ch 1ch 0;
+					text-align: center;
+
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							color: #87ceeb;
+						}
+					}
 				}
 
 				& > .options {
 					flex: 7;
 					width: 100%;
-					overflow-y: scroll;
+					overflow-y: auto;
 					display: flex;
 					flex-direction: column;
 					justify-content: start;
 					align-items: center;
+					padding-top: 1ch;
+
+					& > .option-item {
+						width: fit-content;
+						padding: 0.5ch 3ch;
+						text-align: center;
+						font-size: x-large;
+
+						@media (hover: hover) and (pointer: fine) {
+							&:hover {
+								cursor: pointer;
+								color: #87ceeb;
+							}
+						}
+					}
 				}
 
 				& > .logout {
-					flex: 1;
-					width: 100%;
+					height: fit-content;
+					width: calc(100% - 1ch);
 					border-style: solid;
 					border-width: 2px 0 0;
 					border-color: #d2d2d2;
+					font-size: x-large;
+					padding: 1ch 1ch 1ch 0;
+					text-align: center;
+
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							color: #87ceeb;
+						}
+					}
 				}
 			}
 
 			& > .selected {
-				width: calc(70% - 3px);
+				flex: 1;
 				height: 100%;
 				background-color: black;
 			}
