@@ -255,6 +255,7 @@ export const DesktopDiv = styled.div`
 				flex: 1;
 				height: 100%;
 				background-color: black;
+				position: relative;
 			}
 		}
 	}

@@ -649,12 +649,12 @@ const NewProgram = () => {
 											<div className='title'>{`Day: ${dayIndex + 1}`}</div>
 											<div className='category'>
 												<div className='title'>
-													<span
+													<button
 														onClick={() => {
 															addMobilityItem(dayIndex);
 														}}>
 														Add Mobility
-													</span>
+													</button>
 												</div>
 												<>
 													{dayObject.mobility.map((item, itemIndex) => {
@@ -740,12 +740,12 @@ const NewProgram = () => {
 											</div>
 											<div className='category'>
 												<div className='title'>
-													<span
+													<button
 														onClick={() => {
 															addStrengthItem(dayIndex);
 														}}>
 														Add Strength
-													</span>
+													</button>
 												</div>
 												<>
 													{dayObject.strength.map((item, itemIndex) => {
@@ -846,12 +846,12 @@ const NewProgram = () => {
 											</div>
 											<div className='category'>
 												<div className='title'>
-													<span
+													<button
 														onClick={() => {
 															addConditioningItem(dayIndex);
 														}}>
 														Add Conditioning
-													</span>
+													</button>
 												</div>
 												<>
 													{dayObject.conditioning.map(
@@ -993,25 +993,28 @@ export const DesktopDiv = styled.div`
 			z-index: 4;
 			width: max-content;
 			height: max-content;
-			border: 2px solid #333;
+			border: 2px solid black;
 			border-radius: 10px;
 			left: 50%;
 			top: 50%;
 			transform: translate(-50%, -50%);
-			background-color: #d0dceb;
+			background-color: #d2d2d2;
+			color: black;
 
 			& > .close {
 				width: 2em;
-				background-color: darkred;
-				border: 2px solid #333;
+				background-color: black;
+				color: white;
+				border: 2px solid black;
 				border-radius: 5px;
 				position: absolute;
 				right: 0%;
 				top: 0%;
 				transform: translate(50%, -50%);
-
-				&:hover {
-					background-color: red;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						background-color: #87ceeb;
+					}
 				}
 			}
 
@@ -1023,9 +1026,428 @@ export const DesktopDiv = styled.div`
 		& > h3 {
 			font-size: x-large;
 			width: 100%;
-			margin: 1ch 0;
-			padding: 0;
+			margin: 1ch 0 2ch;
 			text-align: center;
+		}
+
+		& > .search {
+			display: flex;
+			width: 100%;
+			flex-direction: row;
+			justify-content: center;
+			text-align: center;
+
+			& label {
+				width: fit-content;
+				text-align: end;
+				padding-right: 2ch;
+				font-size: large;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			& > .search-results {
+				width: calc(min(400px, 50%));
+				font-size: large;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+
+				& > input {
+					width: 100%;
+					font-size: large;
+					text-align: start;
+					padding: 0.5ch;
+				}
+
+				& > .dropdown {
+					width: 100%;
+					color: black;
+					background-color: white;
+					border: solid 2px black;
+					position: absolute;
+					top: 100%;
+					z-index: 2;
+
+					& > .dropdown-row {
+						list-style: none;
+						padding: 0.5ch 0;
+
+						@media (hover: hover) and (pointer: fine) {
+							&:hover {
+								cursor: pointer;
+							}
+						}
+					}
+
+					& > .hover {
+						background-color: lightgray;
+					}
+				}
+			}
+		}
+
+		& > .new-program {
+			width: 100%;
+			margin: 2em 0;
+			height: fit-content;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: start;
+
+			& > .header {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-around;
+				margin-bottom: 10px;
+
+				& > .name {
+					width: fit-content;
+					text-align: left;
+					padding-left: 20px;
+					font-size: large;
+
+					& > strong {
+						margin-left: 1ch;
+					}
+				}
+
+				& > .settings-container {
+					flex: 1;
+					display: flex;
+					flex-direction: row;
+					justify-content: start;
+					align-items: center;
+					padding: 0 25px;
+					font-size: large;
+					flex-wrap: wrap;
+
+					& > .days {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: center;
+
+						& > span {
+							margin-right: 1ch;
+						}
+
+						& > .number {
+							padding: 0 0.5ch;
+							margin: 0 0.5ch;
+							color: black;
+							background-color: white;
+							width: 3ch;
+							text-align: center;
+							border-radius: 5px;
+						}
+
+						& > button {
+							height: 100%;
+							color: white;
+							background-color: black;
+							border: 3px solid #87ceeb;
+							border-radius: 10px;
+							box-shadow: 2px 2px 2px #87ceeb;
+							width: max-content;
+							padding: 5px 10px;
+
+							@media (hover: hover) and (pointer: fine) {
+								&:hover {
+									cursor: pointer;
+									background-color: #87ceeb;
+									color: black;
+								}
+
+								&:active {
+									translate: 2px 2px;
+									box-shadow: none;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			& > .content {
+				width: 100%;
+				height: fit-content;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				border: solid white;
+				border-width: 3px 0 0 0;
+				margin-top: 10px;
+
+				& > .day {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+					border: solid white;
+					border-width: 0 0 3px 0;
+					padding: 10px 0;
+
+					& > .title {
+						width: 100%;
+						font-size: large;
+						padding-left: 20px;
+						margin-bottom: 1ch;
+					}
+
+					& > .category {
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						justify-content: start;
+						align-items: center;
+						margin: 5px 0;
+
+						& > .title {
+							width: 100%;
+							text-align: start;
+							align-self: start;
+							padding-left: 10px;
+							margin-bottom: 1ch;
+							font-size: large;
+
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								font-size: large;
+								padding: 5px 10px;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
+								}
+							}
+						}
+
+						& > .item-mobility {
+							width: calc(100% - 20px + 1ch);
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-evenly;
+							margin-bottom: 5px;
+							font-size: large;
+
+							& > input {
+								font-size: large;
+								margin: 0 0.5ch;
+							}
+
+							& > input[name='name'] {
+								flex: 6;
+							}
+							& > input[name='sets'] {
+								width: 8ch;
+							}
+							& > input[name='reps'] {
+								width: 8ch;
+							}
+							& > input[name='comment'] {
+								flex: 8;
+							}
+
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								padding: 5px 10px;
+								font-size: large;
+								margin-right: 0.5ch;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
+								}
+							}
+						}
+
+						& > .item-strength {
+							width: calc(100% - 20px + 1ch);
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-evenly;
+							margin-bottom: 5px;
+							font-size: large;
+
+							& > input {
+								font-size: large;
+								margin: 0 0.5ch;
+							}
+
+							& > input[name='name'] {
+								flex: 6;
+							}
+							& > input[name='sets'] {
+								width: 8ch;
+							}
+							& > input[name='reps'] {
+								width: 8ch;
+							}
+							& > input[name='load'] {
+								width: 8ch;
+							}
+							& > input[name='comment'] {
+								flex: 8;
+							}
+
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								padding: 5px 10px;
+								font-size: large;
+								margin-right: 0.5ch;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
+								}
+							}
+						}
+
+						& > .item-conditioning {
+							width: calc(100% - 20px + 1ch);
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-evenly;
+							margin-bottom: 5px;
+							font-size: large;
+
+							& > input {
+								font-size: large;
+								margin: 0 0.5ch;
+							}
+
+							& > input[name='name'] {
+								flex: 6;
+							}
+							& > input[name='duration'] {
+								width: 14ch;
+							}
+							& > input[name='comment'] {
+								flex: 8;
+							}
+
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								padding: 5px 10px;
+								font-size: large;
+								margin-right: 0.5ch;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		& > .btn-container {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-evenly;
+			margin: 10px 0 20px;
+
+			& > .date {
+				width: fit-content;
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+				font-size: large;
+
+				& > input {
+					font-size: large;
+					margin-left: 5px;
+					padding: 0.5ch 1ch;
+				}
+			}
+
+			& > button {
+				height: 100%;
+				color: white;
+				background-color: black;
+				border: 3px solid #87ceeb;
+				border-radius: 10px;
+				box-shadow: 2px 2px 2px #87ceeb;
+				width: max-content;
+				font-size: large;
+				padding: 5px 10px;
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+
+					&:active {
+						translate: 2px 2px;
+						box-shadow: none;
+					}
+				}
+			}
 		}
 	}
 
