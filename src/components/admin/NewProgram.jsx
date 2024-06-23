@@ -1081,8 +1081,10 @@ export const DesktopDiv = styled.div`
 						}
 					}
 
-					& > .hover {
-						background-color: lightgray;
+					@media (hover: hover) and (pointer: fine) {
+						& > .hover {
+							background-color: lightgray;
+						}
 					}
 				}
 			}
