@@ -6,9 +6,6 @@
         -   Create New Program
             -   Load template button
             -   Load last weekly program button (default behavior?)
-        -   Edit Existing Program
-        -   Create New User
-        -   Edit Existing User
         -   Account Settings
         -   Create New Template
         -   Edit Existing Template
