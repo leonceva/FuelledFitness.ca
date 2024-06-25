@@ -97,7 +97,7 @@ export const DesktopContent = () => {
 				<Image
 					styleWrapper={{
 						...styleWrapper,
-						...{ opacity: `${hoverItem === 'nutrition' ? '0.7' : '0.2'}` },
+						...{ opacity: `${hoverItem === 'nutrition' ? '0.8' : '0.55'}` },
 					}}
 					styleImage={
 						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
@@ -131,7 +131,7 @@ export const DesktopContent = () => {
 				<Image
 					styleWrapper={{
 						...styleWrapper,
-						...{ opacity: `${hoverItem === 'training' ? '0.7' : '0.2'}` },
+						...{ opacity: `${hoverItem === 'training' ? '0.8' : '0.55'}` },
 					}}
 					styleImage={
 						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
@@ -163,7 +163,7 @@ export const DesktopContent = () => {
 				<Image
 					styleWrapper={{
 						...styleWrapper,
-						...{ opacity: `${hoverItem === 'nutrigenomix' ? '0.7' : '0.2'}` },
+						...{ opacity: `${hoverItem === 'nutrigenomix' ? '0.8' : '0.55'}` },
 					}}
 					styleImage={
 						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
@@ -187,14 +187,6 @@ export const DesktopContent = () => {
 				</div>
 			</div>
 			<div className={`service-info ${serviceSelected === null ? 'hidden' : ''}`}>
-				<div
-					className='go-back'
-					onClick={() => {
-						setServiceSelected(null);
-						setInfoSelected(null);
-					}}>
-					<i className='bi bi-arrow-left-square' />
-				</div>
 				<div className='menu'>
 					{/*Menu Items on the Left*/}
 					{serviceSelected === 'Nutrition' && (
@@ -228,18 +220,6 @@ export const DesktopContent = () => {
 								onClick={() => setInfoSelected('menu-review')}>
 								Menu Review
 							</div>
-							<div className='btn-container'>
-								<div
-									className='btn'
-									onClick={() => {
-										window.open(
-											'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-											'_blank'
-										);
-									}}>
-									Book Appointment
-								</div>
-							</div>
 						</>
 					)}
 					{serviceSelected === 'Training' && (
@@ -265,18 +245,6 @@ export const DesktopContent = () => {
 								}`}
 								onClick={() => setInfoSelected('team-training')}>
 								Team Strength & Conditioning
-							</div>
-							<div className='btn-container'>
-								<div
-									className='btn'
-									onClick={() => {
-										window.open(
-											'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-											'_blank'
-										);
-									}}>
-									Book Appointment
-								</div>
 							</div>
 						</>
 					)}
@@ -306,6 +274,27 @@ export const DesktopContent = () => {
 							</div>
 						</>
 					)}
+					<div className='btn-container'>
+						<button
+							className='btn'
+							onClick={() => {
+								window.open(
+									'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+									'_blank'
+								);
+							}}>
+							Book Appointment
+						</button>
+						<button
+							className='btn'
+							onClick={() => {
+								setInfoSelected(null);
+								setServiceSelected(null);
+							}}>
+							<i className='bi bi-box-arrow-left' />
+							<span>Go Back</span>
+						</button>
+					</div>
 				</div>
 				<div className='info'>
 					{/*Information of each service*/}
@@ -358,7 +347,7 @@ export const DesktopContent = () => {
 								Support the wellbeing of your employees through nutrition support.
 								Healthier and happier employees promote improved productivity,
 								longevity, and a better workplace culture. Some services offered
-								include nutrition presentations, interactive activities, or 1:1
+								include nutrition presentations, workshops, or one-on-one
 								counselling sessions.
 							</p>
 							<p>
@@ -372,8 +361,18 @@ export const DesktopContent = () => {
 							<p>
 								Do you provide meals as part of your business? Provide assurance of
 								nutritional balance, and credibility to clients by having your menu
-								reviewed and critiqued by a Registered Dietitian.
+								reviewed and tailored by a Registered Dietitian.
 							</p>
+							<p>Some examples may include:</p>
+							<ul>
+								<li>Analyzing the nutritional content of your meals</li>
+								<li>Suggesting healthier ingredient substitutions</li>
+								<li>Ensuring compliance with dietary guidelines and regulations</li>
+								<li>
+									Modifying menus for specific dietary needs, such as gluten-free,
+									vegetarian, or diabetic-friendly options
+								</li>
+							</ul>
 							<p>
 								Contact us today to discuss the unique needs of your organization.
 							</p>
@@ -413,7 +412,7 @@ export const DesktopContent = () => {
 							</p>
 							<p>
 								Looking for a personal training session without a program to follow?
-								$90 per session.
+								$90 per session
 							</p>
 						</>
 					)}
@@ -817,7 +816,6 @@ export const DesktopDiv = styled.div`
 
 			& > .menu {
 				height: calc(100% - 50px);
-				top: 50px;
 				width: 40%;
 				display: flex;
 				flex-direction: column;
@@ -859,8 +857,18 @@ export const DesktopDiv = styled.div`
 				}
 
 				& > .btn-container {
-					padding: 0 10%;
-					margin: 1ch 0;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+
+					& > button {
+						margin: 1ch 0;
+
+						& > span {
+							margin-left: 1ch;
+						}
+					}
 				}
 			}
 
@@ -1181,8 +1189,8 @@ export const MobileContent = () => {
 									Support the wellbeing of your employees through nutrition
 									support. Healthier and happier employees promote improved
 									productivity, longevity, and a better workplace culture. Some
-									services offered include nutrition presentations, interactive
-									activities, or 1:1 counselling sessions.
+									services offered include nutrition presentations, workshops, or
+									one-on-one counselling sessions.
 								</p>
 								<p>
 									Contact us today to discuss the unique needs of your
@@ -1196,8 +1204,20 @@ export const MobileContent = () => {
 								<p>
 									Do you provide meals as part of your business? Provide assurance
 									of nutritional balance, and credibility to clients by having
-									your menu reviewed and critiqued by a Registered Dietitian.
+									your menu reviewed and tailored by a Registered Dietitian.
 								</p>
+								<p>Some examples may include:</p>
+								<ul>
+									<li>Analyzing the nutritional content of your meals</li>
+									<li>Suggesting healthier ingredient substitutions</li>
+									<li>
+										Ensuring compliance with dietary guidelines and regulations
+									</li>
+									<li>
+										Modifying menus for specific dietary needs, such as
+										gluten-free, vegetarian, or diabetic-friendly options
+									</li>
+								</ul>
 								<p>
 									Contact us today to discuss the unique needs of your
 									organization.
@@ -1238,7 +1258,7 @@ export const MobileContent = () => {
 								</p>
 								<p>
 									Looking for a personal training session without a program to
-									follow? $90 per session.
+									follow? $90 per session
 								</p>
 							</>
 						)}

@@ -74,18 +74,18 @@ export const DesktopContent = () => {
 					mission is to help you reach peak health and performance through personalized
 					strategies.
 				</p>
-				<div className='title'>Krystin Paquette</div>
+				<div className='title'>Krystin Paquette, RD, BKIN</div>
 				<p>
 					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
 					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
-					degree. By bridging the areas of nutrition and training, she can offer a
+					degree. By bridging the areas of nutrition and training, Krystin can offer a
 					comprehensive coaching experience tailored to your unique needs and aspirations.
 				</p>
 				<p>
-					Her approach is always grounded in evidence-based practice, and person-centred
-					principles. She believes in adaptive coaching strategies that are tailored to
-					your goals, and that meet you where you are now in order to effectively get you
-					to where you want to be.
+					Krystin's approach is always grounded in evidence-based practice, and
+					person-centred principles. She believes in adaptive coaching strategies that are
+					tailored to your goals, and that meet you where you are now in order to
+					effectively get you to where you want to be.
 				</p>
 				<div className='title'>Let's Get Started!</div>
 				<p>
@@ -189,18 +189,18 @@ export const MobileContent = () => {
 					lowResSrc={about_01_low_res}
 					highResSrc={about_01_high_res}
 				/>
-				<h2>Krystin Paquette</h2>
+				<h2>Krystin Paquette, RD, BKIN</h2>
 				<p>
 					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
 					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
-					degree. By bridging the areas of nutrition and training, she can offer a
+					degree. By bridging the areas of nutrition and training, Krystin can offer a
 					comprehensive coaching experience tailored to your unique needs and aspirations.
 				</p>
 				<p>
-					Her approach is always grounded in evidence-based practice, and person-centred
-					principles. She believes in adaptive coaching strategies that are tailored to
-					your goals, and that meet you where you are now in order to effectively get you
-					to where you want to be.
+					Krystin's approach is always grounded in evidence-based practice, and
+					person-centred principles. She believes in adaptive coaching strategies that are
+					tailored to your goals, and that meet you where you are now in order to
+					effectively get you to where you want to be.
 				</p>
 				<h2>Let's Get Started!</h2>
 				<p>

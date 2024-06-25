@@ -76,6 +76,7 @@ export const DesktopContent = () => {
 			<div className='map-container'>
 				<div className='info'>
 					<h5>In-Person Nutrition Consults and Personal Training offered at 613 Lift</h5>
+					<p>80 Jamie Ave, Nepean ON</p>
 				</div>
 				<div className='map'>
 					<iframe
@@ -199,6 +200,18 @@ export const DesktopDiv = styled.div`
 				text-align: center;
 				margin: 0;
 				font-size: large;
+
+				& > h5 {
+					margin: 0;
+					padding: 0;
+					font-size: large;
+				}
+
+				& > p {
+					margin: 1ch 0;
+					padding: 0;
+					font-size: large;
+				}
 			}
 
 			& > .map {
@@ -379,7 +392,7 @@ export const MobileContent = () => {
 			</div>
 			<div className='map-container'>
 				<h3>In-Person Nutrition Consults and Personal Training offered at 613 Lift</h3>
-
+				<p>80 Jamie Ave, Nepean ON</p>
 				<iframe
 					className='map'
 					title='map'
@@ -482,6 +495,14 @@ export const MobileDiv = styled.div`
 		align-items: center;
 
 		& > h3 {
+			width: calc(100% - 4ch);
+			text-align: center;
+			margin: 0;
+			font-size: large;
+			margin-bottom: 10px;
+		}
+
+		& > p {
 			width: calc(100% - 4ch);
 			text-align: center;
 			margin: 0;

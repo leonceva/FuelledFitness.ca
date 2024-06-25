@@ -98,7 +98,7 @@ export const DesktopContent = () => {
 			</div>
 			<h2>Support Their Dreams</h2>
 			<p>
-				Check out the athletes profiles below to read about their journey, and to find out
+				Check out the athlete profiles below to read about their journey, and to find out
 				how you can support their continued success.
 			</p>
 			<div className='athlete-container'>
@@ -920,7 +920,7 @@ export const MobileContent = () => {
 			</div>
 			<h2>Support Their Dreams</h2>
 			<p>
-				Check out the athletes profiles below to read about their journey, and to find out
+				Check out the athlete profiles below to read about their journey, and to find out
 				how you can support their continued success.
 			</p>
 			<div className='athlete-container'>
