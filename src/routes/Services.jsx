@@ -879,20 +879,20 @@ export const DesktopDiv = styled.div`
 				border-width: 0 0 0 3px;
 				border-color: #f2f2f2;
 
-				& > h2 {
+				& h2 {
 					width: 100%;
 					text-align: center;
 					margin: 1ch 0;
 					padding: 0;
 					font-size: xx-large;
 				}
-				& > p {
+				& p {
 					margin: 1ch 0;
 					text-align: left;
 					width: calc(100% - 8ch);
 					font-size: large;
 				}
-				& > {
+				& ul {
 					margin: 1ch 0;
 					text-align: left;
 					width: calc(100% - 8ch);
