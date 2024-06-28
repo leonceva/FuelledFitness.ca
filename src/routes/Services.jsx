@@ -646,8 +646,18 @@ export const DesktopDiv = styled.div`
 				}
 
 				& > .btn-container {
-					padding: 0 10%;
-					margin: 1ch 0;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+
+					& > button {
+						margin: 1ch 0;
+
+						& > span {
+							margin-left: 1ch;
+						}
+					}
 				}
 			}
 
@@ -684,28 +694,6 @@ export const DesktopDiv = styled.div`
 					text-align: left;
 					width: calc(100% - 8ch);
 					font-size: large;
-				}
-			}
-
-			& > .go-back {
-				position: absolute;
-				width: 50px;
-				height: 50px;
-				left: 5px;
-				top: 0px;
-				font-size: 40px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				@media (hover: hover) and (pointer: fine) {
-					&:hover {
-						cursor: pointer;
-						color: #87ceeb;
-					}
-				}
-				&:active {
-					transform: translate(3px 3px);
 				}
 			}
 		}
@@ -905,28 +893,6 @@ export const DesktopDiv = styled.div`
 					text-align: left;
 					width: calc(100% - 8ch);
 					font-size: large;
-				}
-			}
-
-			& > .go-back {
-				position: absolute;
-				width: 50px;
-				height: 50px;
-				left: 5px;
-				top: 5px;
-				font-size: 40px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				@media (hover: hover) and (pointer: fine) {
-					&:hover {
-						cursor: pointer;
-						color: #87ceeb;
-					}
-				}
-				&:active {
-					transform: translate(3px 3px);
 				}
 			}
 		}

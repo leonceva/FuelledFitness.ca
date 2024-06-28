@@ -74,7 +74,7 @@ export const DesktopContent = () => {
 					mission is to help you reach peak health and performance through personalized
 					strategies.
 				</p>
-				<div className='title'>Krystin Paquette, RD, BKIN</div>
+				<div className='title'>Krystin Paquette, RD, BKin</div>
 				<p>
 					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
 					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
@@ -189,7 +189,7 @@ export const MobileContent = () => {
 					lowResSrc={about_01_low_res}
 					highResSrc={about_01_high_res}
 				/>
-				<h2>Krystin Paquette, RD, BKIN</h2>
+				<h2>Krystin Paquette, RD, BKin</h2>
 				<p>
 					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
 					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
