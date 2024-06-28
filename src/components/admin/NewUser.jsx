@@ -106,7 +106,6 @@ const NewUser = () => {
 				}
 			});
 	};
-
 	return (
 		<>
 			<DesktopDiv>
@@ -187,83 +186,6 @@ const NewUser = () => {
 					<button>Create User Account</button>
 				</form>
 			</DesktopDiv>
-			<MobileDiv>
-				<form
-					action=''
-					method='post'
-					onSubmit={handlesubmit}>
-					<div className={formError === null ? 'hide-error' : 'show-error'}>
-						{formError}
-					</div>
-					<div className='input'>
-						<label htmlFor='first-name'>First Name:</label>
-						<input
-							type='text'
-							name='firstName'
-							id='first-name'
-							required
-							value={formData.firstName}
-							onChange={handleChange}
-							autoComplete='off'
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='last-name'>Last Name:</label>
-						<input
-							type='text'
-							name='lastName'
-							id='last-name'
-							required
-							value={formData.lastName}
-							onChange={handleChange}
-							autoComplete='off'
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='email'>Email:</label>
-						<input
-							type='email'
-							name='email'
-							id='email'
-							required
-							value={formData.email}
-							onChange={handleChange}
-							autoComplete='off'
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='role'>Role:</label>
-						<select
-							name='role'
-							id='role'
-							onChange={handleChange}
-							required>
-							<option
-								name='role'
-								value=''
-								style={{ display: 'none' }}>
-								Select User Type
-							</option>
-							<option
-								name='role'
-								value='active'>
-								Active Client
-							</option>
-							<option
-								name='role'
-								value='inactive'>
-								Inactive Client
-							</option>
-							<option
-								name='role'
-								value='admin'>
-								Admin Account
-							</option>
-						</select>
-					</div>
-					<button>Create User Account</button>
-				</form>
-			</MobileDiv>
 		</>
 	);
 };
@@ -271,6 +193,7 @@ const NewUser = () => {
 export default NewUser;
 
 export const DesktopDiv = styled.div`
+	// Display for desktop size
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		width: 100%;
 		height: 100%;
@@ -278,35 +201,40 @@ export const DesktopDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		font-size: calc(min(2vw, 2vh));
+		font-size: large;
 		position: absolute;
 		overflow-x: hidden;
 		overflow-y: scroll;
 
 		& > h3 {
-			font-size: calc(min(3vw, 3vh));
+			font-size: x-large;
 			width: 100%;
-			margin-top: 1em;
+			margin: 1ch 0 2ch;
 			text-align: center;
 		}
 
 		& form {
-			width: 100%;
-			max-height: 60%;
+			width: auto;
+			max-width: 90%;
+			max-height: fit-content;
 			position: relative;
 			display: flex;
 			flex-direction: column;
+			justify-content: start;
 			align-items: center;
+			font-size: large;
 
 			& > .show-error {
-				width: 60%;
+				width: 100%;
 				text-align: end;
+				height: fit-content;
 				color: red;
 			}
 
 			& > .hide-error {
-				width: 60%;
+				width: 100%;
 				text-align: end;
+				height: fit-content;
 				color: red;
 				opacity: 0;
 
@@ -317,125 +245,57 @@ export const DesktopDiv = styled.div`
 
 			& > .input {
 				width: 100%;
-				padding: 1vh 0;
+				padding: 1ch 0;
 				display: flex;
 				flex-direction: row;
-				justify-content: center;
+				align-items: center;
+				justify-content: start;
+				font-size: large;
 
 				& > label {
-					width: 20%;
+					width: 13ch;
 					text-align: right;
-					padding-right: 2vw;
-				}
-
-				& > input,
-				select {
-					width: 40%;
-					height: 100%;
-					padding: calc(min(0.5vh, 0.5vh));
-				}
-			}
-
-			& button {
-				margin-top: 3vh;
-				background-color: #d0dceb;
-				border: 2px solid #333;
-				border-radius: 10px;
-				padding: 1vh 2vw;
-				color: #333;
-				box-shadow: 3px 3px 2px #333;
-				width: max-content;
-
-				&:hover {
-					background-color: #87ceeb;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 3px 3px;
-					box-shadow: 0 0 0;
-				}
-			}
-		}
-	}
-
-	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
-		display: none;
-	}
-`;
-
-export const MobileDiv = styled.div`
-	display: none;
-
-	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: center;
-
-		& form {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin-top: 1em;
-
-			& > .show-error {
-				width: 100%;
-				text-align: center;
-				color: red;
-				opacity: 1;
-			}
-
-			& > .hide-error {
-				opacity: 0;
-
-				&::after {
-					content: 'placeholder';
-				}
-			}
-
-			& > .input {
-				width: 100%;
-				padding: 2px 0;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-
-				& > label {
-					min-width: 90px;
-					text-align: end;
-					padding-right: 3px;
-					margin-left: 1em;
+					padding-right: 1ch;
 				}
 
 				& > input,
 				select {
 					flex: 1;
-					margin-right: 1em;
-					padding: 2px 4px;
+					padding: 3px 5px;
+					font-size: large;
 				}
 			}
 
-			& button {
-				background-color: #87ceeb;
-				border: 2px solid #333;
+			& > button {
+				height: 100%;
+				color: white;
+				background-color: black;
+				border: 3px solid #87ceeb;
 				border-radius: 10px;
-				padding: 3px 8px;
-				color: #333;
+				box-shadow: 2px 2px 2px #87ceeb;
 				width: max-content;
-				box-shadow: 2px 2px 2px #333;
-				margin-top: 1em;
-				transition: all 200ms;
+				padding: 5px 10px;
+				font-size: large;
+				margin-top: 10px;
 
-				&:active {
-					box-shadow: 0 0 0;
-					transform: translate(2px, 2px);
-					background-color: #5f90a5;
-					transition: all 200ms;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+
+					&:active {
+						translate: 2px 2px;
+						box-shadow: none;
+					}
 				}
 			}
 		}
+	}
+
+	// Hide for mobile size
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT}) or (width: ${MOBILE_MODE_LIMIT})) {
+		display: none;
 	}
 `;

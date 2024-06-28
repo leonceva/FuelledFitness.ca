@@ -1,801 +1,1335 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
 import MobileLayout from '../layouts/MobileLayout';
-import placeholder from '../images/krystin-gym-01.jpg';
-import nutritionImg from '../images/krystin-business-01.jpg';
-import trainingImg from '../images/krystin-wrestling-02.jpg';
+import Image from '../components/Image';
+import { useEffect, useState } from 'react';
+
+import nutrition_low_res from '../images/nutrition-01-placeholder.jpg';
+import nutrition_high_res from '../images/nutrition-01.jpg';
+import training_low_res from '../images/krystin-gym-05-placeholder.jpg';
+import training_high_res from '../images/krystin-gym-05.jpg';
+import nutrigenomix_low_res from '../images/genetics-placeholder.jpg';
+import nutrigenomix_high_res from '../images/genetics.jpg';
 
 const Services = () => {
-	const [serviceSelected, setServiceSelected] = useState('none');
-	const [optionSelected, setOptionSelected] = useState(null);
-	const location = useLocation();
-
-	useEffect(() => {
-		if (location.hash.slice(1) === '') {
-			setServiceSelected('none');
-		} else {
-			let separator = location.hash.indexOf('-');
-			if (separator === -1) {
-				setServiceSelected(location.hash.slice(1));
-			} else {
-				setServiceSelected(location.hash.slice(1, separator));
-				setOptionSelected(location.hash.slice(separator + 1));
-			}
-		}
-	}, [location]);
-
 	return (
 		<>
-			<DesktopLayout
-				content={
-					<DesktopContent
-						serviceSelected={serviceSelected}
-						optionSelected={optionSelected}
-					/>
-				}></DesktopLayout>
-			<MobileLayout content={<MobileContent serviceSelected={serviceSelected} />} />
+			<DesktopLayout content={<DesktopContent />} />
+			<MobileLayout content={<MobileContent />} />
 		</>
 	);
 };
 
 export default Services;
 
-export const DesktopContent = (props) => {
-	const serviceSelected = props.serviceSelected;
-	const option = props.optionSelected;
-	const navigate = useNavigate();
+/************************************************************* DESKTOP MODE ****************************************************************************/
 
-	const handleClickService = (service) => {
-		if (service === 'none') {
-			navigate(``);
-		} else {
-			navigate(`#${service}`);
-		}
+export const DesktopContent = () => {
+	// Styles for large screen
+	const styleWrapper = {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
 	};
 
-	const handleClickOption = (option) => {
-		navigate(`#${serviceSelected}-${option}`);
+	const styleImageLarge = {
+		position: 'absolute',
+		width: 'auto',
+		height: 'auto',
+		maxHeight: '100%',
+		minWidth: '100%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		zIndex: '1',
+		animation: 'fadein 1s',
 	};
+	// Styles for small screens
+	const styleImageSmall = {
+		position: 'absolute',
+		width: '40%',
+		height: 'auto',
+		right: '0%',
+		borderStyle: 'solid',
+		borderColor: '#f2f2f2',
+		borderWidth: '0 0 0 2px',
+	};
+
+	const [hoverItem, setHoverItem] = useState(null);
+	const [serviceSelected, setServiceSelected] = useState(null);
+	const [infoSelected, setInfoSelected] = useState(null);
+
+	const [screenSize, setScreenSize] = useState({
+		width: window.innerWidth,
+		height: window.innerHeight,
+	});
+
+	useEffect(() => {
+		// Callback for when screen is resized
+		const handleResize = () => {
+			setScreenSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
+
+		// Screen resize listener
+		window.addEventListener('resize', handleResize);
+
+		// Clean-up listener
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
 	return (
 		<DesktopDiv>
-			<div className={`button-container ${serviceSelected === 'none' ? 'long' : 'short'}`}>
-				{
-					// When neither service is selected
-					serviceSelected === 'none' && (
-						<>
-							<h2>Select a service type for more info</h2>
-							<ServiceButton
-								onClick={() => {
-									handleClickService('nutrition-individuals');
-								}}>
-								Nutrition
-							</ServiceButton>
-							<ServiceButton
-								onClick={() => {
-									handleClickService('training-online');
-								}}>
-								Training
-							</ServiceButton>
-							<ServiceButton
-								onClick={() => {
-									handleClickService('packages-kickstarter');
-								}}>
-								Packages
-							</ServiceButton>
-							<img
-								src={placeholder}
-								alt='placeholder'
-							/>
-						</>
-					)
-				}
-
-				{
-					// Nutrition service
-					serviceSelected === 'nutrition' && (
-						<>
-							<span className='go-back'>
-								<i
-									onClick={() => {
-										handleClickService('none');
-									}}
-									className='bi bi-arrow-left go-back-btn'
-								/>
-							</span>
-							<h3>Nutrition Services</h3>
-							<InfoButton
-								style={{ animationDelay: '0.5s' }}
-								onClick={() => handleClickOption('individuals')}>
-								Individuals
-							</InfoButton>
-							<InfoButton
-								style={{ animationDelay: '0.5s' }}
-								onClick={() => handleClickOption('team')}>
-								Team Programs
-							</InfoButton>
-							<InfoButton
-								style={{ animationDelay: '0.5s' }}
-								onClick={() => handleClickOption('corporate')}>
-								Corporate
-							</InfoButton>
-							<InfoButton
-								style={{ animationDelay: '0.5s' }}
-								onClick={() => handleClickOption('menu')}>
-								Menu Review
-							</InfoButton>
-							<InfoButton
-								style={{ animationDelay: '0.5s' }}
-								className='other-service'
-								onClick={() => {
-									window.open(
-										'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-										'_blank'
-									);
-								}}>
-								Book Appointment
-							</InfoButton>
-						</>
-					)
-				}
-
-				{
-					// Training service
-					serviceSelected === 'training' && (
-						<>
-							<span className='go-back'>
-								<i
-									onClick={() => {
-										handleClickService('none');
-									}}
-									className='bi bi-arrow-left go-back-btn'
-								/>
-							</span>
-							<h3>Training Services</h3>
-							<InfoButton onClick={() => handleClickOption('online')}>
-								Online Coaching
-							</InfoButton>
-							<InfoButton onClick={() => handleClickOption('personal')}>
-								Personal Training
-							</InfoButton>
-							<InfoButton onClick={() => handleClickOption('team')}>
-								Team Strength and Conditioning
-							</InfoButton>
-							<InfoButton
-								className='other-service'
-								onClick={() => {
-									window.open(
-										'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-										'_blank'
-									);
-								}}>
-								Book Appointment
-							</InfoButton>
-						</>
-					)
-				}
-
-				{
-					// Packages
-					serviceSelected === 'packages' && (
-						<>
-							<span className='go-back'>
-								<i
-									onClick={() => {
-										handleClickService('none');
-									}}
-									className='bi bi-arrow-left go-back-btn'
-								/>
-							</span>
-							<h3>Packages</h3>
-							<InfoButton onClick={() => handleClickOption('kickstarter')}>
-								1 Month - Kickstarter
-							</InfoButton>
-							<InfoButton onClick={() => handleClickOption('habit-builder')}>
-								3 Months - Habit Builder
-							</InfoButton>
-							<InfoButton onClick={() => handleClickOption('transformation')}>
-								6 Months - Transformation
-							</InfoButton>
-							<InfoButton
-								className='other-service'
-								onClick={() => {
-									window.open(
-										'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-										'_blank'
-									);
-								}}>
-								Book Appointment
-							</InfoButton>
-						</>
-					)
-				}
-			</div>
 			<div
-				className={`info-container  ${
-					serviceSelected === 'nutrition' ||
-					serviceSelected === 'training' ||
-					serviceSelected === 'packages'
-						? 'show'
-						: 'hide'
-				}`}>
-				<InfoDesktop
-					className='info'
-					option={option}
-					service={serviceSelected}
+				className='service-item'
+				onMouseEnter={() => setHoverItem('nutrition')}
+				onMouseLeave={() => setHoverItem(null)}
+				onClick={() => {
+					setServiceSelected('Nutrition');
+					setInfoSelected('individuals');
+				}}>
+				<Image
+					styleWrapper={{
+						...styleWrapper,
+						...{ opacity: `${hoverItem === 'nutrition' ? '0.8' : '0.55'}` },
+					}}
+					styleImage={
+						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
+					}
+					lowResSrc={nutrition_low_res}
+					highResSrc={nutrition_high_res}
 				/>
-			</div>
-		</DesktopDiv>
-	);
-};
-
-export const DesktopDiv = styled.div`
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	height: 100%;
-
-	& > .button-container {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		padding: 1vh 1vw;
-		justify-content: start;
-		align-items: center;
-		position: relative;
-		padding-top: 10vh;
-
-		& > img {
-			max-width: 25%;
-			max-height: 50%;
-		}
-
-		& > h2 {
-			font-size: 3.5vh;
-		}
-		& > h3 {
-			font-size: 3vh;
-			font-weight: 900;
-			width: 100%;
-		}
-
-		// For the buttons
-		& > div {
-			transition: background-color 0.2s;
-			background-color: #d0dceb;
-			box-shadow: 3px 3px 2px #333;
-			margin: 2vh 0;
-			width: 100%;
-		}
-		& > div:hover {
-			background-color: #87ceeb;
-			cursor: pointer;
-		}
-		& > div:active {
-			box-shadow: 0 0;
-			translate: 3px 3px;
-		}
-		& > .other-service {
-			background-color: #d0dceb;
-		}
-		& > .other-service:hover {
-			background-color: #87ceeb;
-		}
-
-		& > .go-back {
-			transition: background-color 0.2s;
-			height: calc(min(5vw, 5vh));
-			width: calc(min(5vw, 5vh));
-			margin-bottom: 5vh;
-			font-size: calc(min(3.5vw, 3.5vh));
-			border: solid #333 2px;
-			text-align: center;
-			border-radius: 50%;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			box-shadow: 3px 3px 3px #333;
-		}
-		& > .go-back:hover {
-			cursor: pointer;
-			background-color: gray;
-		}
-		& > .go-back:active {
-			box-shadow: 0 0;
-			translate: 3px 3px;
-		}
-	}
-	& > .long {
-		width: 100%;
-	}
-	& > .short {
-		width: 30%;
-	}
-
-	// For the info
-	& > .info-container {
-		border: solid #333 2px;
-		height: calc(100% - 4vh);
-		margin: 2vh 1vw;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		font-size: calc(min(2.5vw, 2.5vh));
-		padding: 0 2vw;
-		text-align: justify;
-
-		& > h2 {
-			text-align: center;
-			font-size: calc(min(3.5vw, 3.5vh));
-		}
-	}
-	& > .show {
-		width: 100%;
-		overflow-y: auto;
-		border-radius: 10% 0% 0% 10%;
-		content-visibility: visible;
-	}
-	& > .hide {
-		transition: width 0.25s;
-		width: 0%;
-		border-width: 0px;
-		color: transparent;
-		content-visibility: hidden;
-	}
-`;
-
-export const InfoDesktop = (props) => {
-	const service = props.service;
-	const option = props.option;
-
-	// Text to display based on option chose
-	return (
-		<>
-			{option === 'individuals' && service === 'nutrition' && (
-				<>
-					<h2>Nutrition Counselling</h2>
-					<p>
-						Say goodbye to guesswork, and hello to a personalized nutrition plan! Work
-						1:1 with a Registered Dietitian to achieve your goals. Whether you're
-						striving for peak performance, weight loss, improved energy levels, or
-						optimal health and wellbeing for yourself and your family, we offer
-						personalized strategies to support you in achieving your goals. <br />{' '}
-						<br />
-						Initial Consult (60 minutes) - $140 <br />
-						Follow-up (45 minutes) - $105
-					</p>
-					<h2>Meal Plan Add-On</h2>
-					<p>
-						A meal plan is not the answer for everyone. Your Registered Dietitian will
-						work with you to address the challenges you face to optimally achieve your
-						nutrition goals. <br />
-						<br />
-						Cost - $80
-					</p>
-				</>
-			)}
-			{option === 'team' && service === 'nutrition' && (
-				<>
-					<h2>Team Nutrition Programs</h2>
-					<p>
-						Complement the hard work your athletes are putting in during training with
-						nutrition support. Some services offered include nutrition presentations,
-						interactive activities, or 1:1 counselling sessions.
-						<br />
-						<br />
-						Contact us today to design a program that fits the needs of your team.
-					</p>
-				</>
-			)}
-			{option === 'corporate' && service === 'nutrition' && (
-				<>
-					<h2>Employee Nutrition Program</h2>
-					<p>
-						Support the wellbeing of your employees through nutrition support. Healthier
-						and happier employees promote improved productivity, longevity, and a better
-						workplace culture. Some services offered include nutrition presentations,
-						interactive activities, or 1:1 counselling sessions.
-						<br />
-						<br />
-						Contact us today to discuss the unique needs of your organization.
-					</p>
-				</>
-			)}
-			{option === 'menu' && service === 'nutrition' && (
-				<>
-					<h2>Menu Review</h2>
-					<p>
-						Do you provide meals as part of your business? Provide assurance of
-						nutritional balance, and credibility to clients by having your menu reviewed
-						and critiqued by a Registered Dietitian.
-						<br />
-						<br />
-						Contact us today to discuss the unique needs of your organization.
-					</p>
-				</>
-			)}
-			{option === 'online' && service === 'training' && (
-				<>
-					<h2>Online Coaching</h2>
-					<p>
-						Discover the ultimate online coaching experience with a personalized program
-						and consistent support. Our online coaching program is delivered in 4-week
-						intervals with a tailored workout plan, weekly video review and feedback,
-						and on-demand expert guidance through virtual support with your coach.{' '}
-						<br />
-						<br />
-						$150 / 4-weeks
-					</p>
-				</>
-			)}
-			{option === 'personal' && service === 'training' && (
-				<>
-					<h2>Personal Training</h2>
-					<p>
-						Experience personalized 1:1 coaching with hands on guidance, immediate
-						feedback, and continuous support throughout your session. Our personal
-						training sessions include a customized weekly program to follow, ensuring
-						continuous progress in between sessions with your coach.
-						<br />
-						<br />1 x per week - $100 per session <br />2 x per week - $90 per session{' '}
-						<br />
-						3+ x per week - $75 per session <br />
-						<br />
-						Already a client of online coaching? Add an in-person coaching session for
-						$75 <br />
-						<br />
-						Looking for a personal training session without a program to follow? $90 per
-						session.
-					</p>
-				</>
-			)}
-			{option === 'team' && service === 'training' && (
-				<>
-					<h2>Team Strength and Conditioning</h2>
-					<p>
-						Enhance performance, prevent injuries, and foster resilience within your
-						team through expertly crafted strength and conditioning programs. Bring your
-						athlete preparation to the next level with a periodized program tailored to
-						the needs of your athletes. We offer flexible options which can accommodate
-						a wide range of team sizes and budgets. <br />
-						<br />
-						Contact us today to learn more.
-					</p>
-				</>
-			)}
-			{option === 'kickstarter' && service === 'packages' && (
-				<>
-					<h2>1 Month - Kickstarter</h2>
-					<p>
-						We recognize and reward ongoing commitment and dedication with discounted
-						personalized fitness and nutrition services.
-					</p>
-					<ul>
-						<li>Initial Nutrition Consultation</li>
-						<li>1 x Follow-up Nutrition Appointment</li>
-						<li>4 x Personal Training Session</li>
-					</ul>
-					<p>
-						$640 Value <br />
-						You Pay: $575 (10% off)
-					</p>
-				</>
-			)}
-			{option === 'habit-builder' && service === 'packages' && (
-				<>
-					<h2>3 Months - Habit Builder</h2>
-					<p>
-						We recognize and reward ongoing commitment and dedication with discounted
-						personalized fitness and nutrition services.
-					</p>
-					<ul>
-						<li>Initial Nutrition Consultation</li>
-						<li>3 x Follow-up Nutrition Appointment</li>
-						<li>12 x Personal Training Session</li>
-					</ul>
-					<p>
-						$1655 Value <br />
-						You Pay: $1407 (15% off)
-					</p>
-				</>
-			)}
-			{option === 'transformation' && service === 'packages' && (
-				<>
-					<h2>6 Months - Transformation</h2>
-					<p>
-						We recognize and reward ongoing commitment and dedication with discounted
-						personalized fitness and nutrition services.
-					</p>
-					<ul>
-						<li>Initial Nutrition Consultation</li>
-						<li>6 x Follow-up Nutrition Appointment</li>
-						<li>24 x Personal Training Session</li>
-					</ul>
-					<p>
-						$3170 Value <br />
-						You Pay: $2536 (20% off)
-					</p>
-				</>
-			)}
-		</>
-	);
-};
-
-export const InfoDiv = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-
-	& > h3 {
-		font-size: calc(min(3vw, 3vh));
-		font-weight: 700;
-		margin-bottom: 2vh;
-	}
-
-	& > .img-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		width: 95%;
-
-		& > img {
-			max-width: 40vw;
-			max-height: 45vh;
-		}
-	}
-`;
-
-export const InfoButton = styled.div`
-	border: solid #333 2px;
-	border-radius: 10px;
-	width: 80%;
-	align-self: center;
-	font-size: calc(min(2.5vw, 2.5vh));
-	padding: 0 1vw;
-`;
-
-export const ServiceButton = styled.div`
-	border: solid #333 2px;
-	border-radius: 10px;
-	min-width: 30%;
-	max-width: max-content;
-	align-self: center;
-	font-size: calc(min(2.5vw, 2.5vh));
-	padding: 0 1vw;
-`;
-
-export const MobileContent = (props) => {
-	const serviceSelected = props.serviceSelected;
-	const navigate = useNavigate();
-
-	const handleClick = (service) => {
-		navigate(`#${service}`);
-	};
-	return (
-		<MobileDiv>
-			<div className='service-select'>
 				<div
-					className={`button ${serviceSelected === 'nutrition' ? 'active' : ''}`}
-					onTouchStart={() => {
-						handleClick('nutrition');
-					}}>
+					className={`title ${
+						hoverItem === 'nutrition' ? 'title-hover' : 'title-no-hover'
+					}`}>
 					Nutrition
 				</div>
 				<div
-					className={`button ${serviceSelected === 'training' ? 'active' : ''}`}
-					onTouchStart={() => {
-						handleClick('training');
-					}}>
+					className={`info ${
+						hoverItem === 'nutrition' ? 'info-hover' : 'info-no-hover'
+					}`}>
+					If you're looking for help with managing your weight, dealing with a specific
+					health issue, or just want to feel your best, our skilled team creates custom
+					plans to support you on your path to better health.
+				</div>
+			</div>
+			<div
+				className='service-item'
+				onMouseEnter={() => setHoverItem('training')}
+				onMouseLeave={() => setHoverItem(null)}
+				onClick={() => {
+					setServiceSelected('Training');
+					setInfoSelected('online-coaching');
+				}}>
+				<Image
+					styleWrapper={{
+						...styleWrapper,
+						...{ opacity: `${hoverItem === 'training' ? '0.8' : '0.55'}` },
+					}}
+					styleImage={
+						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
+					}
+					lowResSrc={training_low_res}
+					highResSrc={training_high_res}
+				/>
+				<div
+					className={`title ${
+						hoverItem === 'training' ? 'title-hover' : 'title-no-hover'
+					}`}>
 					Training
 				</div>
 				<div
-					className={`button ${serviceSelected === 'packages' ? 'active' : ''}`}
-					onTouchStart={() => {
-						handleClick('packages');
-					}}>
-					Packages
+					className={`info ${hoverItem === 'training' ? 'info-hover' : 'info-no-hover'}`}>
+					From beginners looking to get in shape to elite athletes aiming to enhance their
+					performance, we're here to support you every step of the way on your fitness
+					journey with tailored programs.
 				</div>
 			</div>
-			<div className='service-info'>
-				{
-					// No service selected
-					serviceSelected === 'none' && (
+			<div
+				className='service-item'
+				onMouseEnter={() => setHoverItem('nutrigenomix')}
+				onMouseLeave={() => setHoverItem(null)}
+				onClick={() => {
+					setServiceSelected('Nutrigenomix');
+					setInfoSelected('about');
+				}}>
+				<Image
+					styleWrapper={{
+						...styleWrapper,
+						...{ opacity: `${hoverItem === 'nutrigenomix' ? '0.8' : '0.55'}` },
+					}}
+					styleImage={
+						screenSize.width > 1200 ? { ...styleImageLarge } : { ...styleImageSmall }
+					}
+					lowResSrc={nutrigenomix_low_res}
+					highResSrc={nutrigenomix_high_res}
+				/>
+				<div
+					className={`title ${
+						hoverItem === 'nutrigenomix' ? 'title-hover' : 'title-no-hover'
+					}`}>
+					Nutrigenomix
+				</div>
+				<div
+					className={`info ${
+						hoverItem === 'nutrigenomix' ? 'info-hover' : 'info-no-hover'
+					}`}>
+					By analyzing your unique genetic makeup, Nutrigenomix provides tailored dietary
+					recommendations designed to optimize your health, enhance performance, and
+					prevent chronic diseases.
+				</div>
+			</div>
+			<div className={`service-info ${serviceSelected === null ? 'hidden' : ''}`}>
+				<div className='menu'>
+					{/*Menu Items on the Left*/}
+					{serviceSelected === 'Nutrition' && (
 						<>
-							<h3>Select a service type to learn more</h3>
-
-							<img
-								src={placeholder}
-								alt='placeholder'
-							/>
-						</>
-					)
-				}
-				{
-					// Nutrition Services
-					serviceSelected === 'nutrition' && (
-						<>
-							<h3>Nutrition Counselling</h3>
-							<p>
-								Say goodbye to guesswork, and hello to a personalized nutrition
-								plan! Work 1:1 with a Registered Dietitian to achieve your goals.
-								Whether you're striving for peak performance, weight loss, improved
-								energy levels, or optimal health and wellbeing for yourself and your
-								family, we offer personalized strategies to support you in achieving
-								your goals. <br />
-								<br />
-								Initial Consult (60 minutes) - $140 <br />
-								Follow-up (45 minutes) - $105 <br />
-							</p>
-							<h3>Meal Plan Add-On</h3>
-							<p>
-								A meal plan is not the answer for everyone. Your Registered
-								Dietitian will work with you to address the challenges you face to
-								optimally achieve your nutrition goals. <br />
-								<br />
-								Cost: $80
-							</p>
-							<h3>Team Nutrition Programs</h3>
-							<p>
-								Complement the hard work your athletes are putting in during
-								training with nutrition support. Some services offered include
-								nutrition presentations, interactive activities, or 1:1 counselling
-								sessions.
-								<br />
-								<br />
-								Contact us today to design a program that fits the needs of your
-								team.
-							</p>
-							<h3>Corporate Wellness Programs</h3>
-							<p>
-								Support the wellbeing of your employees through nutrition support.
-								Healthier and happier employees promote improved productivity,
-								longevity, and a better workplace culture. Some services offered
-								include nutrition presentations, interactive activities, or 1:1
-								counselling sessions.
-								<br />
-								<br />
-								Contact us today to discuss the unique needs of your organisation.
-							</p>
-							<h3>Menu Review</h3>
-							<p>
-								Do you provide meals as part of your business? Provide assurance of
-								nutritional balance, and credibility to clients by having your menu
-								reviewed and critiqued by a registered dietitian.
-								<br />
-								<br />
-								Contact us today to discuss the unique needs of your organisation.
-							</p>
+							<h2>{serviceSelected}</h2>
 							<div
-								className='appointment'
-								onClick={() => {
-									window.open(
-										'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-										'_blank'
-									);
-								}}>
-								Book Appointment
+								className={`menu-item ${
+									infoSelected === 'individuals' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('individuals')}>
+								Individuals
 							</div>
-							<img
-								src={nutritionImg}
-								alt='nutrition'
-							/>
-						</>
-					)
-				}
-				{
-					// Training Services
-					serviceSelected === 'training' && (
-						<>
-							<h3>Online Coaching</h3>
-							<p>
-								Discover the ultimate online coaching experience with a personalized
-								program and consistent support. Our online coaching program is
-								delivered in 4-week intervals with a tailored workout plan, weekly
-								video review and feedback, and on-demand expert guidance through
-								virtual support with your coach. <br />
-								<br />
-								$150 / 4-weeks
-							</p>
-							<h3>Personal Training</h3>
-							<p>
-								Experience personalized 1:1 coaching with hands on guidance,
-								immediate feedback, and continuous support throughout your session.
-								Our personal training sessions include a customized weekly program
-								to follow, ensuring continuous progress in between sessions with
-								your coach.
-								<br />
-								<br />1 x per week - $100 per session <br />2 x per week - $90 per
-								session <br />
-								3+ x per week - $75 per session <br />
-								<br />
-								Already a client of online coaching? Add an in-person coaching
-								session for $75 <br />
-								<br />
-								Looking for a personal training session without a program to follow?
-								$90 per session.
-							</p>
-							<h3>Team Strength and Conditioning</h3>
-							<p>
-								Enhance performance, prevent injuries, and foster resilience within
-								your team through expertly crafted strength and conditioning
-								programs. Bring your athlete preparation to the next level with a
-								periodized program tailored to the needs of your athletes. We offer
-								flexible options which can accommodate a wide range of team sizes
-								and budgets. <br />
-								<br />
-								Contact us today to learn more.
-							</p>
 							<div
-								className='appointment'
-								onClick={() => {
-									window.open(
-										'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-										'_blank'
-									);
-								}}>
-								Book Appointment
+								className={`menu-item ${
+									infoSelected === 'team-programs' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('team-programs')}>
+								Team Programs
 							</div>
-							<img
-								src={trainingImg}
-								alt='training'
-							/>
+							<div
+								className={`menu-item ${
+									infoSelected === 'corporate' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('corporate')}>
+								Corporate
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'menu-review' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('menu-review')}>
+								Menu Review
+							</div>
 						</>
-					)
-				}
-				{serviceSelected === 'packages' && (
-					<>
-						<p>
-							We recognize and reward ongoing commitment and dedication with
-							discounted personalized fitness and nutrition services.
-						</p>
-						<h3>1 Month - Kickstarter</h3>
-						<ul>
-							<li>Initial Nutrition Consultation</li>
-							<li>1 x Follow-up Nutrition Appointment</li>
-							<li>4 x Personal Training Session</li>
-						</ul>
-						<p style={{ alignSelf: 'start' }}>
-							$640 Value <br />
-							You pay: $575 (10% off)
-						</p>
-
-						<h3>3 Months - Habit Builder</h3>
-						<ul>
-							<li>Initial Nutrition Consultation</li>
-							<li>3 x Follow-up Nutrition Appointment</li>
-							<li>12 x Personal Training Session</li>
-						</ul>
-						<p style={{ alignSelf: 'start' }}>
-							$1655 Value <br />
-							You pay: $1407 (15% off)
-						</p>
-
-						<h3>6 Months - Transformation</h3>
-						<ul>
-							<li>Initial Nutrition Consultation</li>
-							<li>6 x Follow-up Nutrition Appointment</li>
-							<li>24 x Personal Training Session</li>
-						</ul>
-						<p style={{ alignSelf: 'start' }}>
-							$3170 Value <br />
-							You pay: $2536 (20% off)
-						</p>
-						<div
-							className='appointment'
+					)}
+					{serviceSelected === 'Training' && (
+						<>
+							<h2>{serviceSelected}</h2>
+							<div
+								className={`menu-item ${
+									infoSelected === 'online-coaching' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('online-coaching')}>
+								Online Coaching
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'personal-training' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('personal-training')}>
+								Personal Training
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'team-training' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('team-training')}>
+								Team Strength & Conditioning
+							</div>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && (
+						<>
+							<h2>{serviceSelected}</h2>
+							<div
+								className={`menu-item ${
+									infoSelected === 'about' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('about')}>
+								About
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'testing' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('testing')}>
+								Genetic Testing
+							</div>
+							<div
+								className={`menu-item ${
+									infoSelected === 'package' ? 'menu-item-selected' : ''
+								}`}
+								onClick={() => setInfoSelected('package')}>
+								Bundle with Meal Plan
+							</div>
+						</>
+					)}
+					<div className='btn-container'>
+						<button
+							className='btn'
 							onClick={() => {
 								window.open(
 									'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
 									'_blank'
 								);
 							}}>
-							Get Started
-						</div>
-					</>
-				)}
+							Book Appointment
+						</button>
+						<button
+							className='btn'
+							onClick={() => {
+								setInfoSelected(null);
+								setServiceSelected(null);
+							}}>
+							<i className='bi bi-box-arrow-left' />
+							<span>Go Back</span>
+						</button>
+					</div>
+				</div>
+				<div className='info'>
+					{/*Information of each service*/}
+					{serviceSelected === 'Nutrition' && infoSelected === 'individuals' && (
+						<>
+							<h2>Nutrition Counselling</h2>
+							<p>
+								Say goodbye to guesswork, and hello to a personalized nutrition
+								plan! Work 1:1 with a Registered Dietitian to achieve your goals.
+								Whether you're striving for peak performance, weight loss, improved
+								energy levels, or optimal health and wellbeing for yourself and your
+								family, we offer personalized strategies to support you in achieving
+								your goals.
+							</p>
+							<p>
+								Initial Consult (60 minutes) - $140
+								<br />
+								Follow-up (45 minutes) - $105
+								<br />
+								Follow-up (30 minutes) - $80
+							</p>
+							<h2>Meal Plan Add-On</h2>
+							<p>
+								A meal plan is not the answer for everyone. Your Registered
+								Dietitian will work with you to address the challenges you face to
+								optimally achieve your nutrition goals.
+							</p>
+							<p>Cost - $80</p>
+						</>
+					)}
+					{serviceSelected === 'Nutrition' && infoSelected === 'team-programs' && (
+						<>
+							<h2>Team Nutrition Programs</h2>
+							<p>
+								Complement the hard work your athletes are putting in during
+								training with nutrition support. Some services offered include
+								nutrition presentations, interactive activities, or 1:1 counselling
+								sessions.
+							</p>
+							<p>
+								Contact us today to design a program that fits the needs of your
+								team.
+							</p>
+						</>
+					)}
+					{serviceSelected === 'Nutrition' && infoSelected === 'corporate' && (
+						<>
+							<h2>Employee Nutrition Program</h2>
+							<p>
+								Support the wellbeing of your employees through nutrition support.
+								Healthier and happier employees promote improved productivity,
+								longevity, and a better workplace culture. Some services offered
+								include nutrition presentations, workshops, or one-on-one
+								counselling sessions.
+							</p>
+							<p>
+								Contact us today to discuss the unique needs of your organization.
+							</p>
+						</>
+					)}
+					{serviceSelected === 'Nutrition' && infoSelected === 'menu-review' && (
+						<>
+							<h2>Menu Review</h2>
+							<p>
+								Do you provide meals as part of your business? Provide assurance of
+								nutritional balance, and credibility to clients by having your menu
+								reviewed and tailored by a Registered Dietitian.
+							</p>
+							<p>Some examples may include:</p>
+							<ul>
+								<li>Analyzing the nutritional content of your meals</li>
+								<li>Suggesting healthier ingredient substitutions</li>
+								<li>Ensuring compliance with dietary guidelines and regulations</li>
+								<li>
+									Modifying menus for specific dietary needs, such as gluten-free,
+									vegetarian, or diabetic-friendly options
+								</li>
+							</ul>
+							<p>
+								Contact us today to discuss the unique needs of your organization.
+							</p>
+						</>
+					)}
+					{serviceSelected === 'Training' && infoSelected === 'online-coaching' && (
+						<>
+							<h2>Online Coaching</h2>
+							<p>
+								Discover the ultimate online coaching experience with a personalized
+								program and consistent support. Our online coaching program is
+								delivered in 4-week intervals with a tailored workout plan, weekly
+								video review and feedback, and on-demand expert guidance through
+								virtual support with your coach.
+							</p>
+							<p>Cost - $150 / 4-weeks</p>
+						</>
+					)}
+					{serviceSelected === 'Training' && infoSelected === 'personal-training' && (
+						<>
+							<h2>Personal Training</h2>
+							<p>
+								Experience personalized 1:1 coaching with hands on guidance,
+								immediate feedback, and continuous support throughout your session.
+								Our personal training sessions include a customized weekly program
+								to follow, ensuring continuous progress in between sessions with
+								your coach.
+							</p>
+							<p>
+								1 x per week - $100 per session <br />
+								2 x per week - $90 per session <br />
+								3+ x per week - $75 per session
+							</p>
+							<p>
+								Already a client of online coaching? Add an in-person coaching
+								session for $75
+							</p>
+							<p>
+								Looking for a personal training session without a program to follow?
+								$90 per session
+							</p>
+						</>
+					)}
+					{serviceSelected === 'Training' && infoSelected === 'team-training' && (
+						<>
+							<h2>Team Strength and Conditioning</h2>
+							<p>
+								Enhance performance, prevent injuries, and foster resilience within
+								your team through expertly crafted strength and conditioning
+								programs. Bring your athlete preparation to the next level with a
+								periodized program tailored to the needs of your athletes. We offer
+								flexible options which can accommodate a wide range of team sizes
+								and budgets.
+							</p>
+							<p>Contact us today to learn more.</p>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && infoSelected === 'about' && (
+						<>
+							<h2>About Nutrigenomix</h2>
+							<p>
+								<strong>
+									Nutrigenomix provides genetic predisposition for a variety of
+									areas:
+								</strong>
+							</p>
+							<ul>
+								<li>Nutrient metabolism</li>
+								<li>Food intolerances and sensitivities</li>
+								<li>Cardiometabolic health</li>
+								<li>Weight management and body composition </li>
+								<li>Eating habits</li>
+								<li>Exercise physiology, fitness, and injury risk</li>
+							</ul>
+							<p>
+								<strong>How is my sample taken?</strong>
+							</p>
+							<p>
+								A saliva test is delivered to your home. It is quick, simple, and
+								painless!
+							</p>
+							<button
+								className='btn'
+								style={{
+									marginTop: '1ch',
+									alignSelf: 'flex-start',
+									marginLeft: '4ch',
+								}}
+								onClick={() => {
+									window.open(
+										'https://nutrigenomix.com/storage/pages/about-nutrigenomix.pdf',
+										'_blank'
+									);
+								}}>
+								Learn More
+							</button>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && infoSelected === 'testing' && (
+						<>
+							<h2>Genetic Testing</h2>
+							<p>
+								An advanced genetic testing service that revolutionizes personalized
+								nutrition.
+							</p>
+							<p>Genetic Testing Package - $650</p>
+							<ul>
+								<li>Nutrigenomix genetic test (70 gene test)</li>
+								<li>
+									Follow-up appointment to review genetic test results (45
+									minutes)
+								</li>
+							</ul>
+						</>
+					)}
+					{serviceSelected === 'Nutrigenomix' && infoSelected === 'package' && (
+						<>
+							<h2>Genetic Testing & Meal Plan</h2>
+							<p>
+								Combining the genetic test results with a specially tailored meal
+								plan empowers you to achieve optimal health by leveraging
+								personalized nutrition insights.
+							</p>
+							<p>Genetic Testing and Personalized Meal Plan - $850</p>
+							<ul>
+								<li>Initial nutrition assessment (1 hour)</li>
+								<li>Nutrigenomix genetic test (70 gene test)</li>
+								<li>Personalized meal plan</li>
+								<li>
+									Follow-up appointment to review genetic test results (45
+									minutes)
+								</li>
+							</ul>
+						</>
+					)}
+				</div>
 			</div>
+		</DesktopDiv>
+	);
+};
+
+export const DesktopDiv = styled.div`
+	// Smaller screen size
+	@media screen and ((max-width: 1200px )or (width: 1200px)) {
+		width: 100%;
+		height: calc(100vh - 100px);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+
+		& > .service-item {
+			color: #f2f2f2;
+			width: 100%;
+			height: 30%;
+			background-color: black;
+			border-radius: 20px;
+			position: relative;
+			display: flex;
+			overflow: auto;
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					cursor: pointer;
+					box-shadow: 0px 0px 3px 10px #87ceeb;
+				}
+			}
+
+			&:active {
+				box-shadow: 0px 0px 0px 0px;
+			}
+
+			& > .title {
+				position: absolute;
+				width: fit-content;
+				left: 2ch;
+				font-size: x-large;
+				font-weight: bold;
+			}
+
+			& > .title-no-hover {
+				bottom: 50%;
+				transform: translateY(50%);
+				transition: 250ms all;
+			}
+
+			& > .title-hover {
+				transition: 250ms all;
+				top: 0.5ch;
+			}
+
+			& > .info {
+				position: absolute;
+				width: calc(60% - 2ch);
+				height: fit-content;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 0 1ch;
+				font-size: medium;
+				text-align: justify;
+			}
+
+			& > .info-no-hover {
+				top: 100%;
+				transition: 250ms all;
+				display: none;
+			}
+
+			& > .info-hover {
+				bottom: 1ch;
+				transition: 250ms all;
+			}
+		}
+
+		& > .service-info {
+			position: absolute;
+			width: 100%;
+			height: calc(100% - 10px);
+			top: 5px;
+			z-index: 3;
+			background-color: black;
+			opacity: 1;
+			border-radius: 20px;
+			color: #f2f2f2;
+			display: flex;
+			flex-direction: row;
+			justify-content: start;
+			align-items: center;
+			overflow: hidden;
+
+			& > .menu {
+				height: calc(100% - 50px);
+				top: 50px;
+				width: 40%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				position: absolute;
+				left: 0%;
+				overflow-y: auto;
+
+				& > h2 {
+					width: 100%;
+					text-align: center;
+					margin: 1ch 0;
+					font-size: xx-large;
+				}
+
+				& > .menu-item {
+					width: calc(100% - 4ch);
+					text-align: center;
+					margin: 0.5ch 0;
+					font-size: x-large;
+					border-style: solid;
+					border-width: 3px 0;
+					border-color: black;
+					padding: 0.5ch 2ch;
+
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							color: #87ceeb;
+						}
+					}
+				}
+
+				& > .menu-item-selected {
+					border-color: #87ceeb;
+					color: #87ceeb;
+				}
+
+				& > .btn-container {
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+
+					& > button {
+						margin: 1ch 0;
+
+						& > span {
+							margin-left: 1ch;
+						}
+					}
+				}
+			}
+
+			& > .info {
+				position: absolute;
+				height: 100%;
+				width: 60%;
+				left: 40%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				overflow-x: hidden;
+				overflow-y: auto;
+				border-style: solid;
+				border-width: 0 0 0 3px;
+				border-color: #f2f2f2;
+
+				& > h2 {
+					width: calc(100% - 2ch);
+					text-align: center;
+					margin: 1ch 0;
+					padding: 0;
+					font-size: xx-large;
+				}
+				& > p {
+					margin: 1ch 0;
+					text-align: left;
+					width: calc(100% - 8ch);
+					font-size: large;
+				}
+				& > ul {
+					margin: 1ch 0;
+					text-align: left;
+					width: calc(100% - 8ch);
+					font-size: large;
+				}
+			}
+		}
+
+		& > .hidden {
+			width: 0%;
+			height: 0%;
+			opacity: 0;
+			transition: 250ms all;
+		}
+	}
+
+	// Larger screen size
+	@media screen and (min-width: 1201px) {
+		width: 100%;
+		min-height: calc(100vh - 100px);
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+
+		& > .service-item {
+			color: #f2f2f2;
+			margin: 20px 0;
+			width: 30%;
+			background-color: black;
+			border-radius: 20px;
+			position: relative;
+			display: flex;
+			overflow: hidden;
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					cursor: pointer;
+					transition: 0.25s;
+					box-shadow: 0px 0px 3px 10px #87ceeb;
+				}
+			}
+
+			& > .title {
+				position: absolute;
+				width: 100%;
+				height: 15%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: black;
+				z-index: 2;
+				font-size: xx-large;
+				text-align: center;
+				font-weight: bold;
+				border-style: solid;
+				border-color: #d2d2d2;
+				border-width: 2px 0;
+			}
+
+			& > .title-no-hover {
+				transform: translateY(250%);
+				transition: 250ms all;
+			}
+
+			& > .title-hover {
+				transform: translateY(calc(0% - 2px));
+				transition: 250ms all;
+			}
+
+			& > .info {
+				position: absolute;
+				width: calc(100% - 4ch);
+				height: fit-content;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 10px 2ch;
+				background-color: black;
+				z-index: 2;
+				font-size: large;
+				text-align: justify;
+				border-style: solid;
+				border-color: #d2d2d2;
+				border-width: 2px 0;
+			}
+
+			& > .info-no-hover {
+				top: 100%;
+				transition: 250ms all;
+			}
+
+			& > .info-hover {
+				bottom: 5%;
+			}
+		}
+
+		& > .service-info {
+			position: absolute;
+			width: 100%;
+			height: calc(100% - 40px);
+			top: 20px;
+			z-index: 3;
+			background-color: black;
+			opacity: 1;
+			border-radius: 20px;
+			color: white;
+			display: flex;
+			flex-direction: row;
+			justify-content: start;
+			align-items: center;
+			overflow: hidden;
+
+			& > .menu {
+				height: calc(100% - 50px);
+				width: 40%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				left: 0%;
+				overflow-y: auto;
+
+				& > h2 {
+					width: 100%;
+					text-align: center;
+					margin: 1ch 0;
+					font-size: xx-large;
+				}
+
+				& > .menu-item {
+					width: calc(100% - 4ch);
+					text-align: center;
+					margin: 0.5ch 0;
+					font-size: x-large;
+					border-style: solid;
+					border-width: 3px 0;
+					border-color: black;
+					padding: 0.5ch 2ch;
+
+					@media (hover: hover) and (pointer: fine) {
+						&:hover {
+							cursor: pointer;
+							border-color: none;
+							color: #87ceeb;
+						}
+					}
+				}
+
+				& > .menu-item-selected {
+					border-color: #87ceeb;
+					color: #87ceeb;
+				}
+
+				& > .btn-container {
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+
+					& > button {
+						margin: 1ch 0;
+
+						& > span {
+							margin-left: 1ch;
+						}
+					}
+				}
+			}
+
+			& > .info {
+				position: absolute;
+				height: 100%;
+				width: 60%;
+				left: 40%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				overflow-x: hidden;
+				overflow-y: auto;
+				border-style: solid;
+				border-width: 0 0 0 3px;
+				border-color: #f2f2f2;
+
+				& h2 {
+					width: 100%;
+					text-align: center;
+					margin: 1ch 0;
+					padding: 0;
+					font-size: xx-large;
+				}
+				& p {
+					margin: 1ch 0;
+					text-align: left;
+					width: calc(100% - 8ch);
+					font-size: large;
+				}
+				& ul {
+					margin: 1ch 0;
+					text-align: left;
+					width: calc(100% - 8ch);
+					font-size: large;
+				}
+			}
+		}
+
+		& > .hidden {
+			width: 0%;
+			height: 0%;
+			opacity: 0;
+			transition: 250ms all;
+		}
+	}
+`;
+
+/************************************************************* MOBILE MODE ****************************************************************************/
+
+export const MobileContent = () => {
+	const styleWrapper = {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		overflowY: 'hidden',
+		overflowX: 'hidden',
+		opacity: '0.55',
+	};
+
+	const styleImage = {
+		position: 'absolute',
+		width: '100%',
+		minHeight: '100%',
+		height: 'auto',
+		right: '0%',
+		top: '0%',
+		zIndex: '1',
+	};
+
+	const [serviceSelected, setServiceSelected] = useState(null);
+	const [infoSelected, setInfoSelected] = useState(null);
+
+	return (
+		<MobileDiv>
+			{serviceSelected === null && (
+				<div className='service-container'>
+					<div
+						className='service-item'
+						onClick={() => {
+							setServiceSelected('Nutrition');
+							setInfoSelected('individuals');
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth',
+							});
+						}}>
+						<h2>Nutrition</h2>
+						<Image
+							styleWrapper={styleWrapper}
+							styleImage={styleImage}
+							lowResSrc={nutrigenomix_low_res}
+							highResSrc={nutrition_high_res}
+						/>
+					</div>
+					<div
+						className='service-item'
+						onClick={() => {
+							setServiceSelected('Strength Training');
+							setInfoSelected('online-coaching');
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth',
+							});
+						}}>
+						<h2>Training</h2>
+						<Image
+							styleWrapper={styleWrapper}
+							styleImage={styleImage}
+							lowResSrc={training_low_res}
+							highResSrc={training_high_res}
+						/>
+					</div>
+					<div
+						className='service-item'
+						onClick={() => {
+							setServiceSelected('Nutrigenomix');
+							setInfoSelected('about');
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth',
+							});
+						}}>
+						<h2>Nutrigenomix</h2>
+						<Image
+							styleWrapper={styleWrapper}
+							styleImage={styleImage}
+							lowResSrc={nutrigenomix_low_res}
+							highResSrc={nutrigenomix_high_res}
+						/>
+					</div>
+				</div>
+			)}
+			{serviceSelected !== null && (
+				<div className='info-container'>
+					<div className='item-menu'>
+						{serviceSelected === 'Nutrition' && (
+							<>
+								<div
+									className={`menu-item ${
+										infoSelected === 'individuals' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('individuals');
+									}}>
+									Individuals
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'team-programs' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('team-programs');
+									}}>
+									Team Programs
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'corporate' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('corporate');
+									}}>
+									Corporate
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'menu-review' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('menu-review');
+									}}>
+									Menu Review
+								</div>
+							</>
+						)}
+						{serviceSelected === 'Strength Training' && (
+							<>
+								<div
+									className={`menu-item ${
+										infoSelected === 'online-coaching' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('online-coaching');
+									}}>
+									Online Coaching
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'personal-training' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('personal-training');
+									}}>
+									Personal Training
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'team-training' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('team-training');
+									}}>
+									Team Training
+								</div>
+							</>
+						)}
+						{serviceSelected === 'Nutrigenomix' && (
+							<>
+								<div
+									className={`menu-item ${
+										infoSelected === 'about' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('about');
+									}}>
+									About Nutrigenomix
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'testing' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('testing');
+									}}>
+									Genetic Testing
+								</div>
+								<div
+									className={`menu-item ${
+										infoSelected === 'package' ? 'selected' : ''
+									}`}
+									onClick={() => {
+										setInfoSelected('package');
+									}}>
+									Bundle with Meal Plan
+								</div>
+							</>
+						)}
+						<div
+							className='menu-item'
+							onClick={() => {
+								setServiceSelected(null);
+								setInfoSelected(null);
+							}}>
+							Go Back
+						</div>
+					</div>
+					<div className='info'>
+						{infoSelected === 'individuals' && (
+							<>
+								<h2>Nutrition Counselling</h2>
+								<p>
+									Say goodbye to guesswork, and hello to a personalized nutrition
+									plan! Work 1:1 with a Registered Dietitian to achieve your
+									goals. Whether you're striving for peak performance, weight
+									loss, improved energy levels, or optimal health and wellbeing
+									for yourself and your family, we offer personalized strategies
+									to support you in achieving your goals.
+								</p>
+								<p>
+									Initial Consult (60 minutes) - $140
+									<br />
+									Follow-up (45 minutes) - $105
+									<br />
+									Follow-up (30 minutes) - $80
+								</p>
+								<h2>Meal Plan Add-On</h2>
+								<p>
+									A meal plan is not the answer for everyone. Your Registered
+									Dietitian will work with you to address the challenges you face
+									to optimally achieve your nutrition goals.
+								</p>
+								<p>Cost - $80</p>
+							</>
+						)}
+						{infoSelected === 'team-programs' && (
+							<>
+								<h2>Team Nutrition Programs</h2>
+								<p>
+									Complement the hard work your athletes are putting in during
+									training with nutrition support. Some services offered include
+									nutrition presentations, interactive activities, or 1:1
+									counselling sessions.
+								</p>
+								<p>
+									Contact us today to design a program that fits the needs of your
+									team.
+								</p>
+							</>
+						)}
+						{infoSelected === 'corporate' && (
+							<>
+								<h2>Employee Nutrition Program</h2>
+								<p>
+									Support the wellbeing of your employees through nutrition
+									support. Healthier and happier employees promote improved
+									productivity, longevity, and a better workplace culture. Some
+									services offered include nutrition presentations, workshops, or
+									one-on-one counselling sessions.
+								</p>
+								<p>
+									Contact us today to discuss the unique needs of your
+									organization.
+								</p>
+							</>
+						)}
+						{infoSelected === 'menu-review' && (
+							<>
+								<h2>Menu Review</h2>
+								<p>
+									Do you provide meals as part of your business? Provide assurance
+									of nutritional balance, and credibility to clients by having
+									your menu reviewed and tailored by a Registered Dietitian.
+								</p>
+								<p>Some examples may include:</p>
+								<ul>
+									<li>Analyzing the nutritional content of your meals</li>
+									<li>Suggesting healthier ingredient substitutions</li>
+									<li>
+										Ensuring compliance with dietary guidelines and regulations
+									</li>
+									<li>
+										Modifying menus for specific dietary needs, such as
+										gluten-free, vegetarian, or diabetic-friendly options
+									</li>
+								</ul>
+								<p>
+									Contact us today to discuss the unique needs of your
+									organization.
+								</p>
+							</>
+						)}
+						{infoSelected === 'online-coaching' && (
+							<>
+								<h2>Online Coaching</h2>
+								<p>
+									Discover the ultimate online coaching experience with a
+									personalized program and consistent support. Our online coaching
+									program is delivered in 4-week intervals with a tailored workout
+									plan, weekly video review and feedback, and on-demand expert
+									guidance through virtual support with your coach.
+								</p>
+								<p>Cost - $150 / 4-weeks</p>
+							</>
+						)}
+						{infoSelected === 'personal-training' && (
+							<>
+								<h2>Personal Training</h2>
+								<p>
+									Experience personalized 1:1 coaching with hands on guidance,
+									immediate feedback, and continuous support throughout your
+									session. Our personal training sessions include a customized
+									weekly program to follow, ensuring continuous progress in
+									between sessions with your coach.
+								</p>
+								<p>
+									1 x per week - $100 per session <br />
+									2 x per week - $90 per session <br />
+									3+ x per week - $75 per session
+								</p>
+								<p>
+									Already a client of online coaching? Add an in-person coaching
+									session for $75
+								</p>
+								<p>
+									Looking for a personal training session without a program to
+									follow? $90 per session
+								</p>
+							</>
+						)}
+						{infoSelected === 'team-training' && (
+							<>
+								<h2>Team Strength and Conditioning</h2>
+								<p>
+									Enhance performance, prevent injuries, and foster resilience
+									within your team through expertly crafted strength and
+									conditioning programs. Bring your athlete preparation to the
+									next level with a periodized program tailored to the needs of
+									your athletes. We offer flexible options which can accommodate a
+									wide range of team sizes and budgets.
+								</p>
+								<p>Contact us today to learn more.</p>
+							</>
+						)}
+						{infoSelected === 'about' && (
+							<>
+								<h2>About Nutrigenomix</h2>
+								<p>
+									<strong>
+										Nutrigenomix provides genetic predisposition for a variety
+										of areas:
+									</strong>
+								</p>
+								<ul>
+									<li>Nutrient metabolism</li>
+									<li>Food intolerances and sensitivities</li>
+									<li>Cardiometabolic health</li>
+									<li>Weight management and body composition </li>
+									<li>Eating habits</li>
+									<li>Exercise physiology, fitness, and injury risk</li>
+								</ul>
+
+								<p>
+									<strong>How is my sample taken?</strong>
+								</p>
+								<p>
+									A saliva test is delivered to your home. It is quick, simple,
+									and painless!
+								</p>
+								<button
+									className='btn'
+									style={{}}
+									onClick={() => {
+										window.open(
+											'https://nutrigenomix.com/storage/pages/about-nutrigenomix.pdf',
+											'_blank'
+										);
+									}}>
+									Learn More
+								</button>
+							</>
+						)}
+						{infoSelected === 'testing' && (
+							<>
+								<h2>Genetic Testing</h2>
+								<p>
+									An advanced genetic testing service that revolutionizes
+									personalized nutrition.
+								</p>
+								<p>Genetic Testing Package - $650</p>
+								<ul>
+									<li>Nutrigenomix genetic test (70 gene test)</li>
+									<li>
+										Follow-up appointment to review genetic test results (45
+										minutes)
+									</li>
+								</ul>
+							</>
+						)}
+						{infoSelected === 'package' && (
+							<>
+								<h2>Genetic Testing & Meal Plan</h2>
+								<p>
+									Combining the genetic test results with a specially tailored
+									meal plan empowers you to achieve optimal health by leveraging
+									personalized nutrition insights.
+								</p>
+								<p>Genetic Testing and Personalized Meal Plan - $850</p>
+								<ul>
+									<li>Initial nutrition assessment (1 hour)</li>
+									<li>Nutrigenomix genetic test (70 gene test)</li>
+									<li>Personalized meal plan</li>
+									<li>
+										Follow-up appointment to review genetic test results (45
+										minutes)
+									</li>
+								</ul>
+							</>
+						)}
+						<button
+							className='btn'
+							onClick={() => {
+								window.open(
+									'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+									'_blank'
+								);
+							}}>
+							Book Appointment
+						</button>
+					</div>
+				</div>
+			)}
 		</MobileDiv>
 	);
 };
@@ -803,80 +1337,125 @@ export const MobileContent = (props) => {
 export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	min-height: calc(100vh - 100px - 4vh);
+	height: calc(100vh - 100px);
+	position: absolute;
+	overflow: hidden;
 
-	& > .service-select {
+	& > .service-container {
+		width: 100%;
+		height: 100%;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: space-evenly;
-		flex-wrap: wrap;
+		align-items: center;
+		overflow: hidden;
 
-		& > .button {
-			color: #333;
-			padding: 1vh 2vw;
-			border: solid 2px #333;
-			border-radius: 2vw;
-			background-color: #d0dceb;
-			transition: all 0.3s;
-			font-size: 4.5vw;
-			box-shadow: 3px 3px 2px #333;
-			width: 40vw;
-			margin-bottom: 0.5em;
-		}
-		& > .button:hover {
-			cursor: pointer;
-		}
-		& > .active {
-			background-color: #87ceeb;
-			box-shadow: 0px 0px 2px gray;
-			translate: 2px 2px;
+		& > .service-item {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 90%;
+			height: 30%;
+			background-color: black;
+			border-radius: 10px;
+			overflow: hidden;
+
+			& > h2 {
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				color: #d2d2d2;
+				font-size: x-large;
+				margin: 0;
+				top: 10%;
+				padding: 1ch 0;
+				background-color: rgba(0, 0, 0, 0.5);
+				z-index: 2;
+			}
 		}
 	}
 
-	& > .service-info {
-		margin: 0vh 2vw 0 2vw;
-		flex: 1;
-		padding: 1vh 1vw;
-		border-radius: 5vw;
+	& > .info-container {
+		color: white;
+		position: absolute;
+		width: calc(100% - 20px);
+		height: calc(100vh - 120px);
+		top: 10px;
+		border-radius: 10px;
+		background-color: black;
 		display: flex;
 		flex-direction: column;
-		text-align: justify;
+		justify-content: start;
 		align-items: center;
+		overflow: hidden;
+		border: 3px solid black;
 
-		& > h3 {
-			text-align: center;
-			font-size: calc(max(3vw, 3vh));
-			font-weight: 700;
-			padding-top: 2vh;
-		}
-		& > p {
-			padding: 0 1.5vw;
-			font-size: calc(max(2vw, 2vh));
-		}
+		& > .item-menu {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			padding-top: 10px;
 
-		& > ul {
-			font-size: calc(max(2vw, 2vh));
-			align-self: start;
-		}
+			& > .menu-item {
+				width: 100%;
+				text-align: center;
+				padding: 5px 0;
+				font-size: x-large;
+				border: 2px solid black;
+			}
 
-		& > .appointment {
-			border: solid 2px #333;
-			color: #333;
-			border-radius: 3vw;
-			position: relative;
-			font-size: calc(max(3vw, 3vh));
-			padding: 1vh 2vw;
-			box-shadow: 2px 2px 2px #333;
-			background-color: #d0dceb;
+			& > .selected {
+				font-weight: bold;
+				color: #87ceeb;
+				border: 2px solid #87ceeb;
+			}
 		}
 
-		& > img {
-			margin-top: 3vh;
-			max-width: 70vw;
-			max-height: 40vh;
+		& > .info {
+			flex: 1;
+			width: 100%;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			background-color: #d2d2d2;
+			color: black;
+
+			& > h2 {
+				width: 100%;
+				margin: 1ch 0;
+				padding: 0;
+				text-align: center;
+				font-size: x-large;
+			}
+
+			& > p {
+				width: calc(100% - 4ch);
+				font-size: large;
+				margin: 1ch 0;
+			}
+
+			& > ul {
+				width: calc(100% - 8ch);
+				font-size: large;
+			}
+
+			& > button {
+				box-shadow: none;
+				margin-bottom: 20px;
+
+				&:active {
+					box-shadow: none;
+				}
+			}
 		}
 	}
 `;

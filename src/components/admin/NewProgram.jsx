@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Loader from './Loader';
-import LoaderMobile from '../client/LoaderMobile';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useState, useEffect, useRef } from 'react';
 
@@ -650,12 +649,12 @@ const NewProgram = () => {
 											<div className='title'>{`Day: ${dayIndex + 1}`}</div>
 											<div className='category'>
 												<div className='title'>
-													<span
+													<button
 														onClick={() => {
 															addMobilityItem(dayIndex);
 														}}>
 														Add Mobility
-													</span>
+													</button>
 												</div>
 												<>
 													{dayObject.mobility.map((item, itemIndex) => {
@@ -741,12 +740,12 @@ const NewProgram = () => {
 											</div>
 											<div className='category'>
 												<div className='title'>
-													<span
+													<button
 														onClick={() => {
 															addStrengthItem(dayIndex);
 														}}>
 														Add Strength
-													</span>
+													</button>
 												</div>
 												<>
 													{dayObject.strength.map((item, itemIndex) => {
@@ -847,12 +846,12 @@ const NewProgram = () => {
 											</div>
 											<div className='category'>
 												<div className='title'>
-													<span
+													<button
 														onClick={() => {
 															addConditioningItem(dayIndex);
 														}}>
 														Add Conditioning
-													</span>
+													</button>
 												</div>
 												<>
 													{dayObject.conditioning.map(
@@ -960,431 +959,12 @@ const NewProgram = () => {
 					</>
 				)}
 			</DesktopDiv>
-			<MobileDiv>
-				{alertMessage !== '' && (
-					<>
-						<div
-							className='alert-background'
-							onClick={() => {
-								setAlertMessage('');
-							}}
-						/>
-						<div className='alert'>
-							<button
-								className='close'
-								onClick={() => {
-									setAlertMessage('');
-								}}>
-								X
-							</button>
-							<div className='message'>{alertMessage}</div>
-						</div>
-					</>
-				)}
-				{awaiting && (
-					<div className='loader-wrapper'>
-						<LoaderMobile />
-					</div>
-				)}
-				<div className='search'>
-					<label htmlFor='search'>User:</label>
-					<div className='search-results'>
-						<input
-							type='text'
-							name='search'
-							id='search'
-							onChange={onChangeSearch}
-							value={searchValue}
-							onKeyDown={onKeyDownSearch}
-							placeholder='Type a name to begin search'
-						/>
-						{searchValue && (
-							<div className='dropdown'>
-								{users
-									?.filter((user) => {
-										return user[0]
-											.toLowerCase()
-											.includes(searchValue.toLowerCase());
-									})
-									.slice(0, 10)
-									.sort()
-									.map((user, i) => {
-										return (
-											<li
-												id={`user-${i}`}
-												key={user[1]}
-												className='dropdown-row'
-												onClick={onClickSearch}
-												onMouseMove={onMouseMoveSearch}
-												onMouseLeave={onMouseLeaveSearch}>
-												{user[0]}
-											</li>
-										);
-									})}
-							</div>
-						)}
-					</div>
-				</div>
-				{selectedUser !== '' && (
-					<>
-						<div className='new-program'>
-							<div className='header'>
-								<span className='name'>
-									Client:<strong>{`${selectedUser[0]}`}</strong>
-								</span>
-								<div className='days'>
-									<span>Total Days:</span>
-									<button
-										style={{
-											borderRadius: '5px 0 0 5px',
-											borderWidth: '2px 0 2px 2px',
-										}}
-										onClick={() => {
-											handleDayChange('decrease');
-										}}>
-										<i className='bi bi-dash-lg' />
-									</button>
-
-									<span className='number'>{programData.length}</span>
-									<button
-										style={{
-											borderRadius: '0 5px 5px 0',
-											borderWidth: '2px 2px 2px 0',
-										}}
-										onClick={() => {
-											handleDayChange('increase');
-										}}>
-										<i className='bi bi-plus-lg' />
-									</button>
-								</div>
-							</div>
-							<div className='content'>
-								{programData.map((dayObject, dayIndex) => {
-									return (
-										<div
-											className='day'
-											id={`day-${dayIndex}`}
-											key={`day-${dayIndex}`}>
-											<div className='title'>{`Day: ${dayIndex + 1}`}</div>
-											<div className='category'>
-												<div className='title'>
-													<span
-														onClick={() => {
-															addMobilityItem(dayIndex);
-														}}>
-														Add Mobility
-													</span>
-												</div>
-												<>
-													{dayObject.mobility.map((item, itemIndex) => {
-														return (
-															<div
-																className='item-mobility'
-																id={`day-${dayIndex}-mobility-${itemIndex}`}
-																key={`day-${dayIndex}-mobility-${itemIndex}`}>
-																<input
-																	type='text'
-																	name='name'
-																	id={`day-${dayIndex}-mobility-${itemIndex}-name`}
-																	key={`day-${dayIndex}-mobility-${itemIndex}-name`}
-																	value={
-																		programData[dayIndex]
-																			.mobility[itemIndex]
-																			.name
-																	}
-																	placeholder='Name'
-																	onChange={(e) => {
-																		handleMobilityChange(e);
-																	}}
-																/>
-																<input
-																	type='number'
-																	name='sets'
-																	id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
-																	key={`day-${dayIndex}-mobility-${itemIndex}-sets`}
-																	value={
-																		programData[dayIndex]
-																			.mobility[itemIndex]
-																			.sets
-																	}
-																	placeholder='Sets'
-																	onChange={(e) => {
-																		handleMobilityChange(e);
-																	}}
-																	min={1}
-																/>
-																<input
-																	type='number'
-																	name='reps'
-																	id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
-																	key={`day-${dayIndex}-mobility-${itemIndex}-reps`}
-																	value={
-																		programData[dayIndex]
-																			.mobility[itemIndex]
-																			.reps
-																	}
-																	placeholder='Reps'
-																	onChange={(e) => {
-																		handleMobilityChange(e);
-																	}}
-																	min={1}
-																/>
-																<input
-																	type='text'
-																	name='comment'
-																	id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
-																	key={`day-${dayIndex}-mobility-${itemIndex}-comment`}
-																	value={
-																		programData[dayIndex]
-																			.mobility[itemIndex]
-																			.comment
-																	}
-																	placeholder='Comments (optional)'
-																	onChange={(e) => {
-																		handleMobilityChange(e);
-																	}}
-																/>
-																<button
-																	id={`day-${dayIndex}-mobility-${itemIndex}-button`}
-																	key={`day-${dayIndex}-mobility-${itemIndex}-button`}
-																	onClick={(e) =>
-																		removeMobilityItem(e)
-																	}>
-																	X
-																</button>
-															</div>
-														);
-													})}
-												</>
-											</div>
-											<div className='category'>
-												<div className='title'>
-													<span
-														onClick={() => {
-															addStrengthItem(dayIndex);
-														}}>
-														Add Strength
-													</span>
-												</div>
-												<>
-													{dayObject.strength.map((item, itemIndex) => {
-														return (
-															<div
-																className='item-strength'
-																id={`day-${dayIndex}-strength-${itemIndex}`}
-																key={`day-${dayIndex}-strength-${itemIndex}`}>
-																<input
-																	type='text'
-																	name='name'
-																	id={`day-${dayIndex}-strength-${itemIndex}-name`}
-																	key={`day-${dayIndex}-strength-${itemIndex}-name`}
-																	value={
-																		programData[dayIndex]
-																			.strength[itemIndex]
-																			.name
-																	}
-																	placeholder='Name'
-																	onChange={(e) => {
-																		handleStrengthChange(e);
-																	}}
-																/>
-																<input
-																	type='number'
-																	name='sets'
-																	id={`day-${dayIndex}-strength-${itemIndex}-sets`}
-																	key={`day-${dayIndex}-strength-${itemIndex}-sets`}
-																	value={
-																		programData[dayIndex]
-																			.strength[itemIndex]
-																			.sets
-																	}
-																	placeholder='Sets'
-																	onChange={(e) => {
-																		handleStrengthChange(e);
-																	}}
-																	min={1}
-																/>
-																<input
-																	type='number'
-																	name='reps'
-																	id={`day-${dayIndex}-strength-${itemIndex}-reps`}
-																	key={`day-${dayIndex}-strength-${itemIndex}-reps`}
-																	value={
-																		programData[dayIndex]
-																			.strength[itemIndex]
-																			.reps
-																	}
-																	placeholder='Reps'
-																	onChange={(e) => {
-																		handleStrengthChange(e);
-																	}}
-																	min={1}
-																/>
-																<input
-																	type='number'
-																	name='load'
-																	id={`day-${dayIndex}-strength-${itemIndex}-load`}
-																	key={`day-${dayIndex}-strength-${itemIndex}-load`}
-																	value={
-																		programData[dayIndex]
-																			.strength[itemIndex]
-																			.load
-																	}
-																	placeholder='Load'
-																	onChange={(e) => {
-																		handleStrengthChange(e);
-																	}}
-																/>
-																<input
-																	type='text'
-																	name='comment'
-																	id={`day-${dayIndex}-strength-${itemIndex}-comment`}
-																	key={`day-${dayIndex}-strength-${itemIndex}-comment`}
-																	value={
-																		programData[dayIndex]
-																			.strength[itemIndex]
-																			.comment
-																	}
-																	placeholder='Comments (optional)'
-																	onChange={(e) => {
-																		handleStrengthChange(e);
-																	}}
-																/>
-																<button
-																	id={`day-${dayIndex}-strength-${itemIndex}-button`}
-																	key={`day-${dayIndex}-strength-${itemIndex}-button`}
-																	onClick={(e) =>
-																		removeStrengthItem(e)
-																	}>
-																	X
-																</button>
-															</div>
-														);
-													})}
-												</>
-											</div>
-											<div className='category'>
-												<div className='title'>
-													<span
-														onClick={() => {
-															addConditioningItem(dayIndex);
-														}}>
-														Add Conditioning
-													</span>
-												</div>
-												<>
-													{dayObject.conditioning.map(
-														(item, itemIndex) => {
-															return (
-																<div
-																	className='item-conditioning'
-																	id={`day-${dayIndex}-conditioning-${itemIndex}`}
-																	key={`day-${dayIndex}-conditioning-${itemIndex}`}>
-																	<input
-																		type='text'
-																		name='name'
-																		id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
-																		key={`day-${dayIndex}-conditioning-${itemIndex}-name`}
-																		value={
-																			programData[dayIndex]
-																				.conditioning[
-																				itemIndex
-																			].name
-																		}
-																		placeholder='Name'
-																		onChange={(e) => {
-																			handleConditioningChange(
-																				e
-																			);
-																		}}
-																	/>
-																	<input
-																		type='number'
-																		name='duration'
-																		id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
-																		key={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
-																		value={
-																			programData[dayIndex]
-																				.conditioning[
-																				itemIndex
-																			].duration
-																		}
-																		placeholder='Duration (min)'
-																		onChange={(e) => {
-																			handleConditioningChange(
-																				e
-																			);
-																		}}
-																	/>
-																	<input
-																		type='text'
-																		name='comment'
-																		id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
-																		key={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
-																		value={
-																			programData[dayIndex]
-																				.conditioning[
-																				itemIndex
-																			].comment
-																		}
-																		placeholder='Comments (optional)'
-																		onChange={(e) => {
-																			handleConditioningChange(
-																				e
-																			);
-																		}}
-																	/>
-																	<button
-																		id={`day-${dayIndex}-conditioning-${itemIndex}-button`}
-																		key={`day-${dayIndex}-conditioning-${itemIndex}-button`}
-																		onClick={(e) =>
-																			removeConditioningItem(
-																				e
-																			)
-																		}>
-																		X
-																	</button>
-																</div>
-															);
-														}
-													)}
-												</>
-											</div>
-										</div>
-									);
-								})}
-							</div>
-							<div className='btn-container'>
-								<div className='date'>
-									<span>Release On:</span>
-									<input
-										type='date'
-										name='release-date'
-										value={releaseDate}
-										onChange={handleReleaseChange}
-										style={{ marginLeft: '1em' }}
-										min={dateToday}
-									/>
-								</div>
-								<button onClick={handleSubmit}>Submit</button>
-								<button
-									onClick={() => {
-										resetAll();
-									}}>
-									Clear All
-								</button>
-							</div>
-						</div>
-					</>
-				)}
-			</MobileDiv>
 		</>
 	);
 };
 
-export default NewProgram;
-
 export const DesktopDiv = styled.div`
+	// Display for desktop size
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		width: 100%;
 		height: 100%;
@@ -1392,7 +972,7 @@ export const DesktopDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		font-size: calc(min(2vw, 2vh));
+		font-size: large;
 		position: absolute;
 		overflow-x: hidden;
 		overflow-y: scroll;
@@ -1413,25 +993,28 @@ export const DesktopDiv = styled.div`
 			z-index: 4;
 			width: max-content;
 			height: max-content;
-			border: 2px solid #333;
+			border: 2px solid black;
 			border-radius: 10px;
 			left: 50%;
 			top: 50%;
 			transform: translate(-50%, -50%);
-			background-color: #d0dceb;
+			background-color: #d2d2d2;
+			color: black;
 
 			& > .close {
 				width: 2em;
-				background-color: darkred;
-				border: 2px solid #333;
+				background-color: black;
+				color: white;
+				border: 2px solid black;
 				border-radius: 5px;
 				position: absolute;
 				right: 0%;
 				top: 0%;
 				transform: translate(50%, -50%);
-
-				&:hover {
-					background-color: red;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						background-color: #87ceeb;
+					}
 				}
 			}
 
@@ -1441,10 +1024,9 @@ export const DesktopDiv = styled.div`
 		}
 
 		& > h3 {
-			font-size: calc(min(3vw, 3vh));
+			font-size: x-large;
 			width: 100%;
-			margin-top: 1em;
-			margin-bottom: 1em;
+			margin: 1ch 0 2ch;
 			text-align: center;
 		}
 
@@ -1456,40 +1038,53 @@ export const DesktopDiv = styled.div`
 			text-align: center;
 
 			& label {
-				width: 20%;
+				width: fit-content;
 				text-align: end;
-				padding-right: 2vw;
+				padding-right: 2ch;
+				font-size: large;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 
 			& > .search-results {
-				width: 50%;
+				width: calc(min(400px, 50%));
+				font-size: large;
 				display: flex;
 				flex-direction: column;
 				position: relative;
 
 				& > input {
 					width: 100%;
+					font-size: large;
+					text-align: start;
+					padding: 0.5ch;
 				}
 
 				& > .dropdown {
 					width: 100%;
+					color: black;
 					background-color: white;
-					border: solid 1px #333;
+					border: solid 2px black;
 					position: absolute;
 					top: 100%;
 					z-index: 2;
 
 					& > .dropdown-row {
 						list-style: none;
-						padding: 0.5vh 0;
+						padding: 0.5ch 0;
 
-						&:hover {
-							cursor: pointer;
+						@media (hover: hover) and (pointer: fine) {
+							&:hover {
+								cursor: pointer;
+							}
 						}
 					}
 
-					& > .hover {
-						background-color: lightgray;
+					@media (hover: hover) and (pointer: fine) {
+						& > .hover {
+							background-color: lightgray;
+						}
 					}
 				}
 			}
@@ -1497,7 +1092,8 @@ export const DesktopDiv = styled.div`
 
 		& > .new-program {
 			width: 100%;
-			flex: 1;
+			margin: 2em 0;
+			height: fit-content;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -1509,15 +1105,16 @@ export const DesktopDiv = styled.div`
 				flex-direction: row;
 				align-items: center;
 				justify-content: space-around;
+				margin-bottom: 10px;
 
 				& > .name {
 					width: fit-content;
 					text-align: left;
-					padding-left: 5%;
-					margin-top: 1em;
+					padding-left: 20px;
+					font-size: large;
 
 					& > strong {
-						margin-left: 0.5em;
+						margin-left: 1ch;
 					}
 				}
 
@@ -1525,9 +1122,10 @@ export const DesktopDiv = styled.div`
 					flex: 1;
 					display: flex;
 					flex-direction: row;
-					justify-content: end;
+					justify-content: start;
 					align-items: center;
-					margin-left: 5%;
+					padding: 0 25px;
+					font-size: large;
 					flex-wrap: wrap;
 
 					& > .days {
@@ -1535,53 +1133,58 @@ export const DesktopDiv = styled.div`
 						flex-direction: row;
 						align-items: center;
 						justify-content: center;
-						margin: 1em 0.5em 0;
-
-						& > .number {
-							padding: 0 0.5em;
-							margin: 0 0.5em;
-							background-color: #ffffff;
-							border: 2px solid #333;
-							width: 3em;
-							border-radius: 5px;
-							text-align: center;
-						}
 
 						& > span {
-							margin-right: 0.5em;
+							margin-right: 1ch;
+						}
+
+						& > .number {
+							padding: 0 0.5ch;
+							margin: 0 0.5ch;
+							color: black;
+							background-color: white;
+							width: 3ch;
+							text-align: center;
+							border-radius: 5px;
 						}
 
 						& > button {
-							background-color: #87ceeb;
-							border: 2px solid #333;
+							height: 100%;
+							color: white;
+							background-color: black;
+							border: 3px solid #87ceeb;
 							border-radius: 10px;
-							padding: 3px 8px;
-							color: black;
-							box-shadow: 2px 2px 2px #333;
+							box-shadow: 2px 2px 2px #87ceeb;
 							width: max-content;
+							padding: 5px 10px;
 
-							&:hover {
-								background-color: #5f90a5;
-								cursor: pointer;
-							}
-							&:active {
-								translate: 2px 2px;
-								box-shadow: 0 0 0;
+							@media (hover: hover) and (pointer: fine) {
+								&:hover {
+									cursor: pointer;
+									background-color: #87ceeb;
+									color: black;
+								}
+
+								&:active {
+									translate: 2px 2px;
+									box-shadow: none;
+								}
 							}
 						}
 					}
 				}
 			}
+
 			& > .content {
 				width: 100%;
-				flex: 1;
+				height: fit-content;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
-				border: solid #333;
-				border-width: 2px 0 0 0;
-				margin-top: 1em;
+				border: solid white;
+				border-width: 3px 0 0 0;
+				margin-top: 10px;
 
 				& > .day {
 					width: 100%;
@@ -1589,15 +1192,15 @@ export const DesktopDiv = styled.div`
 					flex-direction: column;
 					justify-content: start;
 					align-items: center;
-					border: solid #333;
-					border-width: 0 0 2px 0;
+					border: solid white;
+					border-width: 0 0 3px 0;
+					padding: 10px 0;
 
 					& > .title {
 						width: 100%;
-						font-size: 1.2em;
-						text-align: left;
-						padding-left: 2em;
-						margin-bottom: 1em;
+						font-size: large;
+						padding-left: 20px;
+						margin-bottom: 1ch;
 					}
 
 					& > .category {
@@ -1612,137 +1215,186 @@ export const DesktopDiv = styled.div`
 							width: 100%;
 							text-align: start;
 							align-self: start;
-							padding-left: 2em;
-							margin-bottom: 1em;
+							padding-left: 10px;
+							margin-bottom: 1ch;
+							font-size: large;
 
-							& > span {
-								background-color: #87ceeb;
-								border: 2px solid black;
-								box-shadow: 2px 2px 2px #333;
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
 								border-radius: 10px;
-								padding: 3px 8px;
+								font-size: large;
+								padding: 5px 10px;
 
-								&:hover {
-									background-color: #5f90a5;
-									cursor: pointer;
-								}
-								&:active {
-									box-shadow: 0 0 0;
-									translate: 2px, 2px;
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
 								}
 							}
 						}
 
 						& > .item-mobility {
-							width: 100%;
+							width: calc(100% - 20px + 1ch);
 							display: flex;
 							flex-direction: row;
 							align-items: center;
 							justify-content: space-evenly;
 							margin-bottom: 5px;
+							font-size: large;
+
+							& > input {
+								font-size: large;
+								margin: 0 0.5ch;
+							}
 
 							& > input[name='name'] {
-								width: calc(40% - 7.5em);
+								flex: 6;
 							}
 							& > input[name='sets'] {
-								width: 5em;
+								width: 8ch;
 							}
 							& > input[name='reps'] {
-								width: 5em;
+								width: 8ch;
 							}
 							& > input[name='comment'] {
-								width: calc(60% - 7.5em);
+								flex: 8;
 							}
-							& > button {
-								background-color: darkred;
-								border: 2px solid #333;
-								border-radius: 5px;
-								box-shadow: 2px 2px 2px #333;
-								width: 2em;
 
-								&:hover {
-									background-color: red;
-									cursor: pointer;
-								}
-								&:active {
-									translate: 2px 2px;
-									box-shadow: 0 0 0;
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								padding: 5px 10px;
+								font-size: large;
+								margin-right: 0.5ch;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
 								}
 							}
 						}
 
 						& > .item-strength {
-							width: 100%;
+							width: calc(100% - 20px + 1ch);
 							display: flex;
 							flex-direction: row;
 							align-items: center;
 							justify-content: space-evenly;
 							margin-bottom: 5px;
+							font-size: large;
+
+							& > input {
+								font-size: large;
+								margin: 0 0.5ch;
+							}
 
 							& > input[name='name'] {
-								width: calc(40% - 10em);
+								flex: 6;
 							}
 							& > input[name='sets'] {
-								width: 5em;
+								width: 8ch;
 							}
 							& > input[name='reps'] {
-								width: 5em;
+								width: 8ch;
 							}
 							& > input[name='load'] {
-								width: 5em;
+								width: 8ch;
 							}
 							& > input[name='comment'] {
-								width: calc(60% - 10em);
+								flex: 8;
 							}
-							& > button {
-								background-color: darkred;
-								border: 2px solid #333;
-								border-radius: 5px;
-								box-shadow: 2px 2px 2px #333;
-								width: 2em;
 
-								&:hover {
-									background-color: red;
-									cursor: pointer;
-								}
-								&:active {
-									translate: 2px 2px;
-									box-shadow: 0 0 0;
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								padding: 5px 10px;
+								font-size: large;
+								margin-right: 0.5ch;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
 								}
 							}
 						}
 
 						& > .item-conditioning {
-							width: 100%;
+							width: calc(100% - 20px + 1ch);
 							display: flex;
 							flex-direction: row;
 							align-items: center;
 							justify-content: space-evenly;
 							margin-bottom: 5px;
+							font-size: large;
+
+							& > input {
+								font-size: large;
+								margin: 0 0.5ch;
+							}
 
 							& > input[name='name'] {
-								width: calc(40% - 7.5em);
+								flex: 6;
 							}
 							& > input[name='duration'] {
-								width: 11em;
+								width: 14ch;
 							}
 							& > input[name='comment'] {
-								width: calc(60% - 7.5em);
+								flex: 8;
 							}
-							& > button {
-								background-color: darkred;
-								border: 2px solid #333;
-								border-radius: 5px;
-								box-shadow: 2px 2px 2px #333;
-								width: 2em;
 
-								&:hover {
-									background-color: red;
-									cursor: pointer;
-								}
-								&:active {
-									translate: 2px 2px;
-									box-shadow: 0 0 0;
+							& > button {
+								background-color: black;
+								color: white;
+								border: 2px solid #87ceeb;
+								box-shadow: 2px 2px 2px #87ceeb;
+								border-radius: 10px;
+								padding: 5px 10px;
+								font-size: large;
+								margin-right: 0.5ch;
+
+								@media (hover: hover) and (pointer: fine) {
+									&:hover {
+										background-color: #87ceeb;
+										color: black;
+										cursor: pointer;
+									}
+
+									&:active {
+										box-shadow: 0 0 0;
+										translate: 2px 2px;
+									}
 								}
 							}
 						}
@@ -1757,407 +1409,54 @@ export const DesktopDiv = styled.div`
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-evenly;
-			padding: 5px 0;
-			margin: 1em 0;
+			margin: 10px 0 20px;
+
+			& > .date {
+				width: fit-content;
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+				font-size: large;
+
+				& > input {
+					font-size: large;
+					margin-left: 5px;
+					padding: 0.5ch 1ch;
+				}
+			}
 
 			& > button {
-				background-color: #87ceeb;
-				border: 2px solid #333;
+				height: 100%;
+				color: white;
+				background-color: black;
+				border: 3px solid #87ceeb;
 				border-radius: 10px;
-				padding: 3px 8px;
-				color: #333;
-				box-shadow: 3px 3px 2px #333;
+				box-shadow: 2px 2px 2px #87ceeb;
 				width: max-content;
+				font-size: large;
+				padding: 5px 10px;
 
-				&:hover {
-					background-color: #5f90a5;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 3px 3px;
-					box-shadow: 0 0 0;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+
+					&:active {
+						translate: 2px 2px;
+						box-shadow: none;
+					}
 				}
 			}
 		}
 	}
 
-	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+	// Hide for mobile size
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT}) or (width: ${MOBILE_MODE_LIMIT})) {
 		display: none;
 	}
 `;
 
-export const MobileDiv = styled.div`
-	display: none;
-
-	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: center;
-		position: relative;
-		overflow-x: hidden;
-
-		& > .alert-background {
-			position: fixed;
-			z-index: 3;
-			width: 100%;
-			height: 100%;
-			top: 100px;
-			opacity: 0.8;
-			background-color: #f0e9df;
-		}
-
-		& > .alert {
-			position: fixed;
-			z-index: 4;
-			width: max-content;
-			max-width: 80%;
-			height: max-content;
-			max-height: 60%;
-			border: 2px solid #333;
-			border-radius: 10px;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			background-color: #d0dceb;
-
-			& > .close {
-				width: 2em;
-				aspect-ratio: 1/1;
-				background-color: darkred;
-				border: 2px solid #333;
-				border-radius: 5px;
-				position: absolute;
-				right: 0%;
-				top: 0%;
-				transform: translate(50%, -50%);
-			}
-
-			& > .message {
-				margin: 0.5em 0.5em;
-			}
-		}
-
-		& > .loader-wrapper {
-			position: fixed;
-			height: calc(100vh - 100px - 4vh - 2em - 1ch - 2px);
-			top: calc(100px + 2em + 1ch + 2px);
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
-
-		& > .search {
-			width: 85%;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			margin: 1em 1em;
-
-			& > label {
-				width: 10ch;
-				padding-right: 1ch;
-				text-align: end;
-			}
-
-			& > .search-results {
-				flex: 1;
-				position: relative;
-				margin-right: 1ch;
-
-				& > input {
-					width: 100%;
-				}
-
-				& > .dropdown {
-					background-color: white;
-					border: solid 1px #333;
-					position: absolute;
-					top: 100%;
-					width: 100%;
-					z-index: 2;
-
-					& > .dropdown-row {
-						width: 100%;
-						list-style: none;
-						padding: 0.5vh 0;
-						text-align: center;
-					}
-				}
-			}
-		}
-
-		& > .new-program {
-			width: 100%;
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: start;
-
-			& > .header {
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: start;
-				justify-content: start;
-
-				& > .name {
-					width: 100%;
-					text-align: left;
-					margin-left: 1em;
-
-					& > strong {
-						margin-left: 0.5em;
-					}
-				}
-
-				& > .days {
-					width: 100%;
-					display: flex;
-					flex-direction: row;
-					justify-content: start;
-					align-items: center;
-					margin-left: 1em;
-					margin-top: 0.5em;
-
-					& > span {
-						margin-right: 0.5em;
-					}
-
-					& > .number {
-						padding: 2px 2ch;
-						background-color: #ffffff;
-						border: 2px solid #333;
-						width: max-content;
-						text-align: center;
-						margin-right: 0;
-					}
-
-					& > button {
-						background-color: #87ceeb;
-						border: solid #333;
-						padding: 2px 10px;
-						color: #333;
-						width: max-content;
-					}
-				}
-			}
-
-			& > .content {
-				width: 100%;
-				height: fit-content;
-				display: flex;
-				flex-direction: column;
-				justify-content: start;
-				align-items: center;
-				border: solid #333;
-				border-width: 2px 0 0 0;
-				margin-top: 0.5em;
-
-				& > .day {
-					width: 100%;
-					display: flex;
-					flex-direction: column;
-					justify-content: start;
-					align-items: center;
-					border: solid #333;
-					border-width: 0 0 2px 0;
-
-					& > .title {
-						width: 100%;
-						font-size: 1.2em;
-						text-align: left;
-						padding-left: 1em;
-						margin-bottom: 0.5em;
-					}
-
-					& > .category {
-						width: 100%;
-						font-size: 1.1em;
-						text-align: left;
-						padding-left: 1em;
-						margin-bottom: 0.5em;
-
-						& > .title {
-							width: 100%;
-							text-align: start;
-							align-self: start;
-							padding-left: 1em;
-							margin-bottom: 0.5em;
-
-							& > span {
-								background-color: #87ceeb;
-								border: 2px solid black;
-								border-radius: 5px;
-								padding: 2px 10px;
-								box-shadow: 2px 2px 2px #333;
-							}
-						}
-
-						& > .item-mobility {
-							width: 90%;
-							height: fit-content;
-							display: flex;
-							flex-direction: row;
-							flex-wrap: wrap;
-							align-items: center;
-							justify-content: start;
-							margin-bottom: 3px;
-
-							& > input {
-								border: 1px solid #333;
-								margin-top: 0.25em;
-								margin-bottom: 0.25em;
-							}
-
-							& > input[name='name'] {
-								width: calc(100% - 1em - 10ch);
-								margin-right: 0.5em;
-							}
-							& > input[name='sets'] {
-								width: calc(5ch);
-								margin-right: 0.5em;
-							}
-							& > input[name='reps'] {
-								width: calc(5ch);
-							}
-							& > input[name='comment'] {
-								width: calc(100% - 2.5em);
-								margin-right: 0.5em;
-							}
-							& > button {
-								background-color: darkred;
-								border: 2px solid #333;
-								border-radius: 5px;
-								box-shadow: 2px 2px 2px #333;
-								width: 2em;
-							}
-						}
-
-						& > .item-strength {
-							width: 90%;
-							height: fit-content;
-							display: flex;
-							flex-direction: row;
-							flex-wrap: wrap;
-							align-items: center;
-							justify-content: start;
-							margin-bottom: 3px;
-
-							& > input {
-								border: 1px solid #333;
-								margin-top: 0.25em;
-								margin-bottom: 0.25em;
-							}
-
-							& > input[name='name'] {
-								width: calc(100% - 1em - 10ch);
-								margin-right: 0.5em;
-							}
-							& > input[name='sets'] {
-								width: calc(5ch);
-								margin-right: 0.5em;
-							}
-							& > input[name='reps'] {
-								width: calc(5ch);
-							}
-							& > input[name='load'] {
-								width: calc(5ch);
-								margin-right: 0.5em;
-							}
-							& > input[name='comment'] {
-								width: calc(100% - 3em - 5ch);
-								margin-right: 0.5em;
-							}
-							& > button {
-								background-color: darkred;
-								border: 2px solid #333;
-								border-radius: 5px;
-								box-shadow: 2px 2px 2px #333;
-								width: 2em;
-							}
-						}
-
-						& > .item-conditioning {
-							width: 90%;
-							height: fit-content;
-							display: flex;
-							flex-direction: row;
-							flex-wrap: wrap;
-							align-items: center;
-							justify-content: start;
-							margin-bottom: 3px;
-
-							& > input {
-								border: 1px solid #333;
-								margin-top: 0.25em;
-								margin-bottom: 0.25em;
-							}
-
-							& > input[name='name'] {
-								width: calc(100% - 0.5em - 15ch);
-								margin-right: 0.5em;
-							}
-							& > input[name='duration'] {
-								width: calc(15ch);
-							}
-							& > input[name='comment'] {
-								width: calc(100% - 2.5em);
-								margin-right: 0.5em;
-							}
-							& > button {
-								background-color: darkred;
-								border: 2px solid #333;
-								border-radius: 5px;
-								box-shadow: 2px 2px 2px #333;
-								width: 2em;
-							}
-						}
-					}
-				}
-			}
-
-			& > .btn-container {
-				width: 100%;
-				height: fit-content;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				flex-wrap: wrap;
-				margin: 0.5em 0;
-				overflow-x: hidden;
-
-				& > .date {
-					width: 100%;
-					margin-bottom: 0.5em;
-
-					& > span {
-						margin-left: 2em;
-						width: 12ch;
-						margin-right: 0.5em;
-						text-align: right;
-					}
-					& > input {
-						width: calc(100% - 12ch - 4.5em);
-					}
-				}
-
-				& > button {
-					background-color: #87ceeb;
-					border: 2px solid black;
-					border-radius: 5px;
-					padding: 2px 10px;
-					box-shadow: 2px 2px 2px #333;
-					width: 10ch;
-					margin: 1em 1em 0;
-				}
-			}
-		}
-	}
-`;
+export default NewProgram;

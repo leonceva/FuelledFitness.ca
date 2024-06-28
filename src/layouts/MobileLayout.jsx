@@ -1,46 +1,46 @@
-import { styled } from 'styled-components';
-import Footer from '../components/Footer';
-import BackToTop from '../components/BackToTopButton';
+import styled from 'styled-components';
+import BackToTop from '../components/BackToTop';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const MobileLayout = (props) => {
 	const content = props.content;
-
 	return (
-		<MobileContainer>
-			<div className='mobile-content'>{content}</div>
+		<MobileDiv>
+			<div className='background' />
+			<div className='content'>{content}</div>
 			<BackToTop />
-			<Footer />
-		</MobileContainer>
+		</MobileDiv>
 	);
 };
 
-export const MobileContainer = styled.div`
+export default MobileLayout;
+
+export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: start;
 	width: 100vw;
-	position: relative;
-	align-items: end;
-	align-content: end;
-	z-index: 0;
 
+	& > .background {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		background-color: #d2d2d2;
+	}
+
+	& > .content {
+		width: 100vw;
+		z-index: 1;
+		position: relative;
+		top: 0;
+	}
+
+	// Hide for desktop size
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		display: none;
 	}
-
-	@media screen and (width: ${MOBILE_MODE_LIMIT}) {
-		display: inherit;
-	}
-
-	& > .mobile-content {
-		background-image: linear-gradient(to right, white, lightgray, white);
-		height: auto;
-		text-align: center;
-		width: 100%;
-		z-index: 0;
-		height: 92%;
-	}
 `;
-
-export default MobileLayout;

@@ -1,32 +1,66 @@
-import Navbar from "../components/Navbar";
-import { Outlet } from "react-router-dom";
-import { styled } from "styled-components";
+import { Outlet, useLocation } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { useEffect } from 'react';
+import Navbar from '../components/Navbar';
+
+const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
 const Root = () => {
-    return (
-        <RootDiv>
-            <div className="header">
-                <Navbar />
-            </div>
+	const { pathname } = useLocation();
 
-            <div className="body">
-                <Outlet />
-            </div>
-        </RootDiv>
-    );
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
+
+	return (
+		<RootDiv>
+			<div className='navbar'>
+				<Navbar />
+			</div>
+			<div className='outlet'>
+				<Outlet />
+			</div>
+		</RootDiv>
+	);
 };
 
 export const RootDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
 
-    & > .header {
-        height: 100px;
-    }
-    & > .body {
-        height: calc(100vh - 100px);
-    }
+	& > .navbar {
+		width: 100vw;
+		position: fixed;
+		z-index: 9;
+		height: 100px;
+	}
+
+	& > .outlet {
+		position: relative;
+
+		@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
+			height: calc(100vh - 100px);
+			top: 100px;
+			position: absolute;
+			overflow-y: auto;
+			width: 100%;
+			left: 0%;
+		}
+		@media screen and (width: ${MOBILE_MODE_LIMIT}) {
+			height: calc(100vh - 100px);
+			top: 100px;
+			position: absolute;
+			overflow-y: auto;
+			width: 100%;
+			left: 0%;
+		}
+		@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
+			height: calc(100vh - 100px);
+			top: 100px;
+		}
+	}
 `;
 
 export default Root;

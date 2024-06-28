@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
-import MobileLayout from '../layouts/MobileLayout';
 import Reaptcha from 'reaptcha';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
+import MobileLayout from '../layouts/MobileLayout';
 
 const reaptchaKey = process.env.REACT_APP_REAPTCHA_KEY;
 
@@ -16,6 +16,8 @@ const ForgotLogin = () => {
 		</>
 	);
 };
+
+/************************************************************* DESKTOP MODE ****************************************************************************/
 
 export const DesktopContent = () => {
 	const captchaRef = useRef(null);
@@ -92,17 +94,14 @@ export const DesktopContent = () => {
 						</p>
 						<Link
 							className='go-back'
-							to='/account'>
+							to='/myAccount'>
 							Back To Login
 						</Link>
 					</>
 				)}
 				{!sentReset && (
 					<>
-						<p>
-							Please enter the email address you'd like your password reset
-							information sent to:
-						</p>
+						<p>Please enter the email address associated with your account:</p>
 						<form
 							action=''
 							method='post'
@@ -133,11 +132,11 @@ export const DesktopContent = () => {
 									setErrorMessage('CAPTCHA has expired');
 								}}
 							/>
-							<button>Request Reset Link</button>
+							<button className='btn'>Request Reset Link</button>
 						</form>
 						<Link
 							className='go-back'
-							to='/account'>
+							to='/myAccount'>
 							Back To Login
 						</Link>
 					</>
@@ -149,102 +148,99 @@ export const DesktopContent = () => {
 
 export const DesktopDiv = styled.div`
 	width: 100%;
-	height: 100%;
+	min-height: calc(100vh - 100px);
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	font-size: calc(min(2vw, 2vh));
 
 	& > .container {
-		max-width: 60%;
-		width: fit-content;
-		margin-top: 10%;
+		width: auto;
+		max-width: calc(min(800px, 80%));
+		min-width: calc(min(500px, 50%));
+		border: 3px solid #87ceeb;
+		border-radius: 10px;
+		background-color: black;
+		color: white;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
-		border: 2px solid #333;
-		border-radius: 20px;
-		background-color: #d0dce7;
 
 		& > h2 {
-			padding-top: 1vh;
+			width: 100%;
+			text-align: center;
+			font-size: xx-large;
+			margin: 1ch 0;
+			padding: 0;
 		}
 
 		& > p {
-			text-align: start;
-			padding: 1vh 1vw 0;
+			width: calc(100% - 4ch);
+			font-size: large;
 		}
 
 		& > form {
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			width: 80%;
+			justify-content: start;
+			margin: 0;
 
 			& > .error-message {
-				width: 100%;
+				width: 80%;
+				font-size: large;
 				text-align: end;
-				padding-right: 5%;
-				color: red;
-			}
-
-			& > .show {
-				opacity: 1;
+				margin-bottom: 0.5ch;
+				font-size: large;
 			}
 
 			& > .hide {
-				opacity: 0;
+				color: transparent;
+				font-size: 0ch;
+			}
+
+			& > .show {
+				color: #cc0000;
 			}
 
 			& > input {
-				width: 100%;
+				padding: 1ch;
+				width: 80%;
+				font-size: large;
+				margin-bottom: 1ch;
 			}
 
-			& > .captcha {
-				margin-top: 1vh;
-			}
-
-			& button {
-				max-width: 50%;
-				margin-top: 1vh;
-				margin-bottom: 2vh;
-				background-color: #879db3;
-				border: 2px #333 solid;
-				border-radius: 10px;
-				padding: 0.5vh 1vw;
-				font-size: calc(min(2vh, 2vw));
-				box-shadow: 2px 2px 2px #333;
-
-				&:hover {
-					background-color: #6e88a1;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 2px 2px;
-					box-shadow: 0 0 0;
-				}
+			& > .btn {
+				margin-top: 1ch;
 			}
 		}
 
 		& > .go-back {
-			padding-bottom: 1vh;
+			width: 100%;
+			text-align: center;
+			margin: 1ch 0;
 			font-weight: bold;
+			color: white;
 
-			&:hover {
-				cursor: pointer;
-				text-decoration: underline;
-				color: blue;
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					cursor: pointer;
+					text-decoration: underline;
+					color: #87ceeb;
+				}
 			}
 		}
 	}
 `;
 
+/************************************************************* MOBILE MODE ****************************************************************************/
+
 export const MobileContent = () => {
 	const captchaRef = useRef(null);
-	const [email, setEmail] = useState('');
 	const [verified, setVerified] = useState(false);
 	const [errorMessage, setErrorMessage] = useState(false);
+	const [email, setEmail] = useState('');
 	const [sentReset, setSentReset] = useState(false);
 
 	const handleSubmit = (e) => {
@@ -302,13 +298,27 @@ export const MobileContent = () => {
 		<MobileDiv>
 			<div className='container'>
 				<h2>Forgot Password</h2>
-				{sentReset && <></>}
-				{!sentReset && (
+				{sentReset && (
 					<>
 						<p>
-							Please enter the email address you'd like your password reset
-							information sent to:
+							We've sent a password reset link to the requested email address{' '}
+							<strong>{email}</strong>. Please check your inbox and follow the
+							instructions to reset your password.
+							<br />
+							If you don't receive the email within a few minutes, please check your
+							spam folder. For further assistance, reach out to our support team:
+							support@fuelledfitness.ca
 						</p>
+						<Link
+							className='go-back'
+							to='/myAccount'>
+							Back To Login
+						</Link>
+					</>
+				)}
+				{!sentReset && (
+					<>
+						<p>Please enter the email address associated with your account:</p>
 						<form
 							action=''
 							method='post'
@@ -319,7 +329,7 @@ export const MobileContent = () => {
 							<input
 								type='email'
 								name='email'
-								id='email-mobile'
+								id='email-desktop'
 								autoComplete='email'
 								required
 								placeholder='Enter your e-mail'
@@ -339,11 +349,11 @@ export const MobileContent = () => {
 									setErrorMessage('CAPTCHA has expired');
 								}}
 							/>
-							<button>Request Reset Link</button>
+							<button className='btn'>Request Reset Link</button>
 						</form>
 						<Link
 							className='go-back'
-							to='/account'>
+							to='/myAccount'>
 							Back To Login
 						</Link>
 					</>
@@ -356,93 +366,81 @@ export const MobileContent = () => {
 export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
-	max-width: 100vw;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	min-height: calc(100vh - 100px - 4vh);
 	align-items: center;
-	justify-content: center;
+	justify-content: start;
+	width: 100%;
 
 	& > .container {
-		margin-top: -4vh;
+		width: auto;
+		height: auto;
 		max-width: 90%;
-		width: max-content;
+		max-height: 80%;
+		margin-top: 10%;
+		overflow-y: auto;
+		border: 3px solid #87ceeb;
+		border-radius: 10px;
+		background-color: black;
+		color: white;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
-		border: 2px solid #333;
-		border-radius: 15px;
-		background-color: #d0dce7;
 
 		& > h2 {
-			padding-top: 1em;
+			width: 100%;
+			text-align: center;
+			font-size: x-large;
+			margin: 1ch 0;
+			padding: 0;
 		}
 
 		& > p {
-			text-align: start;
-			padding: 0.5em 0.5em;
+			width: calc(100% - 2ch);
+			font-size: large;
 		}
 
 		& > form {
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			width: 95%;
+			justify-content: start;
 
 			& > .error-message {
-				width: 100%;
+				width: 80%;
+				font-size: large;
 				text-align: end;
-				padding-right: 0.5em;
-				color: red;
-			}
-
-			& > .show {
-				opacity: 1;
+				margin-bottom: 0.5ch;
+				font-size: large;
 			}
 
 			& > .hide {
-				opacity: 0;
+				color: transparent;
+				font-size: 0ch;
+			}
+
+			& > .show {
+				color: #cc0000;
 			}
 
 			& > input {
-				width: 100%;
+				padding: 1ch;
+				width: 80%;
+				font-size: large;
+				margin-bottom: 1ch;
 			}
 
-			& > .captcha {
-				margin-top: 1em;
-			}
-
-			& button {
-				max-width: 80%;
-				margin: 1em 0;
-				background-color: #879db3;
-				border: 2px solid #333;
-				border-radius: 10px;
-				padding: 0.3em 0.5em;
-				font-size: calc(max(2vh, 2vw));
-				box-shadow: 2px 2px 2px #333;
-
-				&:hover {
-					background-color: #6e88a1;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 2px 2px;
-					box-shadow: 0 0 0;
-				}
+			& > .btn {
+				margin-top: 1ch;
+				box-shadow: none;
 			}
 		}
 
 		& > .go-back {
-			padding-bottom: 1em;
+			width: 100%;
+			color: white;
+			text-align: center;
+			margin: 1ch 0;
 			font-weight: bold;
-
-			&:hover {
-				cursor: pointer;
-				text-decoration: underline;
-				color: blue;
-			}
 		}
 	}
 `;

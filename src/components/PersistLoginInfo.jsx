@@ -24,36 +24,31 @@ export const PersistLoginInfoDiv = styled.div`
 
 	& > .show {
 		position: absolute;
-		border: 2px solid #333;
+		border: 2px solid black;
 		left: 100%;
-		margin-left: 1vw;
+		margin-left: 1ch;
 		height: fit-content;
 		background-color: white;
+		color: black;
 		z-index: 2;
 		animation-name: show-info;
 		animation-duration: 1s;
 		animation-fill-mode: forwards;
-		padding: 0.3vh 0.3vw;
+		padding: 1ch;
+		min-width: 150px;
+		width: auto;
 
 		&::after {
-			content: 'We recommend using this feature only on trusted devices.';
+			content: 'Only recommended for trusted devices';
 		}
 
 		@keyframes show-info {
 			0% {
-				color: transparent;
-				width: 0%;
-				content-visibility: hidden;
+				opacity: 0;
 			}
-			30% {
-				width: 150px;
-			}
-			80% {
-				color: black;
-				content-visibility: show;
-			}
+
 			100% {
-				width: 150px;
+				opacity: 1;
 			}
 		}
 	}

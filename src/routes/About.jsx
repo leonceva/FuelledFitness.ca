@@ -1,8 +1,12 @@
+import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
 import MobileLayout from '../layouts/MobileLayout';
-import { styled } from 'styled-components';
-import krystin_img1 from '../images/krystin-business-02.jpg';
-import krystin_img2 from '../images/krystin-gym-03.jpg';
+import Image from '../components/Image';
+
+import about_01_low_res from '../images/krystin-business-02-low-res.jpg';
+import about_02_low_res from '../images/krystin-gym-03-low-res.jpg';
+import about_01_high_res from '../images/krystin-business-02-high-res.jpg';
+import about_02_high_res from '../images/krystin-gym-03-high-res.jpg';
 
 const About = () => {
 	return (
@@ -13,56 +17,86 @@ const About = () => {
 	);
 };
 
-export default About;
+/************************************************************* DESKTOP MODE ****************************************************************************/
 
 export const DesktopContent = () => {
+	const styleWrapperImageLeft = {
+		position: 'relative',
+		width: 'calc(min(50%, 400px))',
+		aspectRatio: '1/1.05',
+		float: 'left',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
+		marginRight: '10px',
+		backgroundColor: '#333',
+		border: '2px solid black',
+	};
+
+	const styleImage = {
+		position: 'absolute',
+		width: 'auto',
+		height: 'auto',
+		maxHeight: '110%',
+		maxWidth: '125%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		zIndex: '2',
+		animation: 'fadein 1s',
+	};
+
+	const styleWrapperImageCenter = {
+		position: 'relative',
+		height: 'calc(min(35vw, 400px))',
+		aspectRatio: '1.75/1',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
+		marginTop: '10px',
+		backgroundColor: '#333',
+		border: '2px solid black',
+		left: '50%',
+		transform: 'translate(-50%, 0)',
+	};
+
 	return (
-		<DesktopContentDiv>
-			<div
-				style={{
-					margin: '1vh 1vw',
-				}}>
-				<h3>About Fuelled Fitness</h3>
+		<DesktopDiv>
+			<article>
+				<Image
+					styleWrapper={styleWrapperImageLeft}
+					styleImage={styleImage}
+					lowResSrc={about_01_low_res}
+					highResSrc={about_01_high_res}
+				/>
+				<div className='title'>About Fuelled Fitness</div>
 				<p>
 					We're your destination for tailored nutrition and training programs, catering to
 					everyone from elite athletes to individuals seeking healthier lifestyles. Our
 					mission is to help you reach peak health and performance through personalized
 					strategies.
 				</p>
-				<img
-					src={krystin_img1}
-					alt='Krystin Bussiness Portrait'
-					className='left'
-				/>
-				<h3>Krystin Paquette</h3>
+				<div className='title'>Krystin Paquette, RD, BKin</div>
 				<p>
-					My educational foundation includes a BSc. in Nutrition and Food Science with a
-					specialization in Dietetics, complemented by a Bachelor of Kinesiology degree.
-					By bridging the areas of nutrition and training, I can offer a comprehensive
-					coaching experience tailored to your unique needs and aspirations.
+					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
+					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
+					degree. By bridging the areas of nutrition and training, Krystin can offer a
+					comprehensive coaching experience tailored to your unique needs and aspirations.
 				</p>
 				<p>
-					My approach is always grounded in evidence-based practice, and person-centred
-					principles. I believe in adaptive coaching strategies that are tailored to your
-					goals, and that meet you where you are now in order to effectively get you to
-					where you want to be.
+					Krystin's approach is always grounded in evidence-based practice, and
+					person-centred principles. She believes in adaptive coaching strategies that are
+					tailored to your goals, and that meet you where you are now in order to
+					effectively get you to where you want to be.
 				</p>
-				<img
-					src={krystin_img2}
-					alt='Krystin Training Client'
-					className='right'
-				/>
-				<h3>Let's Get Started!</h3>
+				<div className='title'>Let's Get Started!</div>
 				<p>
 					Whether you aspire to excel as a high-performance athlete, effectively manage a
 					medical condition, or simply cultivate a healthier lifestyle, we are here to
 					support you every step of the way. Reach out through the contact page, or click
-					the "book appointment" button to get started! <br />
+					the "book appointment" button to get started!
 				</p>
-				<br />
 				<div className='btn-container'>
 					<button
-						className='appointment'
+						className='btn btn-secondary'
 						onClick={() => {
 							window.open(
 								'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
@@ -72,180 +106,163 @@ export const DesktopContent = () => {
 						Book Appointment
 					</button>
 				</div>
-			</div>
-		</DesktopContentDiv>
+				<Image
+					styleWrapper={styleWrapperImageCenter}
+					styleImage={styleImage}
+					lowResSrc={about_02_low_res}
+					highResSrc={about_02_high_res}
+				/>
+			</article>
+		</DesktopDiv>
 	);
 };
 
-export const DesktopContentDiv = styled.div`
-	height: calc(100%);
-	overflow-y: auto;
+export const DesktopDiv = styled.div`
+	width: 100%;
+	min-height: calc(100vh - 120px);
+	margin: 15px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
 	text-align: justify;
 
-	& h3 {
-		font-size: calc(min(3.5vw, 3.5vh));
+	& .title {
+		width: 100%;
+		text-align: left;
+		font-size: x-large;
+		font-weight: bold;
 	}
 
 	& p {
-		font-size: calc(min(2vw, 2vh));
-	}
-
-	& img {
-		max-height: 45vh;
-		max-width: 25vw;
-		border-radius: 5%;
-	}
-	& .left {
-		margin-right: 2%;
-		float: left;
-	}
-	& .right {
-		margin-left: 2%;
-		float: right;
-	}
-
-	& h3 {
-		font-size: calc(min(3vw, 3vh));
-	}
-
-	& p {
-		font-size: calc(min(2vw, 2vh));
+		font-size: medium;
 	}
 
 	& .btn-container {
+		width: 100%;
 		display: flex;
-		justify-content: start;
-
-		& .appointment {
-			border: solid 2px #333;
-			color: #333;
-			border-radius: 3vw;
-			font-size: calc(min(3vw, 3vh));
-			padding: 1vh 2vw;
-			box-shadow: 2px 2px 2px #333;
-			background-color: #d0dceb;
-			justify-self: start;
-
-			&:hover {
-				background-color: #87ceeb;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
-		}
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 	}
 `;
 
-export const MobileContent = () => {
-	return (
-		<>
-			<MobileContentDiv>
-				<div style={{ margin: '10px' }}>
-					<h3>About Fuelled Fitness</h3>
-					<p>
-						We're your destination for tailored nutrition and training programs,
-						catering to everyone from elite athletes to individuals seeking healthier
-						lifestyles. Our mission is to help you reach peak health and performance
-						through personalized strategies.
-					</p>
+/************************************************************* MOBILE MODE ****************************************************************************/
 
-					<img
-						src={krystin_img1}
-						alt='Krystin Bussiness Portrait'
-						className='left'
-					/>
-					<h3>Krystin Paquette</h3>
-					<p>
-						My educational foundation includes a BSc. in Nutrition and Food Science with
-						a specialization in Dietetics, complemented by a Bachelor of Kinesiology
-						degree. By bridging the areas of nutrition and training, I can offer a
-						comprehensive coaching experience tailored to your unique needs and
-						aspirations.
-					</p>
-					<p>
-						My approach is always grounded in evidence-based practice, and
-						person-centred principles. I believe in adaptive coaching strategies that
-						are tailored to your goals, and that meet you where you are now in order to
-						effectively get you to where you want to be.
-					</p>
-					<img
-						src={krystin_img2}
-						alt='Krystin Training Client'
-						className='right'
-					/>
-					<h3>Let's Get Started!</h3>
-					<p>
-						Whether you aspire to excel as a high-performance athlete, effectively
-						manage a medical condition, or simply cultivate a healthier lifestyle, we
-						are here to support you every step of the way. Reach out through the contact
-						page, or click the "book appointment" button to get started! <br />
-					</p>
-					<div className='btn-container'>
-						<button
-							className='appointment'
-							onTouchStart={() => {
-								window.open(
-									'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
-									'_blank'
-								);
-							}}>
-							Book Appointment
-						</button>
-					</div>
-				</div>
-			</MobileContentDiv>
-		</>
+export const MobileContent = () => {
+	const styleWrapperImage = {
+		position: 'relative',
+		width: 'calc(min(90%, 400px))',
+		aspectRatio: '1/1.05',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
+		backgroundColor: '#333',
+		border: '2px solid black',
+		alignSelf: 'center',
+	};
+
+	const styleImage = {
+		position: 'absolute',
+		width: 'auto',
+		height: 'auto',
+		maxHeight: '110%',
+		maxWidth: '125%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		zIndex: '2',
+		animation: 'fadein 1s',
+	};
+	return (
+		<MobileDiv>
+			<article>
+				<h2>About Fuelled Fitness</h2>
+				<p>
+					We're your destination for tailored nutrition and training programs, catering to
+					everyone from elite athletes to individuals seeking healthier lifestyles. Our
+					mission is to help you reach peak health and performance through personalized
+					strategies.
+				</p>
+				<Image
+					styleWrapper={styleWrapperImage}
+					styleImage={styleImage}
+					lowResSrc={about_01_low_res}
+					highResSrc={about_01_high_res}
+				/>
+				<h2>Krystin Paquette, RD, BKin</h2>
+				<p>
+					Krystin's educational foundation includes a BSc. in Nutrition and Food Science
+					with a specialization in Dietetics, complemented by a Bachelor of Kinesiology
+					degree. By bridging the areas of nutrition and training, Krystin can offer a
+					comprehensive coaching experience tailored to your unique needs and aspirations.
+				</p>
+				<p>
+					Krystin's approach is always grounded in evidence-based practice, and
+					person-centred principles. She believes in adaptive coaching strategies that are
+					tailored to your goals, and that meet you where you are now in order to
+					effectively get you to where you want to be.
+				</p>
+				<h2>Let's Get Started!</h2>
+				<p>
+					Whether you aspire to excel as a high-performance athlete, effectively manage a
+					medical condition, or simply cultivate a healthier lifestyle, we are here to
+					support you every step of the way. Reach out through the contact page, or click
+					the "book appointment" button to get started!
+				</p>
+				<button
+					className='btn btn-secondary'
+					onClick={() => {
+						window.open(
+							'https://my.practicebetter.io/#/649ca3c56d0b43d466e3b1f8/bookings?step=services',
+							'_blank'
+						);
+					}}>
+					Book Appointment
+				</button>
+				<Image
+					styleWrapper={styleWrapperImage}
+					styleImage={styleImage}
+					lowResSrc={about_02_low_res}
+					highResSrc={about_02_high_res}
+				/>
+			</article>
+		</MobileDiv>
 	);
 };
 
-export const MobileContentDiv = styled.div`
-	text-align: start;
-	& img {
-		max-width: 100%;
-		max-height: 35vh;
-		border-radius: 5%;
-		margin: 1vh 0;
-	}
-	& .left {
-		margin-right: 2vw;
-		float: left;
-	}
-	& .right {
-		margin-left: 2vw;
-		float: right;
-	}
-	h3 {
-		margin-top: 2vh;
-		font-size: 3vh;
-	}
+export const MobileDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 
-	p {
-		font-size: 2vh;
-	}
-
-	& .btn-container {
+	& > article {
+		width: 100%;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
+		align-items: center;
+		padding-bottom: 10px;
 
-		& .appointment {
-			border: solid 2px #333;
-			color: #333;
-			border-radius: 3vw;
-			font-size: 3vh;
-			padding: 1vh 2vw;
-			box-shadow: 2px 2px 2px #333;
-			background-color: #d0dceb;
+		& > h2 {
+			width: 100%;
+			text-align: center;
+			margin: 10px 0 0;
+			font-size: x-large;
+		}
 
-			&:hover {
-				background-color: #87ceeb;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
+		& > p {
+			width: calc(100% - 4ch);
+			margin: 10px 0;
+			padding: 0 2ch;
+			font-size: large;
+		}
+
+		& > button {
+			margin: 0 0 10px;
+			box-shadow: none;
 		}
 	}
 `;
+
+export default About;

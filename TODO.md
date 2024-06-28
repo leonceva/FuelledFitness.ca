@@ -1,41 +1,38 @@
-## Short term goals
+## Admin Dashboard
 
--   Admin User settings
+-   Desktop
 
--   Exercises table in database
+    -   Functionalities
+        -   Create New Program
+            -   Load template button
+            -   Load last weekly program button (default behavior?)
+        -   Account Settings
+        -   Create New Template
+        -   Edit Existing Template
 
-    -   Dropdown for New and Edit Program
-    -   Create new exercise option
+-   Mobile
+    -   Layout
+    -   Functionalities
+        -   Create New Program
+            -   Load template button
+            -   Load last weekly program button (default behavior?)
+        -   Edit Existing Program
+        -   Create New User
+        -   Edit Existing User
+        -   Account Settings
+        -   Create New Template
+        -   Edit Existing Template
 
--   Create New Templates
+## Client Dashboard
 
--   Edit Template
+-   Layout
 
--   Add Import template to New Program
+    -   Desktop
+    -   Mobile
 
--   Active User Changes
+-   Inactive Client View
 
-    -   Create Check-in System
-        -   Exercise completed
-        -   File upload
-
--   Inactive client changes
-
-    -   Same as active client but only show last 3 programs
-
-    -   Remove ability to submit check-in
-
--   Email HTML template for:
-    -   Reset Password request
-    -   Account created
-    -   New Program Created for Client
-    -   Account Information Edited/Deleted
-
-## Long term goals
-
--   Mobile App with React Native
--   Similar nutrition platform
--   Invoice and payment options with Stripe(?)
--   Thorough workout and exercises database
--   Implement complex queries and filtering for admin dashboard
--   Client data storage to be HIPPA complient
+-   Active Client View
+    -   Account Settings
+    -   Program Explorer
+    -   Upload Videos

@@ -1,750 +1,1292 @@
+import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
 import MobileLayout from '../layouts/MobileLayout';
-import styled from 'styled-components';
-import AthleteCard from '../components/AthleteCard';
-import Application from '../components/Application';
 import data from '../frontend-data.json';
-import no_img from '../images/athletes/no-img.jpg';
+import AthleteCard from '../components/AthleteCard';
+import Application from '../components/AthleteApplicationForm';
+import Image from '../components/Image';
+import SocialMediaLink from '../components/SocialMediaLink';
+
+// Athlete Pictures
+import moon_keca_low_res from '../images/athletes/Moon-Keca-placeholder.jpg';
+import moon_keca_high_res from '../images/athletes/Moon-Keca.jpg';
 import { useState } from 'react';
-import InstagramLogo from '../images/instagram-logo.png';
 
 const Athletes = () => {
-	const athletes = data.athletes;
 	return (
 		<>
-			<DesktopLayout content={<DesktopContent athletes={athletes} />} />
-			<MobileLayout content={<MobileContent athletes={athletes} />} />
+			<DesktopLayout content={<DesktopContent />} />
+			<MobileLayout content={<MobileContent />} />
 		</>
 	);
 };
 
-export const DesktopContent = (props) => {
-	const athletes = props.athletes;
-	const [showApplication, setShowAppilcation] = useState(false);
+export default Athletes;
+
+/************************************************************* DESKTOP MODE ****************************************************************************/
+
+export const DesktopContent = () => {
+	const athletes = data.athletes;
+
+	// Image styles for athlete cards
+	const styleWrapperCard = {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
+		zIndex: '2',
+	};
+
+	const styleImageCard = {
+		position: 'absolute',
+		width: 'auto',
+		heigh: 'auto',
+		maxHeight: '125%',
+		maxWidth: '125%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		zIndex: '2',
+		animation: 'fadein 1s',
+	};
+
+	// Image styles for bio when card is clicked
+	const styleWrapperBio = {
+		width: '40%',
+		height: '90%',
+		overflowx: 'hidden',
+		overflowY: 'hidden',
+		position: 'absolute',
+		left: '2.5%',
+	};
+
+	const styleImageBio = {
+		position: 'absolute',
+		width: 'auto',
+		heigh: 'auto',
+		maxWidth: '100%',
+		maxHeight: '125%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%,-50%)',
+	};
+
+	const [showApplication, setShowApplication] = useState(false);
 	const [showAthlete, setShowAthlete] = useState(null);
-	const [athleteImg, setAthleteImg] = useState(null);
 
 	return (
-		<>
-			<DesktopDiv
-				style={showAthlete || showApplication ? { opacity: '0.4' } : { opacity: '1' }}>
-				<h3>Athlete Sponsorship Program</h3>
-				<p>
-					Recognizing the financial challenges that often accompany high level training,
-					our sponsorship program aims to ease the financial burden for selected athletes.
-					Sponsored athletes will benefit from personalized nutrition plans and customized
-					workout programs designed to optimize performance and recovery. By offering
-					these services at a reduced cost, the sponsorship enables elite athletes to
-					focus more on their sport, enhancing their chances of success without the added
-					stress of expensive coaching fees. Registered Dietitian services will only be
-					offered in Ontario at this time.
-				</p>
-				<div className='application'>
-					<h4>Think you'd be a good fit?</h4>
-					<button
-						onClick={() => {
-							setShowAppilcation(true);
-						}}>
-						Apply Now
-					</button>
-				</div>
-				<h3>Support Their Dreams</h3>
-				<p>
-					Check out the athletes profiles below to read about their journey, and to find
-					out how you can support their continued success.
-				</p>
-				<div className='athletes'>
-					{athletes.map((athlete, athleteIndex) => {
-						return (
-							<div
-								className='card-container'
-								key={athlete.name}
-								onClick={() => {
-									setShowAthlete(athlete);
-									try {
-										setAthleteImg(
-											require(`../images/athletes/${athlete.last_name}.jpg`)
-										);
-									} catch (error) {
-										setAthleteImg(null);
-									}
-								}}>
-								<AthleteCard
-									athlete={athlete}
-									index={athleteIndex}
-								/>
-							</div>
-						);
-					})}
-				</div>
-			</DesktopDiv>
-			{showAthlete && (
-				<>
-					<BioBackground
-						className='bio-bg'
-						onClick={() => {
-							setShowAthlete(null);
-						}}
+		<DesktopDiv>
+			<h2>Athlete Sponsorship Program</h2>
+			<p>
+				Recognizing the financial challenges that often accompany high level training, our
+				sponsorship program aims to ease the financial burden for selected athletes.
+				Sponsored athletes will benefit from personalized nutrition plans and customized
+				workout programs designed to optimize performance and recovery. By offering these
+				services at a reduced cost, the sponsorship enables elite athletes to focus more on
+				their sport, enhancing their chances of success without the added stress of
+				expensive coaching fees. Registered Dietitian services will only be offered in
+				Ontario at this time.
+			</p>
+			<div className='apply-container'>
+				<span>Think you'd be a good fit?</span>
+				<button
+					className='btn'
+					onClick={() => setShowApplication(true)}>
+					Apply Now
+				</button>
+			</div>
+			<h2>Support Their Dreams</h2>
+			<p>
+				Check out the athlete profiles below to read about their journey, and to find out
+				how you can support their continued success.
+			</p>
+			<div className='athlete-container'>
+				<div
+					className='card-container'
+					onClick={() => {
+						setShowAthlete([
+							athletes['Moon-Keca'],
+							moon_keca_low_res,
+							moon_keca_high_res,
+						]);
+					}}>
+					<AthleteCard
+						athlete={athletes['Moon-Keca']}
+						styleWrapper={styleWrapperCard}
+						styleImage={styleImageCard}
+						lowResSrc={moon_keca_low_res}
+						highResSrc={moon_keca_high_res}
 					/>
-					<AthleteBioDesktop className='athlete-bio'>
-						<img
-							src={athleteImg ? athleteImg : no_img}
-							alt=''
-						/>
-						<div className='bio-container'>
-							<h3>
-								{showAthlete.name} {showAthlete.last_name}
-							</h3>
-							<h4>Sport: {showAthlete.sport}</h4>
-							<p>{showAthlete.bio}</p>
-							{showAthlete?.instagram !== null && (
-								<a href={`https://www.instagram.com/${showAthlete.instagram}/`}>
-									<img
-										className='link-logo'
-										src={InstagramLogo}
-										alt={`Link to ${showAthlete.name}'s Instagram Account`}
-									/>
-								</a>
-							)}
-						</div>
-						<button
-							className='close-bio'
-							onClick={() => {
-								setShowAthlete(null);
-							}}>
-							<i className='bi bi-x-lg'></i>
-						</button>
-					</AthleteBioDesktop>
-				</>
-			)}
+				</div>
+			</div>
 			{showApplication && (
-				<>
-					<BioBackground
-						className='bio-bg'
-						onClick={() => {
-							setShowAppilcation(false);
-						}}
+				<div className='application-container'>
+					<div
+						className='close-bg'
+						onClick={() => setShowApplication(false)}
 					/>
-					<ApplicationDivDesktop>
+					<div className='application'>
 						<Application />
-						<button
-							className='close-bio'
-							onClick={() => {
-								setShowAppilcation(false);
-							}}>
-							<i className='bi bi-x-lg'></i>
-						</button>
-					</ApplicationDivDesktop>
-				</>
+					</div>
+					<div
+						className='close'
+						onClick={() => setShowApplication(false)}>
+						<i className='bi bi-x-lg' />
+					</div>
+				</div>
 			)}
-		</>
+			{showAthlete && (
+				<div className='athlete-bio-container'>
+					<div
+						className='close-bg'
+						onClick={() => setShowAthlete(null)}
+					/>
+					<div className='athlete-bio'>
+						<Image
+							styleWrapper={styleWrapperBio}
+							styleImage={styleImageBio}
+							lowResSrc={showAthlete[1]}
+							highResSrc={showAthlete[2]}
+						/>
+						<div className='bio'>
+							<h3>
+								{showAthlete[0].name} {showAthlete[0].last_name}
+							</h3>
+							<h4>Sport: {showAthlete[0].sport}</h4>
+							<div className='links-container'>
+								{showAthlete[0]?.instagram !== null && (
+									<SocialMediaLink
+										type='instagram'
+										link={`${showAthlete[0].instagram}`}
+										size='40px'
+										hover='black'
+									/>
+								)}
+							</div>
+							<p>{showAthlete[0].bio}</p>
+						</div>
+					</div>
+					<div
+						className='close'
+						onClick={() => setShowAthlete(null)}>
+						<i className='bi bi-x-lg' />
+					</div>
+				</div>
+			)}
+		</DesktopDiv>
 	);
 };
 
 export const DesktopDiv = styled.div`
-	height: 100%;
-	width: 100%;
-	padding-right: 2vw;
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-	align-items: center;
-	z-index: 1;
-
-	& > h3 {
-		font-weight: normal;
-		align-self: start;
-		margin: 1vh 0;
-		font-size: 3.5vh;
-	}
-	& > p {
-		text-align: justify;
-		align-self: start;
-		font-size: 2.5vh;
-	}
-	& > .application {
+	// Larger screen size
+	@media screen and (min-width: 1201px) {
 		width: 100%;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-
-		& > h4 {
-			text-align: left;
-			margin-right: 2vw;
-			font-size: calc(min(2.5vw, 2.5vh));
-		}
-
-		& > button {
-			border: solid 2px #333;
-			color: #333;
-			border-radius: 3vw;
-			font-size: calc(min(2.5vw, 2.5vh));
-			padding: 1vh 2vw;
-			box-shadow: 2px 2px 2px #333;
-			background-color: #d0dceb;
-			margin-left: 2vw;
-
-			&:hover {
-				background-color: #87ceeb;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
-		}
-	}
-	& > .athletes {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-		justify-content: space-evenly;
-		flex-wrap: wrap;
-		margin-bottom: 2vh;
-
-		& > .card-container {
-			width: 30%;
-			height: 45vh;
-			margin: 1vh 1vw;
-		}
-	}
-`;
-
-export const AthleteBioDesktop = styled.div`
-	position: absolute;
-	width: 60%;
-	height: 60%;
-	top: 20%;
-	left: 20%;
-	z-index: 3;
-	background-color: #d0dceb;
-	border: solid #333 calc(min(0.5vw, 0.5vh));
-	border-radius: 1vw;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-
-	& > img {
-		max-height: 95%;
-		max-width: 35%;
-		margin-left: 1%;
-		border-radius: 1vw;
-	}
-
-	& > .bio-container {
+		min-height: calc(100vh - 120px);
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
-		height: calc(100% - 2vh);
-		flex: 1;
-		margin: 1vh 0 1vh 1vw;
-		overflow-y: auto;
+		align-items: center;
+		position: relative;
 
-		& > h3 {
-			font-size: 2.5vh;
+		& > h2 {
+			width: 100%;
+			text-align: center;
+			font-size: x-large;
+			font-weight: bold;
+			padding: 0;
+			margin: 2ch 0 1ch;
 		}
 
 		& > p {
-			text-align: justify;
-			padding-right: 1vw;
-			font-size: 2vh;
+			width: 100%;
+			font-size: large;
 		}
 
-		& > a > img {
-			width: 30px;
-			aspect-ratio: 1/1;
-			border-radius: 30px;
-			border: 1px solid #333;
+		& > .apply-container {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: 1ch 0;
+
+			& > span {
+				margin: 0 2ch;
+				font-size: large;
+			}
+
+			& > .btn {
+				margin: 0 2ch;
+			}
+		}
+
+		& > .athlete-container {
+			width: 100%;
+			height: max-content;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			height: calc(min(500px, 50vh));
+			flex-wrap: wrap;
+			margin-bottom: 30px;
+			margin-top: 10px;
+
+			& > .card-container {
+				height: 100%;
+				width: 30%;
+				border: 2px solid black;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				background-color: black;
+				border-radius: 10px;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						box-shadow: 3px 3px 3px 0 black;
+						transition: box-shadow 250ms;
+					}
+				}
+
+				&:active {
+					transition: all 0s;
+					box-shadow: 0 0 0;
+					transform: translate(3px, 3px);
+				}
+
+				& > .athlete-card {
+					height: 100%;
+					width: 100%;
+					position: relative;
+					overflow: hidden;
+					display: flex;
+					background-color: black;
+					border-radius: 10px;
+
+					& > h2 {
+						position: absolute;
+						z-index: 3;
+						width: 100%;
+						background-color: white;
+						top: 0%;
+						margin: 0;
+						padding: 0.5ch;
+						text-align: center;
+						border-color: black;
+						border-style: solid;
+						border-width: 0 0 2px;
+					}
+				}
+			}
+		}
+
+		& > .application-container {
+			position: fixed;
+			height: calc(100% - 100px);
+			top: 100px;
+			width: 100%;
+			left: 0%;
+			z-index: 3;
+			display: flex;
+			background-color: rgba(31, 31, 31, 0.8);
+
+			& > .application {
+				position: relative;
+				z-index: 5;
+				width: 60%;
+				max-width: 2000px;
+				height: fit-content;
+				max-height: 70vh;
+				overflow-y: auto;
+				top: 10%;
+				left: 20%;
+				background-color: #d2d2d2;
+				border: solid black 3px;
+				border-radius: 10px;
+
+				& > form {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					width: 100%;
+					height: 100%;
+					margin-bottom: 10px;
+
+					& > h3 {
+						width: 100%;
+						text-align: center;
+						font-size: x-large;
+					}
+
+					& > .input-text {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
+						margin-bottom: 1ch;
+
+						& > label {
+							width: 20%;
+							text-align: end;
+							padding-left: 2ch;
+							font-size: large;
+						}
+
+						& > input {
+							width: 75%;
+							margin-left: 2ch;
+							margin-right: 2ch;
+							font-size: large;
+						}
+					}
+
+					& > .about {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: center;
+						max-height: 5ch;
+						margin-top: 1ch;
+
+						& > label {
+							width: 20%;
+							text-align: end;
+							padding-left: 2ch;
+							font-size: large;
+						}
+
+						& > textarea {
+							width: 75%;
+							margin-left: 2ch;
+							margin-right: 2ch;
+							font-size: large;
+						}
+					}
+
+					& > .error-msg {
+						width: 100%;
+						margin-top: 2ch;
+						margin-bottom: 1ch;
+						text-align: center;
+					}
+
+					& > .btn {
+						margin-bottom: 2ch;
+
+						&::after {
+							content: 'Submit Application';
+						}
+					}
+
+					& > .submitted::after {
+						content: 'Message Sent!';
+					}
+				}
+			}
+			& > .close {
+				z-index: 6;
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				background-color: black;
+				color: white;
+				border: solid black 3px;
+				border-radius: 5px;
+				top: calc(10% - 10px);
+				left: calc(80% - 30px);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 25px;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+				}
+			}
+		}
+
+		& > .athlete-bio-container {
+			position: fixed;
+			height: calc(100% - 100px);
+			top: 100px;
+			width: 100%;
+			left: 0%;
+			z-index: 3;
+			display: flex;
+			background-color: rgba(31, 31, 31, 0.8);
+
+			& > .athlete-bio {
+				position: relative;
+				width: 70%;
+				height: 70vh;
+				overflow-y: auto;
+				top: 10%;
+				left: 15%;
+				background-color: #d2d2d2;
+				border: solid black 3px;
+				border-radius: 10px;
+				z-index: 4;
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+
+				& > .bio {
+					position: absolute;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+					width: 52.5%;
+					height: 100%;
+					left: 45%;
+
+					& > h3 {
+						width: 100%;
+						text-align: center;
+						margin: 5px 0;
+						padding: 0;
+						font-size: xx-large;
+					}
+
+					& > h4 {
+						width: 100%;
+						text-align: center;
+						margin: 5px 0;
+						padding: 0;
+						font-size: x-large;
+					}
+
+					& > p {
+						width: 100%;
+						margin: 0;
+						padding: 0;
+						font-size: large;
+						text-align: justify;
+					}
+
+					& > .links-container {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						height: 50px;
+						flex-wrap: wrap;
+						align-items: center;
+						justify-content: space-evenly;
+						margin: 10px 0;
+					}
+				}
+			}
+
+			& > .close {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				background-color: black;
+				color: white;
+				border: solid black 3px;
+				border-radius: 5px;
+				top: calc(10% - 10px);
+				left: calc(85% - 30px);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 20px;
+				z-index: 5;
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+				}
+			}
 		}
 	}
 
-	& > .close-bio {
-		position: absolute;
-		width: calc(min(5vw, 5vh));
-		height: calc(min(5vw, 5vh));
-		background-color: red;
-		border: solid #333 calc(min(0.5vw, 0.5vh));
-		border-radius: calc(min(1vw, 1vh));
-		right: calc(max(-2.5vw, -2.5vh));
-		top: calc(max(-2.5vw, -2.5vh));
-		font-weight: bolder;
-		font-size: calc(min(2.5vw, 2.5vh));
-	}
-`;
-
-export const AthleteBioMobile = styled.div`
-	position: fixed;
-	width: 90%;
-	max-height: 80%;
-	top: 105px;
-	left: 5%;
-	z-index: 3;
-	background-color: #d0dceb;
-	border: solid #333 calc(min(0.5vw, 0.5vh));
-	border-radius: 1vw;
-	display: flex;
-	flex-direction: column;
-
-	& > h3 {
+	// Smaller screen size
+	@media screen and ((max-width: 1200px )or (width: 1200px)) {
 		width: 100%;
-	}
+		min-height: calc(100vh - 120px);
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		position: relative;
 
-	& > h4 {
-		width: 100%;
-		border-bottom: solid #333 calc(min(0.5vw, 0.5vh));
-		padding-bottom: 0.5vh;
-	}
-
-	& > .bio-container {
-		width: 100%;
-		height: 100%;
-		overflow-y: auto;
-		padding-bottom: 1em;
-
-		& > a > img {
-			width: 30px;
-			aspect-ratio: 1/1;
-			border-radius: 30px;
-			border: 1px solid #333;
+		& > h2 {
+			width: 100%;
+			text-align: center;
+			font-size: x-large;
+			font-weight: bold;
+			padding: 0;
+			margin: 2ch 0 1ch;
 		}
 
 		& > p {
+			width: 100%;
+			font-size: large;
 			text-align: justify;
-			margin-top: 0.5em;
-			padding: 0 1.5vw;
-			width: 100%;
 		}
-	}
 
-	& > .close-bio {
-		position: absolute;
-		width: calc(min(7vw, 7vh));
-		height: calc(min(7vw, 7vh));
-		background-color: red;
-		border: solid #333 calc(min(0.5vw, 0.5vh));
-		border-radius: calc(min(1vw, 1vh));
-		right: calc(max(-2.5vw, -2.5vh));
-		top: calc(max(-2.5vw, -2.5vh));
-		font-weight: bolder;
-		font-size: calc(min(3.5vw, 3.5vh));
+		& > .apply-container {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: 1ch 0;
+
+			& > span {
+				margin: 0 2ch;
+				font-size: medium;
+			}
+
+			& > .btn {
+				margin: 0 2ch;
+			}
+		}
+
+		& > .athlete-container {
+			width: 100%;
+			height: max-content;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			height: calc(min(400px, 50vh));
+			flex-wrap: wrap;
+			margin-bottom: 30px;
+			margin-top: 10px;
+
+			& > .card-container {
+				height: 100%;
+				width: 40%;
+				border: 2px solid black;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				background-color: black;
+				border-radius: 10px;
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						box-shadow: 3px 3px 3px 0 black;
+						transition: box-shadow 250ms;
+					}
+				}
+
+				&:active {
+					transition: all 0s;
+					box-shadow: 0 0 0;
+					transform: translate(3px, 3px);
+				}
+
+				& > .athlete-card {
+					height: 100%;
+					width: 100%;
+					position: relative;
+					overflow: hidden;
+					display: flex;
+					background-color: black;
+					border-radius: 10px;
+
+					& > h2 {
+						position: absolute;
+						z-index: 3;
+						width: 100%;
+						background-color: white;
+						top: 0%;
+						margin: 0;
+						padding: 0.5ch;
+						text-align: center;
+						border-color: black;
+						border-style: solid;
+						border-width: 0 0 2px;
+					}
+				}
+			}
+		}
+
+		& > .application-container {
+			position: fixed;
+			height: calc(100% - 100px);
+			top: 100px;
+			width: 100%;
+			left: 0%;
+			z-index: 3;
+			display: flex;
+			background-color: rgba(31, 31, 31, 0.8);
+
+			& > .application {
+				position: relative;
+				z-index: 4;
+				width: 80%;
+				height: fit-content;
+				max-height: 70vh;
+				overflow-y: auto;
+				top: 20px;
+				left: 10%;
+				background-color: #d2d2d2;
+				border: solid black 3px;
+				border-radius: 10px;
+
+				& > form {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					width: 100%;
+					height: 100%;
+					margin-bottom: 10px;
+
+					& > h3 {
+						width: 100%;
+						text-align: center;
+						font-size: x-large;
+					}
+
+					& > .input-text {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
+						margin-bottom: 1ch;
+
+						& > label {
+							width: 20%;
+							text-align: end;
+							padding-left: 2ch;
+							font-size: large;
+						}
+
+						& > input {
+							width: 60%;
+							margin-left: 2ch;
+							margin-right: 2ch;
+							font-size: large;
+						}
+					}
+
+					& > .about {
+						width: 100%;
+						height: max-content;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: center;
+						max-height: 5ch;
+						margin-top: 1ch;
+
+						& > label {
+							width: 20%;
+							text-align: end;
+							padding-left: 2ch;
+							font-size: large;
+						}
+
+						& > textarea {
+							width: 60%;
+							margin-left: 2ch;
+							margin-right: 2ch;
+						}
+					}
+
+					& > .error-msg {
+						width: 100%;
+						margin-top: 2ch;
+						margin-bottom: 1ch;
+						text-align: center;
+					}
+
+					& > .btn {
+						margin-bottom: 2ch;
+
+						&::after {
+							content: 'Submit Application';
+						}
+					}
+
+					& > .submitted::after {
+						content: 'Message Sent!';
+					}
+				}
+			}
+
+			& > .close {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				background-color: black;
+				color: white;
+				border: solid black 3px;
+				border-radius: 5px;
+				top: 10px;
+				left: calc(90% - 10px);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 25px;
+				z-index: 5;
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+				}
+			}
+		}
+
+		& > .athlete-bio-container {
+			position: fixed;
+			height: calc(100% - 100px);
+			top: 100px;
+			width: 100%;
+			left: 0%;
+			z-index: 3;
+			display: flex;
+			background-color: rgba(31, 31, 31, 0.8);
+
+			& > .athlete-bio {
+				position: relative;
+				width: 90%;
+				height: 90%;
+				overflow-y: auto;
+				top: 20px;
+				left: 5%;
+				background-color: #d2d2d2;
+				border: solid black 3px;
+				border-radius: 10px;
+				z-index: 4;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+
+				& > .bio {
+					position: absolute;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+					width: 52.5%;
+					height: 100%;
+					left: 45%;
+
+					& > h3 {
+						width: 100%;
+						text-align: center;
+						margin: 5px 0;
+						padding: 0;
+						font-size: xx-large;
+					}
+
+					& > h4 {
+						width: 100%;
+						text-align: center;
+						margin: 5px 0;
+						padding: 0;
+						font-size: x-large;
+					}
+
+					& > p {
+						width: 100%;
+						margin: 0;
+						padding: 0;
+						font-size: large;
+						text-align: justify;
+						padding-bottom: 10px;
+					}
+
+					& > .links-container {
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						height: 50px;
+						flex-wrap: wrap;
+						align-items: center;
+						justify-content: space-evenly;
+						margin: 10px 0;
+					}
+				}
+			}
+
+			& > .close {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				background-color: black;
+				color: white;
+				border: solid black 3px;
+				border-radius: 5px;
+				top: 10px;
+				left: calc(92.5% - 10px);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 25px;
+				z-index: 5;
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+				}
+			}
+		}
 	}
 `;
 
-export const BioBackground = styled.div`
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 2;
-	background-color: transparent;
-`;
+/************************************************************* MOBILE MODE ****************************************************************************/
 
-export const ApplicationDivDesktop = styled.div`
-	z-index: 3;
-	position: fixed;
-	width: 60%;
-	max-height: 70%;
-	min-height: max-content;
-	overflow-y: auto;
-	top: 20%;
-	left: 20%;
-	background-color: #d0dceb;
-	border: solid #333 calc(min(0.5vw, 0.5vh));
-	border-radius: 1vw;
+export const MobileContent = () => {
+	const athletes = data.athletes;
 
-	& > form {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-		width: 100%;
-		height: 100%;
-		overflow-y: auto;
-		padding-top: 1vh;
-		padding-bottom: 1vh;
+	// Image styles for athlete cards
+	const styleWrapperCard = {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		overflowX: 'hidden',
+		overflowY: 'hidden',
+		zIndex: '2',
+	};
 
-		& > h3 {
-			margin-bottom: 0.5vh;
-			font-size: calc(min(3vw, 3vh));
-		}
+	const styleImageCard = {
+		position: 'absolute',
+		width: 'auto',
+		heigh: 'auto',
+		maxHeight: '125%',
+		maxWidth: '125%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		zIndex: '2',
+		animation: 'fadein 1s',
+	};
 
-		& > .input-text {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			margin-bottom: 0.5vh;
+	// Image styles for bio when card is clicked
+	const styleWrapperBio = {
+		width: '100%',
+		height: '100%',
+		overflowx: 'hidden',
+		overflowY: 'hidden',
+		position: 'absolute',
+	};
 
-			& label {
-				width: 20%;
-				text-align: end;
-				padding-left: 2vw;
-				font-size: calc(min(2vw, 2vh));
-			}
-
-			& input {
-				width: 75%;
-				margin-left: 2%;
-				margin-right: 3%;
-				font-size: calc(min(2vw, 2vh));
-			}
-		}
-
-		& > .about {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			max-height: 10%;
-
-			& label {
-				width: 20%;
-				text-align: end;
-				padding-left: 2vw;
-				font-size: calc(min(2vw, 2vh));
-			}
-
-			& textarea {
-				width: 75%;
-				margin-left: 2%;
-				margin-right: 3%;
-				resize: none;
-				font-size: calc(min(2vw, 2vh));
-			}
-		}
-
-		& > .error-msg {
-			width: 100%;
-			margin-top: -0.5vh;
-			margin-bottom: 1vh;
-		}
-
-		> .submit-btn {
-			width: max-content;
-			background-color: #d0dceb;
-			border: 2px solid #333;
-			border-radius: 10px;
-			padding: 1vh 2vw;
-			color: #333;
-			box-shadow: 3px 3px 2px #333;
-			margin-bottom: 1.5vh;
-			font-size: calc(min(2vw, 2vh));
-
-			&::after {
-				content: 'Submit Application';
-			}
-
-			&:hover {
-				background-color: #87ceeb;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
-		}
-
-		> .submitted::after {
-			content: 'Message Sent!';
-		}
-	}
-
-	& > .close-bio {
-		position: fixed;
-		width: calc(min(5vw, 5vh));
-		height: calc(min(5vw, 5vh));
-		background-color: red;
-		border: solid #333 calc(min(0.5vw, 0.5vh));
-		border-radius: calc(min(1vw, 1vh));
-		right: calc(max(-2.5vw, -2.5vh));
-		top: calc(20% - min(2.5vw, 2.5vh));
-		right: calc(20% - min(2.5vw, 2.5vh));
-		font-weight: bolder;
-		font-size: calc(min(2.5vw, 2.5vh));
-	}
-`;
-
-export const ApplicationDivMobile = styled.div`
-	z-index: 3;
-	position: fixed;
-	width: 90%;
-	max-height: 80%;
-	min-height: max-content;
-	overflow-y: auto;
-	top: 15%;
-	left: 5%;
-	background-color: #d0dceb;
-	border: solid #333 calc(min(0.5vw, 0.5vh));
-	border-radius: 1vw;
-
-	& > form {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-		width: 100%;
-		height: 100%;
-		overflow-y: auto;
-		padding-top: 1vh;
-		padding-bottom: 1vh;
-
-		& > h3 {
-			margin-bottom: 0.5vh;
-		}
-
-		& > .input-text {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			margin-bottom: 0.5vh;
-
-			& label {
-				width: 20%;
-				text-align: end;
-				padding-left: 2vw;
-			}
-
-			& input {
-				width: 75%;
-				margin-left: 2%;
-				margin-right: 3%;
-			}
-		}
-
-		& > .about {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			max-height: 10%;
-
-			& label {
-				width: 20%;
-				text-align: end;
-				padding-left: 2vw;
-			}
-
-			& textarea {
-				width: 75%;
-				margin-left: 2%;
-				margin-right: 3%;
-				resize: none;
-			}
-		}
-
-		& > .error-msg {
-			width: 100%;
-			margin-top: -0.5vh;
-			margin-bottom: 1vh;
-		}
-
-		> .submit-btn {
-			width: max-content;
-			background-color: #d0dceb;
-			border: 2px solid #333;
-			border-radius: 10px;
-			padding: 1vh 2vw;
-			color: #333;
-			box-shadow: 3px 3px 2px #333;
-			margin-bottom: 1.5vh;
-
-			&::after {
-				content: 'Submit Application';
-			}
-
-			&:hover {
-				background-color: #87ceeb;
-				cursor: pointer;
-			}
-			&:active {
-				translate: 3px 3px;
-				box-shadow: 0 0 0;
-			}
-		}
-
-		> .submitted::after {
-			content: 'Message Sent!';
-		}
-	}
-
-	& > .close-bio {
-		position: fixed;
-		width: calc(min(7vw, 7vh));
-		height: calc(min(7vw, 7vh));
-		background-color: red;
-		border: solid #333 calc(min(0.5vw, 0.5vh));
-		border-radius: calc(min(1vw, 1vh));
-		right: calc(max(-2.5vw, -2.5vh));
-		top: calc(15% - min(3.5vw, 3.5vh));
-		right: calc(5% - min(3.5vw, 3.5vh));
-		font-weight: bolder;
-		font-size: calc(min(3.5vw, 3.5vh));
-	}
-`;
-
-export const MobileContent = (props) => {
-	const athletes = props.athletes;
-	const [showApplication, setShowAppilcation] = useState(false);
+	const styleImageBio = {
+		position: 'absolute',
+		width: 'auto',
+		heigh: 'auto',
+		maxWidth: '100%',
+		maxHeight: '125%',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%,-50%)',
+	};
+	const [showApplication, setShowApplication] = useState(false);
 	const [showAthlete, setShowAthlete] = useState(null);
-
 	return (
-		<>
-			<MobileDiv
-				style={showAthlete || showApplication ? { opacity: '0.4' } : { opacity: '1' }}>
-				<h3>Athlete Sponsorship Program</h3>
-				<p>
-					Recognizing the financial challenges that often accompany high level training,
-					our sponsorship program aims to ease the financial burden for selected athletes.
-					Sponsored athletes will benefit from personalized nutrition plans and customized
-					workout programs designed to optimize performance and recovery. By offering
-					these services at a reduced cost, the sponsorship enables elite athletes to
-					focus more on their sport, enhancing their chances of success without the added
-					stress of expensive coaching fees. Registered Dietitian services will only be
-					offered in Ontario at this time.
-				</p>
-				<div className='application'>
-					<h4>Think you'd be a good fit?</h4>
-					<button
-						onClick={() => {
-							setShowAppilcation(true);
-						}}>
-						Apply Now
-					</button>
-				</div>
-				<h3>Support Their Dreams</h3>
-				<p>
-					Check out the athletes profiles below to read about their journey, and to find
-					out how you can support their continued success.
-				</p>
-				<div className='athletes'>
-					{athletes.map((athlete) => {
-						return (
-							<div
-								className='card-container'
-								key={athlete.name}
-								onClick={() => {
-									setShowAthlete(athlete);
-								}}>
-								<AthleteCard athlete={athlete} />
-							</div>
-						);
-					})}
-				</div>
-			</MobileDiv>
-			{showAthlete && (
-				<>
-					<BioBackground
-						className='bio-bg'
-						onClick={() => {
-							setShowAthlete(null);
-						}}
+		<MobileDiv>
+			<h2>Athlete Sponsorship Program</h2>
+			<p>
+				Recognizing the financial challenges that often accompany high level training, our
+				sponsorship program aims to ease the financial burden for selected athletes.
+				Sponsored athletes will benefit from personalized nutrition plans and customized
+				workout programs designed to optimize performance and recovery. By offering these
+				services at a reduced cost, the sponsorship enables elite athletes to focus more on
+				their sport, enhancing their chances of success without the added stress of
+				expensive coaching fees. Registered Dietitian services will only be offered in
+				Ontario at this time.
+			</p>
+			<div className='apply-container'>
+				<strong>Think you'd be a good fit?</strong>
+				<button
+					className='btn'
+					onClick={() => setShowApplication(true)}>
+					Apply Now
+				</button>
+			</div>
+			<h2>Support Their Dreams</h2>
+			<p>
+				Check out the athlete profiles below to read about their journey, and to find out
+				how you can support their continued success.
+			</p>
+			<div className='athlete-container'>
+				<div
+					className='card-container'
+					onClick={() => {
+						setShowAthlete([
+							athletes['Moon-Keca'],
+							moon_keca_low_res,
+							moon_keca_high_res,
+						]);
+					}}>
+					<AthleteCard
+						athlete={athletes['Moon-Keca']}
+						styleWrapper={styleWrapperCard}
+						styleImage={styleImageCard}
+						lowResSrc={moon_keca_low_res}
+						highResSrc={moon_keca_high_res}
 					/>
-					<AthleteBioMobile>
-						<h3>
-							{showAthlete.name} {showAthlete.last_name}
-						</h3>
-						<h4>Sport: {showAthlete.sport}</h4>
-						<div className='bio-container'>
-							{showAthlete?.instagram !== null && (
-								<a href={`https://www.instagram.com/${showAthlete.instagram}/`}>
-									<img
-										src={InstagramLogo}
-										alt={`Link to ${showAthlete.name}'s Instagram Account`}
-									/>
-								</a>
-							)}
-							<p>{showAthlete.bio}</p>
-						</div>
-						<button
-							className='close-bio'
-							onClick={() => {
-								setShowAthlete(null);
-							}}>
-							<i className='bi bi-x-lg'></i>
-						</button>
-					</AthleteBioMobile>
-				</>
-			)}
+				</div>
+			</div>
 			{showApplication && (
-				<>
-					<BioBackground
-						className='bio-bg'
-						onClick={() => {
-							setShowAppilcation(false);
-						}}
+				<div className='application-container'>
+					<div
+						className='close-bg'
+						onClick={() => setShowApplication(false)}
 					/>
-					<ApplicationDivMobile>
+					<div className='application'>
 						<Application />
-						<button
-							className='close-bio'
-							onClick={() => {
-								setShowAppilcation(false);
-							}}>
-							<i className='bi bi-x-lg'></i>
-						</button>
-					</ApplicationDivMobile>
-				</>
+					</div>
+					<div
+						className='close'
+						onClick={() => setShowApplication(false)}>
+						<i className='bi bi-x-lg' />
+					</div>
+				</div>
 			)}
-		</>
+			{showAthlete && (
+				<div className='athlete-bio-container'>
+					<div
+						className='close-bg'
+						onClick={() => setShowAthlete(null)}
+					/>
+					<div className='athlete-bio'>
+						<h3>
+							{showAthlete[0].name} {showAthlete[0].last_name}
+						</h3>
+						<h4>Sport: {showAthlete[0].sport}</h4>
+						<div className='links-container'>
+							{showAthlete[0]?.instagram !== null && (
+								<SocialMediaLink
+									type='instagram'
+									link={`${showAthlete[0].instagram}`}
+									size='40px'
+									hover='black'
+								/>
+							)}
+						</div>
+						<div className='bio-img-container'>
+							<Image
+								styleWrapper={styleWrapperBio}
+								styleImage={styleImageBio}
+								lowResSrc={showAthlete[1]}
+								highResSrc={showAthlete[2]}
+							/>
+						</div>
+						<p>{showAthlete[0].bio}</p>
+					</div>
+					<div
+						className='close'
+						onClick={() => setShowAthlete(null)}>
+						<i className='bi bi-x-lg' />
+					</div>
+				</div>
+			)}
+		</MobileDiv>
 	);
 };
 
 export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: start;
 	align-items: center;
-	margin-top: 2vh;
+	width: 100%;
 
-	& > p {
-		text-align: justify;
-		margin: 1vh 2vw;
+	& > h2 {
+		width: 100%;
+		margin: 1ch 0;
+		padding: 0;
+		text-align: center;
+		font-size: x-large;
 	}
 
-	& > .application {
+	& > p {
+		width: calc(100% - 4ch);
+		margin: 1ch 0;
+		padding: 0;
+		font-size: large;
+	}
+
+	& > .apply-container {
 		width: 100%;
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
-		flex-wrap: wrap;
-		align-items: center;
 		justify-content: space-evenly;
-		margin-bottom: 2vh;
+		align-items: center;
+		font-size: large;
 
-		& > button {
-			border: solid 2px #333;
-			color: #333;
-			border-radius: 3vw;
-			padding: 0.5vh 1vw;
-			box-shadow: 2px 2px 2px #333;
-			background-color: #d0dceb;
-			margin-left: 2vw;
-			width: fit-content;
-			height: fit-content;
+		& > .btn {
+			box-shadow: none;
+
+			&:active {
+				box-shadow: none;
+			}
 		}
 	}
 
-	& > .athletes {
+	& > .athlete-container {
+		width: 100%;
+		height: 300px;
 		display: flex;
 		flex-direction: row;
-		flex-wrap: wrap;
 		justify-content: space-evenly;
 		align-items: center;
-		width: 100%;
+		flex-wrap: wrap;
+		margin-top: 5px;
+		margin-bottom: 20px;
 
 		& > .card-container {
-			height: 40vh;
-			width: 45%;
-			margin-bottom: 2vh;
+			width: 40%;
+			height: 100%;
+			border: 2px solid black;
+			position: relative;
+			overflow: hidden;
+			display: flex;
+			background-color: black;
+			border-radius: 10px;
+
+			& > .athlete-card {
+				height: 100%;
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+				display: flex;
+				background-color: black;
+				border-radius: 10px;
+
+				& > h2 {
+					position: absolute;
+					z-index: 3;
+					width: 100%;
+					background-color: white;
+					top: 0%;
+					margin: 0;
+					padding: 0 0.5ch;
+					text-align: center;
+					border-color: black;
+					border-style: solid;
+					border-width: 0 0 2px;
+				}
+			}
+		}
+	}
+
+	& > .application-container {
+		position: fixed;
+		height: calc(100% - 100px);
+		top: 100px;
+		width: 100%;
+		left: 0%;
+		z-index: 3;
+		display: flex;
+		background-color: rgba(31, 31, 31, 0.8);
+
+		& > .application {
+			position: relative;
+			z-index: 5;
+			width: 90%;
+			height: fit-content;
+			max-height: 90%;
+			top: 5%;
+			left: 5%;
+			background-color: #d2d2d2;
+			border: solid black 3px;
+			border-radius: 10px;
+			overflow-y: auto;
+
+			& > form {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				margin-bottom: 10px;
+
+				& > h3 {
+					width: 100%;
+					text-align: center;
+					font-size: x-large;
+				}
+
+				& > .input-text {
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+					margin-bottom: 1ch;
+
+					& > label {
+						width: 20%;
+						text-align: end;
+						padding-left: 2ch;
+						font-size: large;
+					}
+
+					& > input {
+						width: 80%;
+						margin-left: 2ch;
+						margin-right: 2ch;
+						font-size: large;
+					}
+				}
+
+				& > .about {
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+					max-height: 5ch;
+					margin-top: 1ch;
+
+					& > label {
+						width: 20%;
+						text-align: end;
+						padding-left: 2ch;
+						font-size: large;
+					}
+
+					& > textarea {
+						width: 80%;
+						margin: 0 2ch;
+						font-size: large;
+					}
+				}
+
+				& > .error-msg {
+					width: 100%;
+					margin-top: 2ch;
+					margin-bottom: 1ch;
+					text-align: center;
+				}
+
+				& > .btn {
+					margin-bottom: 2ch;
+
+					&::after {
+						content: 'Submit Application';
+					}
+				}
+
+				& > .submitted::after {
+					content: 'Message Sent!';
+				}
+			}
+		}
+
+		& > .close {
+			z-index: 6;
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			background-color: black;
+			color: white;
+			border: solid black 3px;
+			border-radius: 5px;
+			top: calc(5% - 10px);
+			left: calc(95% - 30px);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 25px;
+		}
+	}
+
+	& > .athlete-bio-container {
+		position: fixed;
+		height: calc(100% - 100px);
+		top: 100px;
+		width: 100%;
+		left: 0%;
+		z-index: 3;
+		display: flex;
+		background-color: rgba(31, 31, 31, 0.8);
+
+		& > .athlete-bio {
+			position: absolute;
+			width: 90%;
+			height: 90%;
+			top: 5%;
+			left: 5%;
+			background-color: #d2d2d2;
+			border: solid black 3px;
+			border-radius: 10px;
+			z-index: 4;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			overflow-y: auto;
+
+			& > h3 {
+				width: 100%;
+				text-align: center;
+				margin: 1ch 0;
+				padding: 0;
+				font-size: x-large;
+			}
+
+			& > h4 {
+				width: 100%;
+				text-align: center;
+				margin: 0 0 1ch;
+				padding: 0;
+				font-size: larger;
+			}
+
+			& > .links-container {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				margin: 5px 0;
+			}
+
+			& > .bio-img-container {
+				width: 100%;
+				min-height: 300px;
+				max-height: 300px;
+				position: relative;
+			}
+
+			& > p {
+				width: calc(100% - 4ch);
+			}
+		}
+
+		& > .close {
+			z-index: 6;
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			background-color: black;
+			border: solid black 3px;
+			border-radius: 5px;
+			top: calc(5% - 10px);
+			left: calc(95% - 30px);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 25px;
+			color: white;
 		}
 	}
 `;
-
-export default Athletes;

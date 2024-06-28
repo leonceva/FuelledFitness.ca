@@ -154,9 +154,7 @@ export const ContactMeForm = () => {
 			/>
 
 			<button
-				className={`${
-					emailSent && verified ? 'submit-btn submitted' : 'submit-btn not-submitted'
-				}`}
+				className={`${emailSent && verified ? 'btn submitted' : 'btn'}`}
 				type='submit'
 			/>
 

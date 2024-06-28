@@ -1,50 +1,70 @@
-# Fuelled Fitness Front-End
+# Getting Started with Create React App
 
-Welcome to the ReactJS app front-end the website of Fuelled Fitness. This repository contains the client-side code for the custom platform, which is currently under development.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Table of Contents
+## Available Scripts
 
--   [Introduction](#introduction)
--   [Features](#features)
--   [Platform](#platform)
+In the project directory, you can run:
 
-## Introduction
+### `npm start`
 
-Aside from a traditional website containing all the information regarding the Registered Dietitian and Personal Trainer services offered by Fuelled Fitness, it also contains a custom-built platform to create, edit, and view training programs. This repository specifically houses the front-end codebase, built with ReactJS.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Please note that the custom platform is still under development, and this repository focuses on the user interface and client-side functionality. The back-end server supporting this platform is not viewable to the public.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## Features
+### `npm test`
 
--   **ReactJS:** The front-end is built using ReactJS, providing a dynamic and responsive user interface.
--   **Under Development:** The platform is actively being developed, with new features and improvements added regularly.
--   **Back-End Server:** While the back-end server is not publicly accessible, it plays a crucial role in supporting the functionality of the platform. Created with Node.js as an Express App, using RESTful routes, and a PostreSQL Database. The back-end server is deployed in a Docker container.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Platform
+### `npm run build`
 
-The custom-built is designed to facilitate the workload of the professionals at Fuelled Fitness. The platform consists of two main components:
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Admin Dashboard
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-The desktop-focused admin console is a powerful tool designed for administrators to manage programs and users efficiently. Key features of the admin console include:
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
--   **Program Management:** Create and edit workout programs, allowing administrators to easily create programs using templates and a database of exercises and movement, each with its respective linked tutorial video.
--   **User Management:** Admins can manage users, including creating new accounts, editing user details, and controlling access to specific features.
+### `npm run eject`
 
--   **Authentication:** User authentication is handled securely through the back-end server. Additionally, administrators have the option to integrate Google OAuth for streamlined login processes.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-### Client Dashboard
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-The mobile-focused client dashboard provides a user-friendly interface for clients to interact with the platform. It is designed with a focus on responsiveness and ease of use. Key features of the client dashboard include:
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
--   **Personal Programs:** Clients can view and access their personalized programs created by administrators in the admin dashboard.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
--   **Check-in Submission:** Users can submit check-ins, providing valuable feedback or data for feedback as part of the training process.
+## Learn More
 
--   **Secure Authentication:** User authentication for the client dashboard is seamlessly handled through the back-end server, ensuring the security of user data. Additionally, clients have the option to integrate Google OAuth for streamlined login processes.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-### Integration with Back-End Server
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-While the admin console and client dashboard provide distinct functionalities, both components seamlessly integrate with the back-end server. The server handles user authentication, data storage, and communication between the front-end and back-end components. Please note that the back-end server is not viewable to the public.
+### Code Splitting
 
-This two-tier architecture ensures a robust and secure environment as all data is parsed and sanitized both on the front-end and back-end prior to any action taken.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

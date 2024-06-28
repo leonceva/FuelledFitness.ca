@@ -1,10 +1,9 @@
+import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
 import MobileLayout from '../layouts/MobileLayout';
-import { styled } from 'styled-components';
-import { Map, MapContainerDesktop, MapContainerMobile } from '../components/Map';
-import InstagramLink from '../components/InstagramLink';
-import LinkedInLink from '../components/LinkedInLink';
-import Form from '../components/ContactMeForm';
+import SocialMediaLink from '../components/SocialMediaLink';
+import { useState, useEffect } from 'react';
+import ContactMeForm from '../components/ContactForm';
 
 const Contact = () => {
 	return (
@@ -17,29 +16,75 @@ const Contact = () => {
 
 export default Contact;
 
+/************************************************************* DESKTOP MODE ****************************************************************************/
+
 export const DesktopContent = () => {
+	const [screenSize, setScreenSize] = useState({
+		width: window.innerWidth,
+		height: window.innerHeight,
+	});
+
+	useEffect(() => {
+		// Callback for when screen is resized
+		const handleResize = () => {
+			setScreenSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
+
+		// Screen resize listener
+		window.addEventListener('resize', handleResize);
+
+		// Clean-up listener
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	let mapWidth, mapHeight;
+	if (screenSize.width > 1200) {
+		mapWidth = Math.min(500, screenSize.width * 0.3);
+		mapHeight = Math.min(450, screenSize.height * 0.45);
+	} else {
+		mapWidth = Math.min(500, screenSize.width * 0.7);
+		mapHeight = Math.min(450, screenSize.height * 0.5);
+	}
+
+	const apiKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
+
 	return (
 		<DesktopDiv>
-			<div className='container'>
-				<Form />
+			<div className='links-container'>
+				<h3>Get In Touch</h3>
+				<div className='social-media-links'>
+					<SocialMediaLink
+						type='instagram'
+						size='50px'
+						hover='black'
+					/>
+					<SocialMediaLink
+						type='linkedin'
+						size='50px'
+						hover='black'
+					/>
+				</div>
+			</div>
+			<div className='form-container'>
+				<ContactMeForm />
+			</div>
+			<div className='map-container'>
 				<div className='info'>
-					<ul className='info-list'>
-						<li>
-							<h2>Get In Touch</h2>
-						</li>
-						<li className='socials'>
-							<InstagramLink width='3vw' />
-							<LinkedInLink width='3vw' />
-						</li>
-						<li style={{ padding: '0vh 2vw' }}>
-							In-Person Nutrition Consults and Personal Training offered at 613 Lift:
-						</li>
-						<li className='map'>
-							<MapContainerDesktop>
-								<Map />
-							</MapContainerDesktop>
-						</li>
-					</ul>
+					<h5>In-Person Nutrition Consults and Personal Training offered at 613 Lift</h5>
+					<p>80 Jamie Ave, Nepean ON</p>
+				</div>
+				<div className='map'>
+					<iframe
+						title='map'
+						width={mapWidth}
+						height={mapHeight}
+						loading='lazy'
+						src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJASX-87gHzkwRZsp9skl07KQ&key=${apiKey}`}></iframe>
 				</div>
 			</div>
 		</DesktopDiv>
@@ -47,163 +92,314 @@ export const DesktopContent = () => {
 };
 
 export const DesktopDiv = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	justify-content: center;
-	flex: 1;
-
-	& > .container {
+	// Larger screen size
+	@media screen and (min-width: 1201px) {
 		width: 100%;
-		height: 100%;
+		height: calc(100vh - 120px);
 		display: flex;
 		flex-direction: row;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
+		margin: 10px;
 
-		& > form {
-			width: 50%;
+		& > .links-container {
+			position: absolute;
+			width: 40%;
+			height: 20%;
+			right: 5%;
+			top: 5%;
 			display: flex;
 			flex-direction: column;
+			justify-content: center;
 			align-items: center;
-			max-height: 90%;
-			font-size: calc(min(1.5vw, 1.5vh));
 
-			> h2 {
+			& > h3 {
 				width: 100%;
-				padding-top: 5%;
-				font-size: calc(min(3vw, 3vh));
-				font-weight: 700;
-				height: 10%;
+				text-align: center;
+				font-size: x-large;
+				font-weight: bold;
+				margin: 0 0 1ch;
+				padding: 0;
 			}
 
-			> .input-text {
-				margin: 0.5vh 0;
-				width: 80%;
-				padding: 1vh 1vw;
-			}
-
-			> .submit-btn {
-				margin: 0.5vh 0;
-				width: 80%;
-				background-color: #d0dceb;
-				border: 2px solid #333;
-				border-radius: 10px;
-				padding: 1vh 2vw;
-				color: #333;
-				box-shadow: 3px 3px 2px #333;
-				font-size: (min(2vw, 2vh));
-
-				&::after {
-					content: 'Send Message';
-				}
-
-				&:hover {
-					background-color: #87ceeb;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 3px 3px;
-					box-shadow: 0 0 0;
-				}
-			}
-
-			> .submitted::after {
-				content: 'Message Sent!';
-			}
-
-			> textarea {
-				width: 80%;
-				margin: 0.5vh 0;
-				padding: 1vh 1vw;
-				overflow-y: auto;
-				min-height: 10vh;
+			& > .social-media-links {
+				width: 200px;
+				display: flex;
+				align-items: center;
+				justify-content: space-evenly;
 			}
 		}
 
-		& > .info {
-			width: 50%;
+		& > .form-container {
+			position: absolute;
+			width: 45%;
 			height: 90%;
-			font-size: calc(min(2vw, 2vh));
+			left: 5%;
+			top: 5%;
 
-			& > .info-list {
-				list-style: none;
-				text-align: start;
+			& > form {
+				width: 100%;
 				height: 100%;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				padding: 0;
+				font-size: large;
 
-				& > li {
-					padding: 1vh 0;
+				& > h2 {
+					width: 100%;
+					font-size: x-large;
 					text-align: center;
-					font-size: calc(min(2vw, 2vh));
+					margin: 1ch 0;
+				}
 
-					& > .email {
-						text-decoration: underline;
-					}
+				& > .input-text {
+					margin: 1ch 0;
+					width: 75%;
+					max-width: 400px;
+					padding: 5px;
+				}
 
-					& > .email:hover {
-						cursor: pointer;
-						color: blue;
-					}
+				& > textarea {
+					width: 75%;
+					max-width: 400px;
+					margin: 1ch 0 2ch;
+					padding: 5px;
+					overflow-y: auto;
+					min-height: 10ch;
+				}
 
-					& > h2 {
-						width: 100%;
-						padding-top: 5%;
-						font-size: calc(min(3vw, 3vh));
-						font-weight: 700;
-						height: 10%;
+				& > .btn {
+					margin-top: 1ch;
+
+					&::after {
+						content: 'Send Message';
 					}
 				}
 
-				& > .socials {
-					display: flex;
-					flex-direction: row;
-					width: 50%;
-					justify-content: space-evenly;
+				& > .submitted::after {
+					content: 'Message Sent!';
+				}
+			}
+		}
+
+		& > .map-container {
+			position: absolute;
+			width: 40%;
+			height: 65%;
+			right: 5%;
+			top: 25%;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+
+			& > .info {
+				width: 100%;
+				height: fit-content;
+				text-align: center;
+				margin: 0;
+				font-size: large;
+
+				& > h5 {
+					margin: 0;
+					padding: 0;
+					font-size: large;
 				}
 
-				& > .map {
-					padding-top: 2vh;
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
+				& > p {
+					margin: 1ch 0;
+					padding: 0;
+					font-size: large;
 				}
+			}
+
+			& > .map {
+				width: calc(min(500px, 30vw));
+				height: calc(min(450px, 45vh));
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				overflow: hidden;
+				border: 3px solid black;
+				border-radius: 20px;
+			}
+		}
+	}
+
+	// Smaller screen size
+	@media screen and ((max-width: 1200px )or (width: 1200px)) {
+		width: 100%;
+		min-height: calc(100vh - 120px);
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+
+		& > .links-container {
+			width: 100%;
+			margin-top: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			& > h3 {
+				width: 100%;
+				text-align: center;
+				font-size: x-large;
+				font-weight: bold;
+				margin: 0 0 1ch;
+				padding: 0;
+			}
+
+			& > .social-media-links {
+				width: 200px;
+				display: flex;
+				align-items: center;
+				justify-content: space-evenly;
+			}
+		}
+
+		& > .form-container {
+			width: 100%;
+
+			& > form {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+
+				& > h2 {
+					width: 100%;
+					font-size: x-large;
+					text-align: center;
+					margin: 1ch 0;
+				}
+
+				& > .input-text {
+					margin: 1ch 0;
+					width: 75%;
+					max-width: 400px;
+					padding: 5px;
+				}
+
+				& > textarea {
+					width: 75%;
+					max-width: 400px;
+					margin: 1ch 0 2ch;
+					padding: 5px;
+					overflow-y: auto;
+					min-height: 10ch;
+				}
+
+				& > .btn {
+					margin-top: 1ch;
+
+					&::after {
+						content: 'Send Message';
+					}
+				}
+
+				& > .submitted::after {
+					content: 'Message Sent!';
+				}
+			}
+		}
+
+		& > .map-container {
+			width: 100%;
+			margin-bottom: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+
+			& > .info {
+				width: 100%;
+				height: fit-content;
+				text-align: center;
+				margin: 0;
+				font-size: x-large;
+			}
+
+			& > .map {
+				width: calc(min(500px, 70vw));
+				height: calc(min(450px, 50vh));
+				overflow: hidden;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 3px solid black;
+				border-radius: 20px;
 			}
 		}
 	}
 `;
 
+/************************************************************* MOBILE MODE ****************************************************************************/
+
 export const MobileContent = () => {
+	const [screenSize, setScreenSize] = useState({
+		width: window.innerWidth,
+		height: window.innerHeight,
+	});
+
+	useEffect(() => {
+		// Callback for when screen is resized
+		const handleResize = () => {
+			setScreenSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		};
+
+		// Screen resize listener
+		window.addEventListener('resize', handleResize);
+
+		// Clean-up listener
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	let mapWidth, mapHeight;
+	mapWidth = Math.min(500, screenSize.width * 0.9) + 10;
+	mapHeight = Math.min(500, screenSize.height * 0.5) + 25;
+
+	const apiKey = process.env.REACT_APP_GOOGLE_MAPS_KEY;
+
 	return (
 		<MobileDiv>
-			<h2>Get In Touch</h2>
-			<div className='info'>
-				<ul className='info-list'>
-					<li className='socials'>
-						<InstagramLink
-							width='min(10vw, 13vh)'
-							height='min(10vw, 13vh)'
-						/>
-						<LinkedInLink
-							width='min(10vw, 13vh)'
-							height='min(10vw, 13vh)'
-						/>
-					</li>
-					<li>
-						<Form />
-					</li>
-					<li>In-Person Nutrition Consults and Personal Training offered at 613 Lift:</li>
-					<li className='map'>
-						<MapContainerMobile>
-							<Map />
-						</MapContainerMobile>
-					</li>
-				</ul>
+			<div className='links-container'>
+				<h2>Get In Touch</h2>
+				<div className='social-media-links'>
+					<SocialMediaLink
+						type='instagram'
+						size='50px'
+						hover='black'
+					/>
+					<SocialMediaLink
+						type='linkedin'
+						size='50px'
+						hover='black'
+					/>
+				</div>
+			</div>
+			<div className='form-container'>
+				<ContactMeForm />
+			</div>
+			<div className='map-container'>
+				<h3>In-Person Nutrition Consults and Personal Training offered at 613 Lift</h3>
+				<p>80 Jamie Ave, Nepean ON</p>
+				<iframe
+					className='map'
+					title='map'
+					width={mapWidth}
+					height={mapHeight}
+					loading='lazy'
+					src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJASX-87gHzkwRZsp9skl07KQ&key=${apiKey}`}></iframe>
 			</div>
 		</MobileDiv>
 	);
@@ -212,120 +408,116 @@ export const MobileContent = () => {
 export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
-	max-width: 100vw;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	min-height: calc(100vh - 100px - 4vh);
 	align-items: center;
+	width: 100%;
+	margin-bottom: 70px;
 
-	& > h2 {
-		text-align: center;
-		font-size: 3vh;
-		font-weight: 700;
-		padding-top: 1vh;
+	& > .links-container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+		margin: 10px 0;
+
+		& > h2 {
+			width: 100%;
+			margin: 1ch 0;
+			text-align: center;
+			font-size: x-large;
+		}
+
+		& > .social-media-links {
+			width: 150px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			margin-bottom: 10px;
+		}
 	}
 
-	& > .info {
-		padding-top: 2vh;
+	& > .form-container {
 		width: 100%;
-		height: 100%;
-		margin-bottom: 2vh;
 
-		& > .info-list {
-			list-style: none;
-			text-align: center;
-			font-size: 3vh;
+		& > form {
+			width: 100%;
 			height: 100%;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-evenly;
-			padding: 0;
+			justify-content: center;
 			align-items: center;
-			width: 100%;
+			font-size: large;
 
-			& > li {
-				padding: 1vh 5vw;
+			& > h2 {
 				width: 100%;
+				font-size: x-large;
+				text-align: center;
+				margin: 1ch 0;
+			}
 
-				& > form {
-					width: 100%;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
+			& > .input-text {
+				margin: 1ch 0;
+				width: 80%;
+				max-width: 300px;
+				padding: 5px;
+			}
 
-					> h2 {
-						text-align: center;
-						font-size: 3vh;
-						font-weight: 700;
-						padding-top: 1vh;
-					}
+			& > textarea {
+				width: 80%;
+				max-width: 300px;
+				margin: 1ch 0 2ch;
+				min-height: 5ch;
+				padding: 5px;
+				overflow-y: auto;
+			}
 
-					> .input-text {
-						margin: 0.5vh 0;
-						width: 80%;
-						padding: 1vh 1vw;
-						font-size: 2vh;
-					}
+			& > .btn {
+				margin-top: 1ch;
+				box-shadow: none;
 
-					> textarea {
-						width: 80%;
-						margin: 0.5vh 0;
-						padding: 1vh 1vw;
-						flex: 1;
-						height: 300vh;
-						font-size: 2vh;
-					}
-
-					> .submit-btn {
-						margin: 0.5vh 0;
-						width: 80%;
-						background-color: #d0dce7;
-						border: 2px solid #333;
-						border-radius: 10px;
-						padding: 1vh 2vw;
-						color: #333;
-						box-shadow: 3px 3px 2px #333;
-
-						&::after {
-							content: 'Send Message';
-						}
-
-						&:hover {
-							background-color: #6e88a1;
-							cursor: pointer;
-						}
-						&:active {
-							translate: 3px 3px;
-							box-shadow: 0 0 0;
-						}
-					}
-
-					> .submitted::after {
-						content: 'Message Sent!';
-					}
+				&::after {
+					content: 'Send Message';
 				}
 			}
 
-			& > li > .email {
-				color: blue;
-				text-decoration: underline;
+			& > .submitted::after {
+				content: 'Message Sent!';
 			}
+		}
+	}
 
-			& > .socials {
-				display: flex;
-				flex-direction: row;
-				width: 60%;
-				justify-content: space-evenly;
-			}
+	& > .map-container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
 
-			& > .map {
-				width: calc(max(80vw, 60vh));
-				max-width: 100vw;
-				height: calc(min(80vw, 60vh));
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-			}
+		& > h3 {
+			width: calc(100% - 4ch);
+			text-align: center;
+			margin: 0;
+			font-size: large;
+			margin-bottom: 10px;
+		}
+
+		& > p {
+			width: calc(100% - 4ch);
+			text-align: center;
+			margin: 0;
+			font-size: large;
+			margin-bottom: 10px;
+		}
+
+		& > .map {
+			width: calc(min(500px, 90vw));
+			height: calc(min(500px, 50vh));
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			border: 3px solid black;
 		}
 	}
 `;

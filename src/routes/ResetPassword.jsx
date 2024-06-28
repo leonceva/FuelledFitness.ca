@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import styled from 'styled-components';
 import DesktopLayout from '../layouts/DesktopLayout';
 import MobileLayout from '../layouts/MobileLayout';
+import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import axios from '../api/axios';
 
 const ResetPassword = () => {
@@ -13,6 +13,10 @@ const ResetPassword = () => {
 		</>
 	);
 };
+
+export default ResetPassword;
+
+/************************************************************* DESKTOP MODE ****************************************************************************/
 
 export const DesktopContent = () => {
 	const [searchParams] = useSearchParams();
@@ -32,7 +36,7 @@ export const DesktopContent = () => {
 			if (comparePasswords()) {
 				// Send password to server
 				axios
-					.patch('http://localhost:8080/resetPassword', {
+					.patch(`${process.env.REACT_APP_AXIOS_BASE_URL}/resetPassword`, {
 						resetToken: resetToken,
 						newPassword: formData.newPassword,
 					})
@@ -111,13 +115,14 @@ export const DesktopContent = () => {
 			<DesktopDiv>
 				<div className='container'>
 					<h2>Reset Password</h2>
-					<div>
-						Please enter the new password for your account. <br />
+					<div className='password-info'>
+						Please enter the new password for your account, that satisfies the
+						following:
 						<ul>
 							<li>The new password must be at least 6 characters long.</li>
 							<li>
-								The new password must contain the following: a lowercase leter, an
-								upeprcase letter, a number, and a special character.
+								The new password must contain the following: a lowercase letter, an
+								uppercase letter, a number, and a special character.
 							</li>
 						</ul>
 					</div>
@@ -154,6 +159,7 @@ export const DesktopContent = () => {
 							/>
 						</div>
 						<button
+							className='btn'
 							type='submit'
 							onClick={handleSubmit}>
 							Change Password
@@ -167,90 +173,90 @@ export const DesktopContent = () => {
 
 export const DesktopDiv = styled.div`
 	width: 100%;
-	height: 100%;
+	min-height: calc(100vh - 100px);
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	font-size: calc(min(2vw, 2vh));
 
 	& > .container {
-		max-width: 60%;
-		width: fit-content;
-		margin-top: 10%;
-		border: 2px solid #333;
-		border-radius: 20px;
-		background-color: #d0dce7;
+		width: auto;
+		max-width: calc(min(800px, 80%));
+		min-width: calc(min(500px, 50%));
+		border: 3px solid #87ceeb;
+		border-radius: 10px;
+		background-color: black;
+		color: white;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 
 		& > h2 {
-			padding-top: 1vh;
+			width: 100%;
+			font-size: xx-large;
+			margin: 1ch 0;
+			padding: 0;
+			text-align: center;
 		}
 
-		& > div {
-			text-align: start;
-			padding: 0 0.5vw;
+		& > .password-info {
+			width: calc(100% - 4ch);
+			text-align: justify;
+
+			& > ul {
+				margin: 0;
+			}
 		}
 
 		& > form {
+			width: 80%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			width: 80%;
-			padding-bottom: 1vh;
+			justify-content: start;
 
 			& > .error-message {
 				width: 100%;
 				text-align: end;
-				padding-right: 5%;
-				color: red;
-				padding-bottom: 0.5vh;
-			}
-
-			& > .show {
-				opacity: 1;
+				margin-top: 1ch;
 			}
 
 			& > .hide {
-				opacity: 0;
+				color: transparent;
+			}
+
+			& > .show {
+				color: #cc0000;
 			}
 
 			& > .input {
 				width: 100%;
-				padding-bottom: 1vh;
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+				margin: 1ch;
 
 				& > label {
-					width: 40%;
+					flex: 2;
+					text-align: center;
 				}
+
 				& > input {
-					width: 60%;
+					flex: 4;
+					padding: 1ch;
+					border: 1px solid black;
 				}
 			}
 
-			& > button {
-				max-width: 50%;
-				margin-top: 1vh;
-				margin-bottom: 2vh;
-				background-color: #879db3;
-				border: 2px #333 solid;
-				border-radius: 10px;
-				padding: 0.5vh 1vw;
-				font-size: calc(min(2vh, 2vw));
-				box-shadow: 2px 2px 2px #333;
-
-				&:hover {
-					background-color: #6e88a1;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 2px 2px;
-					box-shadow: 0 0 0;
-				}
+			& > .btn {
+				margin-bottom: 1ch;
 			}
 		}
 	}
 `;
+
+/************************************************************* MOBILE MODE ****************************************************************************/
 
 export const MobileContent = () => {
 	const [searchParams] = useSearchParams();
@@ -270,7 +276,7 @@ export const MobileContent = () => {
 			if (comparePasswords()) {
 				// Send password to server
 				axios
-					.patch('http://localhost:8080/resetPassword', {
+					.patch(`${process.env.REACT_APP_AXIOS_BASE_URL}/resetPassword`, {
 						resetToken: resetToken,
 						newPassword: formData.newPassword,
 					})
@@ -348,13 +354,13 @@ export const MobileContent = () => {
 		<MobileDiv>
 			<div className='container'>
 				<h2>Reset Password</h2>
-				<div>
-					Please enter the new password for your account. <br />
+				<div className='password-info'>
+					Please enter the new password for your account, that satisfies the following:
 					<ul>
 						<li>The new password must be at least 6 characters long.</li>
 						<li>
-							The new password must contain the following: a lowercase leter, an
-							upeprcase letter, a number, and a special character.
+							The new password must contain the following: a lowercase letter, an
+							uppercase letter, a number, and a special character.
 						</li>
 					</ul>
 				</div>
@@ -373,6 +379,7 @@ export const MobileContent = () => {
 							autoComplete='new-password'
 							onChange={handleChange}
 							value={formData.newPassword}
+							required
 						/>
 					</div>
 					<div className='input'>
@@ -382,19 +389,15 @@ export const MobileContent = () => {
 							name='confirmPassword'
 							id='confirmPassword'
 							autoComplete='off'
-							onPaste={(e) => {
-								e.preventDefault();
-								return false;
-							}}
-							onDrop={(e) => {
-								e.preventDefault();
-								return false;
-							}}
+							onPaste={(e) => e.preventDefault()}
+							onDrop={(e) => e.preventDefault()}
 							onChange={handleChange}
 							value={formData.confirmPassword}
+							required
 						/>
 					</div>
 					<button
+						className='btn'
 						type='submit'
 						onClick={handleSubmit}>
 						Change Password
@@ -408,93 +411,88 @@ export const MobileContent = () => {
 export const MobileDiv = styled.div`
 	display: flex;
 	flex-direction: column;
-	max-width: 100vw;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	min-height: calc(100vh - 100px - 4vh);
 	align-items: center;
-	justify-content: center;
-	font-size: calc(max(2vw, 2vh));
+	width: 100%;
 
 	& > .container {
-		max-width: 80%;
-		width: max-content;
-		border: 2px solid #333;
-		border-radius: 15px;
-		background-color: #d0dce7;
+		width: auto;
+		height: auto;
+		max-width: 90%;
+		max-height: 80%;
+		margin-top: 10%;
+		overflow-y: auto;
+		border: 3px solid #87ceeb;
+		border-radius: 10px;
+		background-color: black;
+		color: white;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 
 		& > h2 {
-			padding-top: 1em;
+			width: 100%;
+			text-align: center;
+			font-size: x-large;
+			margin: 1ch 0;
+			padding: 0;
 		}
 
-		& > div {
-			text-align: start;
-			padding: 0 0.5em;
+		& > .password-info {
+			width: calc(100% - 2ch);
+			font-size: large;
+
+			& > ul {
+				margin: 1ch 0 0;
+			}
 		}
 
 		& > form {
+			width: 90%;
 			display: flex;
 			flex-direction: column;
+			justify-content: start;
 			align-items: center;
-			width: 95%;
-			padding-bottom: 1em;
 
 			& > .error-message {
 				width: 100%;
 				text-align: end;
-				padding-right: 0.5em;
-				color: red;
-				padding-bottom: 0.5em;
-			}
-
-			& > .show {
-				opacity: 1;
+				margin: 1ch 0;
 			}
 
 			& > .hide {
-				opacity: 0;
+				color: transparent;
+			}
+
+			& > .show {
+				color: #cc0000;
 			}
 
 			& > .input {
 				width: 100%;
-				padding-bottom: 0.5em;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
 
 				& > label {
-					width: 35%;
-					text-align: end;
-					padding-right: 0.5em;
+					width: 100%;
+					text-align: left;
+					font-size: large;
+					margin-bottom: 0.5ch;
 				}
+
 				& > input {
-					width: 65%;
+					width: 100%;
+					padding: 1ch;
+					border: 1px solid black;
+					margin-bottom: 1ch;
 				}
 			}
 
-			& > button {
-				max-width: 80%;
-				width: fit-content;
-				margin-top: 0.5em;
-				background-color: #879db3;
-				border: 2px solid #333;
-				border-radius: 10px;
-				padding: 0.5em 1em;
-				font-size: calc(max(2vh, 2vw));
-				box-shadow: 2px 2px 2px #333;
-
-				&:hover {
-					background-color: #6e88a1;
-					cursor: pointer;
-				}
-				&:active {
-					translate: 2px 2px;
-					box-shadow: 0 0 0;
-				}
+			& > .btn {
+				margin-bottom: 1ch;
+				box-shadow: none;
 			}
 		}
 	}
 `;
-
-export default ResetPassword;

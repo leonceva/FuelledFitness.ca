@@ -360,6 +360,7 @@ const EditUser = () => {
 			});
 	};
 
+	// On render
 	useEffect(() => {
 		resetAll();
 		getUsers();
@@ -481,7 +482,7 @@ const EditUser = () => {
 				</form>
 				<div className='btn-container'>
 					<button
-						className={`${hasChanged ? 'enabled' : 'disabled'}`}
+						className={`${hasChanged ? '' : 'disabled'}`}
 						onClick={handleApplyChanges}>
 						Apply Changes
 					</button>
@@ -492,7 +493,7 @@ const EditUser = () => {
 						Clear Form
 					</button>
 					<button
-						className={`delete ${selectedUser ? 'enabled' : 'disabled'}`}
+						className={`delete ${selectedUser ? '' : 'disabled'}`}
 						onClick={() => {
 							setSelectedDelete(true);
 						}}>
@@ -514,155 +515,14 @@ const EditUser = () => {
 					</div>
 				)}
 			</DesktopDiv>
-			<MobileDiv>
-				{awaiting && <Loader />}
-				<div className='search'>
-					<label htmlFor='search'>User:</label>
-					<div className='search-results'>
-						<input
-							type='text'
-							name='user'
-							id='search'
-							onChange={onChangeSearch}
-							value={searchValue}
-							onKeyDown={onKeyDown}
-							placeholder='Type a name to begin search'
-						/>
-
-						{searchValue && (
-							<div className='dropdown'>
-								{users
-									?.filter((user) => {
-										return user[0]
-											.toLowerCase()
-											.includes(searchValue.toLowerCase());
-									})
-									.slice(0, 10)
-									.sort()
-									.map((user, i) => {
-										return (
-											<li
-												id={`user-${i}`}
-												key={user[1]}
-												className='dropdown-row'
-												onClick={onClick}
-												onMouseMove={onMouseMove}
-												onMouseLeave={onMouseLeaveSearch}>
-												{user[0]}
-											</li>
-										);
-									})}
-							</div>
-						)}
-					</div>
-				</div>
-				<form
-					action=''
-					method='put'
-					onSubmit={handleSubmit}>
-					<div className='input'>
-						<label htmlFor='firstName'>First Name:</label>
-						<input
-							type='text'
-							name='firstName'
-							id='firstName'
-							onChange={handleChangeForm}
-							required
-							value={formData.firstName}
-							disabled={!enableForm}
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='lastName'>Last Name:</label>
-						<input
-							type='text'
-							name='lastName'
-							id='lastName'
-							onChange={handleChangeForm}
-							required
-							value={formData.lastName}
-							disabled={!enableForm}
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='email'>Email:</label>
-						<input
-							type='email'
-							name='email'
-							id='email'
-							onChange={handleChangeForm}
-							required
-							value={formData.email}
-							disabled={!enableForm}
-						/>
-					</div>
-					<div className='input'>
-						<label htmlFor='role'>User Type</label>
-						<select
-							name='role'
-							id='role'
-							onChange={handleChangeForm}
-							required
-							value={formData.role}
-							disabled={!enableForm}>
-							<option
-								name='role'
-								value='active'>
-								Active Client
-							</option>
-							<option
-								name='role'
-								value='inactive'>
-								Inactive Client
-							</option>
-							<option
-								name='role'
-								value='admin'>
-								Admin Account
-							</option>
-						</select>
-					</div>
-				</form>
-				<div className='btn-container'>
-					<button
-						className={`${hasChanged ? 'enabled' : 'disabled'}`}
-						onClick={handleApplyChanges}>
-						Apply Changes
-					</button>
-					<button
-						onClick={() => {
-							resetAll();
-						}}>
-						Clear Form
-					</button>
-					<button
-						className={`delete ${selectedUser ? 'enabled' : 'disabled'}`}
-						onClick={() => {
-							setSelectedDelete(true);
-						}}>
-						Delete User
-					</button>
-				</div>
-				{selectedDelete && (
-					<div className='btn-container'>
-						<p>
-							<strong>This cannot be undone, continue?</strong>
-						</p>
-						<button
-							onClick={() => {
-								setSelectedDelete(false);
-							}}>
-							No
-						</button>
-						<button onClick={handleDelete}>Yes</button>
-					</div>
-				)}
-			</MobileDiv>
 		</>
 	);
 };
 
+export default EditUser;
+
 export const DesktopDiv = styled.div`
+	// Display for desktop size
 	@media screen and (min-width: ${MOBILE_MODE_LIMIT}) {
 		width: 100%;
 		height: 100%;
@@ -670,16 +530,15 @@ export const DesktopDiv = styled.div`
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-		font-size: calc(min(2vw, 2vh));
+		font-size: large;
 		position: absolute;
 		overflow-x: hidden;
 		overflow-y: scroll;
 
 		& > h3 {
-			font-size: calc(min(3vw, 3vh));
+			font-size: x-large;
 			width: 100%;
-			margin-top: 1em;
-			margin-bottom: 1em;
+			margin: 1ch 0 2ch;
 			text-align: center;
 		}
 
@@ -688,83 +547,131 @@ export const DesktopDiv = styled.div`
 			width: 100%;
 			flex-direction: row;
 			justify-content: center;
-			margin-bottom: 1em;
+			text-align: center;
 
 			& label {
-				width: 20%;
+				width: fit-content;
 				text-align: end;
-				padding-right: 2vw;
+				padding-right: 2ch;
+				font-size: large;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 
 			& > .search-results {
-				width: 50%;
+				width: calc(min(400px, 50%));
+				font-size: large;
 				display: flex;
 				flex-direction: column;
 				position: relative;
 
 				& > input {
 					width: 100%;
+					font-size: large;
+					text-align: start;
+					padding: 0.5ch;
 				}
 
 				& > .dropdown {
 					width: 100%;
+					color: black;
 					background-color: white;
-					border: solid 1px #333;
+					border: solid 2px black;
 					position: absolute;
 					top: 100%;
 					z-index: 2;
 
 					& > .dropdown-row {
 						list-style: none;
-						padding: 0.5vh 0;
-						text-align: center;
+						padding: 0.5ch 0;
 
-						&:hover {
-							cursor: pointer;
+						@media (hover: hover) and (pointer: fine) {
+							&:hover {
+								cursor: pointer;
+							}
 						}
 					}
 
-					& > .hover {
-						background-color: lightgray;
+					@media (hover: hover) and (pointer: fine) {
+						& > .hover {
+							background-color: lightgray;
+						}
 					}
 				}
 			}
 		}
 
 		& form {
-			width: 100%;
-			max-height: 60%;
+			width: auto;
+			max-width: 90%;
+			max-height: fit-content;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: start;
+			align-items: center;
+			font-size: large;
 
 			& > .input {
 				width: 100%;
-				padding: 0.5vh 0;
-				position: relative;
+				padding: 1ch 0;
 				display: flex;
 				flex-direction: row;
-				justify-content: center;
+				align-items: center;
+				justify-content: start;
+				font-size: large;
+				position: relative;
 
 				& > .changed {
 					position: absolute;
 					height: 100%;
 					display: flex;
 					align-items: center;
-					left: 80%;
-					padding-left: 0.5vw;
+					left: 100%;
+					padding-left: 1ch;
 					justify-content: end;
-					font-size: calc(min(2.5vw, 2.5vh));
+					font-size: large;
+					color: yellow;
 				}
 
-				& label {
-					width: 20%;
+				& > label {
+					width: 13ch;
 					text-align: right;
-					padding-right: 2vw;
+					padding-right: 1ch;
 				}
 
-				& input,
+				& > input,
 				select {
-					width: 40%;
-					height: 100%;
-					padding: calc(min(0.5vh, 0.5vh)) 0;
+					flex: 1;
+					padding: 3px 5px;
+					font-size: large;
+				}
+			}
+
+			& > button {
+				height: 100%;
+				color: white;
+				background-color: black;
+				border: 3px solid #87ceeb;
+				border-radius: 10px;
+				box-shadow: 2px 2px 2px #87ceeb;
+				width: max-content;
+				padding: 5px 10px;
+				font-size: large;
+				margin-top: 10px;
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
+
+					&:active {
+						translate: 2px 2px;
+						box-shadow: none;
+					}
 				}
 			}
 		}
@@ -774,37 +681,36 @@ export const DesktopDiv = styled.div`
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
-			justify-self: flex-end;
 			align-items: center;
-			text-align: center;
 
-			& button {
-				margin: 2vh 2vw 0;
-				border: 2px solid #333;
+			& > button {
+				color: white;
+				background-color: black;
+				border: 3px solid #87ceeb;
 				border-radius: 10px;
-				padding: 1vh 2vw;
-				color: #333;
-				box-shadow: 3px 3px 2px #333;
+				box-shadow: 2px 2px 2px #87ceeb;
 				width: max-content;
-				background-color: #d0dceb;
+				padding: 5px 10px;
+				font-size: large;
+				margin: 10px 10px 0;
 
-				&:hover {
-					cursor: pointer;
-					background-color: #87ceeb;
-				}
-				&:active {
-					translate: 3px 3px;
-					box-shadow: 0 0 0;
-				}
-			}
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						background-color: #87ceeb;
+						color: black;
+					}
 
-			& > .enabled {
+					&:active {
+						translate: 2px 2px;
+						box-shadow: none;
+					}
+				}
 			}
 
 			& > .disabled {
-				background-color: grey;
-				cursor: not-allowed;
-				pointer-events: none;
+				background-color: grey !important;
+				pointer-events: none !important;
 			}
 
 			& > .delete {
@@ -817,156 +723,21 @@ export const DesktopDiv = styled.div`
 			}
 
 			& > p {
-				margin-top: 2vh;
-				padding-top: 1vh;
+				margin-top: 1ch;
+				padding-top: 1ch;
 				height: 100%;
 				max-width: 50%;
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				font-size: large;
 				text-align: end;
 			}
 		}
 	}
 
-	@media screen and ((max-width: ${MOBILE_MODE_LIMIT} )or (width: ${MOBILE_MODE_LIMIT})) {
+	// Hide for mobile size
+	@media screen and ((max-width: ${MOBILE_MODE_LIMIT}) or (width: ${MOBILE_MODE_LIMIT})) {
 		display: none;
 	}
 `;
-
-export const MobileDiv = styled.div`
-	display: none;
-
-	@media screen and (max-width: ${MOBILE_MODE_LIMIT}) {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: center;
-
-		& > .search {
-			width: 85%;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			margin: 1em 1em;
-
-			& > label {
-				width: 10ch;
-				padding-right: 1ch;
-				text-align: end;
-			}
-
-			& > .search-results {
-				flex: 1;
-				position: relative;
-				margin-right: 1ch;
-
-				& > input {
-					width: 100%;
-				}
-
-				& > .dropdown {
-					background-color: white;
-					border: solid 1px #333;
-					position: absolute;
-					top: 100%;
-					width: 100%;
-					z-index: 2;
-
-					& > .dropdown-row {
-						width: 100%;
-						list-style: none;
-						padding: 0.5vh 0;
-						text-align: center;
-					}
-				}
-			}
-		}
-
-		& > form {
-			margin: 0 1em 1em;
-			width: 85%;
-
-			& > .input {
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				position: relative;
-
-				& > .changed {
-					position: absolute;
-					height: 100%;
-					display: flex;
-					align-items: center;
-					left: 100%;
-					padding-left: 0.5vw;
-					justify-content: end;
-					font-size: calc(min(2.5vw, 2.5vh));
-				}
-
-				& > label {
-					width: 10ch;
-					text-align: right;
-					padding-right: 1ch;
-				}
-
-				& > input {
-					flex: 1;
-					margin-bottom: 0.5em;
-					margin-right: 1ch;
-				}
-			}
-		}
-
-		& > .btn-container {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-
-			& button {
-				margin: 2vh 2vw 0;
-				border: 2px solid #333;
-				border-radius: 10px;
-				padding: 1vh 2vw;
-				color: #333;
-				box-shadow: 3px 3px 2px #333;
-				width: max-content;
-				background-color: #d0dceb;
-			}
-
-			& > .enabled {
-			}
-
-			& > .disabled {
-				background-color: grey;
-				cursor: not-allowed;
-				pointer-events: none;
-			}
-
-			& > .delete {
-				background-color: #ff6666;
-				font-weight: bold;
-			}
-
-			& > p {
-				margin-top: 2vh;
-				padding-top: 1vh;
-				height: 100%;
-				max-width: 50%;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				text-align: end;
-			}
-		}
-	}
-`;
-
-export default EditUser;
