@@ -25,6 +25,7 @@ const EditUser = () => {
 		role: 'active',
 	});
 
+	// Reset all states
 	const resetAll = () => {
 		setFormData({
 			firstName: '',
@@ -560,7 +561,7 @@ export const DesktopDiv = styled.div`
 			}
 
 			& > .search-results {
-				width: calc(min(400px, 50%));
+				width: calc(max(400px, 50%));
 				font-size: large;
 				display: flex;
 				flex-direction: column;
@@ -574,7 +575,7 @@ export const DesktopDiv = styled.div`
 				}
 
 				& > .dropdown {
-					width: 100%;
+					width: calc(100% + 1ch);
 					color: black;
 					background-color: white;
 					border: solid 2px black;

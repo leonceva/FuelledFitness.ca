@@ -21,24 +21,24 @@ export const Loading = styled.div`
 	position: absolute;
 	z-index: 3;
 	background-color: lightgray;
-	opacity: 0.5;
+	opacity: 0.7;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	border-top-right-radius: calc(min(3vw, 3vh));
-	border-bottom-right-radius: calc(min(3vw, 3vh));
 
 	& h1 {
-		margin: 3vh 0.5vw 0;
-		height: 10%;
 		font-stretch: expanded;
+		color: black;
+		font-size: 30px;
+		padding: 0;
+		margin-right: 1ch;
 	}
 
 	& > .loader {
-		margin-top: calc(3vh + 1%);
-		margin-left: 1vw;
-		height: 8%;
+		width: 50px;
+		height: 50px;
+		font-size: x-large;
 		animation-name: spin;
 		animation-duration: 1.5s;
 		animation-delay: 0s;
