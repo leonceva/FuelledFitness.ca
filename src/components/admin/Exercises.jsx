@@ -17,6 +17,7 @@ const Exercises = () => {
 		name: '',
 		link: '',
 	});
+	const [formError, setFormError] = useState(null);
 
 	const [awaiting, setAwaiting] = useState(false);
 
@@ -178,7 +179,23 @@ const Exercises = () => {
 		searchElements[itemIndex]?.classList?.remove('hover');
 	};
 
-	//const handleSubmit = () => {};
+	// When the exercise form is changed
+	const handleChangeForm = (e) => {
+		const { name, value, id } = e.target;
+		// Exercise name change
+		if (id === 'exercise-name') {
+			setFormData((prevData) => {
+				return { ...prevData, [name]: value };
+			});
+		}
+
+		// Exercise link change
+		if (id === 'exercise-link') {
+			setFormData((prevData) => {
+				return { ...prevData, [name]: value };
+			});
+		}
+	};
 
 	// Get an array of all the exercises in the database
 	const getExercises = async () => {
@@ -201,13 +218,23 @@ const Exercises = () => {
 			});
 	};
 
-	//const handleChangeForm = () => {};
-
+	// When selected exercise is changed
 	useEffect(() => {}, [selectedExercise]);
 
-	//const handleApplyChanges = () => {};
+	// Validate inputs
+	const validateInputs = () => {
+		setFormError(null);
+		return true;
+	};
 
-	//const updateExerciseInfo = () => {};
+	// When form is submitted
+	const handleApplyChanges = (e) => {
+		e.preventDefault();
+		console.log('Submit');
+		if (validateInputs()) {
+			// Exercise name
+		}
+	};
 
 	//const deleteExercise = () => {};
 
@@ -272,12 +299,44 @@ const Exercises = () => {
 					</div>
 				</div>
 				{selectedNew && (
-					<form>
+					<form
+						className='new-exercise'
+						onSubmit={handleChangeForm}>
+						<div
+							className={`error ${formError === null ? 'hide-error' : 'show-error'}`}>
+							{formError}
+						</div>
 						<label htmlFor='exercise-name'>Exercise Name:</label>
 						<input
+							id='exercise-name'
+							name='name'
 							type='text'
 							value={formData.name}
+							onChange={handleChangeForm}
 						/>
+
+						<label htmlFor='exercise-link'>Exercise Link:</label>
+						<input
+							id='exercise-link'
+							name='link'
+							type='text'
+							value={formData.link}
+							onChange={handleChangeForm}
+						/>
+						<div className='btn-container'>
+							<button
+								type='button'
+								className='btn'
+								onClick={handleApplyChanges}>
+								Save Changes
+							</button>
+							<button
+								type='button'
+								className='btn'
+								onClick={resetAll}>
+								Cancel
+							</button>
+						</div>
 					</form>
 				)}
 			</DesktopDiv>
@@ -355,6 +414,63 @@ export const DesktopDiv = styled.div`
 							background-color: lightgray;
 						}
 					}
+				}
+			}
+		}
+
+		& > .new-exercise {
+			width: calc(max(400px, 50%));
+			height: auto;
+			margin-top: 10px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: start;
+
+			& > .error {
+				width: 100%;
+				height: auto;
+				margin: 0.5ch;
+				font-size: large;
+				color: red;
+			}
+
+			& > .hide-error {
+				opacity: 0;
+
+				&::after {
+					content: 'placeholder';
+				}
+			}
+
+			& > .show-error {
+				opacity: 1;
+			}
+
+			& > label {
+				width: 100%;
+				margin: 0.5ch 0;
+				font-size: large;
+			}
+
+			& > input {
+				width: calc(100% - 1ch);
+				padding: 0.5ch;
+				font-size: large;
+			}
+
+			& > .btn-container {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+				margin-top: 10px;
+
+				& > button {
+					width: fit-content;
+					max-width: 100%;
+					margin-bottom: 10px;
 				}
 			}
 		}
