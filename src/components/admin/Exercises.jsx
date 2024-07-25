@@ -205,7 +205,7 @@ const Exercises = () => {
 			.then((res) => {
 				setExercises(
 					res?.data?.rows?.map((exercise, i) => {
-						console.log(res.data.rows);
+						// console.log(res.data.rows);
 						return [exercise.name, exercise.exercise_id, exercise.link];
 					})
 				);
@@ -223,6 +223,14 @@ const Exercises = () => {
 
 	// Validate inputs
 	const validateInputs = () => {
+		// Exercise Name
+		if (formData.name.length < 1 || formData.name.length > 50) {
+			setFormError('Exercise name must be between 1 and 50 characters');
+			return false;
+		}
+		// TODO - exercise link
+
+		// If no error with inputs
 		setFormError(null);
 		return true;
 	};
@@ -233,7 +241,45 @@ const Exercises = () => {
 		console.log('Submit');
 		if (validateInputs()) {
 			// Exercise name
+			sendFormData();
 		}
+	};
+
+	const sendFormData = async () => {
+		setAwaiting(true);
+		await axiosPrivate
+			.post('/exercises', {
+				name: formData.name,
+				link: formData.link,
+			})
+			.then((res) => {
+				// Clear form data
+				console.log('Success');
+				setFormData({
+					name: '',
+					link: '',
+				});
+				setSelectedNew(false);
+			})
+			.catch((err) => {
+				console.log(err?.response?.status);
+				if (err?.response?.status) {
+					switch (err.response.status) {
+						case 503:
+							setFormError('Database entry failed');
+							break;
+						default:
+							setFormData('Exercise entry failed');
+							break;
+					}
+				} else {
+					console.log(err);
+					setFormError('Service Failed - check logs');
+				}
+			})
+			.finally(() => {
+				setAwaiting(false);
+			});
 	};
 
 	//const deleteExercise = () => {};
@@ -338,6 +384,19 @@ const Exercises = () => {
 							</button>
 						</div>
 					</form>
+				)}
+				{selectedExercise && (
+					<>
+						<h2>{`Selected: ${selectedExercise[0]}`}</h2>
+						<h3>
+							<a
+								href={selectedExercise[2]}
+								rel='noreferrer'
+								target='_blank'>
+								Link
+							</a>
+						</h3>
+					</>
 				)}
 			</DesktopDiv>
 		</>
