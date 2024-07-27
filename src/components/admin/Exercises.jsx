@@ -279,6 +279,7 @@ const Exercises = () => {
 			})
 			.finally(() => {
 				setAwaiting(false);
+				getExercises();
 			});
 	};
 
