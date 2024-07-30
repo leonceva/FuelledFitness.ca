@@ -12,6 +12,7 @@ import NewTemplate from './admin/NewTemplate';
 import EditTemplate from './admin/EditTemplate';
 import Version from './admin/Version';
 import data from '../frontend-data.json';
+import Exercises from './admin/Exercises';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
@@ -88,6 +89,13 @@ const AdminDashboard = () => {
 									}}>
 									Edit Template
 								</div>
+								<div
+									className='option-item'
+									onClick={() => {
+										handleOption('Exercises');
+									}}>
+									Exercises
+								</div>
 							</div>
 
 							<div
@@ -111,6 +119,7 @@ const AdminDashboard = () => {
 						{optionSelected === 'Edit User' && <EditUser />}
 						{optionSelected === 'New Template' && <NewTemplate />}
 						{optionSelected === 'Edit Template' && <EditTemplate />}
+						{optionSelected === 'Exercises' && <Exercises />}
 						{optionSelected === 'Version' && <Version />}
 					</div>
 				</div>
