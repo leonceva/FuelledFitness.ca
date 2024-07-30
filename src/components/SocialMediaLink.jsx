@@ -19,7 +19,7 @@ const SocialMediaLink = (props) => {
 			type_logo = instagram_logo;
 			type_url = `${
 				link === null
-					? 'https://www.instagram.com/coach.krystin/'
+					? 'https://www.instagram.com/fuelledfitness.ca/'
 					: `https://www.instagram.com/${link}`
 			}  `;
 			type_alt = 'Instagram Link';
