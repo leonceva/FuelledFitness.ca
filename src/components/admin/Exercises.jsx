@@ -18,7 +18,7 @@ const Exercises = () => {
 		link: '',
 	});
 	const [formError, setFormError] = useState(null);
-
+	const [selectedDelete, setSelectedDelete] = useState(false);
 	const [awaiting, setAwaiting] = useState(false);
 
 	// Reset all states
@@ -31,6 +31,8 @@ const Exercises = () => {
 			name: '',
 			link: '',
 		});
+		setFormError(null);
+		setSelectedDelete(false);
 	};
 
 	// Handle change to the exercise search field
@@ -181,6 +183,10 @@ const Exercises = () => {
 
 	// When the exercise form is changed
 	const handleChangeForm = (e) => {
+		// Clear any existing form error
+		if (formError !== null) {
+			setFormError(null);
+		}
 		const { name, value, id } = e.target;
 		// Exercise name change
 		if (id === 'exercise-name') {
@@ -219,7 +225,12 @@ const Exercises = () => {
 	};
 
 	// When selected exercise is changed
-	useEffect(() => {}, [selectedExercise]);
+	useEffect(() => {
+		setFormData({
+			name: selectedExercise[0],
+			link: selectedExercise[2],
+		});
+	}, [selectedExercise]);
 
 	// Validate inputs
 	const validateInputs = () => {
@@ -228,24 +239,42 @@ const Exercises = () => {
 			setFormError('Exercise name must be between 1 and 50 characters');
 			return false;
 		}
-		// TODO - exercise link
+		// Check if exercise link matches a Youtube link
+		if (
+			!formData.link.match(
+				// eslint-disable-next-line no-useless-escape
+				/(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?/
+			)
+		) {
+			setFormError('Invalid YouTube link');
+			return false;
+		}
 
 		// If no error with inputs
 		setFormError(null);
 		return true;
 	};
 
-	// When form is submitted
-	const handleApplyChanges = (e) => {
+	// When form is submitted for new exercise
+	const handleCreateNew = (e) => {
 		e.preventDefault();
-		console.log('Submit');
 		if (validateInputs()) {
-			// Exercise name
-			sendFormData();
+			// Send the put request
+			sendFormDataNew();
 		}
 	};
 
-	const sendFormData = async () => {
+	// When form is submitted to change exercise
+	const handleApplyChanges = (e) => {
+		e.preventDefault();
+		if (validateInputs()) {
+			// Send the patch request
+			sendFormDataChanges();
+		}
+	};
+
+	// Send form data to create new exercise
+	const sendFormDataNew = async () => {
 		setAwaiting(true);
 		await axiosPrivate
 			.post('/exercises', {
@@ -268,8 +297,11 @@ const Exercises = () => {
 						case 503:
 							setFormError('Database entry failed');
 							break;
+						case 409:
+							setFormError('Exercise/Link already exists');
+							break;
 						default:
-							setFormData('Exercise entry failed');
+							setFormError('Exercise entry failed');
 							break;
 					}
 				} else {
@@ -283,7 +315,86 @@ const Exercises = () => {
 			});
 	};
 
-	//const deleteExercise = () => {};
+	// Send for data to apply changes
+	const sendFormDataChanges = async () => {
+		setAwaiting(true);
+		console.log(`Name: ${formData.name}\nLink: ${formData.link}`);
+		await axiosPrivate
+			.patch('/exercises', {
+				name: formData.name,
+				id: selectedExercise[1],
+				link: formData.link,
+			})
+			.then((res) => {
+				// Clear form data
+				console.log('Success');
+				setFormData({
+					name: '',
+					link: '',
+				});
+				setSelectedExercise('');
+			})
+			.catch((err) => {
+				console.log(err?.response?.status);
+				if (err?.response?.status) {
+					switch (err.response.status) {
+						case 404:
+							setFormError('Not found in database');
+							break;
+						default:
+							setFormError('Exercise update failed');
+							break;
+					}
+				} else {
+					console.log(err);
+					setFormError('Service Failed - check logs');
+				}
+			})
+			.finally(() => {
+				setAwaiting(false);
+				getExercises();
+			});
+	};
+
+	// TODO - remove exercise from data base
+	const deleteExercise = async (e) => {
+		e.preventDefault();
+		console.log('delete');
+		setAwaiting(true);
+		await axiosPrivate
+			.delete('/exercises', {
+				data: {
+					id: selectedExercise[1],
+				},
+			})
+			.then((res) => {
+				resetAll();
+				getExercises();
+			})
+			.catch((err) => {
+				console.log(err?.response?.status);
+				if (err?.response?.status) {
+					switch (err.response.status) {
+						// TODO -- add response codes
+						case 406:
+							setFormError('Exercise ID not valid');
+							break;
+						case 404:
+							setFormError('Exercise ID not found in database');
+							break;
+						default:
+							setFormError('Exercise update failed');
+							break;
+					}
+				} else {
+					console.log(err);
+					setFormError('Service Failed - check logs');
+				}
+			})
+			.finally(() => {
+				setAwaiting(false);
+			});
+	};
 
 	// On render
 	useEffect(() => {
@@ -374,7 +485,7 @@ const Exercises = () => {
 							<button
 								type='button'
 								className='btn'
-								onClick={handleApplyChanges}>
+								onClick={handleCreateNew}>
 								Save Changes
 							</button>
 							<button
@@ -387,17 +498,72 @@ const Exercises = () => {
 					</form>
 				)}
 				{selectedExercise && (
-					<>
-						<h2>{`Selected: ${selectedExercise[0]}`}</h2>
-						<h3>
-							<a
-								href={selectedExercise[2]}
-								rel='noreferrer'
-								target='_blank'>
-								Link
-							</a>
-						</h3>
-					</>
+					<form
+						className='selected-exercise'
+						onSubmit={handleChangeForm}>
+						<div
+							className={`error ${formError === null ? 'hide-error' : 'show-error'}`}>
+							{formError}
+						</div>
+						<label htmlFor='exercise-name'>Exercise Name:</label>
+						<input
+							id='exercise-name'
+							name='name'
+							type='text'
+							value={formData.name}
+							onChange={handleChangeForm}
+						/>
+
+						<label htmlFor='exercise-link'>Exercise Link:</label>
+						<input
+							id='exercise-link'
+							name='link'
+							type='text'
+							value={formData.link}
+							onChange={handleChangeForm}
+						/>
+						<div className='btn-container'>
+							<button
+								type='button'
+								className='btn'
+								onClick={handleApplyChanges}>
+								Save Changes
+							</button>
+							<button
+								type='button'
+								className='btn'
+								onClick={resetAll}>
+								Cancel
+							</button>
+							<button
+								type='button'
+								className='btn delete'
+								onClick={() => {
+									setSelectedDelete(true);
+								}}>
+								Delete
+							</button>
+						</div>
+						{selectedDelete && (
+							<div className='delete-container'>
+								This cannot be undone, delete?
+								<button
+									type='button'
+									className='btn'
+									onClick={deleteExercise}>
+									Yes
+								</button>
+								<button
+									type='button'
+									className='btn'
+									onClick={() => {
+										setSelectedDelete(false);
+									}}>
+									No
+								</button>
+							</div>
+						)}
+					</form>
 				)}
 			</DesktopDiv>
 		</>
@@ -478,7 +644,8 @@ export const DesktopDiv = styled.div`
 			}
 		}
 
-		& > .new-exercise {
+		& > .new-exercise,
+		.selected-exercise {
 			width: calc(max(400px, 50%));
 			height: auto;
 			margin-top: 10px;
@@ -522,8 +689,8 @@ export const DesktopDiv = styled.div`
 			& > .btn-container {
 				width: 100%;
 				display: flex;
-				flex-direction: column;
-				justify-content: start;
+				flex-direction: row;
+				justify-content: space-evenly;
 				align-items: center;
 				margin-top: 10px;
 
@@ -532,6 +699,24 @@ export const DesktopDiv = styled.div`
 					max-width: 100%;
 					margin-bottom: 10px;
 				}
+
+				& > .delete {
+					background-color: darkred;
+
+					&:hover {
+						color: black;
+						background-color: red;
+					}
+				}
+			}
+
+			& > .delete-container {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-evenly;
+				align-items: center;
+				margin-top: 10px;
 			}
 		}
 	}
