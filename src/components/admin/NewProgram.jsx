@@ -129,6 +129,12 @@ const NewProgram = () => {
 		});
 	};
 
+	// Handle key press when alert message is visible
+	const handleKeyAlert = (e) => {
+		setAlertMessage('');
+		document.removeEventListener('keydown', handleKeyAlert);
+	};
+
 	// When search item is hovered
 	const onMouseMoveSearch = (e) => {
 		const searchElements = document?.querySelectorAll('.dropdown-row');
@@ -490,6 +496,7 @@ const NewProgram = () => {
 	// Handle submit new program
 	const handleSubmit = () => {
 		if (verifyValues() === true) {
+			setAwaiting(true);
 			const userID = selectedUser[1];
 			const programList = [...programData];
 			axiosPrivate
@@ -509,6 +516,9 @@ const NewProgram = () => {
 				.catch((err) => {
 					alert('Unable to create program, check logs');
 					console.log(err);
+				})
+				.finally(() => {
+					setAwaiting(false);
 				});
 		}
 	};
@@ -527,6 +537,19 @@ const NewProgram = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	// When alert status changes
+	useEffect(() => {
+		if (alertMessage !== '') {
+			// Create event lsitener
+			document.addEventListener('keydown', handleKeyAlert, { once: true });
+			// Remove event listener
+			return () => {
+				document.removeEventListener('keydown', handleKeyAlert);
+			};
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [alertMessage]);
 
 	// On selected user change
 	useEffect(() => {
@@ -604,7 +627,7 @@ const NewProgram = () => {
 						)}
 					</div>
 				</div>
-				{selectedUser !== '' && (
+				{selectedUser !== '' && !awaiting && (
 					<>
 						<div className='new-program'>
 							<div className='header'>

@@ -54,6 +54,12 @@ const Templates = () => {
 			});
 	};
 
+	// Handle key press when alert message is visible
+	const handleKeyAlert = (e) => {
+		setAlertMessage('');
+		document.removeEventListener('keydown', handleKeyAlert);
+	};
+
 	// Handle change to the template search field
 	const onChangeSearch = (e) => {
 		setSearchValue(e.target.value);
@@ -253,10 +259,30 @@ const Templates = () => {
 		setTemplateData(newTemplate);
 	};
 
-	// TODD -- Handle submission of new template
+	// Handle submission of new template
 	const handleSubmitNew = () => {
 		if (verifyValues() === true) {
-			console.log('submit');
+			setAwaiting(true);
+			axiosPrivate
+				.put('/templates', {
+					name: templateData.name,
+					description: templateData.description,
+					data: templateData.data,
+				})
+				.then((res) => {
+					setAlertMessage(res?.data);
+					if (res?.status === 201) {
+						resetAll();
+					}
+				})
+				.catch((err) => {
+					alert('Unable to create program, check logs');
+					console.log(err);
+				})
+				.finally(() => {
+					setAwaiting(false);
+					getTemplates();
+				});
 		}
 	};
 
@@ -385,6 +411,19 @@ const Templates = () => {
 		}
 	};
 
+	// When alert status changes
+	useEffect(() => {
+		if (alertMessage !== '') {
+			// Create event lsitener
+			document.addEventListener('keydown', handleKeyAlert, { once: true });
+			// Remove event listener
+			return () => {
+				document.removeEventListener('keydown', handleKeyAlert);
+			};
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [alertMessage]);
+
 	// On render
 	useEffect(() => {
 		resetAll();
@@ -402,6 +441,7 @@ const Templates = () => {
 							onClick={() => {
 								setAlertMessage('');
 							}}
+							onKeyDown={handleKeyAlert}
 						/>
 						<div className='alert'>
 							<button
@@ -444,11 +484,25 @@ const Templates = () => {
 						</button>
 						<div className='search-results'>
 							{templates?.length === 0 && <h4>No Templates Found</h4>}
+							{templates?.length !== 0 && (
+								<div className='results-container'>
+									{templates?.map((template, index) => {
+										return (
+											<div
+												className='template-container'
+												id={`template-${index}`}>
+												<h2>{`Name: ${template[1]}`}</h2>
+												<h3>{`Description: ${template[2]}`}</h3>
+											</div>
+										);
+									})}
+								</div>
+							)}
 						</div>
 					</>
 				)}
 
-				{selectedNew && (
+				{selectedNew && !awaiting && (
 					<>
 						<div className='new-template'>
 							<span className='title'>New Template</span>
@@ -1240,6 +1294,19 @@ export const DesktopDiv = styled.div`
 						}
 					}
 				}
+			}
+		}
+
+		& > .btn-container {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin: 10px 0 20px;
+
+			& > button {
+				margin: 0 10px;
 			}
 		}
 	}
