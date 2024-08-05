@@ -676,7 +676,9 @@ const EditProgram = () => {
 							</span>
 						</div>
 
-						{programList?.length === 0 && <div>No Previous Program Info</div>}
+						{programList?.length === 0 && (
+							<div style={{ paddingLeft: '20px' }}>No Previous Program Info</div>
+						)}
 
 						{programList?.length > 0 && (
 							<div className='program-container'>

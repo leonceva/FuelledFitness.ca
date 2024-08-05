@@ -8,8 +8,7 @@ import NewUser from './admin/NewUser';
 import EditUser from './admin/EditUser';
 import NewProgram from './admin/NewProgram';
 import EditProgram from './admin/EditProgram';
-import NewTemplate from './admin/NewTemplate';
-import EditTemplate from './admin/EditTemplate';
+import Templates from './admin/Templates';
 import Version from './admin/Version';
 import data from '../frontend-data.json';
 import Exercises from './admin/Exercises';
@@ -78,16 +77,9 @@ const AdminDashboard = () => {
 								<div
 									className='option-item'
 									onClick={() => {
-										handleOption('New Template');
+										handleOption('Templates');
 									}}>
-									New Template
-								</div>
-								<div
-									className='option-item'
-									onClick={() => {
-										handleOption('Edit Template');
-									}}>
-									Edit Template
+									Templates
 								</div>
 								<div
 									className='option-item'
@@ -117,8 +109,7 @@ const AdminDashboard = () => {
 						{optionSelected === 'Edit Program' && <EditProgram />}
 						{optionSelected === 'New User' && <NewUser />}
 						{optionSelected === 'Edit User' && <EditUser />}
-						{optionSelected === 'New Template' && <NewTemplate />}
-						{optionSelected === 'Edit Template' && <EditTemplate />}
+						{optionSelected === 'Templates' && <Templates />}
 						{optionSelected === 'Exercises' && <Exercises />}
 						{optionSelected === 'Version' && <Version />}
 					</div>

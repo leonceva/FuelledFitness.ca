@@ -1,182 +1,48 @@
 import styled from 'styled-components';
 import Loader from './Loader';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
-const NewProgram = () => {
+const Templates = () => {
 	const axiosPrivate = useAxiosPrivate();
-	const [users, setUsers] = useState(null);
-	const [selectedUser, setSelectedUser] = useState('');
-	const [searchValue, setSearchValue] = useState('');
-	const [searchIndex, setSearchIndex] = useState(null);
-	const currentSearchIndex = useRef(searchIndex);
-	const [awaiting, setAwaiting] = useState(false);
-	const [releaseDate, setReleaseDate] = useState('');
-	const [programData, setProgramData] = useState([
-		{ day: 1, mobility: [], strength: [], conditioning: [] },
-	]);
 	const [alertMessage, setAlertMessage] = useState('');
-	const [dateToday, setDateToday] = useState(null);
+	const [awaiting, setAwaiting] = useState(false);
+	const [searchValue, setSearchValue] = useState('');
+	const [templates, setTemplates] = useState(null);
+	const [selectedTemplate, setSelectedTemplate] = useState(null);
+	const [selectedNew, setSelectedNew] = useState(false);
+	const [templateData, setTemplateData] = useState({
+		name: '',
+		description: '',
+		data: [{ day: 1, mobility: [], strength: [], conditioning: [] }],
+	});
 
 	const resetAll = () => {
 		setAlertMessage('');
-		setSelectedUser('');
+		setAwaiting(false);
 		setSearchValue('');
-		setSearchIndex(null);
-		setProgramData([{ day: 1, mobility: [], strength: [], conditioning: [] }]);
-	};
-
-	// Handle change to the user search field
-	const onChangeSearch = (e) => {
-		setSearchValue(e.target.value);
-		setSearchIndex(null);
-	};
-
-	// Key events search bar
-	const onKeyDownSearch = (e) => {
-		// Get all the list elements from the search result
-		const searchElements = document.querySelectorAll('.dropdown-row');
-		const countSearchElements = searchElements.length;
-
-		if (e.code === 'Escape') {
-			setSearchValue('');
-			setSearchIndex(null);
-		}
-
-		if (e.code === 'Enter') {
-			if (currentSearchIndex.current !== null) {
-				// console.log(searchElements[currentSearchIndex.current]);
-				searchElements[currentSearchIndex?.current]?.click();
-			}
-		}
-		if (e.code === 'ArrowDown') {
-			// Initial case
-			if (searchIndex === null) {
-				setSearchIndex(0);
-				currentSearchIndex.current = 0;
-			}
-			// If reached the end at bottom, wrap around to index 0
-			else if (searchIndex >= countSearchElements - 1) {
-				setSearchIndex(0);
-				currentSearchIndex.current = 0;
-			}
-			// Otherwise, add 1 to index
-			else {
-				setSearchIndex(currentSearchIndex.current + 1);
-				currentSearchIndex.current++;
-			}
-
-			// Remove highlight from all list elements
-			searchElements.forEach((element) => {
-				element.classList.remove('hover');
-			});
-			// Highlight only current index element
-			if (currentSearchIndex.current !== null) {
-				// Remove hover class from all search li elements
-				searchElements?.forEach((element) => {
-					element?.classList?.remove('hover');
-				});
-				// Add hover class to current index li element
-				searchElements[currentSearchIndex.current]?.classList?.add('hover');
-			}
-		}
-		if (e.code === 'ArrowUp') {
-			// Initial case
-			if (searchIndex === null) {
-				setSearchIndex(countSearchElements - 1);
-				currentSearchIndex.current = countSearchElements - 1;
-			}
-			// If reached the end at top, wrap around to last index
-			else if (searchIndex <= 0) {
-				setSearchIndex(countSearchElements - 1);
-				currentSearchIndex.current = countSearchElements - 1;
-			}
-			// Otherwise, remove 1 to index
-			else {
-				setSearchIndex(currentSearchIndex.current - 1);
-				currentSearchIndex.current--;
-			}
-
-			// Remove highlight from all list elements
-			searchElements.forEach((element) => {
-				element.classList.remove('hover');
-			});
-			// Highlight only current index element
-			if (currentSearchIndex.current !== null) {
-				// Remove hover class from all search li elements
-				searchElements?.forEach((element) => {
-					element?.classList?.remove('hover');
-				});
-				// Add hover class to current index li element
-				searchElements[currentSearchIndex.current]?.classList?.add('hover');
-			}
-		}
-	};
-
-	// click events dropdown search results
-	const onClickSearch = (e) => {
-		users.map((user) => {
-			if (user[0] === e.target.innerHTML) {
-				// console.log(`${user} matches`);
-				setSelectedUser(user);
-				setSearchValue('');
-				setSearchIndex(null);
-				return null;
-			}
-			return null;
+		setTemplates(null);
+		setSelectedTemplate(null);
+		setSelectedNew(false);
+		setTemplateData({
+			name: '',
+			description: '',
+			data: [{ day: 1, mobility: [], strength: [], conditioning: [] }],
 		});
 	};
 
-	// When search item is hovered
-	const onMouseMoveSearch = (e) => {
-		const searchElements = document?.querySelectorAll('.dropdown-row');
-		const itemId = e.target.id;
-		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
-		setSearchIndex(itemIndex);
-		currentSearchIndex.current = itemIndex;
-
-		// Remove highlight from all list elements
-		searchElements.forEach((element) => {
-			element.classList.remove('hover');
-		});
-		// Highlight only current index element
-		if (currentSearchIndex.current !== null) {
-			// Remove hover class from all search li elements
-			searchElements?.forEach((element) => {
-				element?.classList?.remove('hover');
-			});
-			// Add hover class to current index li element
-			searchElements[currentSearchIndex.current]?.classList?.add('hover');
-		}
-	};
-
-	// When a user is no longer hovered with mouse
-	const onMouseLeaveSearch = (e) => {
-		const searchElements = document?.querySelectorAll('.dropdown-row');
-		const itemId = e.target.id;
-		const itemIndex = itemId.slice(itemId.indexOf('-') + 1);
-
-		// Remove hover class for element
-		searchElements[itemIndex]?.classList?.remove('hover');
-	};
-
-	// Get an array of all the users in the database
-	const getUsers = async () => {
+	// Request all templates from database
+	const getTemplates = async () => {
 		setAwaiting(true);
 		await axiosPrivate
-			.get('/users')
+			.get('/templates')
 			.then((res) => {
-				setUsers(
-					res?.data?.rows?.map((user, i) => {
-						//console.log(res.data.rows);
-						return [
-							user.last_name + ', ' + user.first_name,
-							user.user_id,
-							user.email,
-							user.user_type,
-						];
+				// Empty results
+				setTemplates(
+					res?.data?.rows?.map((template, i) => {
+						return [template.template_id, template.name, template.description];
 					})
 				);
 			})
@@ -188,13 +54,38 @@ const NewProgram = () => {
 			});
 	};
 
-	// Handle the number of days in program
+	// Handle change to the template search field
+	const onChangeSearch = (e) => {
+		setSearchValue(e.target.value);
+	};
+
+	// Handle change to template name
+	const onChangeTemplateName = (e) => {
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		newTemplate.name = e.target.value;
+		setTemplateData(newTemplate);
+	};
+
+	// Handle change to template description
+	const onChangeTemplateDescription = (e) => {
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		newTemplate.description = e.target.value;
+		setTemplateData(newTemplate);
+	};
+
+	// Handle cinrease/decrease of days in template
 	const handleDayChange = (change) => {
-		const numDays = programData.length;
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		const numDays = templateData.data.length;
+
+		// Handle increase in days
 		if (change === 'increase') {
 			if (numDays < 7) {
-				const programList = [
-					...programData,
+				const templateList = [
+					...templateData.data,
 					{
 						day: numDays + 1,
 						mobility: [],
@@ -202,48 +93,34 @@ const NewProgram = () => {
 						conditioning: [],
 					},
 				];
-				setProgramData(programList);
+				newTemplate.data = templateList;
+				setTemplateData(newTemplate);
 			}
 		}
+
+		// Handle decrease in days
 		if (change === 'decrease') {
 			if (numDays > 1) {
-				let programList = [...programData];
-				programList.pop();
-				setProgramData(programList);
+				let templateList = [...newTemplate.data];
+				templateList.pop();
+				newTemplate.data = templateList;
+				setTemplateData(newTemplate);
 			}
 		}
 	};
 
 	// Add mobility item
 	const addMobilityItem = (dayIndex) => {
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
 		// Copy mobility list
-		let mobilityList = [...programData[dayIndex].mobility];
+		let mobilityList = [...templateData.data[dayIndex].mobility];
 		// Add new blank item entry
-		mobilityList.push({ name: '', sets: '', reps: '', comment: '' });
+		mobilityList.push({ name: '', sets: '', resps: '', comment: '' });
 		// Replace with new list
-		newProgram[dayIndex].mobility = mobilityList;
-		// Replace with new programData object
-		setProgramData(newProgram);
-	};
-
-	// Remove mobility item
-	const removeMobilityItem = (e) => {
-		const id = e.target.id;
-		const dayIndex = id.charAt(4);
-		const itemIndex = id.slice(15, id.indexOf('-', 15));
-
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy mobility list
-		const mobilityList = [...programData[dayIndex].mobility];
-		// Remove selected item
-		mobilityList.splice(itemIndex, 1);
-		// Replace with new list
-		newProgram[dayIndex].mobility = mobilityList;
-		// Replace with new programData object
-		setProgramData(newProgram);
+		newTemplate.data[dayIndex].mobility = mobilityList;
+		// Replace with new templateData object
+		setTemplateData(newTemplate);
 	};
 
 	// Handle mobility item change
@@ -252,48 +129,46 @@ const NewProgram = () => {
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
 
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
 		// Copy mobility list
-		let mobilityList = [...programData[dayIndex].mobility];
-
+		let mobilityList = [...templateData.data[dayIndex].mobility];
 		// Change selected item
 		mobilityList[itemIndex][name] = value;
-
-		// Replace with new programData object
-		newProgram[dayIndex].mobility = mobilityList;
-		setProgramData(newProgram);
+		// Replace with new templateData object
+		newTemplate.data[dayIndex].mobility = mobilityList;
+		setTemplateData(newTemplate);
 	};
 
-	// Add strength item
-	const addStrengthItem = (dayIndex) => {
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy strength list
-		let strengthList = [...programData[dayIndex].strength];
-		// Add new blank item entry
-		strengthList.push({ name: '', sets: '', reps: '', load: '', comment: '' });
-		// Replace with new list
-		newProgram[dayIndex].strength = strengthList;
-		// Replace with new programData object
-		setProgramData(newProgram);
-	};
-
-	// Remove strength item
-	const removeStrengthItem = (e) => {
+	// Remove mobility item
+	const removeMobilityItem = (e) => {
 		const id = e.target.id;
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
 
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy mobility list without item
-		const strengthList = [...programData[dayIndex].strength];
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy mobility list
+		let mobilityList = [...templateData.data[dayIndex].mobility];
 		// Remove selected item
-		strengthList.splice(itemIndex, 1);
-		// Replace with new programData object
-		newProgram[dayIndex].strength = strengthList;
-		setProgramData(newProgram);
+		mobilityList.splice(itemIndex, 1);
+		// Replace with new templateData object
+		newTemplate.data[dayIndex].mobility = mobilityList;
+		setTemplateData(newTemplate);
+	};
+
+	// Add strength item
+	const addStrengthItem = (dayIndex) => {
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy strength list
+		let strengthList = [...templateData.data[dayIndex].strength];
+		// Add new blank item entry
+		strengthList.push({ name: '', sets: '', reps: '', load: '', comment: '' });
+		// Replace with new list
+		newTemplate.data[dayIndex].strength = strengthList;
+		// Replace with new templateData object
+		setTemplateData(newTemplate);
 	};
 
 	// Handle strength item change
@@ -302,46 +177,46 @@ const NewProgram = () => {
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(15, id.indexOf('-', 15));
 
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy mobility list without item
-		let strengthList = [...programData[dayIndex].strength];
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy strength list
+		let strengthList = [...templateData.data[dayIndex].strength];
 		// Change selected item
 		strengthList[itemIndex][name] = value;
-		// Replace with new programData object
-		newProgram[dayIndex].strength = strengthList;
-		setProgramData(newProgram);
+		// Replace with new templateData object
+		newTemplate.data[dayIndex].strength = strengthList;
+		setTemplateData(newTemplate);
+	};
+
+	// Remove strength item
+	const removeStrengthItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(15, id.indexOf('-', 15));
+
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy strength list
+		let strengthList = [...templateData.data[dayIndex].strength];
+		// Remove selected item
+		strengthList.splice(itemIndex, 1);
+		// Replace with new templateData object
+		newTemplate.data[dayIndex].strength = strengthList;
+		setTemplateData(newTemplate);
 	};
 
 	// Add conditioning item
 	const addConditioningItem = (dayIndex) => {
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy conditioning list
-		let conditioningList = [...programData[dayIndex].conditioning];
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy strength list
+		let conditioningList = [...templateData.data[dayIndex].conditioning];
 		// Add new blank item entry
 		conditioningList.push({ name: '', duration: '', comment: '' });
 		// Replace with new list
-		newProgram[dayIndex].conditioning = conditioningList;
-		// Replace with new programData object
-		setProgramData(newProgram);
-	};
-
-	// Remove conditioning item
-	const removeConditioningItem = (e) => {
-		const id = e.target.id;
-		const dayIndex = id.charAt(4);
-		const itemIndex = id.slice(19, id.indexOf('-', 19));
-
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy conditioning list without item
-		const conditioningList = [...programData[dayIndex].conditioning];
-		// Remove selected item
-		conditioningList.splice(itemIndex, 1);
-		// Replace with new programData object
-		newProgram[dayIndex].conditioning = conditioningList;
-		setProgramData(newProgram);
+		newTemplate.data[dayIndex].conditioning = conditioningList;
+		// Replace with new templateData object
+		setTemplateData(newTemplate);
 	};
 
 	// Handle conditioning item change
@@ -350,29 +225,50 @@ const NewProgram = () => {
 		const dayIndex = id.charAt(4);
 		const itemIndex = id.slice(19, id.indexOf('-', 19));
 
-		// Deep copy programData object
-		let newProgram = JSON.parse(JSON.stringify(programData));
-		// Copy conditioning list without item
-		let conditioningList = [...programData[dayIndex].conditioning];
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy strength list
+		let conditioningList = [...templateData.data[dayIndex].conditioning];
 		// Change selected item
 		conditioningList[itemIndex][name] = value;
-		// Replace with new programData object
-		newProgram[dayIndex].conditioning = conditioningList;
-		setProgramData(newProgram);
+		// Replace with new templateData object
+		newTemplate.data[dayIndex].conditioning = conditioningList;
+		setTemplateData(newTemplate);
 	};
 
-	// Handle release date change
-	const handleReleaseChange = (e) => {
-		const { value } = e.target;
-		setReleaseDate(value);
+	// Remove conditioning item
+	const removeConditioningItem = (e) => {
+		const id = e.target.id;
+		const dayIndex = id.charAt(4);
+		const itemIndex = id.slice(19, id.indexOf('-', 19));
+
+		// Deep copy templateData object
+		let newTemplate = JSON.parse(JSON.stringify(templateData));
+		// Copy strength list
+		let conditioningList = [...templateData.data[dayIndex].conditioning];
+		// Remove selected item
+		conditioningList.splice(itemIndex, 1);
+		// Replace with new templateData object
+		newTemplate.data[dayIndex].conditioning = conditioningList;
+		setTemplateData(newTemplate);
 	};
 
+	// TODD -- Handle submission of new template
+	const handleSubmitNew = () => {
+		if (verifyValues() === true) {
+			console.log('submit');
+		}
+	};
+
+	// Verify templateData values
 	const verifyValues = () => {
 		var errorMessage = '';
-		if (releaseDate === '') {
-			errorMessage = 'Release date cannot be empty';
+
+		// Check if template name is empty (less than 5 chars)
+		if (templateData.name?.length < 5) {
+			errorMessage = 'Template name must be 5 characters or more';
 		} else {
-			programData?.forEach((day, dayIndex) => {
+			templateData.data?.forEach((day, dayIndex) => {
 				// Check if day is empty
 				if (
 					day.mobility.length === 0 &&
@@ -479,6 +375,8 @@ const NewProgram = () => {
 				}
 			});
 		}
+
+		// Return depending on errorMessage
 		if (errorMessage === '') {
 			return true;
 		} else {
@@ -487,58 +385,12 @@ const NewProgram = () => {
 		}
 	};
 
-	// Handle submit new program
-	const handleSubmit = () => {
-		if (verifyValues() === true) {
-			const userID = selectedUser[1];
-			const programList = [...programData];
-			axiosPrivate
-				.put(`/programs/${userID}`, {
-					email: selectedUser[2],
-					program: programList,
-					releaseDate: releaseDate,
-				})
-				.then((res) => {
-					setAlertMessage(res?.data);
-					if (res?.status === 201) {
-						setSearchValue('');
-						setSearchIndex(null);
-						setProgramData([{ day: 1, mobility: [], strength: [], conditioning: [] }]);
-					}
-				})
-				.catch((err) => {
-					alert('Unable to create program, check logs');
-					console.log(err);
-				});
-		}
-	};
-
 	// On render
 	useEffect(() => {
 		resetAll();
-		getUsers();
-
-		let todayDate = new Date(); // New Date object
-		const offset = todayDate.getTimezoneOffset(); // Timezone offset (min)
-
-		todayDate = new Date(todayDate.getTime() - offset * 60 * 1000); // Time value - offset (milis)
-		todayDate = todayDate.toISOString().split('T')[0]; // Format yyyy-mm-dd
-		setDateToday(todayDate);
-
+		getTemplates();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	// On selected user change
-	useEffect(() => {
-		setSearchValue('');
-		setSearchIndex(null);
-
-		// Set default release date to today
-		if (selectedUser !== '') {
-			setReleaseDate(dateToday);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedUser]);
 
 	return (
 		<>
@@ -564,75 +416,79 @@ const NewProgram = () => {
 					</>
 				)}
 				{awaiting && <Loader />}
-				<h3>New Weekly Program</h3>
+				<h3>Program Templates</h3>
 				<div className='search'>
-					<label htmlFor='search'>User:</label>
+					<label htmlFor='search'>Template Name:</label>
 					<div className='search-results'>
 						<input
 							type='text'
 							name='search'
 							id='search'
+							disabled={selectedNew}
 							onChange={onChangeSearch}
 							value={searchValue}
-							onKeyDown={onKeyDownSearch}
 							placeholder='Type a name to begin search'
 						/>
-						{searchValue && (
-							<div className='dropdown'>
-								{users
-									?.filter((user) => {
-										return user[0]
-											.toLowerCase()
-											.includes(searchValue.toLowerCase());
-									})
-									.slice(0, 10)
-									.sort()
-									.map((user, i) => {
-										return (
-											<li
-												id={`user-${i}`}
-												key={user[1]}
-												className='dropdown-row'
-												onClick={onClickSearch}
-												onMouseMove={onMouseMoveSearch}
-												onMouseLeave={onMouseLeaveSearch}>
-												{user[0]}
-											</li>
-										);
-									})}
-							</div>
-						)}
 					</div>
 				</div>
-				{selectedUser !== '' && (
-					<>
-						<div className='new-program'>
-							<div className='header'>
-								<span className='name'>
-									Client:<strong>{`${selectedUser[0]}`}</strong>
-								</span>
-								<div className='settings-container'>
-									<div className='days'>
-										<span>Total Days:</span>
-										<button
-											onClick={() => {
-												handleDayChange('decrease');
-											}}>
-											<i className='bi bi-dash-lg' />
-										</button>
 
-										<span className='number'>{programData.length}</span>
-										<button
-											onClick={() => {
-												handleDayChange('increase');
-											}}>
-											<i className='bi bi-plus-lg' />
-										</button>
-									</div>
+				{selectedNew === false && selectedTemplate === null && (
+					<>
+						<button
+							className='btn'
+							onClick={() => {
+								setSelectedNew(true);
+								setSelectedTemplate(null);
+							}}>
+							Create New Template
+						</button>
+						<div className='search-results'>
+							{templates?.length === 0 && <h4>No Templates Found</h4>}
+						</div>
+					</>
+				)}
+
+				{selectedNew && (
+					<>
+						<div className='new-template'>
+							<span className='title'>New Template</span>
+							<div className='header'>
+								<input
+									type='text'
+									className='template-name'
+									name='template-name'
+									id='template-name'
+									value={templateData.name}
+									onChange={onChangeTemplateName}
+									placeholder='Enter a name for the Template'
+								/>
+								<textarea
+									name='template-description'
+									className='template-description'
+									id='template-description'
+									value={templateData.description}
+									onChange={onChangeTemplateDescription}
+									placeholder='Enter a description for the template (optional)'
+								/>
+								<div className='days'>
+									<span>Total Days:</span>
+									<button
+										onClick={() => {
+											handleDayChange('decrease');
+										}}>
+										<i className='bi bi-dash-lg' />
+									</button>
+									<span className='number'>{templateData.data.length}</span>
+									<button
+										onClick={() => {
+											handleDayChange('increase');
+										}}>
+										<i className='bi bi-plus-lg' />
+									</button>
 								</div>
 							</div>
 							<div className='content'>
-								{programData.map((dayObject, dayIndex) => {
+								{templateData.data.map((dayObject, dayIndex) => {
 									return (
 										<div
 											className='day'
@@ -661,7 +517,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-mobility-${itemIndex}-name`}
 																	key={`day-${dayIndex}-mobility-${itemIndex}-name`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.mobility[itemIndex]
 																			.name
 																	}
@@ -676,7 +532,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-mobility-${itemIndex}-sets`}
 																	key={`day-${dayIndex}-mobility-${itemIndex}-sets`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.mobility[itemIndex]
 																			.sets
 																	}
@@ -692,7 +548,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-mobility-${itemIndex}-reps`}
 																	key={`day-${dayIndex}-mobility-${itemIndex}-reps`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.mobility[itemIndex]
 																			.reps
 																	}
@@ -708,7 +564,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-mobility-${itemIndex}-comment`}
 																	key={`day-${dayIndex}-mobility-${itemIndex}-comment`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.mobility[itemIndex]
 																			.comment
 																	}
@@ -752,7 +608,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-strength-${itemIndex}-name`}
 																	key={`day-${dayIndex}-strength-${itemIndex}-name`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.strength[itemIndex]
 																			.name
 																	}
@@ -767,7 +623,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-strength-${itemIndex}-sets`}
 																	key={`day-${dayIndex}-strength-${itemIndex}-sets`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.strength[itemIndex]
 																			.sets
 																	}
@@ -783,7 +639,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-strength-${itemIndex}-reps`}
 																	key={`day-${dayIndex}-strength-${itemIndex}-reps`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.strength[itemIndex]
 																			.reps
 																	}
@@ -799,7 +655,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-strength-${itemIndex}-load`}
 																	key={`day-${dayIndex}-strength-${itemIndex}-load`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.strength[itemIndex]
 																			.load
 																	}
@@ -814,7 +670,7 @@ const NewProgram = () => {
 																	id={`day-${dayIndex}-strength-${itemIndex}-comment`}
 																	key={`day-${dayIndex}-strength-${itemIndex}-comment`}
 																	value={
-																		programData[dayIndex]
+																		templateData.data[dayIndex]
 																			.strength[itemIndex]
 																			.comment
 																	}
@@ -859,8 +715,9 @@ const NewProgram = () => {
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-name`}
 																		key={`day-${dayIndex}-conditioning-${itemIndex}-name`}
 																		value={
-																			programData[dayIndex]
-																				.conditioning[
+																			templateData.data[
+																				dayIndex
+																			].conditioning[
 																				itemIndex
 																			].name
 																		}
@@ -877,8 +734,9 @@ const NewProgram = () => {
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
 																		key={`day-${dayIndex}-conditioning-${itemIndex}-duration`}
 																		value={
-																			programData[dayIndex]
-																				.conditioning[
+																			templateData.data[
+																				dayIndex
+																			].conditioning[
 																				itemIndex
 																			].duration
 																		}
@@ -895,8 +753,9 @@ const NewProgram = () => {
 																		id={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
 																		key={`day-${dayIndex}-conditioning-${itemIndex}-comment`}
 																		value={
-																			programData[dayIndex]
-																				.conditioning[
+																			templateData.data[
+																				dayIndex
+																			].conditioning[
 																				itemIndex
 																			].comment
 																		}
@@ -929,23 +788,17 @@ const NewProgram = () => {
 							</div>
 						</div>
 						<div className='btn-container'>
-							<div className='date'>
-								Release On:
-								<input
-									type='date'
-									name='release-date'
-									value={releaseDate}
-									onChange={handleReleaseChange}
-									style={{ marginLeft: '1em' }}
-									min={dateToday}
-								/>
-							</div>
-							<button onClick={handleSubmit}>Submit</button>
 							<button
+								className='btn'
+								onClick={handleSubmitNew}>
+								Save
+							</button>
+							<button
+								className='btn'
 								onClick={() => {
 									resetAll();
 								}}>
-								Clear All
+								Cancel
 							</button>
 						</div>
 					</>
@@ -954,6 +807,8 @@ const NewProgram = () => {
 		</>
 	);
 };
+
+export default Templates;
 
 export const DesktopDiv = styled.div`
 	// Display for desktop size
@@ -982,7 +837,7 @@ export const DesktopDiv = styled.div`
 
 		& > .alert {
 			position: fixed;
-			z-index: 4;
+			z-index: 5;
 			width: max-content;
 			height: max-content;
 			border: 2px solid black;
@@ -1030,6 +885,7 @@ export const DesktopDiv = styled.div`
 			width: 100%;
 			flex-direction: row;
 			justify-content: center;
+			align-items: center;
 			text-align: center;
 
 			& label {
@@ -1043,7 +899,7 @@ export const DesktopDiv = styled.div`
 			}
 
 			& > .search-results {
-				width: calc(max(400px, 50%));
+				width: calc(min(300px, 50%));
 				font-size: large;
 				display: flex;
 				flex-direction: column;
@@ -1055,115 +911,104 @@ export const DesktopDiv = styled.div`
 					text-align: start;
 					padding: 0.5ch;
 				}
+			}
+		}
 
-				& > .dropdown {
-					width: calc(100% + 1ch);
-					color: black;
-					background-color: white;
-					border: solid 2px black;
-					position: absolute;
-					top: 100%;
-					z-index: 2;
+		& > .btn {
+			margin: 20px 0;
+		}
 
-					& > .dropdown-row {
-						list-style: none;
-						padding: 0.5ch 0;
+		& > h4 {
+			font-size: x-large;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+
+		& > .new-template {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			justify-content: start;
+			align-items: center;
+			margin-top: 10px;
+			border-style: solid;
+			border-width: 2px 0 0 0;
+			border-color: white;
+
+			& > .title {
+				width: 100%;
+				font-size: x-large;
+				font-weight: bold;
+				text-align: center;
+			}
+
+			& > .header {
+				margin-top: 10px;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+
+				& > .template-name {
+					width: calc(min(50%, 300px));
+					font-size: large;
+					padding: 2px 5px;
+				}
+
+				& > .template-description {
+					margin: 10px 0;
+					min-width: calc(min(50%, 300px));
+					width: calc(min(70%, 500px));
+					max-width: calc(min(70%, 500px));
+					font-size: large;
+					padding: 2px 5px;
+					min-height: 5ch;
+					max-height: 15ch;
+				}
+
+				& > .days {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+					margin-bottom: 10px;
+
+					& > span {
+						margin-right: 1ch;
+					}
+
+					& > .number {
+						padding: 2px 5px;
+						margin: 0 5px;
+						color: black;
+						background-color: white;
+						width: 3ch;
+						text-align: center;
+						border-radius: 5px;
+					}
+
+					& > button {
+						height: 100%;
+						color: white;
+						background-color: black;
+						border: 3px solid #87ceeb;
+						border-radius: 10px;
+						width: max-content;
+						padding: 5px 10px;
 
 						@media (hover: hover) and (pointer: fine) {
 							&:hover {
 								cursor: pointer;
+								background-color: #87ceeb;
+								color: black;
 							}
-						}
-					}
 
-					@media (hover: hover) and (pointer: fine) {
-						& > .hover {
-							background-color: lightgray;
-						}
-					}
-				}
-			}
-		}
-
-		& > .new-program {
-			width: 100%;
-			margin: 2em 0;
-			height: fit-content;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: start;
-
-			& > .header {
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: space-around;
-				margin-bottom: 10px;
-
-				& > .name {
-					width: fit-content;
-					text-align: left;
-					padding-left: 20px;
-					font-size: large;
-
-					& > strong {
-						margin-left: 1ch;
-					}
-				}
-
-				& > .settings-container {
-					flex: 1;
-					display: flex;
-					flex-direction: row;
-					justify-content: start;
-					align-items: center;
-					padding: 0 25px;
-					font-size: large;
-					flex-wrap: wrap;
-
-					& > .days {
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-						justify-content: center;
-
-						& > span {
-							margin-right: 1ch;
-						}
-
-						& > .number {
-							padding: 2px 5px;
-							margin: 0 5px;
-							color: black;
-							background-color: white;
-							width: 3ch;
-							text-align: center;
-							border-radius: 5px;
-						}
-
-						& > button {
-							height: 100%;
-							color: white;
-							background-color: black;
-							border: 3px solid #87ceeb;
-							border-radius: 10px;
-							box-shadow: 2px 2px 2px #87ceeb;
-							width: max-content;
-							padding: 5px 10px;
-
-							@media (hover: hover) and (pointer: fine) {
-								&:hover {
-									cursor: pointer;
-									background-color: #87ceeb;
-									color: black;
-								}
-
-								&:active {
-									translate: 2px 2px;
-									box-shadow: none;
-								}
+							&:active {
+								translate: 2px 2px;
+								box-shadow: none;
 							}
 						}
 					}
@@ -1244,7 +1089,6 @@ export const DesktopDiv = styled.div`
 							flex-direction: row;
 							align-items: center;
 							justify-content: space-evenly;
-
 							font-size: large;
 							flex-wrap: wrap;
 
@@ -1398,55 +1242,6 @@ export const DesktopDiv = styled.div`
 				}
 			}
 		}
-
-		& > .btn-container {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-evenly;
-			margin: 10px 0 20px;
-
-			& > .date {
-				width: fit-content;
-				display: flex;
-				flex-direction: row;
-				justify-content: start;
-				align-items: center;
-				font-size: large;
-
-				& > input {
-					font-size: large;
-					margin-left: 5px;
-					padding: 0.5ch 1ch;
-				}
-			}
-
-			& > button {
-				height: 100%;
-				color: white;
-				background-color: black;
-				border: 3px solid #87ceeb;
-				border-radius: 10px;
-				box-shadow: 2px 2px 2px #87ceeb;
-				width: max-content;
-				font-size: large;
-				padding: 5px 10px;
-
-				@media (hover: hover) and (pointer: fine) {
-					&:hover {
-						cursor: pointer;
-						background-color: #87ceeb;
-						color: black;
-					}
-
-					&:active {
-						translate: 2px 2px;
-						box-shadow: none;
-					}
-				}
-			}
-		}
 	}
 
 	// Hide for mobile size
@@ -1454,5 +1249,3 @@ export const DesktopDiv = styled.div`
 		display: none;
 	}
 `;
-
-export default NewProgram;

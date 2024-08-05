@@ -17,6 +17,7 @@ const Exercises = () => {
 		name: '',
 		link: '',
 	});
+	const [embedLink, setEmbedLink] = useState(null);
 	const [formError, setFormError] = useState(null);
 	const [selectedDelete, setSelectedDelete] = useState(false);
 	const [awaiting, setAwaiting] = useState(false);
@@ -33,6 +34,7 @@ const Exercises = () => {
 		});
 		setFormError(null);
 		setSelectedDelete(false);
+		setEmbedLink(null);
 	};
 
 	// Handle change to the exercise search field
@@ -230,6 +232,12 @@ const Exercises = () => {
 			name: selectedExercise[0],
 			link: selectedExercise[2],
 		});
+		const splitArray = selectedExercise[2]?.split('/') || null;
+		let embedCode = null;
+		if (splitArray !== null) {
+			embedCode = splitArray[splitArray.length - 1];
+			setEmbedLink(embedCode);
+		}
 	}, [selectedExercise]);
 
 	// Validate inputs
@@ -283,7 +291,6 @@ const Exercises = () => {
 			})
 			.then((res) => {
 				// Clear form data
-				console.log('Success');
 				setFormData({
 					name: '',
 					link: '',
@@ -318,7 +325,6 @@ const Exercises = () => {
 	// Send for data to apply changes
 	const sendFormDataChanges = async () => {
 		setAwaiting(true);
-		console.log(`Name: ${formData.name}\nLink: ${formData.link}`);
 		await axiosPrivate
 			.patch('/exercises', {
 				name: formData.name,
@@ -327,7 +333,6 @@ const Exercises = () => {
 			})
 			.then((res) => {
 				// Clear form data
-				console.log('Success');
 				setFormData({
 					name: '',
 					link: '',
@@ -356,10 +361,9 @@ const Exercises = () => {
 			});
 	};
 
-	// TODO - remove exercise from data base
+	// Remove exercise from data base
 	const deleteExercise = async (e) => {
 		e.preventDefault();
-		console.log('delete');
 		setAwaiting(true);
 		await axiosPrivate
 			.delete('/exercises', {
@@ -375,7 +379,7 @@ const Exercises = () => {
 				console.log(err?.response?.status);
 				if (err?.response?.status) {
 					switch (err.response.status) {
-						// TODO -- add response codes
+						// Response codes
 						case 406:
 							setFormError('Exercise ID not valid');
 							break;
@@ -522,6 +526,19 @@ const Exercises = () => {
 							value={formData.link}
 							onChange={handleChangeForm}
 						/>
+						{embedLink !== null && (
+							<div className='video-container'>
+								<iframe
+									src={`https://youtube.com/embed/${embedLink}`}
+									title='embed-video'
+									width='100%'
+									height='100%'
+									allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+									referrerPolicy='strict-origin-when-cross-origin'
+									allowFullScreen
+								/>
+							</div>
+						)}
 						<div className='btn-container'>
 							<button
 								type='button'
@@ -649,6 +666,7 @@ export const DesktopDiv = styled.div`
 			width: calc(max(400px, 50%));
 			height: auto;
 			margin-top: 10px;
+			margin-bottom: 20px;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -684,6 +702,16 @@ export const DesktopDiv = styled.div`
 				width: calc(100% - 1ch);
 				padding: 0.5ch;
 				font-size: large;
+			}
+
+			& > .video-container {
+				width: 50%;
+				aspect-ratio: 1/1;
+				margin-top: 10px;
+
+				& > iframe {
+					border: 2px solid white;
+				}
 			}
 
 			& > .btn-container {

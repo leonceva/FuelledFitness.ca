@@ -195,6 +195,7 @@ const LoginForm = () => {
 					className='input'
 					placeholder='Type your password'
 					required
+					autoComplete='on'
 					value={formData.password}
 					onChange={handleChange}
 				/>
