@@ -482,21 +482,26 @@ const Templates = () => {
 							}}>
 							Create New Template
 						</button>
-						<div className='search-results'>
+						<div className='results-container'>
 							{templates?.length === 0 && <h4>No Templates Found</h4>}
 							{templates?.length !== 0 && (
-								<div className='results-container'>
-									{templates?.map((template, index) => {
-										return (
-											<div
-												className='template-container'
-												id={`template-${index}`}>
-												<h2>{`Name: ${template[1]}`}</h2>
-												<h3>{`Description: ${template[2]}`}</h3>
-											</div>
-										);
-									})}
-								</div>
+								<>
+									{searchValue === '' && (
+										// List all templates for empty search
+										<>
+											{templates?.map((template, index) => {
+												return (
+													<div
+														className='template-card'
+														id={`template-${index}`}>
+														<h3>{template[1]}</h3>
+														<p>{template[2]}</p>
+													</div>
+												);
+											})}
+										</>
+									)}
+								</>
 							)}
 						</div>
 					</>
@@ -1307,6 +1312,45 @@ export const DesktopDiv = styled.div`
 
 			& > button {
 				margin: 0 10px;
+			}
+		}
+
+		& > .results-container {
+			width: 100%;
+			height: fit-content;
+			margin: 10px 0;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+			align-items: center;
+
+			& > .template-card {
+				width: 30%;
+				max-height: calc(min(30vh, 400px));
+				border: 2px solid white;
+				border-radius: 10px;
+				display: flex;
+				flex-direction: column;
+				justify-content: start;
+				align-items: center;
+
+				// Template title
+				& > h3 {
+					width: 100%;
+					text-align: center;
+					font-size: x-large;
+					margin: 5px 0 10px;
+				}
+
+				// Template description
+				& > p {
+					width: calc(100% - 15px);
+					flex: 1;
+					background-color: blue;
+					margin: 5px 0;
+					font-size: large;
+				}
 			}
 		}
 	}
