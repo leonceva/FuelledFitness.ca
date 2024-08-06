@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Loader from './Loader';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const MOBILE_MODE_LIMIT = process.env.REACT_APP_MOBILE_MODE_LIMIT;
 
@@ -18,6 +18,7 @@ const Templates = () => {
 		description: '',
 		data: [{ day: 1, mobility: [], strength: [], conditioning: [] }],
 	});
+	const cardRefs = useRef({});
 
 	const resetAll = () => {
 		setAlertMessage('');
@@ -259,30 +260,37 @@ const Templates = () => {
 		setTemplateData(newTemplate);
 	};
 
-	// Handle submission of new template
-	const handleSubmitNew = () => {
+	// Handle submission of templateData
+	const handleSubmitTemplate = () => {
 		if (verifyValues() === true) {
 			setAwaiting(true);
-			axiosPrivate
-				.put('/templates', {
-					name: templateData.name,
-					description: templateData.description,
-					data: templateData.data,
-				})
-				.then((res) => {
-					setAlertMessage(res?.data);
-					if (res?.status === 201) {
-						resetAll();
-					}
-				})
-				.catch((err) => {
-					alert('Unable to create program, check logs');
-					console.log(err);
-				})
-				.finally(() => {
-					setAwaiting(false);
-					getTemplates();
-				});
+			// Create a new template
+			if (selectedNew === true && selectedTemplate === null) {
+				axiosPrivate
+					.put('/templates', {
+						name: templateData.name,
+						description: templateData.description,
+						data: templateData.data,
+					})
+					.then((res) => {
+						setAlertMessage(res?.data);
+						if (res?.status === 201) {
+							resetAll();
+						}
+					})
+					.catch((err) => {
+						alert('Unable to create program, check logs');
+						console.log(err);
+					})
+					.finally(() => {
+						setAwaiting(false);
+						getTemplates();
+					});
+			}
+			// TODO -- Update an existing template
+			if (selectedNew === false && selectedTemplate !== null) {
+				setAwaiting(false);
+			}
 		}
 	};
 
@@ -411,6 +419,46 @@ const Templates = () => {
 		}
 	};
 
+	// Handle card mouse leave and scroll to top of description
+	const cardMouseLeave = (cardID) => {
+		if (cardRefs.current[cardID]) {
+			cardRefs.current[cardID].scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	};
+
+	// Handle click of a template card
+	const handleSelectCard = async (cardID) => {
+		// Get info of the selected template
+		setAwaiting(true);
+		await axiosPrivate
+			.get(`/templates/${cardID}`)
+			.then((res) => {
+				// Succesful request
+				if (res?.status === 200) {
+					setSelectedTemplate(res.data);
+					setTemplateData(res.data);
+					setSearchValue('');
+					setSelectedNew(false);
+				} else {
+					// Unexpected query results
+					setAlertMessage(`Failed to load template - check logs`);
+					console.log(res);
+				}
+			})
+			.catch((err) => {
+				setAlertMessage('Could not get template data');
+				console.log(err);
+			})
+			.finally(() => {
+				setAwaiting(false);
+			});
+	};
+
+	// TODO -- Handle delete selected template
+	const handleDeleteTemplate = (templateID) => {
+		console.log(templateID);
+	};
+
 	// When alert status changes
 	useEffect(() => {
 		if (alertMessage !== '') {
@@ -493,24 +541,45 @@ const Templates = () => {
 												return (
 													<div
 														className='template-card'
-														id={`template-${index}`}>
-														<h3>{template[1]}</h3>
-														<p>{template[2]}</p>
+														id={`template-${index}`}
+														key={`template-${index}`}
+														onClick={() =>
+															handleSelectCard(template[0])
+														}>
+														<div
+															className='card-content'
+															ref={(el) => {
+																cardRefs.current[template[0]] = el;
+															}}
+															onMouseLeave={() => {
+																cardMouseLeave(template[0]);
+															}}>
+															<h3>{template[1]}</h3>
+															<p>{template[2]}</p>
+														</div>
 													</div>
 												);
 											})}
 										</>
 									)}
+									{/* TODO -- Implement displaying only templates that match their name/description with searchValue */}
+									{/* Div added to create proper margin bottom for cards in the event flex-wrap is needed for .results-container */}
+									<div style={{ width: '100%', height: '1px' }} />
 								</>
 							)}
 						</div>
 					</>
 				)}
 
-				{selectedNew && !awaiting && (
+				{(selectedNew || selectedTemplate) && !awaiting && (
 					<>
-						<div className='new-template'>
-							<span className='title'>New Template</span>
+						<div className='template'>
+							{selectedNew === true && selectedTemplate === null && (
+								<span className='title'>New Template</span>
+							)}
+							{selectedNew === false && selectedTemplate !== null && (
+								<span className='title'>Edit Template</span>
+							)}
 							<div className='header'>
 								<input
 									type='text'
@@ -519,7 +588,7 @@ const Templates = () => {
 									id='template-name'
 									value={templateData.name}
 									onChange={onChangeTemplateName}
-									placeholder='Enter a name for the Template'
+									placeholder='Template Name'
 								/>
 								<textarea
 									name='template-description'
@@ -537,7 +606,7 @@ const Templates = () => {
 										}}>
 										<i className='bi bi-dash-lg' />
 									</button>
-									<span className='number'>{templateData.data.length}</span>
+									<span className='number'>{templateData?.data?.length}</span>
 									<button
 										onClick={() => {
 											handleDayChange('increase');
@@ -547,7 +616,7 @@ const Templates = () => {
 								</div>
 							</div>
 							<div className='content'>
-								{templateData.data.map((dayObject, dayIndex) => {
+								{templateData?.data?.map((dayObject, dayIndex) => {
 									return (
 										<div
 											className='day'
@@ -849,16 +918,48 @@ const Templates = () => {
 						<div className='btn-container'>
 							<button
 								className='btn'
-								onClick={handleSubmitNew}>
+								onClick={handleSubmitTemplate}>
 								Save
 							</button>
+							{selectedNew === false && selectedTemplate !== null && (
+								<button
+									className='btn'
+									onClick={() => {
+										setTemplateData(selectedTemplate);
+									}}>
+									Discard Changes
+								</button>
+							)}
 							<button
 								className='btn'
 								onClick={() => {
-									resetAll();
+									setSearchValue('');
+									setTemplateData({
+										name: '',
+										description: '',
+										data: [
+											{
+												day: 1,
+												mobility: [],
+												strength: [],
+												conditioning: [],
+											},
+										],
+									});
+									setSelectedTemplate(null);
+									setSelectedNew(false);
 								}}>
 								Cancel
 							</button>
+							{selectedNew === false && selectedTemplate !== null && (
+								<button
+									className='btn'
+									onClick={() => {
+										handleDeleteTemplate(selectedTemplate.template_id);
+									}}>
+									Delete
+								</button>
+							)}
 						</div>
 					</>
 				)}
@@ -985,7 +1086,7 @@ export const DesktopDiv = styled.div`
 			text-align: center;
 		}
 
-		& > .new-template {
+		& > .template {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
@@ -1326,30 +1427,78 @@ export const DesktopDiv = styled.div`
 			align-items: center;
 
 			& > .template-card {
-				width: 30%;
+				width: calc(min(50%, 400px));
 				max-height: calc(min(30vh, 400px));
+				height: 100%;
 				border: 2px solid white;
 				border-radius: 10px;
 				display: flex;
 				flex-direction: column;
 				justify-content: start;
 				align-items: center;
+				margin-bottom: 20px;
+				box-shadow: none;
+				transition: all 100ms;
+				overflow-y: hidden;
+				position: relative;
 
-				// Template title
-				& > h3 {
-					width: 100%;
-					text-align: center;
-					font-size: x-large;
-					margin: 5px 0 10px;
+				& > .card-content {
+					width: calc(100% - 10px);
+					height: 100%;
+					overflow-y: auto;
+					margin-bottom: 10px;
+					display: flex;
+					flex-direction: column;
+					justify-content: start;
+					align-items: center;
+
+					&::-webkit-scrollbar {
+						display: none;
+					}
+
+					// Template title
+					& > h3 {
+						width: 100%;
+						text-align: center;
+						font-size: x-large;
+						margin: 5px 0 10px;
+					}
+
+					// Template description
+					& > p {
+						width: 100%;
+						flex: 1;
+						margin: 5px 0;
+						font-size: large;
+					}
 				}
 
-				// Template description
-				& > p {
-					width: calc(100% - 15px);
-					flex: 1;
-					background-color: blue;
-					margin: 5px 0;
-					font-size: large;
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						cursor: pointer;
+						box-shadow: 0 0 10px 5px white;
+						transition: all 100ms;
+					}
+
+					&:active {
+						transform: translate(2px, 2px);
+					}
+				}
+
+				// Blur effect to bottom
+				&:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: 30px; /* Adjust the height of the blur effect */
+					background: linear-gradient(
+						to top,
+						rgba(255, 255, 255, 0.3),
+						rgba(255, 255, 255, 0)
+					);
+					pointer-events: none; /* Ensure the blur effect does not interfere with scrolling or clicks */
 				}
 			}
 		}
