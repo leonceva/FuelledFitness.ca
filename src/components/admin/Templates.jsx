@@ -19,6 +19,7 @@ const Templates = () => {
 		data: [{ day: 1, mobility: [], strength: [], conditioning: [] }],
 	});
 	const cardRefs = useRef({});
+	const [searchResults, setSearchResults] = useState([]);
 
 	const resetAll = () => {
 		setAlertMessage('');
@@ -32,6 +33,7 @@ const Templates = () => {
 			description: '',
 			data: [{ day: 1, mobility: [], strength: [], conditioning: [] }],
 		});
+		setSearchResults([]);
 	};
 
 	// Request all templates from database
@@ -534,6 +536,10 @@ const Templates = () => {
 							{templates?.length === 0 && <h4>No Templates Found</h4>}
 							{templates?.length !== 0 && (
 								<>
+									{/* 	
+									Display all templates when search bar is empty
+									May need to rivist in future if too many templates are loading
+									*/}
 									{searchValue === '' && (
 										// List all templates for empty search
 										<>
@@ -562,7 +568,7 @@ const Templates = () => {
 											})}
 										</>
 									)}
-									{/* TODO -- Implement displaying only templates that match their name/description with searchValue */}
+									{searchValue !== '' && <>{searchResults}</>}
 									{/* Div added to create proper margin bottom for cards in the event flex-wrap is needed for .results-container */}
 									<div style={{ width: '100%', height: '1px' }} />
 								</>
