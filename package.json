@@ -22,7 +22,8 @@
 	},
 	"overrides": {
 		"@svgr/webpack": "^6.2.1",
-		"postcss": "^8.4.38"
+		"postcss": "^8.4.38",
+		"serialize-javascript": "^6.0.2"
 	},
 	"scripts": {
 		"start": "react-scripts start",
